@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import Search from "./search/index.vue";
-import Notice from "./notice/index.vue";
+// import Notice from "./notice/index.vue";
 import mixNav from "./sidebar/mixNav.vue";
 import { useNav } from "@/layout/hooks/useNav";
 import Breadcrumb from "./sidebar/breadCrumb.vue";
 import topCollapse from "./sidebar/topCollapse.vue";
 import { useTranslationLang } from "../hooks/useTranslationLang";
-import globalization from "@/assets/svg/globalization.svg?component";
+// import globalization from "@/assets/svg/globalization.svg?component";
 import LogoutCircleRLine from "@iconify-icons/ri/logout-circle-r-line";
 import Setting from "@iconify-icons/ri/settings-3-line";
-import Check from "@iconify-icons/ep/check";
+// import Check from "@iconify-icons/ep/check";
 
 const {
   layout,
@@ -20,12 +20,13 @@ const {
   username,
   userAvatar,
   avatarsStyle,
-  toggleSideBar,
-  getDropdownItemStyle,
-  getDropdownItemClass
+  toggleSideBar
+  // getDropdownItemStyle,
+  // getDropdownItemClass
 } = useNav();
 
-const { t, locale, translationCh, translationEn } = useTranslationLang();
+// const { t, locale, translationCh, translationEn } = useTranslationLang();
+const { t } = useTranslationLang();
 </script>
 
 <template>
@@ -50,9 +51,9 @@ const { t, locale, translationCh, translationEn } = useTranslationLang();
       <!-- 菜单搜索 -->
       <Search />
       <!-- 通知 -->
-      <Notice id="header-notice" />
+      <!-- <Notice id="header-notice" /> -->
       <!-- 国际化 -->
-      <el-dropdown id="header-translation" trigger="click">
+      <!-- <el-dropdown id="header-translation" trigger="click">
         <globalization
           class="navbar-bg-hover w-[40px] h-[48px] p-[11px] cursor-pointer outline-none"
         />
@@ -82,7 +83,7 @@ const { t, locale, translationCh, translationEn } = useTranslationLang();
             </el-dropdown-item>
           </el-dropdown-menu>
         </template>
-      </el-dropdown>
+      </el-dropdown> -->
       <!-- 退出登录 -->
       <el-dropdown trigger="click">
         <span class="el-dropdown-link navbar-bg-hover select-none">

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useColumns } from "./columns";
+// import { useColumns } from "./columns";
 export interface schemaItem {
   field: string;
   label: string;
@@ -15,7 +15,7 @@ const { dependencies, devDependencies } = pkg;
 const schema: schemaItem[] = [];
 const devSchema: schemaItem[] = [];
 
-const { columns } = useColumns();
+// const { columns } = useColumns();
 
 Object.keys(dependencies).forEach(key => {
   schema.push({ field: dependencies[key], label: key });
@@ -35,12 +35,11 @@ Object.keys(devDependencies).forEach(key => {
         </div>
       </template>
       <span style="font-size: 15px">
-        Pure-Admin 是一个基于Vue3、Vite、TypeScript、Element-Plus
-        的中后台解决方案，它可以帮助您快速搭建企业级中后台，提供现成的开箱解决方案及丰富的示例。原则上不收取任何费用及版权，可以放心使用，不过如需二次开源（比如用此平台二次开发并开源）请联系作者获取许可！
+        @上海濠瀚科技有限公司 E物流管理系统 开发中
       </span>
     </el-card>
 
-    <el-card class="m-4 box-card" shadow="never">
+    <!-- <el-card class="m-4 box-card" shadow="never">
       <template #header>
         <div class="card-header">
           <span class="font-medium">项目信息</span>
@@ -95,7 +94,7 @@ Object.keys(devDependencies).forEach(key => {
           </a>
         </el-descriptions-item>
       </el-descriptions>
-    </el-card>
+    </el-card> -->
   </div>
 </template>
 

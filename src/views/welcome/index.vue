@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import dayjs from "dayjs";
-import MdEditor from "md-editor-v3";
+// import MdEditor from "md-editor-v3";
 import Bar from "./components/Bar.vue";
 import Pie from "./components/Pie.vue";
 import Line from "./components/Line.vue";
 import { getReleases } from "@/api/list";
 import TypeIt from "@/components/ReTypeit";
-import { useWindowSize } from "@vueuse/core";
+// import { useWindowSize } from "@vueuse/core";
 import { ref, computed, markRaw } from "vue";
-import Github from "./components/Github.vue";
+// import Github from "./components/Github.vue";
 import { randomColor } from "@pureadmin/utils";
 import { useRenderFlicker } from "@/components/ReFlicker";
 
@@ -18,12 +18,12 @@ defineOptions({
 
 const list = ref();
 const loading = ref<boolean>(true);
-const { version } = __APP_INFO__.pkg;
+// const { version } = __APP_INFO__.pkg;
 const titleClass = computed(() => {
   return ["text-base", "font-medium"];
 });
 
-const { height } = useWindowSize();
+// const { height } = useWindowSize();
 
 setTimeout(() => {
   loading.value = !loading.value;
@@ -47,7 +47,8 @@ getReleases().then(({ data }) => {
 <template>
   <div>
     <el-row :gutter="24">
-      <el-col
+      <!-- pureAdmin 版本信息 -->
+      <!-- <el-col
         :xs="24"
         :sm="24"
         :md="12"
@@ -103,9 +104,10 @@ getReleases().then(({ data }) => {
             </template>
           </el-skeleton>
         </el-card>
-      </el-col>
+      </el-col> -->
 
-      <el-col
+      <!-- 个人github信息 -->
+      <!-- <el-col
         :xs="24"
         :sm="24"
         :md="12"
@@ -151,8 +153,9 @@ getReleases().then(({ data }) => {
             </template>
           </el-skeleton>
         </el-card>
-      </el-col>
+      </el-col> -->
 
+      <!-- github折线图信息 -->
       <el-col
         :xs="24"
         :sm="24"
@@ -196,6 +199,7 @@ getReleases().then(({ data }) => {
         </el-card>
       </el-col>
 
+      <!-- github饼图信息 -->
       <el-col
         :xs="24"
         :sm="24"
@@ -239,6 +243,7 @@ getReleases().then(({ data }) => {
         </el-card>
       </el-col>
 
+      <!-- github柱状图信息 -->
       <el-col
         :xs="24"
         :sm="24"
