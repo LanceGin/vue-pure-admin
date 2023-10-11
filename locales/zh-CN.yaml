@@ -28,6 +28,41 @@ menus:
   yard: 堆场管理
   feeCollection: 代收费用管理
   documentCheck: 单证管理
+  statics: 统计管理
+  collectionPrice: 门点价格（应收）
+  payPrice: 门点价格(应付)
+  recievable: 应收费用
+  payable: 应付费用
+  finance: 财务管理
+  accountKeep: 费用记账
+  collectionCheck: 应收审核
+  collectionManage: 应收管理
+  payCheck: 应付审核
+  payManage: 应付管理
+  prestore: 预存维护
+  collectionStat: 应收报表
+  payStat: 应付报表
+  invoice: 开票管理
+  payInvoice: 应付发票管理
+  vehicle: 车管工作
+  vehicleInfo: 车辆信息
+  driverInfo: 驾驶员信息
+  vehicleRate: 验车等评统计
+  oilConsumption: 油耗核算
+  hr: 行政/人事
+  staff: 员工管理
+  checkOn: 考勤信息
+  dispatch: 调度管理
+  carAssignation: 调度派车
+  carAssignationStatus: 派车单跟踪
+  documentInfo: 单证查看
+  pickbox: 挑箱查看
+  manager: 总办
+  transportReport: 运输业务报表
+  operationReport: 运营业务报表
+  daily: 通用
+  feeApplication: 费用申请
+  contract: 合同管理
   hshome: 首页
   hslogin: 登录
   hsempty: 无Layout页
