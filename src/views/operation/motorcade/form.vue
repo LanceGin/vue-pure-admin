@@ -5,9 +5,11 @@ import { FormProps } from "./utils/types";
 
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
+    refer: "",
     name: "",
-    code: "",
-    remark: ""
+    address: "",
+    contact_name: "",
+    contact_mobile: ""
   })
 });
 
@@ -28,27 +30,43 @@ defineExpose({ getRef });
     :rules="formRules"
     label-width="82px"
   >
-    <el-form-item label="角色名称" prop="name">
+    <el-form-item label="客户简称" prop="refer">
+      <el-input
+        v-model="newFormInline.refer"
+        clearable
+        placeholder="请输入客户简称"
+      />
+    </el-form-item>
+
+    <el-form-item label="客户全称" prop="name">
       <el-input
         v-model="newFormInline.name"
         clearable
-        placeholder="请输入角色名称"
+        placeholder="请输入客户全称"
       />
     </el-form-item>
 
-    <el-form-item label="角色标识" prop="code">
+    <el-form-item label="企业地址" prop="address">
       <el-input
-        v-model="newFormInline.code"
+        v-model="newFormInline.address"
         clearable
-        placeholder="请输入角色标识"
+        placeholder="请输入企业地址"
       />
     </el-form-item>
 
-    <el-form-item label="备注">
+    <el-form-item label="联系人" prop="contact_name">
       <el-input
-        v-model="newFormInline.remark"
-        placeholder="请输入备注信息"
-        type="textarea"
+        v-model="newFormInline.contact_name"
+        clearable
+        placeholder="请输入联系人"
+      />
+    </el-form-item>
+
+    <el-form-item label="联系电话" prop="contact_mobile">
+      <el-input
+        v-model="newFormInline.contact_mobile"
+        clearable
+        placeholder="请输入联系电话"
       />
     </el-form-item>
   </el-form>

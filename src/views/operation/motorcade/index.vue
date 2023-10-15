@@ -9,10 +9,8 @@ import { useRenderIcon } from "@/components/ReIcon/src/hooks";
 import Delete from "@iconify-icons/ep/delete";
 import EditPen from "@iconify-icons/ep/edit-pen";
 import Search from "@iconify-icons/ep/search";
-import Refresh from "@iconify-icons/ep/refresh";
 import Upload from "@iconify-icons/ep/upload";
 import Download from "@iconify-icons/ep/download";
-import Menu from "@iconify-icons/ep/menu";
 import AddFill from "@iconify-icons/ri/add-circle-line";
 
 defineOptions({
@@ -30,7 +28,6 @@ const {
   onSearch,
   resetForm,
   openDialog,
-  handleMenu,
   handleDelete,
   // handleDatabase,
   handleSizeChange,
@@ -47,9 +44,9 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="客户简称：" prop="name">
+      <el-form-item label="客户简称：" prop="refer">
         <el-input
-          v-model="form.name"
+          v-model="form.refer"
           placeholder="请输入客户简称"
           clearable
           class="!w-[200px]"
@@ -57,7 +54,7 @@ const {
       </el-form-item>
       <el-form-item label="客户地址：" prop="code">
         <el-input
-          v-model="form.code"
+          v-model="form.address"
           placeholder="请输入客户地址"
           clearable
           class="!w-[180px]"
@@ -70,8 +67,8 @@ const {
           clearable
           class="!w-[180px]"
         >
-          <el-option label="已启用" value="1" />
-          <el-option label="已停用" value="0" />
+          <el-option label="正常" value="1" />
+          <el-option label="异常" value="0" />
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -83,9 +80,6 @@ const {
         >
           搜索
         </el-button>
-        <el-button :icon="useRenderIcon(Refresh)" @click="resetForm(formRef)">
-          重置
-        </el-button>
         <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
           导入
         </el-button>
@@ -96,7 +90,7 @@ const {
     </el-form>
 
     <PureTableBar
-      title="角色列表（仅演示，操作后不生效）"
+      title="车队客户列表（测试用，操作后不生效）"
       :columns="columns"
       @refresh="onSearch"
     >
@@ -106,7 +100,7 @@ const {
           :icon="useRenderIcon(AddFill)"
           @click="openDialog()"
         >
-          新增角色
+          添加客户
         </el-button>
       </template>
       <template v-slot="{ size, dynamicColumns }">
@@ -140,16 +134,6 @@ const {
               @click="openDialog('编辑', row)"
             >
               修改
-            </el-button>
-            <el-button
-              class="reset-margin"
-              link
-              type="primary"
-              :size="size"
-              :icon="useRenderIcon(Menu)"
-              @click="handleMenu"
-            >
-              菜单权限
             </el-button>
             <el-popconfirm
               :title="`是否确认删除角色名称为${row.name}的这条数据`"

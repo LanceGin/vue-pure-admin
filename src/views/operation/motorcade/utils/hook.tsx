@@ -2,7 +2,8 @@ import dayjs from "dayjs";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
 import { getRoleList } from "@/api/system";
-import { ElMessageBox } from "element-plus";
+// import { ElMessageBox } from "element-plus";
+import { tableData } from "./data";
 import { usePublicHooks } from "../../hooks";
 import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
@@ -11,15 +12,18 @@ import { reactive, ref, onMounted, h, toRaw } from "vue";
 
 export function useRole() {
   const form = reactive({
+    refer: "",
     name: "",
-    code: "",
+    address: "",
+    contact_name: "",
+    contact_mobile: "",
     status: ""
   });
   const formRef = ref();
-  const dataList = ref([]);
+  const dataList = tableData;
   const loading = ref(true);
-  const switchLoadMap = ref({});
-  const { switchStyle } = usePublicHooks();
+  // const switchLoadMap = ref({});
+  const { tagStyle } = usePublicHooks();
   const pagination = reactive<PaginationProps>({
     total: 0,
     pageSize: 10,
@@ -28,42 +32,38 @@ export function useRole() {
   });
   const columns: TableColumnList = [
     {
-      label: "角色编号",
-      prop: "id",
+      label: "客户简称",
+      prop: "refer",
       minWidth: 100
     },
     {
-      label: "角色名称",
+      label: "客户全称",
       prop: "name",
       minWidth: 120
     },
     {
-      label: "角色标识",
-      prop: "code",
+      label: "企业地址",
+      prop: "address",
+      minWidth: 150
+    },
+    {
+      label: "联系人",
+      prop: "contact_name",
+      minWidth: 150
+    },
+    {
+      label: "联系电话",
+      prop: "contact_mobile",
       minWidth: 150
     },
     {
       label: "状态",
       minWidth: 130,
-      cellRenderer: scope => (
-        <el-switch
-          size={scope.props.size === "small" ? "small" : "default"}
-          loading={switchLoadMap.value[scope.index]?.loading}
-          v-model={scope.row.status}
-          active-value={1}
-          inactive-value={0}
-          active-text="已启用"
-          inactive-text="已停用"
-          inline-prompt
-          style={switchStyle.value}
-          onChange={() => onChange(scope as any)}
-        />
+      cellRenderer: ({ row, props }) => (
+        <el-tag size={props.size} style={tagStyle.value(row.status)}>
+          {row.status === 1 ? "正常" : "异常"}
+        </el-tag>
       )
-    },
-    {
-      label: "备注",
-      prop: "remark",
-      minWidth: 150
     },
     {
       label: "创建时间",
@@ -89,47 +89,47 @@ export function useRole() {
   //   ];
   // });
 
-  function onChange({ row, index }) {
-    ElMessageBox.confirm(
-      `确认要<strong>${
-        row.status === 0 ? "停用" : "启用"
-      }</strong><strong style='color:var(--el-color-primary)'>${
-        row.name
-      }</strong>吗?`,
-      "系统提示",
-      {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-        dangerouslyUseHTMLString: true,
-        draggable: true
-      }
-    )
-      .then(() => {
-        switchLoadMap.value[index] = Object.assign(
-          {},
-          switchLoadMap.value[index],
-          {
-            loading: true
-          }
-        );
-        setTimeout(() => {
-          switchLoadMap.value[index] = Object.assign(
-            {},
-            switchLoadMap.value[index],
-            {
-              loading: false
-            }
-          );
-          message(`已${row.status === 0 ? "停用" : "启用"}${row.name}`, {
-            type: "success"
-          });
-        }, 300);
-      })
-      .catch(() => {
-        row.status === 0 ? (row.status = 1) : (row.status = 0);
-      });
-  }
+  // function onChange({ row, index }) {
+  //   ElMessageBox.confirm(
+  //     `确认要<strong>${
+  //       row.status === 0 ? "停用" : "启用"
+  //     }</strong><strong style='color:var(--el-color-primary)'>${
+  //       row.name
+  //     }</strong>吗?`,
+  //     "系统提示",
+  //     {
+  //       confirmButtonText: "确定",
+  //       cancelButtonText: "取消",
+  //       type: "warning",
+  //       dangerouslyUseHTMLString: true,
+  //       draggable: true
+  //     }
+  //   )
+  //     .then(() => {
+  //       switchLoadMap.value[index] = Object.assign(
+  //         {},
+  //         switchLoadMap.value[index],
+  //         {
+  //           loading: true
+  //         }
+  //       );
+  //       setTimeout(() => {
+  //         switchLoadMap.value[index] = Object.assign(
+  //           {},
+  //           switchLoadMap.value[index],
+  //           {
+  //             loading: false
+  //           }
+  //         );
+  //         message(`已${row.status === 0 ? "停用" : "启用"}${row.name}`, {
+  //           type: "success"
+  //         });
+  //       }, 300);
+  //     })
+  //     .catch(() => {
+  //       row.status === 0 ? (row.status = 1) : (row.status = 0);
+  //     });
+  // }
 
   function handleDelete(row) {
     message(`您删除了角色名称为${row.name}的这条数据`, { type: "success" });
@@ -167,14 +167,16 @@ export function useRole() {
     onSearch();
   };
 
-  function openDialog(title = "新增", row?: FormItemProps) {
+  function openDialog(title = "添加", row?: FormItemProps) {
     addDialog({
-      title: `${title}角色`,
+      title: `${title}客户`,
       props: {
         formInline: {
           name: row?.name ?? "",
-          code: row?.code ?? "",
-          remark: row?.remark ?? ""
+          refer: row?.refer ?? "",
+          address: row?.address ?? "",
+          contact_name: row?.contact_name ?? "",
+          contact_mobile: row?.contact_mobile ?? ""
         }
       },
       width: "40%",
