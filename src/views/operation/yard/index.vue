@@ -60,9 +60,9 @@ const {
           class="!w-[180px]"
         />
       </el-form-item>
-      <el-form-item label="堆场类型：" prop="status">
+      <el-form-item label="堆场类型：" prop="cata">
         <el-select
-          v-model="form.status"
+          v-model="form.cata"
           placeholder="请选择类型"
           clearable
           class="!w-[180px]"

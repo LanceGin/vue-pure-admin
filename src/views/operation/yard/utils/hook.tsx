@@ -12,12 +12,18 @@ import { reactive, ref, onMounted, h, toRaw } from "vue";
 
 export function useRole() {
   const form = reactive({
+    cata: "",
     refer: "",
     name: "",
     address: "",
     contact_name: "",
     contact_mobile: "",
-    status: ""
+    company: "",
+    remark: "",
+    longitude: "",
+    latitude: "",
+    price_20: "",
+    price_40: ""
   });
   const formRef = ref();
   let dataList = tableData;
@@ -204,14 +210,20 @@ export function useRole() {
 
   function openDialog(title = "添加", row?: FormItemProps) {
     addDialog({
-      title: `${title}客户`,
+      title: `${title}堆场`,
       props: {
         formInline: {
+          cata: row?.cata ?? "",
           name: row?.name ?? "",
           refer: row?.refer ?? "",
           address: row?.address ?? "",
           contact_name: row?.contact_name ?? "",
-          contact_mobile: row?.contact_mobile ?? ""
+          contact_mobile: row?.contact_mobile ?? "",
+          company: row?.company ?? "",
+          longitude: row?.longitude ?? "",
+          latitude: row?.latitude ?? "",
+          price_20: row?.price_20 ?? "",
+          price_40: row?.price_40 ?? ""
         }
       },
       width: "40%",
