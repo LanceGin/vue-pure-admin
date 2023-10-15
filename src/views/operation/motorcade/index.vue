@@ -52,7 +52,7 @@ const {
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="客户地址：" prop="code">
+      <el-form-item label="客户地址：" prop="address">
         <el-input
           v-model="form.address"
           placeholder="请输入客户地址"
