@@ -180,7 +180,7 @@ getReleases().then(({ data }) => {
           <template #header>
             <TypeIt
               :className="'type-it4'"
-              :values="['GitHub折线图信息']"
+              :values="['数据折线图']"
               :cursor="false"
               :speed="120"
             />
@@ -218,7 +218,7 @@ getReleases().then(({ data }) => {
           <template #header>
             <TypeIt
               :className="'type-it3'"
-              :values="['GitHub饼图信息']"
+              :values="['数据饼图']"
               :cursor="false"
               :speed="120"
             />
@@ -256,7 +256,7 @@ getReleases().then(({ data }) => {
           <template #header>
             <TypeIt
               :className="'type-it5'"
-              :values="['GitHub柱状图信息']"
+              :values="['数据柱状图']"
               :cursor="false"
               :speed="120"
             />

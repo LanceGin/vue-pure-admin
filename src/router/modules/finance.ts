@@ -13,7 +13,7 @@ export default {
     {
       path: "/finance/account_keep",
       name: "AccountKeep",
-      component: () => import("@/views/operation/motorcade/index.vue"),
+      component: () => import("@/views/error/500.vue"),
       meta: {
         title: $t("menus.accountKeep")
       }
@@ -21,7 +21,7 @@ export default {
     {
       path: "/finance/collection_check",
       name: "CollectionCheck",
-      component: () => import("@/views/operation/yard/index.vue"),
+      component: () => import("@/views/error/500.vue"),
       meta: {
         title: $t("menus.collectionCheck")
       }
@@ -29,7 +29,7 @@ export default {
     {
       path: "/finance/collection_manage",
       name: "CollectionManage",
-      component: () => import("@/views/operation/fee-collection/index.vue"),
+      component: () => import("@/views/error/500.vue"),
       meta: {
         title: $t("menus.collectionManage")
       }
@@ -37,7 +37,7 @@ export default {
     {
       path: "/finance/pay_check",
       name: "PayCheck",
-      component: () => import("@/views/operation/fee-collection/index.vue"),
+      component: () => import("@/views/error/500.vue"),
       meta: {
         title: $t("menus.payCheck")
       }
@@ -45,7 +45,7 @@ export default {
     {
       path: "/finance/pay_manage",
       name: "PayManage",
-      component: () => import("@/views/operation/fee-collection/index.vue"),
+      component: () => import("@/views/error/500.vue"),
       meta: {
         title: $t("menus.payManage")
       }
@@ -53,7 +53,7 @@ export default {
     {
       path: "/finance/prestore",
       name: "Prestore",
-      component: () => import("@/views/operation/fee-collection/index.vue"),
+      component: () => import("@/views/error/500.vue"),
       meta: {
         title: $t("menus.prestore")
       }
@@ -61,7 +61,7 @@ export default {
     {
       path: "/finance/collection_stat",
       name: "CollectionStat",
-      component: () => import("@/views/operation/fee-collection/index.vue"),
+      component: () => import("@/views/error/500.vue"),
       meta: {
         title: $t("menus.collectionStat")
       }
@@ -69,7 +69,7 @@ export default {
     {
       path: "/finance/pay_stat",
       name: "PayStat",
-      component: () => import("@/views/operation/fee-collection/index.vue"),
+      component: () => import("@/views/error/500.vue"),
       meta: {
         title: $t("menus.payStat")
       }
@@ -77,7 +77,7 @@ export default {
     {
       path: "/finance/invoice",
       name: "Invoice",
-      component: () => import("@/views/operation/fee-collection/index.vue"),
+      component: () => import("@/views/error/500.vue"),
       meta: {
         title: $t("menus.invoice")
       }
@@ -85,7 +85,7 @@ export default {
     {
       path: "/statics/pay_invoice",
       name: "PayInvoice",
-      component: () => import("@/views/operation/document-check/index.vue"),
+      component: () => import("@/views/error/500.vue"),
       meta: {
         title: $t("menus.payInvoice")
       }

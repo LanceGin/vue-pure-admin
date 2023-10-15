@@ -13,7 +13,7 @@ export default {
     {
       path: "/dispatch/car_assignation",
       name: "CarAssignation",
-      component: () => import("@/views/operation/motorcade/index.vue"),
+      component: () => import("@/views/error/500.vue"),
       meta: {
         title: $t("menus.carAssignation")
       }
@@ -21,7 +21,7 @@ export default {
     {
       path: "/dispatch/car_assignation_status",
       name: "CarAssignationStatus",
-      component: () => import("@/views/operation/yard/index.vue"),
+      component: () => import("@/views/error/500.vue"),
       meta: {
         title: $t("menus.carAssignationStatus")
       }
@@ -29,7 +29,7 @@ export default {
     {
       path: "/dispatch/document_info",
       name: "DocumentInfo",
-      component: () => import("@/views/operation/fee-collection/index.vue"),
+      component: () => import("@/views/error/500.vue"),
       meta: {
         title: $t("menus.documentInfo")
       }
@@ -37,7 +37,7 @@ export default {
     {
       path: "/dispatch/pickbox",
       name: "pickbox",
-      component: () => import("@/views/operation/document-check/index.vue"),
+      component: () => import("@/views/error/500.vue"),
       meta: {
         title: $t("menus.pickbox")
       }

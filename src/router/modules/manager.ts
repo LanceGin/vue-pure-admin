@@ -13,7 +13,7 @@ export default {
     {
       path: "/manager/transport_report",
       name: "TransportReport",
-      component: () => import("@/views/operation/motorcade/index.vue"),
+      component: () => import("@/views/error/500.vue"),
       meta: {
         title: $t("menus.transportReport")
       }
@@ -21,7 +21,7 @@ export default {
     {
       path: "/manager/operation_report",
       name: "OperationReport",
-      component: () => import("@/views/operation/document-check/index.vue"),
+      component: () => import("@/views/error/500.vue"),
       meta: {
         title: $t("menus.operationReport")
       }

@@ -13,7 +13,7 @@ export default {
     {
       path: "/daily/fee_application",
       name: "FeeApplication",
-      component: () => import("@/views/operation/motorcade/index.vue"),
+      component: () => import("@/views/error/500.vue"),
       meta: {
         title: $t("menus.feeApplication")
       }
@@ -21,7 +21,7 @@ export default {
     {
       path: "/daily/contract",
       name: "Contract",
-      component: () => import("@/views/operation/document-check/index.vue"),
+      component: () => import("@/views/error/500.vue"),
       meta: {
         title: $t("menus.contract")
       }

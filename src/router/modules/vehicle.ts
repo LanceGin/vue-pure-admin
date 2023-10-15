@@ -13,7 +13,7 @@ export default {
     {
       path: "/vehicle/vehicle_info",
       name: "VehicleInfo",
-      component: () => import("@/views/operation/motorcade/index.vue"),
+      component: () => import("@/views/error/500.vue"),
       meta: {
         title: $t("menus.vehicleInfo")
       }
@@ -21,7 +21,7 @@ export default {
     {
       path: "/vehicle/driver_info",
       name: "DriverInfo",
-      component: () => import("@/views/operation/yard/index.vue"),
+      component: () => import("@/views/error/500.vue"),
       meta: {
         title: $t("menus.driverInfo")
       }
@@ -29,7 +29,7 @@ export default {
     {
       path: "/vehicle/vehicle_rate",
       name: "VehicleRate",
-      component: () => import("@/views/operation/fee-collection/index.vue"),
+      component: () => import("@/views/error/500.vue"),
       meta: {
         title: $t("menus.vehicleRate")
       }
@@ -37,7 +37,7 @@ export default {
     {
       path: "/vehicle/oil_consumption",
       name: "OilConsumption",
-      component: () => import("@/views/operation/document-check/index.vue"),
+      component: () => import("@/views/error/500.vue"),
       meta: {
         title: $t("menus.oilConsumption")
       }

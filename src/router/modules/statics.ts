@@ -13,7 +13,7 @@ export default {
     {
       path: "/statics/collection_price",
       name: "CollectionPrice",
-      component: () => import("@/views/operation/motorcade/index.vue"),
+      component: () => import("@/views/error/500.vue"),
       meta: {
         title: $t("menus.collectionPrice")
       }
@@ -21,7 +21,7 @@ export default {
     {
       path: "/statics/pay_price",
       name: "PayPrice",
-      component: () => import("@/views/operation/yard/index.vue"),
+      component: () => import("@/views/error/500.vue"),
       meta: {
         title: $t("menus.payPrice")
       }
@@ -29,7 +29,7 @@ export default {
     {
       path: "/statics/recievable",
       name: "Recievable",
-      component: () => import("@/views/operation/fee-collection/index.vue"),
+      component: () => import("@/views/error/500.vue"),
       meta: {
         title: $t("menus.recievable")
       }
@@ -37,7 +37,7 @@ export default {
     {
       path: "/statics/payable",
       name: "payable",
-      component: () => import("@/views/operation/document-check/index.vue"),
+      component: () => import("@/views/error/500.vue"),
       meta: {
         title: $t("menus.payable")
       }
