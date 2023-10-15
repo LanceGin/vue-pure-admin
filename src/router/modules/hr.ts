@@ -13,7 +13,7 @@ export default {
     {
       path: "/hr/staff",
       name: "Staff",
-      component: () => import("@/views/operation/motorcade/index.vue"),
+      component: () => import("@/views/hr/staff/index.vue"),
       meta: {
         title: $t("menus.staff")
       }
@@ -21,7 +21,7 @@ export default {
     {
       path: "/hr/check_on",
       name: "CheckOn",
-      component: () => import("@/views/operation/document-check/index.vue"),
+      component: () => import("@/views/hr/check-on/index.vue"),
       meta: {
         title: $t("menus.checkOn")
       }
