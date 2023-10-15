@@ -1,9 +1,10 @@
-import dayjs from "dayjs";
+// import dayjs from "dayjs";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
 import { getRoleList } from "@/api/system";
-import { ElMessageBox } from "element-plus";
-import { usePublicHooks } from "../../hooks";
+// import { ElMessageBox } from "element-plus";
+import { tableData } from "./data";
+// import { usePublicHooks } from "../../hooks";
 import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
@@ -11,15 +12,29 @@ import { reactive, ref, onMounted, h, toRaw } from "vue";
 
 export function useRole() {
   const form = reactive({
+    boat_company: "",
+    car_company: "",
     name: "",
-    code: "",
-    status: ""
+    project: "",
+    fee_cata: "",
+    cata: "",
+    fee_name: "",
+    fee_code: "",
+    company_type: "",
+    gp20: "",
+    tk20: "",
+    gp40: "",
+    tk40: "",
+    hc40: "",
+    ot40: "",
+    ot20: "",
+    fr40: ""
   });
   const formRef = ref();
-  const dataList = ref([]);
+  let dataList = tableData;
   const loading = ref(true);
-  const switchLoadMap = ref({});
-  const { switchStyle } = usePublicHooks();
+  // const switchLoadMap = ref({});
+  // const { tagStyle } = usePublicHooks();
   const pagination = reactive<PaginationProps>({
     total: 0,
     pageSize: 10,
@@ -28,49 +43,89 @@ export function useRole() {
   });
   const columns: TableColumnList = [
     {
-      label: "角色编号",
-      prop: "id",
+      label: "船公司",
+      prop: "boat_company",
       minWidth: 100
     },
     {
-      label: "角色名称",
-      prop: "name",
+      label: "车队公司",
+      prop: "car_company",
       minWidth: 120
     },
     {
-      label: "角色标识",
-      prop: "code",
+      label: "客户",
+      prop: "name",
       minWidth: 150
     },
     {
-      label: "状态",
-      minWidth: 130,
-      cellRenderer: scope => (
-        <el-switch
-          size={scope.props.size === "small" ? "small" : "default"}
-          loading={switchLoadMap.value[scope.index]?.loading}
-          v-model={scope.row.status}
-          active-value={1}
-          inactive-value={0}
-          active-text="已启用"
-          inactive-text="已停用"
-          inline-prompt
-          style={switchStyle.value}
-          onChange={() => onChange(scope as any)}
-        />
-      )
-    },
-    {
-      label: "备注",
-      prop: "remark",
+      label: "项目",
+      prop: "project",
       minWidth: 150
     },
     {
-      label: "创建时间",
-      minWidth: 180,
-      prop: "createTime",
-      formatter: ({ createTime }) =>
-        dayjs(createTime).format("YYYY-MM-DD HH:mm:ss")
+      label: "费用类型",
+      prop: "fee_cata",
+      minWidth: 150
+    },
+    {
+      label: "类型",
+      prop: "cata",
+      minWidth: 150
+    },
+    {
+      label: "费用名称",
+      prop: "fee_name",
+      minWidth: 150
+    },
+    {
+      label: "费用代码",
+      prop: "fee_code",
+      minWidth: 150
+    },
+    {
+      label: "往来单位类型",
+      prop: "company_type",
+      minWidth: 150
+    },
+    {
+      label: "20GP",
+      prop: "gp20",
+      minWidth: 150
+    },
+    {
+      label: "20TK",
+      prop: "tk20",
+      minWidth: 150
+    },
+    {
+      label: "40GP",
+      prop: "gp40",
+      minWidth: 150
+    },
+    {
+      label: "40TK",
+      prop: "tk40",
+      minWidth: 150
+    },
+    {
+      label: "40HC",
+      prop: "hc40",
+      minWidth: 150
+    },
+    {
+      label: "40OT",
+      prop: "ot40",
+      minWidth: 150
+    },
+    {
+      label: "20OT",
+      prop: "ot20",
+      minWidth: 150
+    },
+    {
+      label: "40FR",
+      prop: "fr40",
+      minWidth: 150
     },
     {
       label: "操作",
@@ -89,47 +144,47 @@ export function useRole() {
   //   ];
   // });
 
-  function onChange({ row, index }) {
-    ElMessageBox.confirm(
-      `确认要<strong>${
-        row.status === 0 ? "停用" : "启用"
-      }</strong><strong style='color:var(--el-color-primary)'>${
-        row.name
-      }</strong>吗?`,
-      "系统提示",
-      {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-        dangerouslyUseHTMLString: true,
-        draggable: true
-      }
-    )
-      .then(() => {
-        switchLoadMap.value[index] = Object.assign(
-          {},
-          switchLoadMap.value[index],
-          {
-            loading: true
-          }
-        );
-        setTimeout(() => {
-          switchLoadMap.value[index] = Object.assign(
-            {},
-            switchLoadMap.value[index],
-            {
-              loading: false
-            }
-          );
-          message(`已${row.status === 0 ? "停用" : "启用"}${row.name}`, {
-            type: "success"
-          });
-        }, 300);
-      })
-      .catch(() => {
-        row.status === 0 ? (row.status = 1) : (row.status = 0);
-      });
-  }
+  // function onChange({ row, index }) {
+  //   ElMessageBox.confirm(
+  //     `确认要<strong>${
+  //       row.status === 0 ? "停用" : "启用"
+  //     }</strong><strong style='color:var(--el-color-primary)'>${
+  //       row.name
+  //     }</strong>吗?`,
+  //     "系统提示",
+  //     {
+  //       confirmButtonText: "确定",
+  //       cancelButtonText: "取消",
+  //       type: "warning",
+  //       dangerouslyUseHTMLString: true,
+  //       draggable: true
+  //     }
+  //   )
+  //     .then(() => {
+  //       switchLoadMap.value[index] = Object.assign(
+  //         {},
+  //         switchLoadMap.value[index],
+  //         {
+  //           loading: true
+  //         }
+  //       );
+  //       setTimeout(() => {
+  //         switchLoadMap.value[index] = Object.assign(
+  //           {},
+  //           switchLoadMap.value[index],
+  //           {
+  //             loading: false
+  //           }
+  //         );
+  //         message(`已${row.status === 0 ? "停用" : "启用"}${row.name}`, {
+  //           type: "success"
+  //         });
+  //       }, 300);
+  //     })
+  //     .catch(() => {
+  //       row.status === 0 ? (row.status = 1) : (row.status = 0);
+  //     });
+  // }
 
   function handleDelete(row) {
     message(`您删除了角色名称为${row.name}的这条数据`, { type: "success" });
@@ -151,7 +206,7 @@ export function useRole() {
   async function onSearch() {
     loading.value = true;
     const { data } = await getRoleList(toRaw(form));
-    dataList.value = data.list;
+    dataList = data.list;
     pagination.total = data.total;
     pagination.pageSize = data.pageSize;
     pagination.currentPage = data.currentPage;
@@ -167,14 +222,28 @@ export function useRole() {
     onSearch();
   };
 
-  function openDialog(title = "新增", row?: FormItemProps) {
+  function openDialog(title = "添加", row?: FormItemProps) {
     addDialog({
-      title: `${title}角色`,
+      title: `${title}客户`,
       props: {
         formInline: {
+          boat_company: row?.boat_company ?? "",
+          car_company: row?.car_company ?? "",
           name: row?.name ?? "",
-          code: row?.code ?? "",
-          remark: row?.remark ?? ""
+          project: row?.project ?? "",
+          fee_cata: row?.fee_cata ?? "",
+          cata: row?.cata ?? "",
+          fee_name: row?.fee_name ?? "",
+          fee_code: row?.fee_code ?? "",
+          company_type: row?.company_type ?? "",
+          gp20: row?.gp20 ?? "",
+          tk20: row?.tk20 ?? "",
+          gp40: row?.gp40 ?? "",
+          tk40: row?.tk40 ?? "",
+          hc40: row?.hc40 ?? "",
+          ot40: row?.ot40 ?? "",
+          ot20: row?.ot20 ?? "",
+          fr40: row?.fr40 ?? ""
         }
       },
       width: "40%",

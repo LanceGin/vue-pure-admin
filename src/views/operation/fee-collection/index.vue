@@ -9,10 +9,8 @@ import { useRenderIcon } from "@/components/ReIcon/src/hooks";
 import Delete from "@iconify-icons/ep/delete";
 import EditPen from "@iconify-icons/ep/edit-pen";
 import Search from "@iconify-icons/ep/search";
-import Refresh from "@iconify-icons/ep/refresh";
 import Upload from "@iconify-icons/ep/upload";
 import Download from "@iconify-icons/ep/download";
-import Menu from "@iconify-icons/ep/menu";
 import AddFill from "@iconify-icons/ri/add-circle-line";
 
 defineOptions({
@@ -30,7 +28,6 @@ const {
   onSearch,
   resetForm,
   openDialog,
-  handleMenu,
   handleDelete,
   // handleDatabase,
   handleSizeChange,
@@ -47,31 +44,29 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="客户简称：" prop="name">
-        <el-input
-          v-model="form.name"
-          placeholder="请输入客户简称"
-          clearable
-          class="!w-[200px]"
-        />
-      </el-form-item>
-      <el-form-item label="客户地址：" prop="code">
-        <el-input
-          v-model="form.code"
-          placeholder="请输入客户地址"
-          clearable
-          class="!w-[180px]"
-        />
-      </el-form-item>
-      <el-form-item label="客户状态：" prop="status">
+      <el-form-item label="往来单位类型" prop="company_type">
         <el-select
-          v-model="form.status"
-          placeholder="请选择状态"
+          v-model="form.company_type"
+          placeholder="请选择类型"
           clearable
           class="!w-[180px]"
         >
-          <el-option label="已启用" value="1" />
-          <el-option label="已停用" value="0" />
+          <el-option label="客户" value="0" />
+          <el-option label="车队" value="1" />
+          <el-option label="船东" value="2" />
+          <el-option label="码头堆场" value="3" />
+        </el-select>
+      </el-form-item>
+
+      <el-form-item label="费用类型" prop="fee_cata">
+        <el-select
+          v-model="form.fee_cata"
+          placeholder="请选择类型"
+          clearable
+          class="!w-[180px]"
+        >
+          <el-option label="应付" value="0" />
+          <el-option label="应收" value="1" />
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -83,9 +78,6 @@ const {
         >
           搜索
         </el-button>
-        <el-button :icon="useRenderIcon(Refresh)" @click="resetForm(formRef)">
-          重置
-        </el-button>
         <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
           导入
         </el-button>
@@ -96,7 +88,7 @@ const {
     </el-form>
 
     <PureTableBar
-      title="角色列表（仅演示，操作后不生效）"
+      title="代收费用列表（测试用，操作后不生效）"
       :columns="columns"
       @refresh="onSearch"
     >
@@ -106,7 +98,7 @@ const {
           :icon="useRenderIcon(AddFill)"
           @click="openDialog()"
         >
-          新增角色
+          添加费用记录
         </el-button>
       </template>
       <template v-slot="{ size, dynamicColumns }">
@@ -141,18 +133,8 @@ const {
             >
               修改
             </el-button>
-            <el-button
-              class="reset-margin"
-              link
-              type="primary"
-              :size="size"
-              :icon="useRenderIcon(Menu)"
-              @click="handleMenu"
-            >
-              菜单权限
-            </el-button>
             <el-popconfirm
-              :title="`是否确认删除角色名称为${row.name}的这条数据`"
+              :title="`是否确认删除客户名称为${row.name}的这条数据`"
               @confirm="handleDelete(row)"
             >
               <template #reference>
