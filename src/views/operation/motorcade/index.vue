@@ -136,7 +136,7 @@ const {
               修改
             </el-button>
             <el-popconfirm
-              :title="`是否确认删除角色名称为${row.name}的这条数据`"
+              :title="`是否确认删除客户名称为${row.name}的这条数据`"
               @confirm="handleDelete(row)"
             >
               <template #reference>

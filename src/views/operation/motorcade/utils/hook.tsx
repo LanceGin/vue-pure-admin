@@ -20,7 +20,7 @@ export function useRole() {
     status: ""
   });
   const formRef = ref();
-  const dataList = tableData;
+  let dataList = tableData;
   const loading = ref(true);
   // const switchLoadMap = ref({});
   const { tagStyle } = usePublicHooks();
@@ -151,7 +151,7 @@ export function useRole() {
   async function onSearch() {
     loading.value = true;
     const { data } = await getRoleList(toRaw(form));
-    dataList.value = data.list;
+    dataList = data.list;
     pagination.total = data.total;
     pagination.pageSize = data.pageSize;
     pagination.currentPage = data.currentPage;
