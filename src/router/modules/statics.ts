@@ -13,7 +13,7 @@ export default {
     {
       path: "/statics/collection_price",
       name: "CollectionPrice",
-      component: () => import("@/views/error/500.vue"),
+      component: () => import("@/views/statics/collection-price/index.vue"),
       meta: {
         title: $t("menus.collectionPrice")
       }
