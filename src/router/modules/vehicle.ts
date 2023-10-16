@@ -29,7 +29,7 @@ export default {
     {
       path: "/vehicle/vehicle_rate",
       name: "VehicleRate",
-      component: () => import("@/views/error/500.vue"),
+      component: () => import("@/views/vehicle/vehicle-rate/index.vue"),
       meta: {
         title: $t("menus.vehicleRate")
       }

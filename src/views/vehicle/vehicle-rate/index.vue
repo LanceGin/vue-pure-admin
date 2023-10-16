@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRole } from "./utils/hook";
-import { PureTableBar } from "@/components/RePureTableBar";
-import { useRenderIcon } from "@/components/ReIcon/src/hooks";
+import { PureTableBar } from "../../../components/RePureTableBar";
+import { useRenderIcon } from "../../../components/ReIcon/src/hooks";
 
 // import Database from "@iconify-icons/ri/database-2-line";
 // import More from "@iconify-icons/ep/more-filled";
@@ -44,32 +44,21 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="客户简称：" prop="refer">
+      <el-form-item label="车牌号：" prop="car_no">
         <el-input
-          v-model="form.refer"
-          placeholder="请输入客户简称"
+          v-model="form.car_no"
+          placeholder="请输入车牌号"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="客户地址：" prop="address">
+      <el-form-item label="公司：" prop="company">
         <el-input
-          v-model="form.address"
-          placeholder="请输入客户地址"
+          v-model="form.company"
+          placeholder="请输入公司名"
           clearable
           class="!w-[180px]"
         />
-      </el-form-item>
-      <el-form-item label="客户状态：" prop="status">
-        <el-select
-          v-model="form.status"
-          placeholder="请选择状态"
-          clearable
-          class="!w-[180px]"
-        >
-          <el-option label="正常" value="1" />
-          <el-option label="异常" value="0" />
-        </el-select>
       </el-form-item>
       <el-form-item>
         <el-button
@@ -90,7 +79,7 @@ const {
     </el-form>
 
     <PureTableBar
-      title="车队客户列表（测试用，操作后不生效）"
+      title="验车等评统计（测试用，操作后不生效）"
       :columns="columns"
       @refresh="onSearch"
     >
@@ -100,7 +89,7 @@ const {
           :icon="useRenderIcon(AddFill)"
           @click="openDialog()"
         >
-          添加客户
+          添加等评记录
         </el-button>
       </template>
       <template v-slot="{ size, dynamicColumns }">

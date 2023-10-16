@@ -1,10 +1,10 @@
-import dayjs from "dayjs";
+// import dayjs from "dayjs";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
 import { getRoleList } from "@/api/system";
 // import { ElMessageBox } from "element-plus";
 import { tableData } from "./data";
-import { usePublicHooks } from "../../hooks";
+// import { usePublicHooks } from "../../hooks";
 import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
@@ -12,18 +12,20 @@ import { reactive, ref, onMounted, h, toRaw } from "vue";
 
 export function useRole() {
   const form = reactive({
-    refer: "",
-    name: "",
-    address: "",
-    contact_name: "",
-    contact_mobile: "",
-    status: ""
+    car_no: "",
+    company: "",
+    year_deadline: "",
+    rate_deadline: "",
+    jiaoqiang: "",
+    shangye: "",
+    huowuyunshu: "",
+    remark: ""
   });
   const formRef = ref();
   let dataList = tableData;
   const loading = ref(true);
   // const switchLoadMap = ref({});
-  const { tagStyle } = usePublicHooks();
+  // const { tagStyle } = usePublicHooks();
   const pagination = reactive<PaginationProps>({
     total: 0,
     pageSize: 10,
@@ -32,45 +34,44 @@ export function useRole() {
   });
   const columns: TableColumnList = [
     {
-      label: "客户简称",
-      prop: "refer",
+      label: "车号",
+      prop: "car_no",
       minWidth: 100
     },
     {
-      label: "客户全称",
-      prop: "name",
+      label: "公司",
+      prop: "company",
       minWidth: 120
     },
     {
-      label: "企业地址",
-      prop: "address",
+      label: "年检到期",
+      prop: "year_deadline",
       minWidth: 150
     },
     {
-      label: "联系人",
-      prop: "contact_name",
+      label: "等评到期",
+      prop: "rate_deadline",
       minWidth: 150
     },
     {
-      label: "联系电话",
-      prop: "contact_mobile",
+      label: "交强险",
+      prop: "jiaoqiang",
       minWidth: 150
     },
     {
-      label: "状态",
-      minWidth: 130,
-      cellRenderer: ({ row, props }) => (
-        <el-tag size={props.size} style={tagStyle.value(row.status)}>
-          {row.status === 1 ? "正常" : "异常"}
-        </el-tag>
-      )
+      label: "商业险",
+      prop: "shangye",
+      minWidth: 150
     },
     {
-      label: "创建时间",
-      minWidth: 180,
-      prop: "createTime",
-      formatter: ({ createTime }) =>
-        dayjs(createTime).format("YYYY-MM-DD HH:mm:ss")
+      label: "货物运输险",
+      prop: "huowuyunshu",
+      minWidth: 150
+    },
+    {
+      label: "备注",
+      prop: "remark",
+      minWidth: 150
     },
     {
       label: "操作",
@@ -169,14 +170,17 @@ export function useRole() {
 
   function openDialog(title = "添加", row?: FormItemProps) {
     addDialog({
-      title: `${title}客户`,
+      title: `${title}等评记录`,
       props: {
         formInline: {
-          name: row?.name ?? "",
-          refer: row?.refer ?? "",
-          address: row?.address ?? "",
-          contact_name: row?.contact_name ?? "",
-          contact_mobile: row?.contact_mobile ?? ""
+          car_no: row?.car_no ?? "",
+          company: row?.company ?? "",
+          year_deadline: row?.year_deadline ?? "",
+          rate_deadline: row?.rate_deadline ?? "",
+          jiaoqiang: row?.jiaoqiang ?? "",
+          shangye: row?.shangye ?? "",
+          huowuyunshu: row?.huowuyunshu ?? "",
+          remark: row?.remark ?? ""
         }
       },
       width: "40%",
@@ -188,7 +192,7 @@ export function useRole() {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
         function chores() {
-          message(`您${title}了角色名称为${curData.name}的这条数据`, {
+          message(`您${title}了车牌号为${curData.car_no}的这条数据`, {
             type: "success"
           });
           done(); // 关闭弹框
