@@ -44,74 +44,29 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="客户" prop="custom">
+      <el-form-item label="客户名：" prop="custom">
         <el-input
           v-model="form.custom"
-          placeholder="请输入客户名称"
+          placeholder="请输入客户名"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="项目" prop="project">
+      <el-form-item label="项目：" prop="project">
         <el-input
           v-model="form.project"
-          placeholder="请输入项目名称"
-          clearable
-          class="!w-[200px]"
-        />
-      </el-form-item>
-      <el-form-item label="订单号" prop="order_no">
-        <el-input
-          v-model="form.order_no"
-          placeholder="请输入订单号"
-          clearable
-          class="!w-[200px]"
-        />
-      </el-form-item>
-
-      <el-form-item label="单据类型" prop="cata">
-        <el-select
-          v-model="form.cata"
-          placeholder="请选择类型"
+          placeholder="请输入项目名"
           clearable
           class="!w-[180px]"
-        >
-          <el-option label="全部" value="0" />
-          <el-option label="进口" value="1" />
-          <el-option label="出口" value="2" />
-        </el-select>
-      </el-form-item>
-
-      <el-form-item label="打单日期" prop="fee_time">
-        <el-input
-          v-model="form.fee_time"
-          placeholder="请输入打单日期"
-          clearable
-          class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="运单号" prop="tracking_no">
+      <el-form-item label="门点：" prop="door">
         <el-input
-          v-model="form.tracking_no"
-          placeholder="请输入运单号"
-          clearable
-          class="!w-[200px]"
-        />
-      </el-form-item>
-
-      <el-form-item label="状态" prop="status">
-        <el-select
-          v-model="form.status"
-          placeholder="请选择状态"
+          v-model="form.door"
+          placeholder="请输入门点"
           clearable
           class="!w-[180px]"
-        >
-          <el-option label="全部" value="0" />
-          <el-option label="未审核" value="1" />
-          <el-option label="未执行" value="2" />
-          <el-option label="已执行" value="3" />
-          <el-option label="已完成" value="4" />
-        </el-select>
+        />
       </el-form-item>
       <el-form-item>
         <el-button
@@ -132,7 +87,7 @@ const {
     </el-form>
 
     <PureTableBar
-      title="单证管理（测试用，操作后不生效）"
+      title="门点应付价格列表（测试用，操作后不生效）"
       :columns="columns"
       @refresh="onSearch"
     >
@@ -142,7 +97,7 @@ const {
           :icon="useRenderIcon(AddFill)"
           @click="openDialog()"
         >
-          单证录入
+          添加价格
         </el-button>
       </template>
       <template v-slot="{ size, dynamicColumns }">

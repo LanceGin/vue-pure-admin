@@ -4,7 +4,7 @@ import { message } from "@/utils/message";
 import { getRoleList } from "@/api/system";
 // import { ElMessageBox } from "element-plus";
 import { tableData } from "./data";
-// import { usePublicHooks } from "../../hooks";
+import { usePublicHooks } from "../../hooks";
 import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
@@ -13,27 +13,24 @@ import { reactive, ref, onMounted, h, toRaw } from "vue";
 export function useRole() {
   const form = reactive({
     status: "",
-    cata: "",
-    order_no: "",
     custom: "",
     project: "",
-    tracking_no: "",
-    box: "",
-    boat: "",
-    boat_company: "",
-    commission_no: "",
-    boat_date: "",
-    fee_time: "",
-    fee: "",
-    fee_amount: "",
-    add_time: "",
-    add_stuff: ""
+    door: "",
+    wharf: "",
+    i20gp: "",
+    i40gp: "",
+    i40tk: "",
+    i40hc: "",
+    o40tk: "",
+    o40hc: "",
+    o20tk: "",
+    o40ot: ""
   });
   const formRef = ref();
   let dataList = tableData;
   const loading = ref(true);
   // const switchLoadMap = ref({});
-  // const { tagStyle } = usePublicHooks();
+  const { tagStyle } = usePublicHooks();
   const pagination = reactive<PaginationProps>({
     total: 0,
     pageSize: 10,
@@ -43,23 +40,17 @@ export function useRole() {
   const columns: TableColumnList = [
     {
       label: "状态",
-      prop: "status",
-      minWidth: 100
-    },
-    {
-      label: "类型",
-      prop: "cata",
-      minWidth: 120
-    },
-    {
-      label: "订单编号",
-      prop: "order_no",
-      minWidth: 150
+      minWidth: 130,
+      cellRenderer: ({ row, props }) => (
+        <el-tag size={props.size} style={tagStyle.value(Number(row.status))}>
+          {row.status == 1 ? "有效" : "无效"}
+        </el-tag>
+      )
     },
     {
       label: "客户",
       prop: "custom",
-      minWidth: 150
+      minWidth: 120
     },
     {
       label: "项目",
@@ -67,59 +58,64 @@ export function useRole() {
       minWidth: 150
     },
     {
-      label: "运单号",
-      prop: "tracking_no",
+      label: "门点",
+      prop: "door",
       minWidth: 150
     },
     {
-      label: "箱量",
-      prop: "box",
+      label: "码头",
+      prop: "wharf",
       minWidth: 150
     },
     {
-      label: "船名/航次",
-      prop: "boat",
-      minWidth: 150
+      label: "装箱",
+      children: [
+        {
+          label: "20GP",
+          prop: "i20gp",
+          minWidth: 80
+        },
+        {
+          label: "40GP",
+          prop: "i40gp",
+          minWidth: 80
+        },
+        {
+          label: "40TK",
+          prop: "i40tk",
+          minWidth: 80
+        },
+        {
+          label: "40HC",
+          prop: "i40hc",
+          minWidth: 80
+        }
+      ]
     },
     {
-      label: "船东",
-      prop: "boat_company",
-      minWidth: 150
-    },
-    {
-      label: "客户委托号",
-      prop: "commission_no",
-      minWidth: 150
-    },
-    {
-      label: "船期",
-      prop: "boat_date",
-      minWidth: 150
-    },
-    {
-      label: "打单日期",
-      prop: "fee_time",
-      minWidth: 150
-    },
-    {
-      label: "打单费",
-      prop: "fee",
-      minWidth: 150
-    },
-    {
-      label: "抵单数",
-      prop: "fee_amount",
-      minWidth: 150
-    },
-    {
-      label: "录入时间",
-      prop: "add_time",
-      minWidth: 150
-    },
-    {
-      label: "录入人",
-      prop: "add_stuff",
-      minWidth: 150
+      label: "拆箱",
+      children: [
+        {
+          label: "40Tk",
+          prop: "o40tk",
+          minWidth: 80
+        },
+        {
+          label: "40HC",
+          prop: "o40hc",
+          minWidth: 80
+        },
+        {
+          label: "20TK",
+          prop: "o20tk",
+          minWidth: 80
+        },
+        {
+          label: "40OT",
+          prop: "i40ot",
+          minWidth: 80
+        }
+      ]
     },
     {
       label: "操作",
@@ -218,25 +214,22 @@ export function useRole() {
 
   function openDialog(title = "添加", row?: FormItemProps) {
     addDialog({
-      title: `${title}单证`,
+      title: `${title}价格`,
       props: {
         formInline: {
           status: row?.status ?? "",
-          cata: row?.cata ?? "",
-          order_no: row?.order_no ?? "",
-          project: row?.project ?? "",
           custom: row?.custom ?? "",
-          tracking_no: row?.tracking_no ?? "",
-          box: row?.box ?? "",
-          boat: row?.boat ?? "",
-          boat_company: row?.boat_company ?? "",
-          commission_no: row?.commission_no ?? "",
-          boat_date: row?.boat_date ?? "",
-          fee_time: row?.fee_time ?? "",
-          fee: row?.fee ?? "",
-          fee_amount: row?.fee_amount ?? "",
-          add_time: row?.add_time ?? "",
-          add_stuff: row?.add_stuff ?? ""
+          project: row?.project ?? "",
+          door: row?.door ?? "",
+          wharf: row?.wharf ?? "",
+          i20gp: row?.i20gp ?? "",
+          i40gp: row?.i40gp ?? "",
+          i40tk: row?.i40tk ?? "",
+          i40hc: row?.i40hc ?? "",
+          o40tk: row?.o40tk ?? "",
+          o40hc: row?.o40hc ?? "",
+          o20tk: row?.o20tk ?? "",
+          o40ot: row?.o40ot ?? ""
         }
       },
       width: "40%",
@@ -248,7 +241,7 @@ export function useRole() {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
         function chores() {
-          message(`您${title}了订单号为${curData.order_no}的这条数据`, {
+          message(`您${title}了项目为${curData.project}的这条数据`, {
             type: "success"
           });
           done(); // 关闭弹框

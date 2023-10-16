@@ -21,7 +21,7 @@ export default {
     {
       path: "/statics/pay_price",
       name: "PayPrice",
-      component: () => import("@/views/error/500.vue"),
+      component: () => import("@/views/statics/pay-price/index.vue"),
       meta: {
         title: $t("menus.payPrice")
       }
@@ -29,7 +29,7 @@ export default {
     {
       path: "/statics/recievable",
       name: "Recievable",
-      component: () => import("@/views/error/500.vue"),
+      component: () => import("@/views/statics/recievable/index.vue"),
       meta: {
         title: $t("menus.recievable")
       }
@@ -37,7 +37,7 @@ export default {
     {
       path: "/statics/payable",
       name: "payable",
-      component: () => import("@/views/error/500.vue"),
+      component: () => import("@/views/statics/payable/index.vue"),
       meta: {
         title: $t("menus.payable")
       }
