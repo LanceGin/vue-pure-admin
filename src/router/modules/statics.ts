@@ -29,7 +29,7 @@ export default {
     {
       path: "/statics/recievable",
       name: "Recievable",
-      component: () => import("@/views/statics/recievable/index.vue"),
+      component: () => import("@/views/error/500.vue"),
       meta: {
         title: $t("menus.recievable")
       }
@@ -37,7 +37,7 @@ export default {
     {
       path: "/statics/payable",
       name: "payable",
-      component: () => import("@/views/statics/payable/index.vue"),
+      component: () => import("@/views/error/500.vue"),
       meta: {
         title: $t("menus.payable")
       }

@@ -13,7 +13,7 @@ export default {
     {
       path: "/vehicle/vehicle_info",
       name: "VehicleInfo",
-      component: () => import("@/views/error/500.vue"),
+      component: () => import("@/views/vehicle/vehicle-info/index.vue"),
       meta: {
         title: $t("menus.vehicleInfo")
       }
