@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRole } from "./utils/hook";
-import { PureTableBar } from "@/components/RePureTableBar";
-import { useRenderIcon } from "@/components/ReIcon/src/hooks";
+import { PureTableBar } from "../../../components/RePureTableBar";
+import { useRenderIcon } from "../../../components/ReIcon/src/hooks";
 
 // import Database from "@iconify-icons/ri/database-2-line";
 // import More from "@iconify-icons/ep/more-filled";
@@ -44,32 +44,21 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="堆场名称" prop="name">
+      <el-form-item label="序号：" prop="no">
         <el-input
-          v-model="form.name"
-          placeholder="请输入堆场名称"
+          v-model="form.no"
+          placeholder="请输入序号"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="联系人：" prop="contact_name">
+      <el-form-item label="车号：" prop="car_no">
         <el-input
-          v-model="form.contact_name"
-          placeholder="请输入联系人"
+          v-model="form.car_no"
+          placeholder="请输入车号"
           clearable
           class="!w-[180px]"
         />
-      </el-form-item>
-      <el-form-item label="堆场类型：" prop="cata">
-        <el-select
-          v-model="form.cata"
-          placeholder="请选择类型"
-          clearable
-          class="!w-[180px]"
-        >
-          <el-option label="堆场" value="1" />
-          <el-option label="码头" value="0" />
-        </el-select>
       </el-form-item>
       <el-form-item>
         <el-button
@@ -90,7 +79,7 @@ const {
     </el-form>
 
     <PureTableBar
-      title="堆场列表（测试用，操作后不生效）"
+      title="油耗核算记录（测试用，操作后不生效）"
       :columns="columns"
       @refresh="onSearch"
     >
@@ -100,7 +89,7 @@ const {
           :icon="useRenderIcon(AddFill)"
           @click="openDialog()"
         >
-          添加堆场
+          添加核算记录
         </el-button>
       </template>
       <template v-slot="{ size, dynamicColumns }">

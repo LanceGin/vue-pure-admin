@@ -37,7 +37,7 @@ export default {
     {
       path: "/vehicle/oil_consumption",
       name: "OilConsumption",
-      component: () => import("@/views/error/500.vue"),
+      component: () => import("@/views/vehicle/oil-consumption/index.vue"),
       meta: {
         title: $t("menus.oilConsumption")
       }
