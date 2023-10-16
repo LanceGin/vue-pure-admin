@@ -88,7 +88,7 @@ const {
     </el-form>
 
     <PureTableBar
-      title="单证管理（测试用，操作后不生效）"
+      title="车辆信息管理（测试用，操作后不生效）"
       :columns="columns"
       @refresh="onSearch"
     >
@@ -98,7 +98,7 @@ const {
           :icon="useRenderIcon(AddFill)"
           @click="openDialog()"
         >
-          单证录入
+          添加车辆
         </el-button>
       </template>
       <template v-slot="{ size, dynamicColumns }">

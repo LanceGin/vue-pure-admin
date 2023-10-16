@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRole } from "./utils/hook";
-import { PureTableBar } from "@/components/RePureTableBar";
-import { useRenderIcon } from "@/components/ReIcon/src/hooks";
+import { PureTableBar } from "../../../components/RePureTableBar";
+import { useRenderIcon } from "../../../components/ReIcon/src/hooks";
 
 // import Database from "@iconify-icons/ri/database-2-line";
 // import More from "@iconify-icons/ep/more-filled";
@@ -44,30 +44,22 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="往来单位类型" prop="company_type">
-        <el-select
-          v-model="form.company_type"
-          placeholder="请选择类型"
+      <el-form-item label="驾驶员：" prop="driver">
+        <el-input
+          v-model="form.driver"
+          placeholder="请输入驾驶员姓名"
           clearable
-          class="!w-[180px]"
-        >
-          <el-option label="客户" value="0" />
-          <el-option label="车队" value="1" />
-          <el-option label="船东" value="2" />
-          <el-option label="码头堆场" value="3" />
-        </el-select>
+          class="!w-[200px]"
+        />
       </el-form-item>
 
-      <el-form-item label="费用类型" prop="fee_cata">
-        <el-select
-          v-model="form.fee_cata"
-          placeholder="请选择类型"
+      <el-form-item label="手机号：" prop="mobile">
+        <el-input
+          v-model="form.mobile"
+          placeholder="请输入手机号"
           clearable
-          class="!w-[180px]"
-        >
-          <el-option label="应付" value="0" />
-          <el-option label="应收" value="1" />
-        </el-select>
+          class="!w-[200px]"
+        />
       </el-form-item>
       <el-form-item>
         <el-button
@@ -88,7 +80,7 @@ const {
     </el-form>
 
     <PureTableBar
-      title="代收费用列表（测试用，操作后不生效）"
+      title="驾驶员列表（测试用，操作后不生效）"
       :columns="columns"
       @refresh="onSearch"
     >
@@ -98,7 +90,7 @@ const {
           :icon="useRenderIcon(AddFill)"
           @click="openDialog()"
         >
-          添加费用记录
+          添加驾驶员
         </el-button>
       </template>
       <template v-slot="{ size, dynamicColumns }">

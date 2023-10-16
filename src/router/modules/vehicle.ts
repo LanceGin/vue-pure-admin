@@ -21,7 +21,7 @@ export default {
     {
       path: "/vehicle/driver_info",
       name: "DriverInfo",
-      component: () => import("@/views/error/500.vue"),
+      component: () => import("@/views/vehicle/driver-info/index.vue"),
       meta: {
         title: $t("menus.driverInfo")
       }
