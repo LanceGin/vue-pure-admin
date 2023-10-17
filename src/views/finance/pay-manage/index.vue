@@ -44,26 +44,40 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="车牌号：" prop="car_no">
+      <el-form-item label="状态：" prop="zhuangtai">
+        <el-select
+          v-model="form.zhuangtai"
+          placeholder="请选择状态"
+          clearable
+          class="!w-[180px]"
+        >
+          <el-option label="全部" value="0" />
+          <el-option label="未提交" value="1" />
+          <el-option label="已提交" value="2" />
+          <el-option label="通过审核" value="3" />
+          <el-option label="已记账" value="4" />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="供应商：" prop="gongyingshang">
         <el-input
-          v-model="form.car_no"
-          placeholder="请输入车牌号"
+          v-model="form.gongyingshang"
+          placeholder="请输入供应商"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="驾驶员：" prop="driver">
+      <el-form-item label="结算单位：" prop="jiesuandanwei">
         <el-input
-          v-model="form.driver"
-          placeholder="请输入驾驶员名称"
+          v-model="form.jiesuandanwei"
+          placeholder="请输入结算单位"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="手机号：" prop="mobile">
+      <el-form-item label="银行账号：" prop="yinhangzhanghao">
         <el-input
-          v-model="form.mobile"
-          placeholder="请输入手机号"
+          v-model="form.yinhangzhanghao"
+          placeholder="请输入银行账号"
           clearable
           class="!w-[200px]"
         />
@@ -88,7 +102,7 @@ const {
     </el-form>
 
     <PureTableBar
-      title="车辆信息管理（测试用，操作后不生效）"
+      title="应付管理（测试用，操作后不生效）"
       :columns="columns"
       @refresh="onSearch"
     >
@@ -98,7 +112,7 @@ const {
           :icon="useRenderIcon(AddFill)"
           @click="openDialog()"
         >
-          添加车辆
+          添加应付记录
         </el-button>
       </template>
       <template v-slot="{ size, dynamicColumns }">
