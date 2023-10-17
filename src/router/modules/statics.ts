@@ -25,6 +25,22 @@ export default {
       meta: {
         title: $t("menus.payPrice")
       }
+    },
+    {
+      path: "/statics/recievable",
+      name: "Recievable",
+      component: () => import("@/views/statics/recievable/index.vue"),
+      meta: {
+        title: $t("menus.recievable")
+      }
+    },
+    {
+      path: "/statics/payable",
+      name: "payable",
+      component: () => import("@/views/statics/payable/index.vue"),
+      meta: {
+        title: $t("menus.payable")
+      }
     }
   ]
 } as RouteConfigsTable;
