@@ -27,7 +27,8 @@ export function useRole() {
     fee: "",
     fee_amount: "",
     add_time: "",
-    add_stuff: ""
+    add_stuff: "",
+    zixiangmu: ""
   });
   const formRef = ref();
   let dataList = tableData;
@@ -119,6 +120,11 @@ export function useRole() {
     {
       label: "录入人",
       prop: "add_stuff",
+      minWidth: 150
+    },
+    {
+      label: "子项目",
+      prop: "zixiangmu",
       minWidth: 150
     },
     {
@@ -236,7 +242,8 @@ export function useRole() {
           fee: row?.fee ?? "",
           fee_amount: row?.fee_amount ?? "",
           add_time: row?.add_time ?? "",
-          add_stuff: row?.add_stuff ?? ""
+          add_stuff: row?.add_stuff ?? "",
+          zixiangmu: row?.zixiangmu ?? ""
         }
       },
       width: "40%",

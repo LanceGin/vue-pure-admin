@@ -17,7 +17,10 @@ export function useRole() {
     address: "",
     contact_name: "",
     contact_mobile: "",
-    status: ""
+    status: "",
+    project: "",
+    mendian: "",
+    zixiangmu: ""
   });
   const formRef = ref();
   let dataList = tableData;
@@ -54,6 +57,21 @@ export function useRole() {
     {
       label: "联系电话",
       prop: "contact_mobile",
+      minWidth: 150
+    },
+    {
+      label: "项目管理",
+      prop: "project",
+      minWidth: 150
+    },
+    {
+      label: "作业门点",
+      prop: "mendian",
+      minWidth: 150
+    },
+    {
+      label: "子项目",
+      prop: "zixiangmu",
       minWidth: 150
     },
     {
@@ -176,7 +194,10 @@ export function useRole() {
           refer: row?.refer ?? "",
           address: row?.address ?? "",
           contact_name: row?.contact_name ?? "",
-          contact_mobile: row?.contact_mobile ?? ""
+          contact_mobile: row?.contact_mobile ?? "",
+          project: row?.project ?? "",
+          mendian: row?.mendian ?? "",
+          zixiangmu: row?.zixiangmu ?? ""
         }
       },
       width: "40%",

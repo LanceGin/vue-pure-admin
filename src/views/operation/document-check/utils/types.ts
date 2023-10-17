@@ -17,6 +17,7 @@ interface FormItemProps {
   fee_amount: string;
   add_time: string;
   add_stuff: string;
+  zixiangmu: string;
 }
 interface FormProps {
   formInline: FormItemProps;

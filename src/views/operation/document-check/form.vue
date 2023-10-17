@@ -20,7 +20,8 @@ const props = withDefaults(defineProps<FormProps>(), {
     fee: "",
     fee_amount: "",
     add_time: "",
-    add_stuff: ""
+    add_stuff: "",
+    zixiangmu: ""
   })
 });
 
@@ -41,14 +42,6 @@ defineExpose({ getRef });
     :rules="formRules"
     label-width="82px"
   >
-    <el-form-item label="状态" prop="status">
-      <el-input
-        v-model="newFormInline.status"
-        clearable
-        placeholder="请输入状态"
-      />
-    </el-form-item>
-
     <el-form-item label="类型" prop="cata">
       <el-input
         v-model="newFormInline.cata"
@@ -126,6 +119,14 @@ defineExpose({ getRef });
         v-model="newFormInline.boat_date"
         clearable
         placeholder="请输入船期"
+      />
+    </el-form-item>
+
+    <el-form-item label="子项目" prop="zixiangmu">
+      <el-input
+        v-model="newFormInline.zixiangmu"
+        clearable
+        placeholder="请输入子项目"
       />
     </el-form-item>
   </el-form>

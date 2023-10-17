@@ -9,7 +9,11 @@ const props = withDefaults(defineProps<FormProps>(), {
     name: "",
     address: "",
     contact_name: "",
-    contact_mobile: ""
+    contact_mobile: "",
+    status: "",
+    project: "",
+    mendian: "",
+    zixiangmu: ""
   })
 });
 
@@ -67,6 +71,30 @@ defineExpose({ getRef });
         v-model="newFormInline.contact_mobile"
         clearable
         placeholder="请输入联系电话"
+      />
+    </el-form-item>
+
+    <el-form-item label="项目管理" prop="project">
+      <el-input
+        v-model="newFormInline.project"
+        clearable
+        placeholder="请输入项目管理"
+      />
+    </el-form-item>
+
+    <el-form-item label="作业门点" prop="mendian">
+      <el-input
+        v-model="newFormInline.mendian"
+        clearable
+        placeholder="请输入作业门点"
+      />
+    </el-form-item>
+
+    <el-form-item label="子项目" prop="zixiangmu">
+      <el-input
+        v-model="newFormInline.zixiangmu"
+        clearable
+        placeholder="请输入子项目"
       />
     </el-form-item>
   </el-form>

@@ -11,6 +11,14 @@ interface FormItemProps {
   contact_name: string;
   // 联系人电话
   contact_mobile: string;
+  // 状态：
+  status: string;
+  // 项目管理
+  project: string;
+  // 门点
+  mendian: string;
+  // 子项目
+  zixiangmu: string;
 }
 interface FormProps {
   formInline: FormItemProps;

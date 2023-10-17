@@ -39,7 +39,7 @@ defineExpose({ getRef });
   >
     <el-form-item label="类型" prop="cata">
       <el-input
-        v-model="newFormInline.refer"
+        v-model="newFormInline.cata"
         clearable
         placeholder="请输入堆场类型"
       />
