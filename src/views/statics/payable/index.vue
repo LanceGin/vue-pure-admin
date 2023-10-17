@@ -6,7 +6,7 @@ import { useRenderIcon } from "../../../components/ReIcon/src/hooks";
 
 // import Database from "@iconify-icons/ri/database-2-line";
 // import More from "@iconify-icons/ep/more-filled";
-import Delete from "@iconify-icons/ep/delete";
+// import Delete from "@iconify-icons/ep/delete";
 import EditPen from "@iconify-icons/ep/edit-pen";
 import Search from "@iconify-icons/ep/search";
 import Upload from "@iconify-icons/ep/upload";
@@ -28,7 +28,7 @@ const {
   onSearch,
   resetForm,
   openDialog,
-  handleDelete,
+  // handleDelete,
   // handleDatabase,
   handleSizeChange,
   handleCurrentChange,
@@ -51,33 +51,46 @@ const {
           clearable
           class="!w-[180px]"
         >
-          <el-option label="全部" value="0" />
-          <el-option label="未提交" value="1" />
-          <el-option label="已提交" value="2" />
-          <el-option label="通过审核" value="3" />
-          <el-option label="已记账" value="4" />
+          <el-option label="未提交" value="0" />
+          <el-option label="已提交" value="1" />
         </el-select>
       </el-form-item>
-      <el-form-item label="供应商：" prop="gongyingshang">
+      <el-form-item label="做箱时间：" prop="zuoxiangshijian">
         <el-input
-          v-model="form.gongyingshang"
-          placeholder="请输入供应商"
+          v-model="form.zuoxiangshijian"
+          placeholder="请输入做箱时间"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="结算单位：" prop="jiesuandanwei">
+      <el-form-item label="运单号：" prop="yundanhao">
         <el-input
-          v-model="form.jiesuandanwei"
-          placeholder="请输入结算单位"
+          v-model="form.yundanhao"
+          placeholder="请输入运单号"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="银行账号：" prop="yinhangzhanghao">
+      <el-form-item label="箱号：" prop="xiangfenghao">
         <el-input
-          v-model="form.yinhangzhanghao"
-          placeholder="请输入银行账号"
+          v-model="form.xiangfenghao"
+          placeholder="请输入箱号"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
+      <el-form-item label="车辆：" prop="cheliang">
+        <el-input
+          v-model="form.cheliang"
+          placeholder="请输入车辆"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
+      <el-form-item label="客户简称：" prop="kehu">
+        <el-input
+          v-model="form.kehu"
+          placeholder="请输入客户简称"
           clearable
           class="!w-[200px]"
         />
@@ -92,6 +105,12 @@ const {
         >
           搜索
         </el-button>
+        <el-button :icon="useRenderIcon(EditPen)" @click="resetForm(formRef)">
+          提交
+        </el-button>
+        <el-button :icon="useRenderIcon(EditPen)" @click="resetForm(formRef)">
+          设置发票号
+        </el-button>
         <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
           导入
         </el-button>
@@ -102,7 +121,7 @@ const {
     </el-form>
 
     <PureTableBar
-      title="应付管理（测试用，操作后不生效）"
+      title="应付费用（测试用，操作后不生效）"
       :columns="columns"
       @refresh="onSearch"
     >
@@ -112,7 +131,7 @@ const {
           :icon="useRenderIcon(AddFill)"
           @click="openDialog()"
         >
-          添加应付记录
+          添加应付费用
         </el-button>
       </template>
       <template v-slot="{ size, dynamicColumns }">
@@ -143,26 +162,10 @@ const {
               type="primary"
               :size="size"
               :icon="useRenderIcon(EditPen)"
-              @click="openDialog('编辑', row)"
+              @click="openDialog('开票', row)"
             >
-              修改
+              编辑
             </el-button>
-            <el-popconfirm
-              :title="`是否确认删除客户名称为${row.name}的这条数据`"
-              @confirm="handleDelete(row)"
-            >
-              <template #reference>
-                <el-button
-                  class="reset-margin"
-                  link
-                  type="primary"
-                  :size="size"
-                  :icon="useRenderIcon(Delete)"
-                >
-                  删除
-                </el-button>
-              </template>
-            </el-popconfirm>
             <!-- <el-dropdown>
               <el-button
                 class="ml-3 mt-[2px]"

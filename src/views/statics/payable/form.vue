@@ -7,21 +7,33 @@ const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
     zhuangtai: "",
     zhangqi: "",
-    gongyingshang: "",
-    jiesuandanwei: "",
-    kaihuhang: "",
-    yinhangzhanghao: "",
-    fuwu: "",
-    f: "",
-    t: "",
-    xiangliang: "",
-    jiesuanjine: "",
-    kouchu: "",
-    zengjia: "",
-    shifu: "",
-    haoma: "",
-    jizhangriqi: "",
-    beizhu: ""
+    feiyongmc: "",
+    jine: "",
+    zuoxiangshijian: "",
+    kehu: "",
+    qishigang: "",
+    mudigang: "",
+    matou: "",
+    chuangongsi: "",
+    chuanming: "",
+    xiangfenghao: "",
+    xianghao: "",
+    yundanhao: "",
+    xiangxing: "",
+    danjuleibie: "",
+    mendian: "",
+    yewu: "",
+    wanglaidanwei: "",
+    cheliang: "",
+    beizhu: "",
+    fapiaohao: "",
+    chedui: "",
+    jiesuanhao: "",
+    jihuahao: "",
+    lururen: "",
+    lurushijian: "",
+    feiyongleixing: "",
+    huidanbeizhu: ""
   })
 });
 
@@ -42,11 +54,11 @@ defineExpose({ getRef });
     :rules="formRules"
     label-width="82px"
   >
-    <el-form-item label="供应商名称" prop="gongyingshang">
+    <el-form-item label="费用名称" prop="feiyongmc">
       <el-input
-        v-model="newFormInline.gongyingshang"
+        v-model="newFormInline.feiyongmc"
         clearable
-        placeholder="请输入供应商名称"
+        placeholder="请输入费用名称"
       />
     </el-form-item>
   </el-form>

@@ -3,21 +3,33 @@
 interface FormItemProps {
   zhuangtai: string;
   zhangqi: string;
-  gongyingshang: string;
-  jiesuandanwei: string;
-  kaihuhang: string;
-  yinhangzhanghao: string;
-  fuwu: string;
-  f: string;
-  t: string;
-  xiangliang: string;
-  jiesuanjine: string;
-  kouchu: string;
-  zengjia: string;
-  shifu: string;
-  haoma: string;
-  jizhangriqi: string;
+  feiyongmc: string;
+  jine: string;
+  zuoxiangshijian: string;
+  kehu: string;
+  qishigang: string;
+  mudigang: string;
+  matou: string;
+  chuangongsi: string;
+  chuanming: string;
+  xiangfenghao: string;
+  xianghao: string;
+  yundanhao: string;
+  xiangxing: string;
+  danjuleibie: string;
+  mendian: string;
+  yewu: string;
+  wanglaidanwei: string;
+  cheliang: string;
   beizhu: string;
+  fapiaohao: string;
+  chedui: string;
+  jiesuanhao: string;
+  jihuahao: string;
+  lururen: string;
+  lurushijian: string;
+  feiyongleixing: string;
+  huidanbeizhu: string;
 }
 interface FormProps {
   formInline: FormItemProps;
