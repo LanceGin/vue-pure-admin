@@ -21,25 +21,9 @@ export default {
     {
       path: "/dispatch/car_assignation_status",
       name: "CarAssignationStatus",
-      component: () => import("@/views/error/500.vue"),
+      component: () => import("@/views/dispatch/assign-status/index.vue"),
       meta: {
         title: $t("menus.carAssignationStatus")
-      }
-    },
-    {
-      path: "/dispatch/document_info",
-      name: "DocumentInfo",
-      component: () => import("@/views/error/500.vue"),
-      meta: {
-        title: $t("menus.documentInfo")
-      }
-    },
-    {
-      path: "/dispatch/pickbox",
-      name: "pickbox",
-      component: () => import("@/views/error/500.vue"),
-      meta: {
-        title: $t("menus.pickbox")
       }
     }
   ]
