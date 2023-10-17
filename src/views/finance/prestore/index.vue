@@ -44,26 +44,18 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="车牌号：" prop="car_no">
+      <el-form-item label="卡号/账号：" prop="kahao">
         <el-input
-          v-model="form.car_no"
-          placeholder="请输入车牌号"
+          v-model="form.kahao"
+          placeholder="请输入卡号/账号"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="驾驶员：" prop="driver">
+      <el-form-item label="往来单位：" prop="wanglaidanwei">
         <el-input
-          v-model="form.driver"
-          placeholder="请输入驾驶员名称"
-          clearable
-          class="!w-[200px]"
-        />
-      </el-form-item>
-      <el-form-item label="手机号：" prop="mobile">
-        <el-input
-          v-model="form.mobile"
-          placeholder="请输入手机号"
+          v-model="form.wanglaidanwei"
+          placeholder="请输入往来单位"
           clearable
           class="!w-[200px]"
         />
@@ -88,7 +80,7 @@ const {
     </el-form>
 
     <PureTableBar
-      title="车辆信息管理（测试用，操作后不生效）"
+      title="预存信息管理（测试用，操作后不生效）"
       :columns="columns"
       @refresh="onSearch"
     >
@@ -98,7 +90,7 @@ const {
           :icon="useRenderIcon(AddFill)"
           @click="openDialog()"
         >
-          添加车辆
+          添加预存信息
         </el-button>
       </template>
       <template v-slot="{ size, dynamicColumns }">
