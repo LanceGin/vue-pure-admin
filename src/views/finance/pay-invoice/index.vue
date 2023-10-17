@@ -11,7 +11,7 @@ import EditPen from "@iconify-icons/ep/edit-pen";
 import Search from "@iconify-icons/ep/search";
 import Upload from "@iconify-icons/ep/upload";
 import Download from "@iconify-icons/ep/download";
-import AddFill from "@iconify-icons/ri/add-circle-line";
+// import AddFill from "@iconify-icons/ri/add-circle-line";
 
 defineOptions({
   name: "Role"
@@ -44,26 +44,42 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="车牌号：" prop="car_no">
+      <el-form-item label="发票代码：" prop="daima">
         <el-input
-          v-model="form.car_no"
-          placeholder="请输入车牌号"
+          v-model="form.daima"
+          placeholder="请输入发票代码"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="驾驶员：" prop="driver">
+      <el-form-item label="发票号码：" prop="haoma">
         <el-input
-          v-model="form.driver"
-          placeholder="请输入驾驶员名称"
+          v-model="form.haoma"
+          placeholder="请输入发票号码"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="手机号：" prop="mobile">
+      <el-form-item label="数电票号码：" prop="shudianpiao">
         <el-input
-          v-model="form.mobile"
-          placeholder="请输入手机号"
+          v-model="form.shudianpiao"
+          placeholder="请输入数电票号码"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
+      <el-form-item label="销方名称：" prop="xiaofangmc">
+        <el-input
+          v-model="form.xiaofangmc"
+          placeholder="请输入销方名称"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
+      <el-form-item label="购方名称：" prop="goufangmc">
+        <el-input
+          v-model="form.goufangmc"
+          placeholder="请输入购方名称"
           clearable
           class="!w-[200px]"
         />
@@ -88,19 +104,19 @@ const {
     </el-form>
 
     <PureTableBar
-      title="车辆信息管理（测试用，操作后不生效）"
+      title="应付发票管理（测试用，操作后不生效）"
       :columns="columns"
       @refresh="onSearch"
     >
-      <template #buttons>
+      <!-- <template #buttons>
         <el-button
           type="primary"
           :icon="useRenderIcon(AddFill)"
           @click="openDialog()"
         >
-          添加车辆
+          添加开票信息
         </el-button>
-      </template>
+      </template> -->
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border
