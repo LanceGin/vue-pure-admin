@@ -6,12 +6,12 @@ import { useRenderIcon } from "../../../components/ReIcon/src/hooks";
 
 // import Database from "@iconify-icons/ri/database-2-line";
 // import More from "@iconify-icons/ep/more-filled";
-import Delete from "@iconify-icons/ep/delete";
+// import Delete from "@iconify-icons/ep/delete";
 import EditPen from "@iconify-icons/ep/edit-pen";
 import Search from "@iconify-icons/ep/search";
 import Upload from "@iconify-icons/ep/upload";
 import Download from "@iconify-icons/ep/download";
-import AddFill from "@iconify-icons/ri/add-circle-line";
+// import AddFill from "@iconify-icons/ri/add-circle-line";
 
 defineOptions({
   name: "Role"
@@ -44,20 +44,21 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="序号：" prop="no">
+      <el-form-item label="供应商：" prop="gongyingshang">
         <el-input
-          v-model="form.no"
-          placeholder="请输入序号"
+          v-model="form.gongyingshang"
+          placeholder="请输入供应商名"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="车号：" prop="car_no">
+
+      <el-form-item label="结算单位：" prop="jiesuandanwei">
         <el-input
-          v-model="form.car_no"
-          placeholder="请输入车号"
+          v-model="form.jiesuandanwei"
+          placeholder="请输入结算单位"
           clearable
-          class="!w-[180px]"
+          class="!w-[200px]"
         />
       </el-form-item>
       <el-form-item>
@@ -79,19 +80,19 @@ const {
     </el-form>
 
     <PureTableBar
-      title="油耗核算记录（测试用，操作后不生效）"
+      title="应付费用列表（测试用，操作后不生效）"
       :columns="columns"
       @refresh="onSearch"
     >
-      <template #buttons>
+      <!-- <template #buttons>
         <el-button
           type="primary"
           :icon="useRenderIcon(AddFill)"
           @click="openDialog()"
         >
-          添加核算记录
+          添加驾驶员
         </el-button>
-      </template>
+      </template> -->
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border
@@ -122,21 +123,21 @@ const {
               :icon="useRenderIcon(EditPen)"
               @click="openDialog('编辑', row)"
             >
-              修改
+              审核通过
             </el-button>
             <el-popconfirm
-              :title="`是否确认删除堆场名称为${row.name}的这条数据`"
+              :title="`是否确认删除客户名称为${row.name}的这条数据`"
               @confirm="handleDelete(row)"
             >
               <template #reference>
                 <el-button
                   class="reset-margin"
                   link
-                  type="primary"
+                  type="danger"
                   :size="size"
-                  :icon="useRenderIcon(Delete)"
+                  :icon="useRenderIcon(EditPen)"
                 >
-                  删除
+                  拒绝退回
                 </el-button>
               </template>
             </el-popconfirm>

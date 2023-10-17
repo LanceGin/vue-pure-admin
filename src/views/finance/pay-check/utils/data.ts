@@ -1,33 +1,23 @@
 const tableData = [
   {
-    no: "1",
-    car_no: "fdsaf",
-    licheng_6: "12",
-    youhaobiaozhun: "1",
-    licheng_xiuzheng: "1",
-    hedingshengshu: "",
-    danjia: "",
-    jinfei: "1",
-    shijishengshu: "1",
-    amount: "",
-    chashengshu: "1",
-    jiangfa: "",
-    remark: "1"
+    driver: "张三",
+    idcard: "210225*********",
+    mobile: "12589852221",
+    meta: "租车",
+    remark: "",
+    idcard_pic: "",
+    driver_license: "",
+    congye: ""
   },
   {
-    no: "2",
-    car_no: "22",
-    licheng_6: "3",
-    youhaobiaozhun: "",
-    licheng_xiuzheng: "",
-    hedingshengshu: "",
-    danjia: "",
-    jinfei: "33",
-    shijishengshu: "",
-    amount: "",
-    chashengshu: "",
-    jiangfa: "",
-    remark: ""
+    driver: "李四",
+    idcard: "210225*********",
+    mobile: "12589852221",
+    meta: "包车",
+    remark: "",
+    idcard_pic: "",
+    driver_license: "",
+    congye: ""
   }
 ];
 

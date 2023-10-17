@@ -12,19 +12,18 @@ import { reactive, ref, onMounted, h, toRaw } from "vue";
 
 export function useRole() {
   const form = reactive({
-    no: "",
-    car_no: "",
-    licheng_6: "",
-    youhaobiaozhun: "",
-    licheng_xiuzheng: "",
-    hedingshengshu: "",
-    danjia: "",
-    jinfei: "",
-    shijishengshu: "",
-    amount: "",
-    chashengshu: "",
-    jiangfa: "",
-    remark: ""
+    zhangqi: "",
+    gongyingshang: "",
+    jiesuandanwei: "",
+    fuwu: "",
+    f: "",
+    t: "",
+    xiangliang: "",
+    jiesuan: "",
+    kouchu: "",
+    zengjia: "",
+    shifu: "",
+    beizhu: ""
   });
   const formRef = ref();
   let dataList = tableData;
@@ -39,92 +38,52 @@ export function useRole() {
   });
   const columns: TableColumnList = [
     {
-      label: "序号",
-      prop: "no",
+      label: "账期",
+      prop: "zhangqi",
       minWidth: 100
     },
     {
-      label: "车号",
-      prop: "car_no",
+      label: "客户",
+      prop: "kehu",
       minWidth: 120
     },
     {
-      label: "实际里程",
-      children: [
-        {
-          label: "6月历程数（KM）",
-          prop: "licheng_6",
-          minWidth: 150
-        },
-        {
-          label: "油耗标准（L/100KM）",
-          prop: "youhaobiaozhun",
-          minWidth: 150
-        },
-        {
-          label: "历程修正系统",
-          prop: "licheng_xiuzheng",
-          minWidth: 150
-        }
-      ]
+      label: "项目",
+      prop: "xiangmu",
+      minWidth: 150
     },
     {
-      label: "核定油耗",
-      children: [
-        {
-          label: "升数（L）",
-          prop: "hedingshengshu",
-          minWidth: 150
-        },
-        {
-          label: "平均单价",
-          prop: "danjia",
-          minWidth: 150
-        },
-        {
-          label: "金费（元）",
-          prop: "jinfei",
-          minWidth: 150
-        }
-      ]
+      label: "流向",
+      prop: "liuxiang",
+      minWidth: 150
     },
     {
-      label: "实际消费",
-      children: [
-        {
-          label: "升数（L）",
-          prop: "shijishengshu",
-          minWidth: 150
-        },
-        {
-          label: "总金额",
-          prop: "amount",
-          minWidth: 150
-        }
-      ]
+      label: "服务内容",
+      prop: "fuwu",
+      minWidth: 150
     },
     {
-      label: "（正数为超油）",
-      children: [
-        {
-          label: "升数（L）",
-          prop: "chashengshu",
-          minWidth: 150
-        }
-      ]
+      label: "40",
+      prop: "f",
+      minWidth: 150
     },
     {
-      label: "每月油耗奖励",
-      children: [
-        {
-          label: "元",
-          prop: "jiangfa",
-          minWidth: 150
-        }
-      ]
+      label: "20",
+      prop: "t",
+      minWidth: 150
     },
     {
-      label: "操作",
+      label: "箱量合计",
+      prop: "xiangliang",
+      minWidth: 150
+    },
+    {
+      label: "应收金额",
+      prop: "yingshou",
+      minWidth: 150
+    },
+    {
+      label: "审核",
       fixed: "right",
       width: 240,
       slot: "operation"
@@ -220,22 +179,21 @@ export function useRole() {
 
   function openDialog(title = "添加", row?: FormItemProps) {
     addDialog({
-      title: `${title}核算记录`,
+      title: `${title}驾驶员`,
       props: {
         formInline: {
-          no: row?.no ?? "",
-          car_no: row?.car_no ?? "",
-          licheng_6: row?.licheng_6 ?? "",
-          youhaobiaozhun: row?.youhaobiaozhun ?? "",
-          licheng_xiuzheng: row?.licheng_xiuzheng ?? "",
-          hedingshengshu: row?.hedingshengshu ?? "",
-          danjia: row?.danjia ?? "",
-          jinfei: row?.jinfei ?? "",
-          shijishengshu: row?.shijishengshu ?? "",
-          amount: row?.amount ?? "",
-          chashengshu: row?.chashengshu ?? "",
-          jiangfa: row?.jiangfa ?? "",
-          remark: row?.remark ?? ""
+          zhangqi: row?.zhangqi ?? "",
+          gongyingshang: row?.gongyingshang ?? "",
+          jiesuandanwei: row?.jiesuandanwei ?? "",
+          fuwu: row?.fuwu ?? "",
+          f: row?.f ?? "",
+          t: row?.t ?? "",
+          xiangliang: row?.xiangliang ?? "",
+          jiesuan: row?.jiesuan ?? "",
+          kouchu: row?.kouchu ?? "",
+          zengjia: row?.zengjia ?? "",
+          shifu: row?.shifu ?? "",
+          beizhu: row?.beizhu ?? ""
         }
       },
       width: "40%",
@@ -247,7 +205,7 @@ export function useRole() {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
         function chores() {
-          message(`您${title}了车牌号为${curData.car_no}的这条数据`, {
+          message(`您${title}了供应商名称为${curData.fuwu}的这条数据`, {
             type: "success"
           });
           done(); // 关闭弹框

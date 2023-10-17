@@ -12,14 +12,15 @@ import { reactive, ref, onMounted, h, toRaw } from "vue";
 
 export function useRole() {
   const form = reactive({
-    driver: "",
-    idcard: "",
-    mobile: "",
-    meta: "",
-    remark: "",
-    idcard_pic: "",
-    driver_license: "",
-    congye: ""
+    zhangqi: "",
+    kehu: "",
+    xiangmu: "",
+    liuxiang: "",
+    fuwu: "",
+    f: "",
+    t: "",
+    xiangliang: "",
+    yingshou: ""
   });
   const formRef = ref();
   let dataList = tableData;
@@ -34,47 +35,52 @@ export function useRole() {
   });
   const columns: TableColumnList = [
     {
-      label: "驾驶员",
-      prop: "driver",
+      label: "账期",
+      prop: "zhangqi",
       minWidth: 100
     },
     {
-      label: "身份证号",
-      prop: "idcard",
+      label: "客户",
+      prop: "kehu",
       minWidth: 120
     },
     {
-      label: "手机号",
-      prop: "mobile",
+      label: "项目",
+      prop: "xiangmu",
       minWidth: 150
     },
     {
-      label: "属性",
-      prop: "meta",
+      label: "流向",
+      prop: "liuxiang",
       minWidth: 150
     },
     {
-      label: "备注",
-      prop: "remark",
+      label: "服务内容",
+      prop: "fuwu",
       minWidth: 150
     },
     {
-      label: "身份证",
-      prop: "idcard_pic",
+      label: "40",
+      prop: "f",
       minWidth: 150
     },
     {
-      label: "驾驶证",
-      prop: "driver_license",
+      label: "20",
+      prop: "t",
       minWidth: 150
     },
     {
-      label: "从业资格证",
-      prop: "congye",
+      label: "箱量合计",
+      prop: "xiangliang",
       minWidth: 150
     },
     {
-      label: "操作",
+      label: "应收金额",
+      prop: "yingshou",
+      minWidth: 150
+    },
+    {
+      label: "审核",
       fixed: "right",
       width: 240,
       slot: "operation"
@@ -173,14 +179,15 @@ export function useRole() {
       title: `${title}驾驶员`,
       props: {
         formInline: {
-          driver: row?.driver ?? "",
-          idcard: row?.idcard ?? "",
-          mobile: row?.mobile ?? "",
-          meta: row?.meta ?? "",
-          remark: row?.remark ?? "",
-          idcard_pic: row?.idcard_pic ?? "",
-          driver_license: row?.driver_license ?? "",
-          congye: row?.congye ?? ""
+          zhangqi: row?.zhangqi ?? "",
+          kehu: row?.kehu ?? "",
+          xiangmu: row?.xiangmu ?? "",
+          liuxiang: row?.liuxiang ?? "",
+          fuwu: row?.fuwu ?? "",
+          f: row?.f ?? "",
+          t: row?.t ?? "",
+          xiangliang: row?.xiangliang ?? "",
+          yingshou: row?.yingshou ?? ""
         }
       },
       width: "40%",
@@ -192,7 +199,7 @@ export function useRole() {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
         function chores() {
-          message(`您${title}了司机名称为${curData.driver}的这条数据`, {
+          message(`您${title}了客户名称为${curData.kehu}的这条数据`, {
             type: "success"
           });
           done(); // 关闭弹框
