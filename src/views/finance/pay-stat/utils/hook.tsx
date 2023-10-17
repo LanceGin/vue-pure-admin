@@ -12,20 +12,14 @@ import { reactive, ref, onMounted, h, toRaw } from "vue";
 
 export function useRole() {
   const form = reactive({
-    area: "",
-    brand: "",
-    car_no: "",
-    emission: "",
-    buy_year: "",
-    axles: "",
-    company: "",
-    guakao: "",
-    youka: "",
-    guaban_no: "",
-    driver: "",
-    mobile: "",
-    meta: "",
-    remark: ""
+    yingfudanwei: "",
+    yewu: "",
+    mendian: "",
+    t: "",
+    f: "",
+    xiangliang: "",
+    yingfu: "",
+    shifu: ""
   });
   const formRef = ref();
   let dataList = tableData;
@@ -40,80 +34,44 @@ export function useRole() {
   });
   const columns: TableColumnList = [
     {
-      label: "车辆属地",
-      prop: "area",
+      label: "应付单位",
+      prop: "yingfudanwei",
       minWidth: 100
     },
     {
-      label: "品牌",
-      prop: "brand",
+      label: "业务名称",
+      prop: "yewu",
       minWidth: 120
     },
     {
-      label: "车牌号",
-      prop: "car_no",
+      label: "门点",
+      prop: "mendian",
       minWidth: 150
     },
     {
-      label: "排放",
-      prop: "emission",
+      label: "20",
+      prop: "t",
       minWidth: 150
     },
     {
-      label: "车辆购买年限",
-      prop: "buy_year",
+      label: "40",
+      prop: "f",
       minWidth: 150
     },
     {
-      label: "轴数",
-      prop: "axles",
+      label: "箱量合计",
+      prop: "xiangliang",
       minWidth: 150
     },
     {
-      label: "车辆所属",
-      prop: "company",
+      label: "应付金额",
+      prop: "yingfu",
       minWidth: 150
     },
     {
-      label: "车辆挂靠",
-      prop: "guakao",
+      label: "实付金额",
+      prop: "shifu",
       minWidth: 150
-    },
-    {
-      label: "油卡归属",
-      prop: "youka",
-      minWidth: 150
-    },
-    {
-      label: "挂板号",
-      prop: "guaban_no",
-      minWidth: 150
-    },
-    {
-      label: "驾驶员",
-      prop: "driver",
-      minWidth: 150
-    },
-    {
-      label: "手机号",
-      prop: "mobile",
-      minWidth: 150
-    },
-    {
-      label: "属性",
-      prop: "meta",
-      minWidth: 150
-    },
-    {
-      label: "备注",
-      prop: "remark",
-      minWidth: 150
-    },
-    {
-      label: "操作",
-      fixed: "right",
-      width: 240,
-      slot: "operation"
     }
   ];
   // const buttonClass = computed(() => {
@@ -209,20 +167,14 @@ export function useRole() {
       title: `${title}车辆`,
       props: {
         formInline: {
-          area: row?.area ?? "",
-          brand: row?.brand ?? "",
-          car_no: row?.car_no ?? "",
-          emission: row?.emission ?? "",
-          buy_year: row?.buy_year ?? "",
-          axles: row?.axles ?? "",
-          company: row?.company ?? "",
-          guakao: row?.guakao ?? "",
-          youka: row?.youka ?? "",
-          guaban_no: row?.guaban_no ?? "",
-          driver: row?.driver ?? "",
-          mobile: row?.mobile ?? "",
-          meta: row?.meta ?? "",
-          remark: row?.remark ?? ""
+          yingfudanwei: row?.yingfudanwei ?? "",
+          yewu: row?.yewu ?? "",
+          mendian: row?.mendian ?? "",
+          t: row?.t ?? "",
+          f: row?.f ?? "",
+          xiangliang: row?.xiangliang ?? "",
+          yingfu: row?.yingfu ?? "",
+          shifu: row?.shifu ?? ""
         }
       },
       width: "40%",
@@ -234,7 +186,7 @@ export function useRole() {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
         function chores() {
-          message(`您${title}了车牌号为${curData.car_no}的这条数据`, {
+          message(`您${title}了客户为${curData.yingfudanwei}的这条数据`, {
             type: "success"
           });
           done(); // 关闭弹框

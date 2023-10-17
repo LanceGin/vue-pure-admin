@@ -10,8 +10,8 @@ import Delete from "@iconify-icons/ep/delete";
 import EditPen from "@iconify-icons/ep/edit-pen";
 import Search from "@iconify-icons/ep/search";
 import Upload from "@iconify-icons/ep/upload";
-import Download from "@iconify-icons/ep/download";
-import AddFill from "@iconify-icons/ri/add-circle-line";
+// import Download from "@iconify-icons/ep/download";
+// import AddFill from "@iconify-icons/ri/add-circle-line";
 
 defineOptions({
   name: "Role"
@@ -44,26 +44,26 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="车牌号：" prop="car_no">
+      <el-form-item label="应付单位：" prop="yingfudanwei">
         <el-input
-          v-model="form.car_no"
-          placeholder="请输入车牌号"
+          v-model="form.yingfudanwei"
+          placeholder="请输入应付单位"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="驾驶员：" prop="driver">
+      <el-form-item label="业务名：" prop="yewu">
         <el-input
-          v-model="form.driver"
-          placeholder="请输入驾驶员名称"
+          v-model="form.yewu"
+          placeholder="请输入业务名"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="手机号：" prop="mobile">
+      <el-form-item label="门点：" prop="mendian">
         <el-input
-          v-model="form.mobile"
-          placeholder="请输入手机号"
+          v-model="form.mendian"
+          placeholder="请输入门点"
           clearable
           class="!w-[200px]"
         />
@@ -78,9 +78,6 @@ const {
         >
           搜索
         </el-button>
-        <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
-          导入
-        </el-button>
         <el-button :icon="useRenderIcon(Upload)" @click="resetForm(formRef)">
           导出
         </el-button>
@@ -88,11 +85,11 @@ const {
     </el-form>
 
     <PureTableBar
-      title="车辆信息管理（测试用，操作后不生效）"
+      title="应付报表管理（测试用，操作后不生效）"
       :columns="columns"
       @refresh="onSearch"
     >
-      <template #buttons>
+      <!-- <template #buttons>
         <el-button
           type="primary"
           :icon="useRenderIcon(AddFill)"
@@ -100,7 +97,7 @@ const {
         >
           添加车辆
         </el-button>
-      </template>
+      </template> -->
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border

@@ -5,20 +5,15 @@ import { FormProps } from "./utils/types";
 
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
-    area: "",
-    brand: "",
-    car_no: "",
-    emission: "",
-    buy_year: "",
-    axles: "",
-    company: "",
-    guakao: "",
-    youka: "",
-    guaban_no: "",
-    driver: "",
-    mobile: "",
-    meta: "",
-    remark: ""
+    kehu: "",
+    yewu: "",
+    mendian: "",
+    t: "",
+    f: "",
+    xiangliang: "",
+    yingshou: "",
+    jiesuan: "",
+    kaipiao: ""
   })
 });
 
@@ -39,11 +34,11 @@ defineExpose({ getRef });
     :rules="formRules"
     label-width="82px"
   >
-    <el-form-item label="所属地" prop="area">
+    <el-form-item label="客户" prop="kehu">
       <el-input
-        v-model="newFormInline.area"
+        v-model="newFormInline.kehu"
         clearable
-        placeholder="请输入所属地"
+        placeholder="请输入客户"
       />
     </el-form-item>
   </el-form>
