@@ -6,7 +6,7 @@ import { useRenderIcon } from "../../../components/ReIcon/src/hooks";
 
 // import Database from "@iconify-icons/ri/database-2-line";
 // import More from "@iconify-icons/ep/more-filled";
-import Delete from "@iconify-icons/ep/delete";
+// import Delete from "@iconify-icons/ep/delete";
 import EditPen from "@iconify-icons/ep/edit-pen";
 import Search from "@iconify-icons/ep/search";
 import Upload from "@iconify-icons/ep/upload";
@@ -28,7 +28,7 @@ const {
   onSearch,
   resetForm,
   openDialog,
-  handleDelete,
+  // handleDelete,
   // handleDatabase,
   handleSizeChange,
   handleCurrentChange,
@@ -44,26 +44,39 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="车牌号：" prop="car_no">
+      <el-form-item label="状态：" prop="zhuangtai">
+        <el-select
+          v-model="form.zhuangtai"
+          placeholder="请选择状态"
+          clearable
+          class="!w-[180px]"
+        >
+          <el-option label="全部" value="0" />
+          <el-option label="待开票" value="1" />
+          <el-option label="部分开票" value="2" />
+          <el-option label="完成开票" value="3" />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="客户名：" prop="kehu">
         <el-input
-          v-model="form.car_no"
-          placeholder="请输入车牌号"
+          v-model="form.kehu"
+          placeholder="请输入客户名"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="驾驶员：" prop="driver">
+      <el-form-item label="项目名：" prop="xiangmu">
         <el-input
-          v-model="form.driver"
-          placeholder="请输入驾驶员名称"
+          v-model="form.xiangmu"
+          placeholder="请输入项目名"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="手机号：" prop="mobile">
+      <el-form-item label="服务内容：" prop="fuwu">
         <el-input
-          v-model="form.mobile"
-          placeholder="请输入手机号"
+          v-model="form.fuwu"
+          placeholder="请输入服务内容"
           clearable
           class="!w-[200px]"
         />
@@ -88,7 +101,7 @@ const {
     </el-form>
 
     <PureTableBar
-      title="车辆信息管理（测试用，操作后不生效）"
+      title="应收管理（测试用，操作后不生效）"
       :columns="columns"
       @refresh="onSearch"
     >
@@ -98,7 +111,7 @@ const {
           :icon="useRenderIcon(AddFill)"
           @click="openDialog()"
         >
-          添加车辆
+          添加应收记录
         </el-button>
       </template>
       <template v-slot="{ size, dynamicColumns }">
@@ -129,26 +142,10 @@ const {
               type="primary"
               :size="size"
               :icon="useRenderIcon(EditPen)"
-              @click="openDialog('编辑', row)"
+              @click="openDialog('开票', row)"
             >
-              修改
+              开票申请
             </el-button>
-            <el-popconfirm
-              :title="`是否确认删除客户名称为${row.name}的这条数据`"
-              @confirm="handleDelete(row)"
-            >
-              <template #reference>
-                <el-button
-                  class="reset-margin"
-                  link
-                  type="primary"
-                  :size="size"
-                  :icon="useRenderIcon(Delete)"
-                >
-                  删除
-                </el-button>
-              </template>
-            </el-popconfirm>
             <!-- <el-dropdown>
               <el-button
                 class="ml-3 mt-[2px]"
