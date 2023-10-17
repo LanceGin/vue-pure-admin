@@ -41,6 +41,14 @@ export default {
       meta: {
         title: $t("menus.documentCheck")
       }
+    },
+    {
+      path: "/operation/pick_box",
+      name: "PickBox",
+      component: () => import("@/views/operation/pickbox/index.vue"),
+      meta: {
+        title: $t("menus.pickbox")
+      }
     }
   ]
 } as RouteConfigsTable;
