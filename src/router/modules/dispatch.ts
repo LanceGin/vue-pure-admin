@@ -12,11 +12,30 @@ export default {
   children: [
     {
       path: "/dispatch/car_assignation",
+      redirect: "/dispatch/car_assignation/unpacking",
       name: "CarAssignation",
-      component: () => import("@/views/error/500.vue"),
       meta: {
         title: $t("menus.carAssignation")
-      }
+      },
+      children: [
+        {
+          path: "/dispatch/car_assignation/unpacking",
+          name: "Unpacking",
+          component: () =>
+            import("@/views/dispatch/assign/unpacking/index.vue"),
+          meta: {
+            title: "拆箱列表"
+          }
+        },
+        {
+          path: "/dispatch/car_assignation/packing",
+          name: "Packing",
+          component: () => import("@/views/dispatch/assign/packing/index.vue"),
+          meta: {
+            title: "装箱列表"
+          }
+        }
+      ]
     },
     {
       path: "/dispatch/car_assignation_status",
