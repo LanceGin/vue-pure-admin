@@ -11,9 +11,17 @@ export default {
   },
   children: [
     {
+      path: "/daily/custom",
+      name: "Custom",
+      component: () => import("@/views/daily/custom/index.vue"),
+      meta: {
+        title: $t("menus.custom")
+      }
+    },
+    {
       path: "/daily/fee_application",
       name: "FeeApplication",
-      component: () => import("@/views/error/500.vue"),
+      component: () => import("@/views/daily/fee-application/index.vue"),
       meta: {
         title: $t("menus.feeApplication")
       }
@@ -21,7 +29,7 @@ export default {
     {
       path: "/daily/contract",
       name: "Contract",
-      component: () => import("@/views/error/500.vue"),
+      component: () => import("@/views/daily/contract/index.vue"),
       meta: {
         title: $t("menus.contract")
       }
