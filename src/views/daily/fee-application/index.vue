@@ -10,7 +10,7 @@ import Delete from "@iconify-icons/ep/delete";
 import EditPen from "@iconify-icons/ep/edit-pen";
 import Search from "@iconify-icons/ep/search";
 import Upload from "@iconify-icons/ep/upload";
-import Download from "@iconify-icons/ep/download";
+// import Download from "@iconify-icons/ep/download";
 import AddFill from "@iconify-icons/ri/add-circle-line";
 
 defineOptions({
@@ -44,29 +44,90 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="车牌号：" prop="car_no">
+      <el-form-item label="申请日期：" prop="shenqingriqi">
         <el-input
-          v-model="form.car_no"
-          placeholder="请输入车牌号"
+          v-model="form.shenqingriqi"
+          placeholder="请输入申请日期"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="驾驶员：" prop="driver">
+      <el-form-item label="费用编号：" prop="feiyongbianhao">
         <el-input
-          v-model="form.driver"
-          placeholder="请输入驾驶员名称"
+          v-model="form.feiyongbianhao"
+          placeholder="请输入费用编号"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="手机号：" prop="mobile">
+      <el-form-item label="费用名称：" prop="feiyongming">
         <el-input
-          v-model="form.mobile"
-          placeholder="请输入手机号"
+          v-model="form.feiyongming"
+          placeholder="请输入费用名称"
           clearable
           class="!w-[200px]"
         />
+      </el-form-item>
+      <el-form-item label="申请人：" prop="shenqingren">
+        <el-input
+          v-model="form.shenqingren"
+          placeholder="请输入申请人"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
+      <el-form-item label="申请单位：" prop="shenqingdanwei">
+        <el-input
+          v-model="form.shenqingdanwei"
+          placeholder="请输入申请单位"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
+      <el-form-item label="收/付：" prop="shoufu">
+        <el-select
+          v-model="form.shoufu"
+          placeholder="请选择类型"
+          clearable
+          class="!w-[180px]"
+        >
+          <el-option label="全部" value="0" />
+          <el-option label="收" value="1" />
+          <el-option label="付" value="2" />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="支付类型：" prop="zhifuleixing">
+        <el-select
+          v-model="form.zhifuleixing"
+          placeholder="请选择类型"
+          clearable
+          class="!w-[180px]"
+        >
+          <el-option label="全部" value="0" />
+          <el-option label="转账" value="1" />
+          <el-option label="现金" value="2" />
+          <el-option label="支票" value="3" />
+          <el-option label="结算卡" value="4" />
+          <el-option label="银行" value="5" />
+          <el-option label="汇票" value="6" />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="状态：" prop="zhuangtai">
+        <el-select
+          v-model="form.zhuangtai"
+          placeholder="请选择状态"
+          clearable
+          class="!w-[180px]"
+        >
+          <el-option label="全部" value="0" />
+          <el-option label="未提交" value="1" />
+          <el-option label="已提交" value="2" />
+          <el-option label="已撤销" value="3" />
+          <el-option label="通过审核" value="4" />
+          <el-option label="未通过审核" value="5" />
+          <el-option label="通过审批" value="6" />
+          <el-option label="已记账" value="6" />
+        </el-select>
       </el-form-item>
 
       <el-form-item>
@@ -78,17 +139,37 @@ const {
         >
           搜索
         </el-button>
-        <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
-          导入
+        <el-button
+          type="success"
+          :icon="useRenderIcon(EditPen)"
+          @click="resetForm(formRef)"
+        >
+          提交
+        </el-button>
+        <el-button
+          type="danger"
+          :icon="useRenderIcon(EditPen)"
+          @click="resetForm(formRef)"
+        >
+          撤销
+        </el-button>
+        <el-button :icon="useRenderIcon(EditPen)" @click="resetForm(formRef)">
+          打印申请单
+        </el-button>
+        <el-button :icon="useRenderIcon(EditPen)" @click="resetForm(formRef)">
+          打印报销单
         </el-button>
         <el-button :icon="useRenderIcon(Upload)" @click="resetForm(formRef)">
-          导出
+          导出费用
+        </el-button>
+        <el-button :icon="useRenderIcon(Upload)" @click="resetForm(formRef)">
+          导出列表
         </el-button>
       </el-form-item>
     </el-form>
 
     <PureTableBar
-      title="车辆信息管理（测试用，操作后不生效）"
+      title="费用申请管理（测试用，操作后不生效）"
       :columns="columns"
       @refresh="onSearch"
     >
@@ -98,7 +179,7 @@ const {
           :icon="useRenderIcon(AddFill)"
           @click="openDialog()"
         >
-          添加车辆
+          申请费用
         </el-button>
       </template>
       <template v-slot="{ size, dynamicColumns }">
