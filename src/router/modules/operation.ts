@@ -49,6 +49,30 @@ export default {
       meta: {
         title: $t("menus.pickbox")
       }
+    },
+    {
+      path: "/operation/litering",
+      meta: {
+        title: "驳运"
+      },
+      children: [
+        {
+          path: "/operation/litering/ytoj",
+          name: "Ytoj",
+          component: () => import("@/views/operation/litering/ytoj/index.vue"),
+          meta: {
+            title: "阳逻-金口"
+          }
+        },
+        {
+          path: "/operation/litering/jtoy",
+          name: "Jtoy",
+          component: () => import("@/views/operation/litering/jtoy/index.vue"),
+          meta: {
+            title: "金口-阳逻"
+          }
+        }
+      ]
     }
   ]
 } as RouteConfigsTable;
