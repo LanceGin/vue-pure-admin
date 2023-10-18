@@ -44,29 +44,70 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="车牌号：" prop="car_no">
+      <el-form-item label="签订日期：" prop="qiandingriqi">
         <el-input
-          v-model="form.car_no"
-          placeholder="请输入车牌号"
+          v-model="form.qiandingriqi"
+          placeholder="请输入签订日期"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="驾驶员：" prop="driver">
+      <el-form-item label="终止日期：" prop="zhongzhiriqi">
         <el-input
-          v-model="form.driver"
-          placeholder="请输入驾驶员名称"
+          v-model="form.zhongzhiriqi"
+          placeholder="请输入终止日期"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="手机号：" prop="mobile">
+      <el-form-item label="合同编号：" prop="bianhao">
         <el-input
-          v-model="form.mobile"
-          placeholder="请输入手机号"
+          v-model="form.bianhao"
+          placeholder="请输入合同编号"
           clearable
           class="!w-[200px]"
         />
+      </el-form-item>
+      <el-form-item label="合同余款：" prop="yukuan">
+        <el-input
+          v-model="form.yukuan"
+          placeholder="请输入合同余款"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
+      <el-form-item label="合同类型：" prop="leixing">
+        <el-select
+          v-model="form.leixing"
+          placeholder="请选择类型"
+          clearable
+          class="!w-[180px]"
+        >
+          <el-option label="全部" value="0" />
+          <el-option label="物流运输" value="1" />
+          <el-option label="挂靠协议" value="2" />
+          <el-option label="购买车辆" value="3" />
+          <el-option label="车辆租赁" value="4" />
+          <el-option label="承包运营" value="5" />
+          <el-option label="商业保险" value="6" />
+          <el-option label="行政" value="7" />
+          <el-option label="其他" value="8" />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="履行情况：" prop="hetongzhuangtai">
+        <el-select
+          v-model="form.hetongzhuangtai"
+          placeholder="请选择情况"
+          clearable
+          class="!w-[180px]"
+        >
+          <el-option label="全部" value="0" />
+          <el-option label="履行中" value="1" />
+          <el-option label="到期终止" value="2" />
+          <el-option label="异常-变更" value="3" />
+          <el-option label="异常-解除" value="4" />
+          <el-option label="异常-违约" value="5" />
+        </el-select>
       </el-form-item>
 
       <el-form-item>
@@ -78,17 +119,23 @@ const {
         >
           搜索
         </el-button>
-        <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
-          导入
+        <el-button :icon="useRenderIcon(EditPen)" @click="resetForm(formRef)">
+          调整已支付金额
         </el-button>
         <el-button :icon="useRenderIcon(Upload)" @click="resetForm(formRef)">
-          导出
+          上传合同
+        </el-button>
+        <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
+          下载合同
+        </el-button>
+        <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
+          合同模板
         </el-button>
       </el-form-item>
     </el-form>
 
     <PureTableBar
-      title="车辆信息管理（测试用，操作后不生效）"
+      title="合同管理（测试用，操作后不生效）"
       :columns="columns"
       @refresh="onSearch"
     >
@@ -98,7 +145,7 @@ const {
           :icon="useRenderIcon(AddFill)"
           @click="openDialog()"
         >
-          添加车辆
+          添加合同
         </el-button>
       </template>
       <template v-slot="{ size, dynamicColumns }">
@@ -134,7 +181,7 @@ const {
               修改
             </el-button>
             <el-popconfirm
-              :title="`是否确认删除客户名称为${row.name}的这条数据`"
+              :title="`是否确认删除合同名称为${row.mingcheng}的这条数据`"
               @confirm="handleDelete(row)"
             >
               <template #reference>

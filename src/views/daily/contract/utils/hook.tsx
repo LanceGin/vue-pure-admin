@@ -12,20 +12,26 @@ import { reactive, ref, onMounted, h, toRaw } from "vue";
 
 export function useRole() {
   const form = reactive({
-    area: "",
-    brand: "",
-    car_no: "",
-    emission: "",
-    buy_year: "",
-    axles: "",
-    company: "",
-    guakao: "",
-    youka: "",
-    guaban_no: "",
-    driver: "",
-    mobile: "",
-    meta: "",
-    remark: ""
+    bianhao: "",
+    qiandingriqi: "",
+    mingcheng: "",
+    leixing: "",
+    xiangmu: "",
+    wofangdanwei: "",
+    duifangdanwei: "",
+    wofangjingban: "",
+    duifangjingban: "",
+    wofanglianxi: "",
+    duifanglianxi: "",
+    shengxiaoriqi: "",
+    zhongzhiriqi: "",
+    zongjiakuan: "",
+    yizhifu: "",
+    yukuan: "",
+    fenshu: "",
+    qianyuebumen: "",
+    hetongzhuangtai: "",
+    beizhu: ""
   });
   const formRef = ref();
   let dataList = tableData;
@@ -40,73 +46,107 @@ export function useRole() {
   });
   const columns: TableColumnList = [
     {
-      label: "车辆属地",
-      prop: "area",
+      type: "selection",
+      align: "left"
+    },
+    {
+      label: "合同编号",
+      prop: "bianhao",
       minWidth: 100
     },
     {
-      label: "品牌",
-      prop: "brand",
+      label: "签订日期",
+      prop: "qiandingriqi",
       minWidth: 120
     },
     {
-      label: "车牌号",
-      prop: "car_no",
+      label: "合同名称",
+      prop: "mingcheng",
       minWidth: 150
     },
     {
-      label: "排放",
-      prop: "emission",
+      label: "合同类型",
+      prop: "leixing",
       minWidth: 150
     },
     {
-      label: "车辆购买年限",
-      prop: "buy_year",
+      label: "主要事项/项目名称",
+      prop: "xiangmu",
       minWidth: 150
     },
     {
-      label: "轴数",
-      prop: "axles",
+      label: "我方单位",
+      prop: "wofangdanwei",
       minWidth: 150
     },
     {
-      label: "车辆所属",
-      prop: "company",
+      label: "对方企业或个人",
+      prop: "duifangdanwei",
       minWidth: 150
     },
     {
-      label: "车辆挂靠",
-      prop: "guakao",
+      label: "我司经办人",
+      prop: "wofangjingban",
       minWidth: 150
     },
     {
-      label: "油卡归属",
-      prop: "youka",
+      label: "对方经办人",
+      prop: "duifangjingban",
       minWidth: 150
     },
     {
-      label: "挂板号",
-      prop: "guaban_no",
+      label: "我方联系方式",
+      prop: "wofanglianxi",
       minWidth: 150
     },
     {
-      label: "驾驶员",
-      prop: "driver",
+      label: "对方联系方式",
+      prop: "duifanglianxi",
       minWidth: 150
     },
     {
-      label: "手机号",
-      prop: "mobile",
+      label: "生效日期",
+      prop: "shengxiaoriqi",
       minWidth: 150
     },
     {
-      label: "属性",
-      prop: "meta",
+      label: "终止日期",
+      prop: "zhongzhiriqi",
+      minWidth: 150
+    },
+    {
+      label: "总价款",
+      prop: "zongjiakuan",
+      minWidth: 150
+    },
+    {
+      label: "已支付金额",
+      prop: "yizhifu",
+      minWidth: 150
+    },
+    {
+      label: "余款",
+      prop: "yukuan",
+      minWidth: 150
+    },
+    {
+      label: "合同份数",
+      prop: "fenshu",
+      minWidth: 150
+    },
+    {
+      label: "签约承办部门",
+      prop: "qianyuebumen",
+      minWidth: 150
+    },
+    {
+      label: "合同履行情况",
+      prop: "hetongzhuangtai",
       minWidth: 150
     },
     {
       label: "备注",
-      prop: "remark",
+      prop: "beizhu",
       minWidth: 150
     },
     {
@@ -206,23 +246,29 @@ export function useRole() {
 
   function openDialog(title = "添加", row?: FormItemProps) {
     addDialog({
-      title: `${title}车辆`,
+      title: `${title}合同`,
       props: {
         formInline: {
-          area: row?.area ?? "",
-          brand: row?.brand ?? "",
-          car_no: row?.car_no ?? "",
-          emission: row?.emission ?? "",
-          buy_year: row?.buy_year ?? "",
-          axles: row?.axles ?? "",
-          company: row?.company ?? "",
-          guakao: row?.guakao ?? "",
-          youka: row?.youka ?? "",
-          guaban_no: row?.guaban_no ?? "",
-          driver: row?.driver ?? "",
-          mobile: row?.mobile ?? "",
-          meta: row?.meta ?? "",
-          remark: row?.remark ?? ""
+          bianhao: row?.bianhao ?? "",
+          qiandingriqi: row?.qiandingriqi ?? "",
+          mingcheng: row?.mingcheng ?? "",
+          leixing: row?.leixing ?? "",
+          xiangmu: row?.xiangmu ?? "",
+          wofangdanwei: row?.wofangdanwei ?? "",
+          duifangdanwei: row?.duifangdanwei ?? "",
+          wofangjingban: row?.wofangjingban ?? "",
+          duifangjingban: row?.duifangjingban ?? "",
+          wofanglianxi: row?.wofanglianxi ?? "",
+          duifanglianxi: row?.duifanglianxi ?? "",
+          shengxiaoriqi: row?.shengxiaoriqi ?? "",
+          zhongzhiriqi: row?.zhongzhiriqi ?? "",
+          zongjiakuan: row?.zongjiakuan ?? "",
+          yizhifu: row?.yizhifu ?? "",
+          yukuan: row?.yukuan ?? "",
+          fenshu: row?.fenshu ?? "",
+          qianyuebumen: row?.qianyuebumen ?? "",
+          hetongzhuangtai: row?.hetongzhuangtai ?? "",
+          beizhu: row?.beizhu ?? ""
         }
       },
       width: "40%",
@@ -234,7 +280,7 @@ export function useRole() {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
         function chores() {
-          message(`您${title}了车牌号为${curData.car_no}的这条数据`, {
+          message(`您${title}了合同名称为${curData.mingcheng}的这条数据`, {
             type: "success"
           });
           done(); // 关闭弹框
