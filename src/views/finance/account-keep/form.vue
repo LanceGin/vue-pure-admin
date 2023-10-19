@@ -16,6 +16,7 @@ const props = withDefaults(defineProps<FormProps>(), {
     apply_staff: "",
     add_time: "",
     submit_staff: "",
+    shenqingdanwei: "",
     shenhe: "",
     shenpi: "",
     jizhang: "",

@@ -10,6 +10,11 @@ interface FormItemProps {
   wechat: string;
   create_time: string;
   create_staff: string;
+  mima: string;
+  shenfenzheng: string;
+  zhuzhi: string;
+  ruzhishijian: string;
+  zhuangtai: string;
 }
 interface FormProps {
   formInline: FormItemProps;

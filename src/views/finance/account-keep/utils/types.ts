@@ -12,6 +12,7 @@ interface FormItemProps {
   apply_staff: string;
   add_time: string;
   submit_staff: string;
+  shenqingdanwei: string;
   shenhe: string;
   shenpi: string;
   jizhang: string;

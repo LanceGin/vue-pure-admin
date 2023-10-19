@@ -44,14 +44,6 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="用户名：" prop="name">
-        <el-input
-          v-model="form.name"
-          placeholder="请输入用户名"
-          clearable
-          class="!w-[200px]"
-        />
-      </el-form-item>
       <el-form-item label="姓名：" prop="realname">
         <el-input
           v-model="form.realname"
@@ -67,6 +59,17 @@ const {
           clearable
           class="!w-[180px]"
         />
+      </el-form-item>
+      <el-form-item label="在职状态：" prop="zhuangtai">
+        <el-select
+          v-model="form.zhuangtai"
+          placeholder="请选择在职状态"
+          clearable
+          class="!w-[180px]"
+        >
+          <el-option label="在职" value="0" />
+          <el-option label="离职" value="1" />
+        </el-select>
       </el-form-item>
       <el-form-item>
         <el-button

@@ -20,7 +20,12 @@ export function useRole() {
     group: "",
     wechat: "",
     create_time: "",
-    create_staff: ""
+    create_staff: "",
+    mima: "",
+    shenfenzheng: "",
+    zhuzhi: "",
+    ruzhishijian: "",
+    zhuangtai: ""
   });
   const formRef = ref();
   let dataList = tableData;
@@ -60,13 +65,33 @@ export function useRole() {
       minWidth: 150
     },
     {
-      label: "工作组",
-      prop: "group",
+      label: "微信",
+      prop: "wechat",
       minWidth: 150
     },
     {
-      label: "微信",
-      prop: "wechat",
+      label: "密码",
+      prop: "mima",
+      minWidth: 150
+    },
+    {
+      label: "身份证号",
+      prop: "shenfenzheng",
+      minWidth: 150
+    },
+    {
+      label: "家庭住址",
+      prop: "zhuzhi",
+      minWidth: 150
+    },
+    {
+      label: "入职时间",
+      prop: "ruzhishijian",
+      minWidth: 150
+    },
+    {
+      label: "在职状态",
+      prop: "zhuangtai",
       minWidth: 150
     },
     {
@@ -188,7 +213,12 @@ export function useRole() {
           group: row?.group ?? "",
           wechat: row?.wechat ?? "",
           create_time: row?.create_time ?? "",
-          department: row?.department ?? ""
+          department: row?.department ?? "",
+          mima: row?.mima ?? "",
+          shenfenzheng: row?.shenfenzheng ?? "",
+          zhuzhi: row?.zhuzhi ?? "",
+          ruzhishijian: row?.ruzhishijian ?? "",
+          zhuangtai: row?.zhuangtai ?? ""
         }
       },
       width: "40%",

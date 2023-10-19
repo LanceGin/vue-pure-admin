@@ -13,7 +13,12 @@ const props = withDefaults(defineProps<FormProps>(), {
     group: "",
     wechat: "",
     create_time: "",
-    create_staff: ""
+    create_staff: "",
+    mima: "",
+    shenfenzheng: "",
+    zhuzhi: "",
+    ruzhishijian: "",
+    zhuangtai: ""
   })
 });
 
@@ -74,12 +79,36 @@ defineExpose({ getRef });
       />
     </el-form-item>
 
-    <el-form-item label="工作组" prop="group">
+    <el-form-item label="密码" prop="mima">
       <el-input
-        v-model="newFormInline.group"
+        v-model="newFormInline.mima"
         clearable
-        placeholder="请输入工作组"
+        placeholder="请输入密码"
       />
+    </el-form-item>
+    <el-form-item label="身份证号" prop="shenfenzheng">
+      <el-input
+        v-model="newFormInline.shenfenzheng"
+        clearable
+        placeholder="请输入身份证号"
+      />
+    </el-form-item>
+    <el-form-item label="家庭住址" prop="zhuzhi">
+      <el-input
+        v-model="newFormInline.zhuzhi"
+        clearable
+        placeholder="请输入家庭住址"
+      />
+    </el-form-item>
+    <el-form-item label="在职状态" prop="zhuangtai">
+      <el-select
+        v-model="newFormInline.zhuangtai"
+        placeholder="请选择在职状态"
+        clearable
+      >
+        <el-option label="在职" value="0" />
+        <el-option label="离职" value="1" />
+      </el-select>
     </el-form-item>
   </el-form>
 </template>

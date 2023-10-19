@@ -23,6 +23,7 @@ export function useRole() {
     apply_staff: "",
     add_time: "",
     submit_staff: "",
+    shenqingdanwei: "",
     shenhe: "",
     shenpi: "",
     jizhang: "",
@@ -85,6 +86,11 @@ export function useRole() {
     {
       label: "申请人",
       prop: "apply_staff",
+      minWidth: 150
+    },
+    {
+      label: "申请单位",
+      prop: "shenqingdanwei",
       minWidth: 150
     },
     {
@@ -238,6 +244,7 @@ export function useRole() {
           apply_staff: row?.apply_staff ?? "",
           add_time: row?.add_time ?? "",
           submit_staff: row?.submit_staff ?? "",
+          shenqingdanwei: row?.shenqingdanwei ?? "",
           shenhe: row?.shenhe ?? "",
           shenpi: row?.shenpi ?? "",
           jizhang: row?.jizhang ?? "",

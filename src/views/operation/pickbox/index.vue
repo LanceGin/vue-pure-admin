@@ -112,6 +112,9 @@ const {
         <el-button :icon="useRenderIcon(EditPen)" @click="resetForm(formRef)">
           挑箱
         </el-button>
+        <el-button :icon="useRenderIcon(EditPen)" @click="resetForm(formRef)">
+          批量修改提箱点
+        </el-button>
         <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
           导入
         </el-button>
