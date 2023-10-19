@@ -84,14 +84,17 @@ const {
           class="!w-[180px]"
         >
           <el-option label="全部" value="0" />
-          <el-option label="物流运输" value="1" />
-          <el-option label="挂靠协议" value="2" />
-          <el-option label="购买车辆" value="3" />
-          <el-option label="车辆租赁" value="4" />
-          <el-option label="承包运营" value="5" />
-          <el-option label="商业保险" value="6" />
-          <el-option label="行政" value="7" />
-          <el-option label="其他" value="8" />
+          <el-option label="劳动合同" value="1" />
+          <el-option label="驾驶员合同" value="2" />
+          <el-option label="货物运输合同" value="3" />
+          <el-option label="物流运输" value="4" />
+          <el-option label="挂靠协议" value="5" />
+          <el-option label="购买车辆" value="6" />
+          <el-option label="车辆租赁" value="7" />
+          <el-option label="承包运营" value="8" />
+          <el-option label="商业保险" value="9" />
+          <el-option label="行政" value="10" />
+          <el-option label="其他" value="11" />
         </el-select>
       </el-form-item>
       <el-form-item label="履行情况：" prop="hetongzhuangtai">

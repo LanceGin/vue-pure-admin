@@ -79,6 +79,17 @@ const {
           class="!w-[200px]"
         />
       </el-form-item>
+      <el-form-item label="码头堆场：" prop="matou">
+        <el-select
+          v-model="form.matou"
+          placeholder="请选择码头堆场"
+          clearable
+          class="!w-[180px]"
+        >
+          <el-option label="堆场1" value="0" />
+          <el-option label="码头1" value="1" />
+        </el-select>
+      </el-form-item>
       <el-form-item label="车辆：" prop="cheliang">
         <el-input
           v-model="form.cheliang"
@@ -107,6 +118,15 @@ const {
         </el-button>
         <el-button :icon="useRenderIcon(EditPen)" @click="resetForm(formRef)">
           提交
+        </el-button>
+        <el-button :icon="useRenderIcon(EditPen)" @click="resetForm(formRef)">
+          数据比对
+        </el-button>
+        <el-button :icon="useRenderIcon(EditPen)" @click="resetForm(formRef)">
+          批量调整金额
+        </el-button>
+        <el-button :icon="useRenderIcon(EditPen)" @click="resetForm(formRef)">
+          批量备注
         </el-button>
         <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
           导入
