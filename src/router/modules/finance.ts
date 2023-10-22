@@ -89,6 +89,14 @@ export default {
       meta: {
         title: $t("menus.payInvoice")
       }
+    },
+    {
+      path: "/statics/pay_invoice_orig",
+      name: "PayInvoiceOrig",
+      component: () => import("@/views/finance/pay-invoice-orig/index.vue"),
+      meta: {
+        title: "原始发票管理"
+      }
     }
   ]
 } as RouteConfigsTable;
