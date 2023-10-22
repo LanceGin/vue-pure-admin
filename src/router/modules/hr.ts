@@ -11,6 +11,14 @@ export default {
   },
   children: [
     {
+      path: "/hr/check",
+      name: "Check",
+      component: () => import("@/views/hr/check/index.vue"),
+      meta: {
+        title: "运作人员考核"
+      }
+    },
+    {
       path: "/hr/staff",
       name: "Staff",
       component: () => import("@/views/hr/staff/index.vue"),
