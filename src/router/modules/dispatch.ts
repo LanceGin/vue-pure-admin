@@ -44,6 +44,34 @@ export default {
       meta: {
         title: $t("menus.carAssignationStatus")
       }
+    },
+    {
+      path: "/dispatch/car_assignation_list",
+      redirect: "/dispatch/car_assignation_list/import",
+      name: "CarAssignationList",
+      meta: {
+        title: "派车单查看"
+      },
+      children: [
+        {
+          path: "/dispatch/car_assignation_list/import",
+          name: "Import",
+          component: () =>
+            import("@/views/dispatch/assign-list/import/index.vue"),
+          meta: {
+            title: "进口"
+          }
+        },
+        {
+          path: "/dispatch/car_assignation_list/export",
+          name: "Export",
+          component: () =>
+            import("@/views/dispatch/assign-list/export/index.vue"),
+          meta: {
+            title: "出口"
+          }
+        }
+      ]
     }
   ]
 } as RouteConfigsTable;
