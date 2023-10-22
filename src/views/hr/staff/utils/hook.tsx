@@ -40,6 +40,10 @@ export function useRole() {
   });
   const columns: TableColumnList = [
     {
+      type: "selection",
+      align: "left"
+    },
+    {
       label: "用户名",
       prop: "name",
       minWidth: 100

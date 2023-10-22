@@ -80,6 +80,12 @@ const {
         >
           搜索
         </el-button>
+        <el-button :icon="useRenderIcon(EditPen)" @click="resetForm(formRef)">
+          权限
+        </el-button>
+        <el-button :icon="useRenderIcon(EditPen)" @click="resetForm(formRef)">
+          微信功能
+        </el-button>
         <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
           导入
         </el-button>
