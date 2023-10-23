@@ -44,88 +44,71 @@ export function useRole() {
   const columns: TableColumnList = [
     {
       label: "状态",
-      prop: "status",
-      minWidth: 100
+      prop: "status"
     },
     {
       label: "类型",
-      prop: "cata",
-      minWidth: 120
+      prop: "cata"
     },
     {
       label: "订单编号",
-      prop: "order_no",
-      minWidth: 150
+      prop: "order_no"
     },
     {
       label: "客户",
-      prop: "custom",
-      minWidth: 150
+      prop: "custom"
     },
     {
       label: "项目",
-      prop: "project",
-      minWidth: 150
+      prop: "project"
     },
     {
       label: "运单号",
-      prop: "tracking_no",
-      minWidth: 150
+      prop: "tracking_no"
     },
     {
       label: "箱量",
-      prop: "box",
-      minWidth: 150
+      prop: "box"
     },
     {
       label: "船名/航次",
-      prop: "boat",
-      minWidth: 150
+      prop: "boat"
     },
     {
       label: "船东",
-      prop: "boat_company",
-      minWidth: 150
+      prop: "boat_company"
     },
     {
       label: "客户委托号",
-      prop: "commission_no",
-      minWidth: 150
+      prop: "commission_no"
     },
     {
       label: "船期",
-      prop: "boat_date",
-      minWidth: 150
+      prop: "boat_date"
     },
     {
       label: "打单日期",
-      prop: "fee_time",
-      minWidth: 150
+      prop: "fee_time"
     },
     {
       label: "打单费",
-      prop: "fee",
-      minWidth: 150
+      prop: "fee"
     },
     {
       label: "抵单数",
-      prop: "fee_amount",
-      minWidth: 150
+      prop: "fee_amount"
     },
     {
       label: "录入时间",
-      prop: "add_time",
-      minWidth: 150
+      prop: "add_time"
     },
     {
       label: "录入人",
-      prop: "add_stuff",
-      minWidth: 150
+      prop: "add_stuff"
     },
     {
       label: "子项目",
-      prop: "zixiangmu",
-      minWidth: 150
+      prop: "zixiangmu"
     },
     {
       label: "操作",

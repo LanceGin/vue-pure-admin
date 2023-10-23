@@ -78,6 +78,13 @@ const {
         >
           搜索
         </el-button>
+        <el-button
+          type="primary"
+          :icon="useRenderIcon(AddFill)"
+          @click="openDialog()"
+        >
+          添加费用记录
+        </el-button>
         <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
           导入
         </el-button>
@@ -92,15 +99,6 @@ const {
       :columns="columns"
       @refresh="onSearch"
     >
-      <template #buttons>
-        <el-button
-          type="primary"
-          :icon="useRenderIcon(AddFill)"
-          @click="openDialog()"
-        >
-          添加费用记录
-        </el-button>
-      </template>
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border

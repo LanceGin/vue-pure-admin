@@ -44,88 +44,71 @@ export function useRole() {
   const columns: TableColumnList = [
     {
       label: "船公司",
-      prop: "boat_company",
-      minWidth: 100
+      prop: "boat_company"
     },
     {
       label: "车队公司",
-      prop: "car_company",
-      minWidth: 120
+      prop: "car_company"
     },
     {
       label: "客户",
-      prop: "name",
-      minWidth: 150
+      prop: "name"
     },
     {
       label: "项目",
-      prop: "project",
-      minWidth: 150
+      prop: "project"
     },
     {
       label: "费用类型",
-      prop: "fee_cata",
-      minWidth: 150
+      prop: "fee_cata"
     },
     {
       label: "类型",
-      prop: "cata",
-      minWidth: 150
+      prop: "cata"
     },
     {
       label: "费用名称",
-      prop: "fee_name",
-      minWidth: 150
+      prop: "fee_name"
     },
     {
       label: "费用代码",
-      prop: "fee_code",
-      minWidth: 150
+      prop: "fee_code"
     },
     {
       label: "往来单位类型",
-      prop: "company_type",
-      minWidth: 150
+      prop: "company_type"
     },
     {
       label: "20GP",
-      prop: "gp20",
-      minWidth: 150
+      prop: "gp20"
     },
     {
       label: "20TK",
-      prop: "tk20",
-      minWidth: 150
+      prop: "tk20"
     },
     {
       label: "40GP",
-      prop: "gp40",
-      minWidth: 150
+      prop: "gp40"
     },
     {
       label: "40TK",
-      prop: "tk40",
-      minWidth: 150
+      prop: "tk40"
     },
     {
       label: "40HC",
-      prop: "hc40",
-      minWidth: 150
+      prop: "hc40"
     },
     {
       label: "40OT",
-      prop: "ot40",
-      minWidth: 150
+      prop: "ot40"
     },
     {
       label: "20OT",
-      prop: "ot20",
-      minWidth: 150
+      prop: "ot20"
     },
     {
       label: "40FR",
-      prop: "fr40",
-      minWidth: 150
+      prop: "fr40"
     },
     {
       label: "操作",
@@ -224,7 +207,7 @@ export function useRole() {
 
   function openDialog(title = "添加", row?: FormItemProps) {
     addDialog({
-      title: `${title}客户`,
+      title: `${title}费用记录`,
       props: {
         formInline: {
           boat_company: row?.boat_company ?? "",

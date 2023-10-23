@@ -39,67 +39,54 @@ export function useRole() {
   const columns: TableColumnList = [
     {
       label: "类型",
-      prop: "cata",
-      minWidth: 100
+      prop: "cata"
     },
     {
       label: "堆场名称",
-      prop: "name",
-      minWidth: 120
+      prop: "name"
     },
     {
       label: "堆场地址",
-      prop: "address",
-      minWidth: 150
+      prop: "address"
     },
     {
       label: "堆场所属港口",
-      prop: "refer",
-      minWidth: 150
+      prop: "refer"
     },
     {
       label: "联系人",
-      prop: "contact_name",
-      minWidth: 150
+      prop: "contact_name"
     },
     {
       label: "联系电话",
-      prop: "contact_mobile",
-      minWidth: 150
+      prop: "contact_mobile"
     },
     {
       label: "车队公司",
-      prop: "company",
-      minWidth: 150
+      prop: "company"
     },
     {
       label: "备注",
-      prop: "remark",
-      minWidth: 150
+      prop: "remark"
     },
     {
       label: "经度",
-      prop: "longitude",
-      minWidth: 150
+      prop: "longitude"
     },
     {
       label: "纬度",
-      prop: "latitude",
-      minWidth: 150
+      prop: "latitude"
     },
     {
       label: "进场价格20",
-      prop: "price_20",
-      minWidth: 150
+      prop: "price_20"
     },
     {
       label: "进场价格40",
-      prop: "price_40",
-      minWidth: 150
+      prop: "price_40"
     },
     // {
-    //   label: "状态",
-    //   minWidth: 130,
+    //   label: "状态"
     //   cellRenderer: ({ row, props }) => (
     //     <el-tag size={props.size} style={tagStyle.value(row.status)}>
     //       {row.status === 1 ? "正常" : "异常"}
@@ -108,7 +95,6 @@ export function useRole() {
     // },
     {
       label: "创建时间",
-      minWidth: 180,
       prop: "createTime",
       formatter: ({ createTime }) =>
         dayjs(createTime).format("YYYY-MM-DD HH:mm:ss")

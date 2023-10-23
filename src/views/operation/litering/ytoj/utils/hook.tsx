@@ -47,103 +47,83 @@ export function useRole() {
   const columns: TableColumnList = [
     {
       label: "日期",
-      prop: "riqi",
-      minWidth: 100
+      prop: "riqi"
     },
     {
       label: "船名航次",
-      prop: "chuanming",
-      minWidth: 120
+      prop: "chuanming"
     },
     {
       label: "提单号",
-      prop: "tidanhao",
-      minWidth: 150
+      prop: "tidanhao"
     },
     {
       label: "装货港",
-      prop: "zhuanghuogang",
-      minWidth: 150
+      prop: "zhuanghuogang"
     },
     {
       label: "卸货港",
-      prop: "xiehuogang",
-      minWidth: 150
+      prop: "xiehuogang"
     },
     {
       label: "目的港",
-      prop: "mudigang",
-      minWidth: 150
+      prop: "mudigang"
     },
     {
       label: "箱货总重",
-      prop: "xianghuozongzhong",
-      minWidth: 150
+      prop: "xianghuozongzhong"
     },
     {
       label: "箱号",
-      prop: "xianghao",
-      minWidth: 150
+      prop: "xianghao"
     },
     {
       label: "持箱人",
-      prop: "chixiangren",
-      minWidth: 150
+      prop: "chixiangren"
     },
     {
       label: "附加操作",
-      prop: "fujiacaozuo",
-      minWidth: 150
+      prop: "fujiacaozuo"
     },
     {
       label: "船公司箱型",
-      prop: "chuangongsixiangxing",
-      minWidth: 150
+      prop: "chuangongsixiangxing"
     },
     {
       label: "海关箱类型",
-      prop: "haiguanxiangxing",
-      minWidth: 150
+      prop: "haiguanxiangxing"
     },
     {
       label: "ISO",
-      prop: "ISO",
-      minWidth: 150
+      prop: "ISO"
     },
     {
       label: "进出口",
-      prop: "jinchukou",
-      minWidth: 150
+      prop: "jinchukou"
     },
     {
       label: "空重",
-      prop: "kongzhong",
-      minWidth: 150
+      prop: "kongzhong"
     },
     {
       label: "贸易类型",
-      prop: "maoyileixing",
-      minWidth: 150
+      prop: "maoyileixing"
     },
     {
       label: "铅封号",
-      prop: "qianfenghao",
-      minWidth: 150
+      prop: "qianfenghao"
     },
     {
       label: "货名",
-      prop: "huoming",
-      minWidth: 150
+      prop: "huoming"
     },
     {
       label: "卸船付费人",
-      prop: "xiechuanfufeiren",
-      minWidth: 150
+      prop: "xiechuanfufeiren"
     },
     {
       label: "中转类型",
-      prop: "zhongzhuanleixing",
-      minWidth: 150
+      prop: "zhongzhuanleixing"
     }
   ];
   // const buttonClass = computed(() => {

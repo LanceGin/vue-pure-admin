@@ -36,47 +36,38 @@ export function useRole() {
   const columns: TableColumnList = [
     {
       label: "客户简称",
-      prop: "refer",
-      minWidth: 100
+      prop: "refer"
     },
     {
       label: "客户全称",
-      prop: "name",
-      minWidth: 120
+      prop: "name"
     },
     {
       label: "企业地址",
-      prop: "address",
-      minWidth: 150
+      prop: "address"
     },
     {
       label: "联系人",
-      prop: "contact_name",
-      minWidth: 150
+      prop: "contact_name"
     },
     {
       label: "联系电话",
-      prop: "contact_mobile",
-      minWidth: 150
+      prop: "contact_mobile"
     },
     {
       label: "项目管理",
-      prop: "project",
-      minWidth: 150
+      prop: "project"
     },
     {
       label: "作业门点",
-      prop: "mendian",
-      minWidth: 150
+      prop: "mendian"
     },
     {
       label: "子项目",
-      prop: "zixiangmu",
-      minWidth: 150
+      prop: "zixiangmu"
     },
     {
       label: "状态",
-      minWidth: 130,
       cellRenderer: ({ row, props }) => (
         <el-tag size={props.size} style={tagStyle.value(row.status)}>
           {row.status === 1 ? "正常" : "异常"}
@@ -85,7 +76,6 @@ export function useRole() {
     },
     {
       label: "创建时间",
-      minWidth: 180,
       prop: "createTime",
       formatter: ({ createTime }) =>
         dayjs(createTime).format("YYYY-MM-DD HH:mm:ss")

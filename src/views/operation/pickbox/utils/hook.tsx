@@ -48,88 +48,71 @@ export function useRole() {
     },
     {
       label: "客户",
-      prop: "kehu",
-      minWidth: 100
+      prop: "kehu"
     },
     {
       label: "项目",
-      prop: "xiangmu",
-      minWidth: 120
+      prop: "xiangmu"
     },
     {
       label: "运单号",
-      prop: "yundanhao",
-      minWidth: 150
+      prop: "yundanhao"
     },
     {
       label: "箱型",
-      prop: "xiangxing",
-      minWidth: 150
+      prop: "xiangxing"
     },
     {
       label: "箱号",
-      prop: "xianghao",
-      minWidth: 150
+      prop: "xianghao"
     },
     {
       label: "封号",
-      prop: "fenghao",
-      minWidth: 150
+      prop: "fenghao"
     },
     {
       label: "计划做箱时间",
-      prop: "jihuashijian",
-      minWidth: 150
+      prop: "jihuashijian"
     },
     {
       label: "船名/航次",
-      prop: "chuanming",
-      minWidth: 150
+      prop: "chuanming"
     },
     {
       label: "船期",
-      prop: "chuanqi",
-      minWidth: 150
+      prop: "chuanqi"
     },
     {
       label: "堆存天数",
-      prop: "duicuntianshu",
-      minWidth: 150
+      prop: "duicuntianshu"
     },
     {
       label: "船公司",
-      prop: "chuangongsi",
-      minWidth: 150
+      prop: "chuangongsi"
     },
     {
       label: "流向",
-      prop: "liuxiang",
-      minWidth: 150
+      prop: "liuxiang"
     },
     {
       label: "门点",
-      prop: "mendian",
-      minWidth: 150
+      prop: "mendian"
     },
     {
       label: "提箱点",
-      prop: "tixiangdian",
-      minWidth: 150
+      prop: "tixiangdian"
     },
     {
       label: "还箱点",
-      prop: "huanxiangdian",
-      minWidth: 150
+      prop: "huanxiangdian"
     },
     {
       label: "打包暂落日期",
-      prop: "zanluoriqi",
-      minWidth: 150
+      prop: "zanluoriqi"
     },
     {
       label: "状态",
-      prop: "zhuangtai",
-      minWidth: 150
+      prop: "zhuangtai"
     }
   ];
   // const buttonClass = computed(() => {
