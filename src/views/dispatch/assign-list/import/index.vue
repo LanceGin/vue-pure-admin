@@ -52,6 +52,38 @@ const {
           class="!w-[200px]"
         />
       </el-form-item>
+      <el-form-item label="日期：" prop="zuoxiangshijian">
+        <el-input
+          v-model="form.zuoxiangshijian"
+          placeholder="请输入日期"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
+      <el-form-item label="门点：" prop="mendian">
+        <el-input
+          v-model="form.mendian"
+          placeholder="请输入门点"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
+      <el-form-item label="箱号：" prop="xiangxing">
+        <el-input
+          v-model="form.xiangxing"
+          placeholder="请输入箱号"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
+      <el-form-item label="车号：" prop="chuanming">
+        <el-input
+          v-model="form.chuanming"
+          placeholder="请输入车号"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
       <el-form-item>
         <el-button
           type="primary"
