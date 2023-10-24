@@ -34,6 +34,8 @@ export function useRole() {
     beizhu: ""
   });
   const formRef = ref();
+  const currentRow = ref();
+  const haveRow = ref(true);
   let dataList = tableData;
   const loading = ref(true);
   // const switchLoadMap = ref({});
@@ -51,165 +53,78 @@ export function useRole() {
     },
     {
       label: "合同编号",
-      prop: "bianhao",
-      minWidth: 100
+      prop: "bianhao"
     },
     {
       label: "签订日期",
-      prop: "qiandingriqi",
-      minWidth: 120
+      prop: "qiandingriqi"
     },
     {
       label: "合同名称",
-      prop: "mingcheng",
-      minWidth: 150
+      prop: "mingcheng"
     },
     {
       label: "合同类型",
-      prop: "leixing",
-      minWidth: 150
+      prop: "leixing"
     },
     {
       label: "主要事项/项目名称",
-      prop: "xiangmu",
-      minWidth: 150
+      prop: "xiangmu"
     },
     {
       label: "我方单位",
-      prop: "wofangdanwei",
-      minWidth: 150
+      prop: "wofangdanwei"
     },
     {
       label: "对方企业或个人",
-      prop: "duifangdanwei",
-      minWidth: 150
+      prop: "duifangdanwei"
     },
     {
       label: "我司经办人",
-      prop: "wofangjingban",
-      minWidth: 150
-    },
-    {
-      label: "对方经办人",
-      prop: "duifangjingban",
-      minWidth: 150
-    },
-    {
-      label: "我方联系方式",
-      prop: "wofanglianxi",
-      minWidth: 150
-    },
-    {
-      label: "对方联系方式",
-      prop: "duifanglianxi",
-      minWidth: 150
+      prop: "wofangjingban"
     },
     {
       label: "生效日期",
-      prop: "shengxiaoriqi",
-      minWidth: 150
+      prop: "shengxiaoriqi"
     },
     {
       label: "终止日期",
-      prop: "zhongzhiriqi",
-      minWidth: 150
+      prop: "zhongzhiriqi"
     },
     {
       label: "总价款",
-      prop: "zongjiakuan",
-      minWidth: 150
+      prop: "zongjiakuan"
     },
     {
       label: "已支付金额",
-      prop: "yizhifu",
-      minWidth: 150
+      prop: "yizhifu"
     },
     {
       label: "余款",
-      prop: "yukuan",
-      minWidth: 150
+      prop: "yukuan"
     },
     {
       label: "合同份数",
-      prop: "fenshu",
-      minWidth: 150
+      prop: "fenshu"
     },
     {
       label: "签约承办部门",
-      prop: "qianyuebumen",
-      minWidth: 150
+      prop: "qianyuebumen"
     },
     {
       label: "合同履行情况",
-      prop: "hetongzhuangtai",
-      minWidth: 150
+      prop: "hetongzhuangtai"
     },
     {
       label: "备注",
-      prop: "beizhu",
-      minWidth: 150
-    },
-    {
-      label: "操作",
-      fixed: "right",
-      width: 240,
-      slot: "operation"
+      prop: "beizhu"
     }
   ];
-  // const buttonClass = computed(() => {
-  //   return [
-  //     "!h-[20px]",
-  //     "reset-margin",
-  //     "!text-gray-500",
-  //     "dark:!text-white",
-  //     "dark:hover:!text-primary"
-  //   ];
-  // });
 
-  // function onChange({ row, index }) {
-  //   ElMessageBox.confirm(
-  //     `确认要<strong>${
-  //       row.status === 0 ? "停用" : "启用"
-  //     }</strong><strong style='color:var(--el-color-primary)'>${
-  //       row.name
-  //     }</strong>吗?`,
-  //     "系统提示",
-  //     {
-  //       confirmButtonText: "确定",
-  //       cancelButtonText: "取消",
-  //       type: "warning",
-  //       dangerouslyUseHTMLString: true,
-  //       draggable: true
-  //     }
-  //   )
-  //     .then(() => {
-  //       switchLoadMap.value[index] = Object.assign(
-  //         {},
-  //         switchLoadMap.value[index],
-  //         {
-  //           loading: true
-  //         }
-  //       );
-  //       setTimeout(() => {
-  //         switchLoadMap.value[index] = Object.assign(
-  //           {},
-  //           switchLoadMap.value[index],
-  //           {
-  //             loading: false
-  //           }
-  //         );
-  //         message(`已${row.status === 0 ? "停用" : "启用"}${row.name}`, {
-  //           type: "success"
-  //         });
-  //       }, 300);
-  //     })
-  //     .catch(() => {
-  //       row.status === 0 ? (row.status = 1) : (row.status = 0);
-  //     });
-  // }
-
-  function handleDelete(row) {
-    message(`您删除了订单号为${row.order_no}的这条数据`, { type: "success" });
+  function handleDelete() {
+    message(`您删除了编号为${currentRow.value.bianhao}的这条数据`, {
+      type: "success"
+    });
     onSearch();
   }
 
@@ -217,8 +132,9 @@ export function useRole() {
     console.log(`${val} items per page`);
   }
 
-  function handleCurrentChange(val: number) {
-    console.log(`current page: ${val}`);
+  function handleCurrentChange(val) {
+    currentRow.value = val;
+    haveRow.value = false;
   }
 
   function handleSelectionChange(val) {
@@ -303,6 +219,17 @@ export function useRole() {
     });
   }
 
+  // 编辑按钮
+  function handleEdit() {
+    openDialog("编辑", currentRow.value);
+  }
+
+  // 双击行
+  function handleRowDblclick(row) {
+    console.log(row);
+    openDialog("编辑", row);
+  }
+
   /** 菜单权限 */
   function handleMenu() {
     message("等菜单管理页面开发后完善");
@@ -318,6 +245,7 @@ export function useRole() {
   return {
     form,
     loading,
+    haveRow,
     columns,
     dataList,
     pagination,
@@ -328,6 +256,8 @@ export function useRole() {
     handleMenu,
     handleDelete,
     // handleDatabase,
+    handleRowDblclick,
+    handleEdit,
     handleSizeChange,
     handleCurrentChange,
     handleSelectionChange

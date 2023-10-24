@@ -21,6 +21,7 @@ const formRef = ref();
 const {
   form,
   loading,
+  haveRow,
   columns,
   dataList,
   pagination,
@@ -30,6 +31,8 @@ const {
   openDialog,
   handleDelete,
   // handleDatabase,
+  handleRowDblclick,
+  handleEdit,
   handleSizeChange,
   handleCurrentChange,
   handleSelectionChange
@@ -112,7 +115,13 @@ const {
           <el-option label="异常-违约" value="5" />
         </el-select>
       </el-form-item>
-
+    </el-form>
+    <el-form
+      ref="formRef"
+      :inline="true"
+      :model="form"
+      class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
+    >
       <el-form-item>
         <el-button
           type="primary"
@@ -121,6 +130,13 @@ const {
           @click="onSearch"
         >
           搜索
+        </el-button>
+        <el-button
+          type="primary"
+          :icon="useRenderIcon(AddFill)"
+          @click="openDialog()"
+        >
+          添加合同
         </el-button>
         <el-button :icon="useRenderIcon(EditPen)" @click="resetForm(formRef)">
           调整已支付金额
@@ -134,6 +150,22 @@ const {
         <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
           合同模板
         </el-button>
+        <el-button
+          type="primary"
+          :icon="useRenderIcon(EditPen)"
+          @click="handleEdit()"
+          :disabled="haveRow"
+        >
+          修改
+        </el-button>
+        <el-button
+          type="danger"
+          :icon="useRenderIcon(Delete)"
+          @click="handleDelete()"
+          :disabled="haveRow"
+        >
+          删除
+        </el-button>
       </el-form-item>
     </el-form>
 
@@ -142,20 +174,12 @@ const {
       :columns="columns"
       @refresh="onSearch"
     >
-      <template #buttons>
-        <el-button
-          type="primary"
-          :icon="useRenderIcon(AddFill)"
-          @click="openDialog()"
-        >
-          添加合同
-        </el-button>
-      </template>
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border
           align-whole="center"
           showOverflowTooltip
+          highlight-current-row
           table-layout="auto"
           :loading="loading"
           :size="size"
@@ -169,75 +193,10 @@ const {
             color: 'var(--el-text-color-primary)'
           }"
           @selection-change="handleSelectionChange"
+          @row-dblclick="handleRowDblclick"
           @page-size-change="handleSizeChange"
-          @page-current-change="handleCurrentChange"
-        >
-          <template #operation="{ row }">
-            <el-button
-              class="reset-margin"
-              link
-              type="primary"
-              :size="size"
-              :icon="useRenderIcon(EditPen)"
-              @click="openDialog('编辑', row)"
-            >
-              修改
-            </el-button>
-            <el-popconfirm
-              :title="`是否确认删除合同名称为${row.mingcheng}的这条数据`"
-              @confirm="handleDelete(row)"
-            >
-              <template #reference>
-                <el-button
-                  class="reset-margin"
-                  link
-                  type="primary"
-                  :size="size"
-                  :icon="useRenderIcon(Delete)"
-                >
-                  删除
-                </el-button>
-              </template>
-            </el-popconfirm>
-            <!-- <el-dropdown>
-              <el-button
-                class="ml-3 mt-[2px]"
-                link
-                type="primary"
-                :size="size"
-                :icon="useRenderIcon(More)"
-              />
-              <template #dropdown>
-                <el-dropdown-menu>
-                  <el-dropdown-item>
-                    <el-button
-                      :class="buttonClass"
-                      link
-                      type="primary"
-                      :size="size"
-                      :icon="useRenderIcon(Menu)"
-                      @click="handleMenu"
-                    >
-                      菜单权限
-                    </el-button>
-                  </el-dropdown-item>
-                  <el-dropdown-item>
-                    <el-button
-                      :class="buttonClass"
-                      link
-                      type="primary"
-                      :size="size"
-                      :icon="useRenderIcon(Database)"
-                      @click="handleDatabase"
-                    >
-                      数据权限
-                    </el-button>
-                  </el-dropdown-item>
-                </el-dropdown-menu>
-              </template>
-            </el-dropdown> -->
-          </template>
-        </pure-table>
+          @current-change="handleCurrentChange"
+        />
       </template>
     </PureTableBar>
   </div>
