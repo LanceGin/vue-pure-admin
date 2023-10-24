@@ -28,6 +28,8 @@ export function useRole() {
     zhuangtai: ""
   });
   const formRef = ref();
+  const currentRow = ref();
+  const haveRow = ref(true);
   let dataList = tableData;
   const loading = ref(true);
   // const switchLoadMap = ref({});
@@ -45,132 +47,64 @@ export function useRole() {
     },
     {
       label: "用户名",
-      prop: "name",
-      minWidth: 100
+      prop: "name"
     },
     {
       label: "姓名",
-      prop: "realname",
-      minWidth: 120
+      prop: "realname"
     },
     {
       label: "手机",
-      prop: "mobile",
-      minWidth: 150
+      prop: "mobile"
     },
     {
       label: "邮箱",
-      prop: "email",
-      minWidth: 150
+      prop: "email"
     },
     {
       label: "部门",
-      prop: "department",
-      minWidth: 150
+      prop: "department"
     },
     {
       label: "微信",
-      prop: "wechat",
-      minWidth: 150
+      prop: "wechat"
     },
     {
       label: "密码",
-      prop: "mima",
-      minWidth: 150
+      prop: "mima"
     },
     {
       label: "身份证号",
-      prop: "shenfenzheng",
-      minWidth: 150
+      prop: "shenfenzheng"
     },
     {
       label: "家庭住址",
-      prop: "zhuzhi",
-      minWidth: 150
+      prop: "zhuzhi"
     },
     {
       label: "入职时间",
-      prop: "ruzhishijian",
-      minWidth: 150
+      prop: "ruzhishijian"
     },
     {
       label: "在职状态",
-      prop: "zhuangtai",
-      minWidth: 150
+      prop: "zhuangtai"
     },
     {
       label: "创建时间",
-      minWidth: 180,
       prop: "creat_time",
       formatter: ({ createTime }) =>
         dayjs(createTime).format("YYYY-MM-DD HH:mm:ss")
     },
     {
       label: "创建人",
-      prop: "create_staff",
-      minWidth: 150
-    },
-    {
-      label: "操作",
-      fixed: "right",
-      width: 240,
-      slot: "operation"
+      prop: "create_staff"
     }
   ];
-  // const buttonClass = computed(() => {
-  //   return [
-  //     "!h-[20px]",
-  //     "reset-margin",
-  //     "!text-gray-500",
-  //     "dark:!text-white",
-  //     "dark:hover:!text-primary"
-  //   ];
-  // });
 
-  // function onChange({ row, index }) {
-  //   ElMessageBox.confirm(
-  //     `确认要<strong>${
-  //       row.status === 0 ? "停用" : "启用"
-  //     }</strong><strong style='color:var(--el-color-primary)'>${
-  //       row.name
-  //     }</strong>吗?`,
-  //     "系统提示",
-  //     {
-  //       confirmButtonText: "确定",
-  //       cancelButtonText: "取消",
-  //       type: "warning",
-  //       dangerouslyUseHTMLString: true,
-  //       draggable: true
-  //     }
-  //   )
-  //     .then(() => {
-  //       switchLoadMap.value[index] = Object.assign(
-  //         {},
-  //         switchLoadMap.value[index],
-  //         {
-  //           loading: true
-  //         }
-  //       );
-  //       setTimeout(() => {
-  //         switchLoadMap.value[index] = Object.assign(
-  //           {},
-  //           switchLoadMap.value[index],
-  //           {
-  //             loading: false
-  //           }
-  //         );
-  //         message(`已${row.status === 0 ? "停用" : "启用"}${row.name}`, {
-  //           type: "success"
-  //         });
-  //       }, 300);
-  //     })
-  //     .catch(() => {
-  //       row.status === 0 ? (row.status = 1) : (row.status = 0);
-  //     });
-  // }
-
-  function handleDelete(row) {
-    message(`您删除了角色名称为${row.name}的这条数据`, { type: "success" });
+  function handleDelete() {
+    message(`您删除了用户名为${currentRow.value.name}的这条数据`, {
+      type: "success"
+    });
     onSearch();
   }
 
@@ -178,8 +112,9 @@ export function useRole() {
     console.log(`${val} items per page`);
   }
 
-  function handleCurrentChange(val: number) {
-    console.log(`current page: ${val}`);
+  function handleCurrentChange(val) {
+    currentRow.value = val;
+    haveRow.value = false;
   }
 
   function handleSelectionChange(val) {
@@ -257,6 +192,17 @@ export function useRole() {
     });
   }
 
+  // 编辑按钮
+  function handleEdit() {
+    openDialog("编辑", currentRow.value);
+  }
+
+  // 双击行
+  function handleRowDblclick(row) {
+    console.log(row);
+    openDialog("编辑", row);
+  }
+
   /** 菜单权限 */
   function handleMenu() {
     message("等菜单管理页面开发后完善");
@@ -272,6 +218,7 @@ export function useRole() {
   return {
     form,
     loading,
+    haveRow,
     columns,
     dataList,
     pagination,
@@ -282,6 +229,8 @@ export function useRole() {
     handleMenu,
     handleDelete,
     // handleDatabase,
+    handleRowDblclick,
+    handleEdit,
     handleSizeChange,
     handleCurrentChange,
     handleSelectionChange
