@@ -61,148 +61,119 @@ export function useRole() {
     },
     {
       label: "状态",
-      prop: "zhuangtai",
-      minWidth: 100
+      prop: "zhuangtai"
     },
     {
       label: "账期",
-      prop: "zhangqi",
-      minWidth: 120
+      prop: "zhangqi"
     },
     {
       label: "费用名称",
-      prop: "feiyongmc",
-      minWidth: 150
+      prop: "feiyongmc"
     },
     {
       label: "金额",
-      prop: "jine",
-      minWidth: 150
+      prop: "jine"
     },
     {
       label: "做箱时间",
-      prop: "zuoxiangshijian",
-      minWidth: 150
+      prop: "zuoxiangshijian"
     },
     {
       label: "客户简称",
-      prop: "kehu",
-      minWidth: 150
+      prop: "kehu"
     },
     {
       label: "起始港",
-      prop: "qishigang",
-      minWidth: 150
+      prop: "qishigang"
     },
     {
       label: "目的港",
-      prop: "mudigang",
-      minWidth: 150
+      prop: "mudigang"
     },
     {
       label: "码头",
-      prop: "matou",
-      minWidth: 150
+      prop: "matou"
     },
     {
       label: "船公司",
-      prop: "chuangongsi",
-      minWidth: 150
+      prop: "chuangongsi"
     },
     {
       label: "船名航次",
-      prop: "chuanming",
-      width: 150
+      prop: "chuanming"
     },
     {
       label: "箱封号",
-      prop: "xiangfenghao",
-      minWidth: 150
+      prop: "xiangfenghao"
     },
     {
       label: "箱号",
-      prop: "xianghao",
-      minWidth: 150
+      prop: "xianghao"
     },
     {
       label: "运单号",
-      prop: "yundanhao",
-      minWidth: 150
+      prop: "yundanhao"
     },
     {
       label: "箱型",
-      prop: "xiangxing",
-      minWidth: 150
+      prop: "xiangxing"
     },
     {
       label: "单据类别",
-      prop: "danjuleibie",
-      minWidth: 150
+      prop: "danjuleibie"
     },
     {
       label: "门点",
-      prop: "mendian",
-      minWidth: 150
+      prop: "mendian"
     },
     {
       label: "业务名称",
-      prop: "yewu",
-      width: 150
+      prop: "yewu"
     },
     {
       label: "往来单位",
-      prop: "wanglaidanwei",
-      minWidth: 150
+      prop: "wanglaidanwei"
     },
     {
       label: "车辆",
-      prop: "cheliang",
-      minWidth: 150
+      prop: "cheliang"
     },
     {
       label: "备注",
-      prop: "beizhu",
-      minWidth: 150
+      prop: "beizhu"
     },
     {
       label: "发票号",
-      prop: "fapiaohao",
-      minWidth: 150
+      prop: "fapiaohao"
     },
     {
       label: "车队",
-      prop: "chedui",
-      width: 150
+      prop: "chedui"
     },
     {
       label: "结算票据号",
-      prop: "jiesuanhao",
-      minWidth: 150
+      prop: "jiesuanhao"
     },
     {
       label: "计划号",
-      prop: "jihuahao",
-      minWidth: 150
+      prop: "jihuahao"
     },
     {
       label: "录入人",
-      prop: "lururen",
-      minWidth: 150
+      prop: "lururen"
     },
     {
       label: "录入时间",
-      prop: "lurushijian",
-      minWidth: 150
+      prop: "lurushijian"
     },
     {
       label: "费用类型",
-      prop: "feiyongleixing",
-      minWidth: 150
+      prop: "feiyongleixing"
     },
     {
       label: "回单备注",
-      prop: "huidanbeizhu",
-      minWidth: 150
+      prop: "huidanbeizhu"
     }
   ];
 
