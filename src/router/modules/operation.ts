@@ -35,6 +35,39 @@ export default {
       }
     },
     {
+      path: "/operation/bulk",
+      meta: {
+        title: "散货记录"
+      },
+      children: [
+        {
+          path: "/operation/bulk/shipping",
+          name: "Shipping",
+          component: () => import("@/views/operation/bulk/shipping/index.vue"),
+          meta: {
+            title: "船运"
+          }
+        },
+        {
+          path: "/operation/bulk/land_trans",
+          name: "LandTrans",
+          component: () =>
+            import("@/views/operation/bulk/land-trans/index.vue"),
+          meta: {
+            title: "陆运"
+          }
+        },
+        {
+          path: "/operation/bulk/bulk",
+          name: "Bulk",
+          component: () => import("@/views/operation/bulk/bulk/index.vue"),
+          meta: {
+            title: "散货"
+          }
+        }
+      ]
+    },
+    {
       path: "/operation/document_check",
       name: "DocumenCheck",
       component: () => import("@/views/operation/document-check/index.vue"),
