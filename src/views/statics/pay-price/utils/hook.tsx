@@ -21,12 +21,14 @@ export function useRole() {
     i40gp: "",
     i40tk: "",
     i40hc: "",
-    o40tk: "",
+    o20gp: "",
+    o40gp: "",
     o40hc: "",
-    o20tk: "",
     o40ot: ""
   });
   const formRef = ref();
+  const currentRow = ref();
+  const haveRow = ref(true);
   let dataList = tableData;
   const loading = ref(true);
   // const switchLoadMap = ref({});
@@ -40,7 +42,6 @@ export function useRole() {
   const columns: TableColumnList = [
     {
       label: "状态",
-      minWidth: 130,
       cellRenderer: ({ row, props }) => (
         <el-tag size={props.size} style={tagStyle.value(Number(row.status))}>
           {row.status == 1 ? "有效" : "无效"}
@@ -49,46 +50,34 @@ export function useRole() {
     },
     {
       label: "客户",
-      prop: "custom",
-      minWidth: 120
+      prop: "custom"
     },
     {
       label: "项目",
-      prop: "project",
-      minWidth: 150
+      prop: "project"
     },
     {
       label: "门点",
-      prop: "door",
-      minWidth: 150
+      prop: "door"
     },
     {
       label: "码头",
-      prop: "wharf",
-      minWidth: 150
+      prop: "wharf"
     },
     {
       label: "装箱",
       children: [
         {
           label: "20GP",
-          prop: "i20gp",
-          minWidth: 80
+          prop: "i20gp"
         },
         {
           label: "40GP",
-          prop: "i40gp",
-          minWidth: 80
-        },
-        {
-          label: "40TK",
-          prop: "i40tk",
-          minWidth: 80
+          prop: "i40gp"
         },
         {
           label: "40HC",
-          prop: "i40hc",
-          minWidth: 80
+          prop: "i40hc"
         }
       ]
     },
@@ -96,88 +85,25 @@ export function useRole() {
       label: "拆箱",
       children: [
         {
-          label: "40Tk",
-          prop: "o40tk",
-          minWidth: 80
+          label: "20GP",
+          prop: "o20gp"
+        },
+        {
+          label: "40GP",
+          prop: "o40gp"
         },
         {
           label: "40HC",
-          prop: "o40hc",
-          minWidth: 80
-        },
-        {
-          label: "20TK",
-          prop: "o20tk",
-          minWidth: 80
-        },
-        {
-          label: "40OT",
-          prop: "i40ot",
-          minWidth: 80
+          prop: "o40hc"
         }
       ]
-    },
-    {
-      label: "操作",
-      fixed: "right",
-      width: 240,
-      slot: "operation"
     }
   ];
-  // const buttonClass = computed(() => {
-  //   return [
-  //     "!h-[20px]",
-  //     "reset-margin",
-  //     "!text-gray-500",
-  //     "dark:!text-white",
-  //     "dark:hover:!text-primary"
-  //   ];
-  // });
 
-  // function onChange({ row, index }) {
-  //   ElMessageBox.confirm(
-  //     `确认要<strong>${
-  //       row.status === 0 ? "停用" : "启用"
-  //     }</strong><strong style='color:var(--el-color-primary)'>${
-  //       row.name
-  //     }</strong>吗?`,
-  //     "系统提示",
-  //     {
-  //       confirmButtonText: "确定",
-  //       cancelButtonText: "取消",
-  //       type: "warning",
-  //       dangerouslyUseHTMLString: true,
-  //       draggable: true
-  //     }
-  //   )
-  //     .then(() => {
-  //       switchLoadMap.value[index] = Object.assign(
-  //         {},
-  //         switchLoadMap.value[index],
-  //         {
-  //           loading: true
-  //         }
-  //       );
-  //       setTimeout(() => {
-  //         switchLoadMap.value[index] = Object.assign(
-  //           {},
-  //           switchLoadMap.value[index],
-  //           {
-  //             loading: false
-  //           }
-  //         );
-  //         message(`已${row.status === 0 ? "停用" : "启用"}${row.name}`, {
-  //           type: "success"
-  //         });
-  //       }, 300);
-  //     })
-  //     .catch(() => {
-  //       row.status === 0 ? (row.status = 1) : (row.status = 0);
-  //     });
-  // }
-
-  function handleDelete(row) {
-    message(`您删除了订单号为${row.order_no}的这条数据`, { type: "success" });
+  function handleDelete() {
+    message(`您删除了客户为${currentRow.value.custom}的这条数据`, {
+      type: "success"
+    });
     onSearch();
   }
 
@@ -185,8 +111,9 @@ export function useRole() {
     console.log(`${val} items per page`);
   }
 
-  function handleCurrentChange(val: number) {
-    console.log(`current page: ${val}`);
+  function handleCurrentChange(val) {
+    currentRow.value = val;
+    haveRow.value = false;
   }
 
   function handleSelectionChange(val) {
@@ -226,9 +153,9 @@ export function useRole() {
           i40gp: row?.i40gp ?? "",
           i40tk: row?.i40tk ?? "",
           i40hc: row?.i40hc ?? "",
-          o40tk: row?.o40tk ?? "",
+          o20gp: row?.o20gp ?? "",
           o40hc: row?.o40hc ?? "",
-          o20tk: row?.o20tk ?? "",
+          o40gp: row?.o40gp ?? "",
           o40ot: row?.o40ot ?? ""
         }
       },
@@ -264,6 +191,17 @@ export function useRole() {
     });
   }
 
+  // 编辑按钮
+  function handleEdit() {
+    openDialog("编辑", currentRow.value);
+  }
+
+  // 双击行
+  function handleRowDblclick(row) {
+    console.log(row);
+    openDialog("编辑", row);
+  }
+
   /** 菜单权限 */
   function handleMenu() {
     message("等菜单管理页面开发后完善");
@@ -279,6 +217,7 @@ export function useRole() {
   return {
     form,
     loading,
+    haveRow,
     columns,
     dataList,
     pagination,
@@ -289,6 +228,8 @@ export function useRole() {
     handleMenu,
     handleDelete,
     // handleDatabase,
+    handleRowDblclick,
+    handleEdit,
     handleSizeChange,
     handleCurrentChange,
     handleSelectionChange

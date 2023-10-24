@@ -17,9 +17,9 @@ interface FormItemProps {
   i40tk: string;
   i40hc: string;
   // 拆箱
-  o40tk: string;
+  o20gp: string;
+  o40gp: string;
   o40hc: string;
-  o20tk: string;
   o40ot: string;
 }
 interface FormProps {

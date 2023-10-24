@@ -72,13 +72,13 @@ menus:
   collectionPrice: 门点价格（应收）
   collectionStat: 应收报表
   contract: 合同管理
+  custom: 往来单位
   daily: 通用
   dispatch: 调度管理
   documentCheck: 单证管理
   documentInfo: 单证查看
   driverInfo: 驾驶员信息
   externalLink: 平台文档（外链）
-  custom: 往来单位
   feeApplication: 费用申请
   feeCollection: 代收费用管理
   finance: 财务管理
@@ -175,7 +175,7 @@ menus:
   payCheck: 应付审核
   payInvoice: 应付发票管理
   payManage: 应付管理
-  payPrice: 门点价格(应付)
+  payPrice: 门点价格（应付）
   payStat: 应付报表
   payable: 应付费用
   permission: 权限管理
