@@ -22,6 +22,8 @@ export function useRole() {
     remark: ""
   });
   const formRef = ref();
+  const currentRow = ref();
+  const haveRow = ref(true);
   let dataList = tableData;
   const loading = ref(true);
   // const switchLoadMap = ref({});
@@ -35,105 +37,42 @@ export function useRole() {
   const columns: TableColumnList = [
     {
       label: "车号",
-      prop: "car_no",
-      minWidth: 100
+      prop: "car_no"
     },
     {
       label: "公司",
-      prop: "company",
-      minWidth: 120
+      prop: "company"
     },
     {
       label: "年检到期",
-      prop: "year_deadline",
-      minWidth: 150
+      prop: "year_deadline"
     },
     {
       label: "等评到期",
-      prop: "rate_deadline",
-      minWidth: 150
+      prop: "rate_deadline"
     },
     {
       label: "交强险",
-      prop: "jiaoqiang",
-      minWidth: 150
+      prop: "jiaoqiang"
     },
     {
       label: "商业险",
-      prop: "shangye",
-      minWidth: 150
+      prop: "shangye"
     },
     {
       label: "货物运输险",
-      prop: "huowuyunshu",
-      minWidth: 150
+      prop: "huowuyunshu"
     },
     {
       label: "备注",
-      prop: "remark",
-      minWidth: 150
-    },
-    {
-      label: "操作",
-      fixed: "right",
-      width: 240,
-      slot: "operation"
+      prop: "remark"
     }
   ];
-  // const buttonClass = computed(() => {
-  //   return [
-  //     "!h-[20px]",
-  //     "reset-margin",
-  //     "!text-gray-500",
-  //     "dark:!text-white",
-  //     "dark:hover:!text-primary"
-  //   ];
-  // });
 
-  // function onChange({ row, index }) {
-  //   ElMessageBox.confirm(
-  //     `确认要<strong>${
-  //       row.status === 0 ? "停用" : "启用"
-  //     }</strong><strong style='color:var(--el-color-primary)'>${
-  //       row.name
-  //     }</strong>吗?`,
-  //     "系统提示",
-  //     {
-  //       confirmButtonText: "确定",
-  //       cancelButtonText: "取消",
-  //       type: "warning",
-  //       dangerouslyUseHTMLString: true,
-  //       draggable: true
-  //     }
-  //   )
-  //     .then(() => {
-  //       switchLoadMap.value[index] = Object.assign(
-  //         {},
-  //         switchLoadMap.value[index],
-  //         {
-  //           loading: true
-  //         }
-  //       );
-  //       setTimeout(() => {
-  //         switchLoadMap.value[index] = Object.assign(
-  //           {},
-  //           switchLoadMap.value[index],
-  //           {
-  //             loading: false
-  //           }
-  //         );
-  //         message(`已${row.status === 0 ? "停用" : "启用"}${row.name}`, {
-  //           type: "success"
-  //         });
-  //       }, 300);
-  //     })
-  //     .catch(() => {
-  //       row.status === 0 ? (row.status = 1) : (row.status = 0);
-  //     });
-  // }
-
-  function handleDelete(row) {
-    message(`您删除了角色名称为${row.name}的这条数据`, { type: "success" });
+  function handleDelete() {
+    message(`您删除了车号为${currentRow.value.car_no}的这条数据`, {
+      type: "success"
+    });
     onSearch();
   }
 
@@ -141,8 +80,9 @@ export function useRole() {
     console.log(`${val} items per page`);
   }
 
-  function handleCurrentChange(val: number) {
-    console.log(`current page: ${val}`);
+  function handleCurrentChange(val) {
+    currentRow.value = val;
+    haveRow.value = false;
   }
 
   function handleSelectionChange(val) {
@@ -215,6 +155,17 @@ export function useRole() {
     });
   }
 
+  // 编辑按钮
+  function handleEdit() {
+    openDialog("编辑", currentRow.value);
+  }
+
+  // 双击行
+  function handleRowDblclick(row) {
+    console.log(row);
+    openDialog("编辑", row);
+  }
+
   /** 菜单权限 */
   function handleMenu() {
     message("等菜单管理页面开发后完善");
@@ -230,6 +181,7 @@ export function useRole() {
   return {
     form,
     loading,
+    haveRow,
     columns,
     dataList,
     pagination,
@@ -240,6 +192,8 @@ export function useRole() {
     handleMenu,
     handleDelete,
     // handleDatabase,
+    handleRowDblclick,
+    handleEdit,
     handleSizeChange,
     handleCurrentChange,
     handleSelectionChange
