@@ -40,19 +40,16 @@ export function useRole() {
   });
   const columns: TableColumnList = [
     {
-      label: "用户名",
-      prop: "name",
-      minWidth: 100
+      label: "姓名",
+      prop: "realname"
     },
     {
-      label: "姓名",
-      prop: "realname",
-      minWidth: 120
+      label: "部门",
+      prop: "department"
     },
     {
       label: "操作",
       fixed: "right",
-      minWidth: 240,
       slot: "operation"
     }
   ];

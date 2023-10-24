@@ -52,14 +52,6 @@ const {
           class="!w-[180px]"
         />
       </el-form-item>
-      <el-form-item label="手机号：" prop="mobile">
-        <el-input
-          v-model="form.mobile"
-          placeholder="请输入手机号"
-          clearable
-          class="!w-[180px]"
-        />
-      </el-form-item>
       <el-form-item>
         <el-button
           type="primary"
@@ -128,43 +120,6 @@ const {
             >
               季度考核
             </el-button>
-            <!-- <el-dropdown>
-              <el-button
-                class="ml-3 mt-[2px]"
-                link
-                type="primary"
-                :size="size"
-                :icon="useRenderIcon(More)"
-              />
-              <template #dropdown>
-                <el-dropdown-menu>
-                  <el-dropdown-item>
-                    <el-button
-                      :class="buttonClass"
-                      link
-                      type="primary"
-                      :size="size"
-                      :icon="useRenderIcon(Menu)"
-                      @click="handleMenu"
-                    >
-                      菜单权限
-                    </el-button>
-                  </el-dropdown-item>
-                  <el-dropdown-item>
-                    <el-button
-                      :class="buttonClass"
-                      link
-                      type="primary"
-                      :size="size"
-                      :icon="useRenderIcon(Database)"
-                      @click="handleDatabase"
-                    >
-                      数据权限
-                    </el-button>
-                  </el-dropdown-item>
-                </el-dropdown-menu>
-              </template>
-            </el-dropdown> -->
           </template>
         </pure-table>
       </template>
