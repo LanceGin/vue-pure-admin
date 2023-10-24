@@ -28,6 +28,8 @@ export function useRole() {
     remark: ""
   });
   const formRef = ref();
+  const currentRow = ref();
+  const haveRow = ref(true);
   let dataList = tableData;
   const loading = ref(true);
   // const switchLoadMap = ref({});
@@ -41,79 +43,59 @@ export function useRole() {
   const columns: TableColumnList = [
     {
       label: "车辆属地",
-      prop: "area",
-      minWidth: 100
+      prop: "area"
     },
     {
       label: "品牌",
-      prop: "brand",
-      minWidth: 120
+      prop: "brand"
     },
     {
       label: "车牌号",
-      prop: "car_no",
-      minWidth: 150
+      prop: "car_no"
     },
     {
       label: "排放",
-      prop: "emission",
-      minWidth: 150
+      prop: "emission"
     },
     {
       label: "车辆购买年限",
-      prop: "buy_year",
-      minWidth: 150
+      prop: "buy_year"
     },
     {
       label: "轴数",
-      prop: "axles",
-      minWidth: 150
+      prop: "axles"
     },
     {
       label: "车辆所属",
-      prop: "company",
-      minWidth: 150
+      prop: "company"
     },
     {
       label: "车辆挂靠",
-      prop: "guakao",
-      minWidth: 150
+      prop: "guakao"
     },
     {
       label: "油卡归属",
-      prop: "youka",
-      minWidth: 150
+      prop: "youka"
     },
     {
       label: "挂板号",
-      prop: "guaban_no",
-      minWidth: 150
+      prop: "guaban_no"
     },
     {
       label: "驾驶员",
-      prop: "driver",
-      minWidth: 150
+      prop: "driver"
     },
     {
       label: "手机号",
-      prop: "mobile",
-      minWidth: 150
+      prop: "mobile"
     },
     {
       label: "属性",
-      prop: "meta",
-      minWidth: 150
+      prop: "meta"
     },
     {
       label: "备注",
-      prop: "remark",
-      minWidth: 150
-    },
-    {
-      label: "操作",
-      fixed: "right",
-      width: 240,
-      slot: "operation"
+      prop: "remark"
     }
   ];
   // const buttonClass = computed(() => {
@@ -168,8 +150,10 @@ export function useRole() {
   //     });
   // }
 
-  function handleDelete(row) {
-    message(`您删除了订单号为${row.order_no}的这条数据`, { type: "success" });
+  function handleDelete() {
+    message(`您删除了车号为${currentRow.value.car_no}的这条数据`, {
+      type: "success"
+    });
     onSearch();
   }
 
@@ -177,8 +161,9 @@ export function useRole() {
     console.log(`${val} items per page`);
   }
 
-  function handleCurrentChange(val: number) {
-    console.log(`current page: ${val}`);
+  function handleCurrentChange(val) {
+    currentRow.value = val;
+    haveRow.value = false;
   }
 
   function handleSelectionChange(val) {
@@ -257,6 +242,17 @@ export function useRole() {
     });
   }
 
+  // 编辑按钮
+  function handleEdit() {
+    openDialog("编辑", currentRow.value);
+  }
+
+  // 双击行
+  function handleRowDblclick(row) {
+    console.log(row);
+    openDialog("编辑", row);
+  }
+
   /** 菜单权限 */
   function handleMenu() {
     message("等菜单管理页面开发后完善");
@@ -272,6 +268,7 @@ export function useRole() {
   return {
     form,
     loading,
+    haveRow,
     columns,
     dataList,
     pagination,
@@ -282,6 +279,8 @@ export function useRole() {
     handleMenu,
     handleDelete,
     // handleDatabase,
+    handleRowDblclick,
+    handleEdit,
     handleSizeChange,
     handleCurrentChange,
     handleSelectionChange
