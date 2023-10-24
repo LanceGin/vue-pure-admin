@@ -16,12 +16,15 @@ export function useRole() {
     idcard: "",
     mobile: "",
     meta: "",
+    jiesuandanwei: "",
     remark: "",
     idcard_pic: "",
     driver_license: "",
     congye: ""
   });
   const formRef = ref();
+  const currentRow = ref();
+  const haveRow = ref(true);
   let dataList = tableData;
   const loading = ref(true);
   // const switchLoadMap = ref({});
@@ -35,49 +38,39 @@ export function useRole() {
   const columns: TableColumnList = [
     {
       label: "驾驶员",
-      prop: "driver",
-      minWidth: 100
+      prop: "driver"
     },
     {
       label: "身份证号",
-      prop: "idcard",
-      minWidth: 120
+      prop: "idcard"
     },
     {
       label: "手机号",
-      prop: "mobile",
-      minWidth: 150
+      prop: "mobile"
     },
     {
       label: "属性",
-      prop: "meta",
-      minWidth: 150
+      prop: "meta"
+    },
+    {
+      label: "结算单位",
+      prop: "jiesuandanwei"
     },
     {
       label: "备注",
-      prop: "remark",
-      minWidth: 150
+      prop: "remark"
     },
     {
       label: "身份证",
-      prop: "idcard_pic",
-      minWidth: 150
+      prop: "idcard_pic"
     },
     {
       label: "驾驶证",
-      prop: "driver_license",
-      minWidth: 150
+      prop: "driver_license"
     },
     {
       label: "从业资格证",
-      prop: "congye",
-      minWidth: 150
-    },
-    {
-      label: "操作",
-      fixed: "right",
-      width: 240,
-      slot: "operation"
+      prop: "congye"
     }
   ];
   // const buttonClass = computed(() => {
@@ -132,8 +125,10 @@ export function useRole() {
   //     });
   // }
 
-  function handleDelete(row) {
-    message(`您删除了角色名称为${row.name}的这条数据`, { type: "success" });
+  function handleDelete() {
+    message(`您删除了驾驶员为${currentRow.value.driver}的这条数据`, {
+      type: "success"
+    });
     onSearch();
   }
 
@@ -141,8 +136,9 @@ export function useRole() {
     console.log(`${val} items per page`);
   }
 
-  function handleCurrentChange(val: number) {
-    console.log(`current page: ${val}`);
+  function handleCurrentChange(val) {
+    currentRow.value = val;
+    haveRow.value = false;
   }
 
   function handleSelectionChange(val) {
@@ -177,6 +173,7 @@ export function useRole() {
           idcard: row?.idcard ?? "",
           mobile: row?.mobile ?? "",
           meta: row?.meta ?? "",
+          jiesuandanwei: row?.jiesuandanwei ?? "",
           remark: row?.remark ?? "",
           idcard_pic: row?.idcard_pic ?? "",
           driver_license: row?.driver_license ?? "",
@@ -215,6 +212,17 @@ export function useRole() {
     });
   }
 
+  // 编辑按钮
+  function handleEdit() {
+    openDialog("编辑", currentRow.value);
+  }
+
+  // 双击行
+  function handleRowDblclick(row) {
+    console.log(row);
+    openDialog("编辑", row);
+  }
+
   /** 菜单权限 */
   function handleMenu() {
     message("等菜单管理页面开发后完善");
@@ -230,6 +238,7 @@ export function useRole() {
   return {
     form,
     loading,
+    haveRow,
     columns,
     dataList,
     pagination,
@@ -240,6 +249,8 @@ export function useRole() {
     handleMenu,
     handleDelete,
     // handleDatabase,
+    handleRowDblclick,
+    handleEdit,
     handleSizeChange,
     handleCurrentChange,
     handleSelectionChange

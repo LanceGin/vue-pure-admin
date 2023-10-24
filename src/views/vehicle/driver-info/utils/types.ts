@@ -4,6 +4,7 @@ interface FormItemProps {
   driver: string;
   idcard: string;
   mobile: string;
+  jiesuandanwei: string;
   meta: string;
   remark: string;
   idcard_pic: string;
