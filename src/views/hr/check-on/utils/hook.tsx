@@ -37,111 +37,49 @@ export function useRole() {
   const columns: TableColumnList = [
     {
       label: "姓名",
-      prop: "name",
-      minWidth: 100
+      prop: "name"
     },
     {
       label: "考勤日期",
-      prop: "check_on_date",
-      minWidth: 120
+      prop: "check_on_date"
     },
     {
       label: "签到时间",
-      prop: "check_on_time",
-      minWidth: 150
+      prop: "check_on_time"
     },
     {
       label: "签到地点",
-      prop: "check_on_address",
-      minWidth: 150
+      prop: "check_on_address"
     },
     {
       label: "签到类型",
-      prop: "check_on_type",
-      minWidth: 150
+      prop: "check_on_type"
     },
     {
       label: "签到备注",
-      prop: "check_on_remark",
-      minWidth: 150
+      prop: "check_on_remark"
     },
     {
       label: "签退时间",
-      prop: "check_out_time",
-      minWidth: 150
+      prop: "check_out_time"
     },
     {
       label: "签退地点",
-      prop: "check_out_address",
-      minWidth: 150
+      prop: "check_out_address"
     },
     {
       label: "签退类型",
-      prop: "check_out_type",
-      minWidth: 150
+      prop: "check_out_type"
     },
     {
       label: "签退备注",
-      prop: "check_out_remark",
-      minWidth: 150
+      prop: "check_out_remark"
     },
     {
       label: "备注",
-      prop: "remark",
-      minWidth: 150
+      prop: "remark"
     }
   ];
-  // const buttonClass = computed(() => {
-  //   return [
-  //     "!h-[20px]",
-  //     "reset-margin",
-  //     "!text-gray-500",
-  //     "dark:!text-white",
-  //     "dark:hover:!text-primary"
-  //   ];
-  // });
-
-  // function onChange({ row, index }) {
-  //   ElMessageBox.confirm(
-  //     `确认要<strong>${
-  //       row.status === 0 ? "停用" : "启用"
-  //     }</strong><strong style='color:var(--el-color-primary)'>${
-  //       row.name
-  //     }</strong>吗?`,
-  //     "系统提示",
-  //     {
-  //       confirmButtonText: "确定",
-  //       cancelButtonText: "取消",
-  //       type: "warning",
-  //       dangerouslyUseHTMLString: true,
-  //       draggable: true
-  //     }
-  //   )
-  //     .then(() => {
-  //       switchLoadMap.value[index] = Object.assign(
-  //         {},
-  //         switchLoadMap.value[index],
-  //         {
-  //           loading: true
-  //         }
-  //       );
-  //       setTimeout(() => {
-  //         switchLoadMap.value[index] = Object.assign(
-  //           {},
-  //           switchLoadMap.value[index],
-  //           {
-  //             loading: false
-  //           }
-  //         );
-  //         message(`已${row.status === 0 ? "停用" : "启用"}${row.name}`, {
-  //           type: "success"
-  //         });
-  //       }, 300);
-  //     })
-  //     .catch(() => {
-  //       row.status === 0 ? (row.status = 1) : (row.status = 0);
-  //     });
-  // }
 
   function handleDelete(row) {
     message(`您删除了角色名称为${row.name}的这条数据`, { type: "success" });
