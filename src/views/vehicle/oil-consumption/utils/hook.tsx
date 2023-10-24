@@ -27,6 +27,8 @@ export function useRole() {
     remark: ""
   });
   const formRef = ref();
+  const currentRow = ref();
+  const haveRow = ref(true);
   let dataList = tableData;
   const loading = ref(true);
   // const switchLoadMap = ref({});
@@ -40,31 +42,26 @@ export function useRole() {
   const columns: TableColumnList = [
     {
       label: "序号",
-      prop: "no",
-      minWidth: 100
+      prop: "no"
     },
     {
       label: "车号",
-      prop: "car_no",
-      minWidth: 120
+      prop: "car_no"
     },
     {
       label: "实际里程",
       children: [
         {
           label: "6月历程数（KM）",
-          prop: "licheng_6",
-          minWidth: 150
+          prop: "licheng_6"
         },
         {
           label: "油耗标准（L/100KM）",
-          prop: "youhaobiaozhun",
-          minWidth: 150
+          prop: "youhaobiaozhun"
         },
         {
           label: "历程修正系统",
-          prop: "licheng_xiuzheng",
-          minWidth: 150
+          prop: "licheng_xiuzheng"
         }
       ]
     },
@@ -73,18 +70,15 @@ export function useRole() {
       children: [
         {
           label: "升数（L）",
-          prop: "hedingshengshu",
-          minWidth: 150
+          prop: "hedingshengshu"
         },
         {
           label: "平均单价",
-          prop: "danjia",
-          minWidth: 150
+          prop: "danjia"
         },
         {
           label: "金费（元）",
-          prop: "jinfei",
-          minWidth: 150
+          prop: "jinfei"
         }
       ]
     },
@@ -93,13 +87,11 @@ export function useRole() {
       children: [
         {
           label: "升数（L）",
-          prop: "shijishengshu",
-          minWidth: 150
+          prop: "shijishengshu"
         },
         {
           label: "总金额",
-          prop: "amount",
-          minWidth: 150
+          prop: "amount"
         }
       ]
     },
@@ -108,8 +100,7 @@ export function useRole() {
       children: [
         {
           label: "升数（L）",
-          prop: "chashengshu",
-          minWidth: 150
+          prop: "chashengshu"
         }
       ]
     },
@@ -118,72 +109,16 @@ export function useRole() {
       children: [
         {
           label: "元",
-          prop: "jiangfa",
-          minWidth: 150
+          prop: "jiangfa"
         }
       ]
-    },
-    {
-      label: "操作",
-      fixed: "right",
-      width: 240,
-      slot: "operation"
     }
   ];
-  // const buttonClass = computed(() => {
-  //   return [
-  //     "!h-[20px]",
-  //     "reset-margin",
-  //     "!text-gray-500",
-  //     "dark:!text-white",
-  //     "dark:hover:!text-primary"
-  //   ];
-  // });
 
-  // function onChange({ row, index }) {
-  //   ElMessageBox.confirm(
-  //     `确认要<strong>${
-  //       row.status === 0 ? "停用" : "启用"
-  //     }</strong><strong style='color:var(--el-color-primary)'>${
-  //       row.name
-  //     }</strong>吗?`,
-  //     "系统提示",
-  //     {
-  //       confirmButtonText: "确定",
-  //       cancelButtonText: "取消",
-  //       type: "warning",
-  //       dangerouslyUseHTMLString: true,
-  //       draggable: true
-  //     }
-  //   )
-  //     .then(() => {
-  //       switchLoadMap.value[index] = Object.assign(
-  //         {},
-  //         switchLoadMap.value[index],
-  //         {
-  //           loading: true
-  //         }
-  //       );
-  //       setTimeout(() => {
-  //         switchLoadMap.value[index] = Object.assign(
-  //           {},
-  //           switchLoadMap.value[index],
-  //           {
-  //             loading: false
-  //           }
-  //         );
-  //         message(`已${row.status === 0 ? "停用" : "启用"}${row.name}`, {
-  //           type: "success"
-  //         });
-  //       }, 300);
-  //     })
-  //     .catch(() => {
-  //       row.status === 0 ? (row.status = 1) : (row.status = 0);
-  //     });
-  // }
-
-  function handleDelete(row) {
-    message(`您删除了角色名称为${row.name}的这条数据`, { type: "success" });
+  function handleDelete() {
+    message(`您删除了车号为${currentRow.value.car_no}的这条数据`, {
+      type: "success"
+    });
     onSearch();
   }
 
@@ -191,8 +126,9 @@ export function useRole() {
     console.log(`${val} items per page`);
   }
 
-  function handleCurrentChange(val: number) {
-    console.log(`current page: ${val}`);
+  function handleCurrentChange(val) {
+    currentRow.value = val;
+    haveRow.value = false;
   }
 
   function handleSelectionChange(val) {
@@ -270,6 +206,17 @@ export function useRole() {
     });
   }
 
+  // 编辑按钮
+  function handleEdit() {
+    openDialog("编辑", currentRow.value);
+  }
+
+  // 双击行
+  function handleRowDblclick(row) {
+    console.log(row);
+    openDialog("编辑", row);
+  }
+
   /** 菜单权限 */
   function handleMenu() {
     message("等菜单管理页面开发后完善");
@@ -285,6 +232,7 @@ export function useRole() {
   return {
     form,
     loading,
+    haveRow,
     columns,
     dataList,
     pagination,
@@ -295,6 +243,8 @@ export function useRole() {
     handleMenu,
     handleDelete,
     // handleDatabase,
+    handleRowDblclick,
+    handleEdit,
     handleSizeChange,
     handleCurrentChange,
     handleSelectionChange
