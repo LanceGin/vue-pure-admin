@@ -33,6 +33,8 @@ export function useRole() {
     shenqingriqi: ""
   });
   const formRef = ref();
+  const currentRow = ref();
+  const haveRow = ref(true);
   let dataList = tableData;
   const loading = ref(true);
   // const switchLoadMap = ref({});
@@ -50,160 +52,82 @@ export function useRole() {
     },
     {
       label: "状态",
-      prop: "zhuangtai",
-      minWidth: 100
+      prop: "zhuangtai"
     },
     {
       label: "行政/业务",
-      prop: "xingzhengyewu",
-      minWidth: 120
+      prop: "xingzhengyewu"
     },
     {
       label: "费用名称",
-      prop: "feiyongming",
-      minWidth: 150
+      prop: "feiyongming"
     },
     {
       label: "收/付",
-      prop: "shoufu",
-      minWidth: 150
+      prop: "shoufu"
     },
     {
       label: "支付类型",
-      prop: "zhifuleixing",
-      minWidth: 150
+      prop: "zhifuleixing"
     },
     {
       label: "申请金额",
-      prop: "shenqingjine",
-      minWidth: 150
+      prop: "shenqingjine"
     },
     {
       label: "报销金额",
-      prop: "baoxiaojine",
-      minWidth: 150
+      prop: "baoxiaojine"
     },
     {
       label: "税额",
-      prop: "shuie",
-      minWidth: 150
+      prop: "shuie"
     },
     {
       label: "申请人",
-      prop: "shenqingren",
-      minWidth: 150
+      prop: "shenqingren"
     },
     {
       label: "申请单位",
-      prop: "shenqingdanwei",
-      minWidth: 150
+      prop: "shenqingdanwei"
     },
     {
       label: "录入时间",
-      prop: "lurushijian",
-      minWidth: 150
+      prop: "lurushijian"
     },
     {
       label: "报销人",
-      prop: "baoxiaoren",
-      minWidth: 150
+      prop: "baoxiaoren"
     },
     {
       label: "审核人",
-      prop: "shenheren",
-      minWidth: 150
+      prop: "shenheren"
     },
     {
       label: "审核时间",
-      prop: "shenheshijian",
-      minWidth: 150
+      prop: "shenheshijian"
     },
     {
       label: "审批人",
-      prop: "shenpiren",
-      minWidth: 150
+      prop: "shenpiren"
     },
     {
       label: "费用编号",
-      prop: "feiyongbianhao",
-      minWidth: 150
-    },
-    {
-      label: "申请编号",
-      prop: "shenqingbianhao",
-      minWidth: 150
+      prop: "feiyongbianhao"
     },
     {
       label: "备注",
-      prop: "beizhu",
-      minWidth: 150
+      prop: "beizhu"
     },
     {
       label: "申请日期",
-      prop: "shenqingriqi",
-      minWidth: 150
-    },
-    {
-      label: "操作",
-      fixed: "right",
-      width: 240,
-      slot: "operation"
+      prop: "shenqingriqi"
     }
   ];
-  // const buttonClass = computed(() => {
-  //   return [
-  //     "!h-[20px]",
-  //     "reset-margin",
-  //     "!text-gray-500",
-  //     "dark:!text-white",
-  //     "dark:hover:!text-primary"
-  //   ];
-  // });
 
-  // function onChange({ row, index }) {
-  //   ElMessageBox.confirm(
-  //     `确认要<strong>${
-  //       row.status === 0 ? "停用" : "启用"
-  //     }</strong><strong style='color:var(--el-color-primary)'>${
-  //       row.name
-  //     }</strong>吗?`,
-  //     "系统提示",
-  //     {
-  //       confirmButtonText: "确定",
-  //       cancelButtonText: "取消",
-  //       type: "warning",
-  //       dangerouslyUseHTMLString: true,
-  //       draggable: true
-  //     }
-  //   )
-  //     .then(() => {
-  //       switchLoadMap.value[index] = Object.assign(
-  //         {},
-  //         switchLoadMap.value[index],
-  //         {
-  //           loading: true
-  //         }
-  //       );
-  //       setTimeout(() => {
-  //         switchLoadMap.value[index] = Object.assign(
-  //           {},
-  //           switchLoadMap.value[index],
-  //           {
-  //             loading: false
-  //           }
-  //         );
-  //         message(`已${row.status === 0 ? "停用" : "启用"}${row.name}`, {
-  //           type: "success"
-  //         });
-  //       }, 300);
-  //     })
-  //     .catch(() => {
-  //       row.status === 0 ? (row.status = 1) : (row.status = 0);
-  //     });
-  // }
-
-  function handleDelete(row) {
-    message(`您删除了订单号为${row.order_no}的这条数据`, { type: "success" });
+  function handleDelete() {
+    message(`您删除了费用名为${currentRow.value.feiyongming}的这条数据`, {
+      type: "success"
+    });
     onSearch();
   }
 
@@ -211,8 +135,9 @@ export function useRole() {
     console.log(`${val} items per page`);
   }
 
-  function handleCurrentChange(val: number) {
-    console.log(`current page: ${val}`);
+  function handleCurrentChange(val) {
+    currentRow.value = val;
+    haveRow.value = false;
   }
 
   function handleSelectionChange(val) {
@@ -295,6 +220,17 @@ export function useRole() {
     });
   }
 
+  // 编辑按钮
+  function handleEdit() {
+    openDialog("编辑", currentRow.value);
+  }
+
+  // 双击行
+  function handleRowDblclick(row) {
+    console.log(row);
+    openDialog("编辑", row);
+  }
+
   /** 菜单权限 */
   function handleMenu() {
     message("等菜单管理页面开发后完善");
@@ -310,6 +246,7 @@ export function useRole() {
   return {
     form,
     loading,
+    haveRow,
     columns,
     dataList,
     pagination,
@@ -320,6 +257,8 @@ export function useRole() {
     handleMenu,
     handleDelete,
     // handleDatabase,
+    handleRowDblclick,
+    handleEdit,
     handleSizeChange,
     handleCurrentChange,
     handleSelectionChange
