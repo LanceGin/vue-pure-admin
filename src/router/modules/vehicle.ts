@@ -41,6 +41,14 @@ export default {
       meta: {
         title: $t("menus.oilConsumption")
       }
+    },
+    {
+      path: "/vehicle/refuel",
+      name: "Refuel",
+      component: () => import("@/views/vehicle/refuel/index.vue"),
+      meta: {
+        title: "撬装加油"
+      }
     }
   ]
 } as RouteConfigsTable;
