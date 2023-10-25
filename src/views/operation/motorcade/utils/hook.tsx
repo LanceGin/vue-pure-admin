@@ -58,18 +58,6 @@ export function useRole() {
       prop: "contact_mobile"
     },
     {
-      label: "项目管理",
-      prop: "project"
-    },
-    {
-      label: "作业门点",
-      prop: "mendian"
-    },
-    {
-      label: "子项目",
-      prop: "zixiangmu"
-    },
-    {
       label: "状态",
       cellRenderer: ({ row, props }) => (
         <el-tag size={props.size} style={tagStyle.value(row.status)}>

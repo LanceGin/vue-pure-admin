@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import { formRules } from "./utils/rule";
 import { FormProps } from "./utils/types";
+import type { TabsPaneContext } from "element-plus";
 
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
@@ -19,6 +20,11 @@ const props = withDefaults(defineProps<FormProps>(), {
 
 const ruleFormRef = ref();
 const newFormInline = ref(props.formInline);
+const activeName = ref("first");
+
+const handleClick = (tab: TabsPaneContext, event: Event) => {
+  console.log(tab, event);
+};
 
 function getRef() {
   return ruleFormRef.value;
@@ -74,28 +80,10 @@ defineExpose({ getRef });
       />
     </el-form-item>
 
-    <el-form-item label="项目管理" prop="project">
-      <el-input
-        v-model="newFormInline.project"
-        clearable
-        placeholder="请输入项目管理"
-      />
-    </el-form-item>
-
-    <el-form-item label="作业门点" prop="mendian">
-      <el-input
-        v-model="newFormInline.mendian"
-        clearable
-        placeholder="请输入作业门点"
-      />
-    </el-form-item>
-
-    <el-form-item label="子项目" prop="zixiangmu">
-      <el-input
-        v-model="newFormInline.zixiangmu"
-        clearable
-        placeholder="请输入子项目"
-      />
-    </el-form-item>
+    <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
+      <el-tab-pane label="项目管理" name="first">项目管理</el-tab-pane>
+      <el-tab-pane label="作业门点" name="second">作业门点</el-tab-pane>
+      <el-tab-pane label="子项目" name="third">子项目</el-tab-pane>
+    </el-tabs>
   </el-form>
 </template>
