@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import { formRules } from "./utils/rule";
 import { FormProps } from "./utils/types";
+import type { TabsPaneContext } from "element-plus";
 
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
@@ -22,6 +23,11 @@ const props = withDefaults(defineProps<FormProps>(), {
 
 const ruleFormRef = ref();
 const newFormInline = ref(props.formInline);
+const activeName = ref("first");
+
+const handleClick = (tab: TabsPaneContext, event: Event) => {
+  console.log(tab, event);
+};
 
 function getRef() {
   return ruleFormRef.value;
@@ -85,14 +91,6 @@ defineExpose({ getRef });
       />
     </el-form-item>
 
-    <el-form-item label="车队公司" prop="company">
-      <el-input
-        v-model="newFormInline.company"
-        clearable
-        placeholder="请输入车队公司"
-      />
-    </el-form-item>
-
     <el-form-item label="备注" prop="remark">
       <el-input
         v-model="newFormInline.remark"
@@ -117,7 +115,7 @@ defineExpose({ getRef });
       />
     </el-form-item>
 
-    <el-form-item label="进场价格20" prop="price_20">
+    <el-form-item label="进场价20" prop="price_20">
       <el-input
         v-model="newFormInline.price_20"
         clearable
@@ -125,12 +123,18 @@ defineExpose({ getRef });
       />
     </el-form-item>
 
-    <el-form-item label="进场价格40" prop="price_40">
+    <el-form-item label="进场价40" prop="price_40">
       <el-input
         v-model="newFormInline.price_40"
         clearable
         placeholder="请输入进场价格40"
       />
     </el-form-item>
+
+    <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
+      <el-tab-pane label="堆存天数对应金额" name="first">
+        堆存天数对应金额
+      </el-tab-pane>
+    </el-tabs>
   </el-form>
 </template>
