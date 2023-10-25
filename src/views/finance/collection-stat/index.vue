@@ -68,7 +68,37 @@ const {
           class="!w-[200px]"
         />
       </el-form-item>
-
+      <el-form-item label="账期：" prop="zhangqi">
+        <el-input
+          v-model="form.zhangqi"
+          placeholder="请输入门点"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
+      <el-form-item label="做箱日期：" prop="zuoxiangriqi">
+        <el-input
+          v-model="form.zuoxiangriqi"
+          placeholder="请输入做箱日期"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
+      <el-form-item label="费用名称：" prop="feiyongming">
+        <el-input
+          v-model="form.feiyongming"
+          placeholder="请输入费用名称"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
+    </el-form>
+    <el-form
+      ref="formRef"
+      :inline="true"
+      :model="form"
+      class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
+    >
       <el-form-item>
         <el-button
           type="primary"
