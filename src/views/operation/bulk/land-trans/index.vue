@@ -47,10 +47,10 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="客户：" prop="kehu">
+      <el-form-item label="日期：" prop="riqi">
         <el-input
-          v-model="form.kehu"
-          placeholder="请输入客户"
+          v-model="form.riqi"
+          placeholder="请输入日期"
           clearable
           class="!w-[200px]"
         />
@@ -59,6 +59,14 @@ const {
         <el-input
           v-model="form.xianghao"
           placeholder="请输入箱号"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
+      <el-form-item label="流向：" prop="liuxiang">
+        <el-input
+          v-model="form.liuxiang"
+          placeholder="请输入流向"
           clearable
           class="!w-[200px]"
         />

@@ -47,18 +47,26 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="客户：" prop="kehu">
+      <el-form-item label="日期：" prop="riqi">
         <el-input
-          v-model="form.kehu"
-          placeholder="请输入客户"
+          v-model="form.riqi"
+          placeholder="请输入日期"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="驾驶员手机号：" prop="shoujihao">
+      <el-form-item label="装货地址：" prop="zhaunghuo">
         <el-input
-          v-model="form.shoujihao"
-          placeholder="请输入驾驶员手机号"
+          v-model="form.zhaunghuo"
+          placeholder="请输入装货地址"
+          clearable
+          class="!w-[180px]"
+        />
+      </el-form-item>
+      <el-form-item label="卸货地址：" prop="xiehuo">
+        <el-input
+          v-model="form.xiehuo"
+          placeholder="请输入卸货地址"
           clearable
           class="!w-[180px]"
         />
