@@ -6,6 +6,7 @@ defineOptions({
 // const { lastBuildTime } = __APP_INFO__;
 import { useRenderIcon } from "../../../components/ReIcon/src/hooks";
 import Search from "@iconify-icons/ep/search";
+import EditPen from "@iconify-icons/ep/edit-pen";
 
 import { ref } from "vue";
 
@@ -135,6 +136,14 @@ function onSearch() {
         >
           搜索
         </el-button>
+        <el-button
+          type="primary"
+          :icon="useRenderIcon(EditPen)"
+          :loading="loading"
+          @click="onSearch"
+        >
+          一键完成
+        </el-button>
       </el-form-item>
     </el-form>
     <el-card shadow="never">
@@ -142,12 +151,15 @@ function onSearch() {
         <PureDescriptions :columns="columns" class="mb-5" />
         <el-steps :active="2">
           <el-step title="已执行" />
-          <el-step title="已提箱" />
+          <el-step title="已提箱">
+            <template #description>
+              <el-button type="danger" link> 退回 </el-button>
+            </template>
+          </el-step>
           <el-step title="进拆箱门点" />
           <el-step title="出拆箱门点" />
           <el-step title="已还箱" />
           <el-step title="已完成" />
-          <el-step title="确认回单" />
         </el-steps>
       </div>
     </el-card>
@@ -161,7 +173,6 @@ function onSearch() {
           <el-step title="出拆箱门点" />
           <el-step title="已还箱" />
           <el-step title="已完成" />
-          <el-step title="确认回单" />
         </el-steps>
       </div>
     </el-card>
@@ -174,8 +185,11 @@ function onSearch() {
           <el-step title="进拆箱门点" />
           <el-step title="出拆箱门点" />
           <el-step title="已还箱" />
-          <el-step title="已完成" />
-          <el-step title="确认回单" />
+          <el-step title="已完成">
+            <template #description>
+              <el-button type="danger" link> 退回 </el-button>
+            </template>
+          </el-step>
         </el-steps>
       </div>
     </el-card>
@@ -187,9 +201,12 @@ function onSearch() {
           <el-step title="已提箱" />
           <el-step title="进拆箱门点" />
           <el-step title="出拆箱门点" />
-          <el-step title="已还箱" />
+          <el-step title="已还箱">
+            <template #description>
+              <el-button type="danger" link> 退回 </el-button>
+            </template>
+          </el-step>
           <el-step title="已完成" />
-          <el-step title="确认回单" />
         </el-steps>
       </div>
     </el-card>
