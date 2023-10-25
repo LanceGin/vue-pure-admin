@@ -6,10 +6,13 @@ interface FormItemProps {
   xiangxing: string;
   zuoxiangshijian: string;
   mendian: string;
+  tixiangdian: string;
   huanxiangdian: string;
   chuanming: string;
   kaichuanshijian: string;
   liuxiang: string;
+  xianghao: string;
+  chehao: string;
 }
 interface FormProps {
   formInline: FormItemProps;

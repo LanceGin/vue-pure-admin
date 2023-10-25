@@ -36,111 +36,46 @@ export function useRole() {
   });
   const columns: TableColumnList = [
     {
-      type: "selection",
-      align: "left"
+      label: "做箱时间",
+      prop: "zuoxiangshijian"
     },
     {
-      label: "箱号",
-      prop: "xianghao",
-      minWidth: 100
-    },
-    {
-      label: "箱型",
-      prop: "xiangxing",
-      minWidth: 120
-    },
-    {
-      label: "门点",
-      prop: "mendian",
-      minWidth: 150
+      label: "客户",
+      prop: "kehu"
     },
     {
       label: "提箱点",
-      prop: "tixiangdian",
-      minWidth: 150
+      prop: "tixiangdian"
     },
     {
-      label: "做箱时间",
-      prop: "zuoxiangshijian",
-      minWidth: 150
+      label: "箱号",
+      prop: "xianghao"
     },
     {
-      label: "暂落",
-      prop: "zanluo",
-      minWidth: 150
-    },
-    {
-      label: "运单号",
-      prop: "yundanhao",
-      minWidth: 150
+      label: "箱型",
+      prop: "xiangxing"
     },
     {
       label: "船名航次",
-      prop: "chuanming",
-      minWidth: 150
+      prop: "chuanming"
     },
     {
-      label: "到港时间",
-      prop: "daogangshijian",
-      minWidth: 150
+      label: "运单号",
+      prop: "yundanhao"
+    },
+    {
+      label: "门点",
+      prop: "mendian"
     },
     {
       label: "流向",
-      prop: "liuxiang",
-      minWidth: 150
+      prop: "liuxiang"
+    },
+    {
+      label: "车号",
+      prop: "chehao"
     }
   ];
-  // const buttonClass = computed(() => {
-  //   return [
-  //     "!h-[20px]",
-  //     "reset-margin",
-  //     "!text-gray-500",
-  //     "dark:!text-white",
-  //     "dark:hover:!text-primary"
-  //   ];
-  // });
-
-  // function onChange({ row, index }) {
-  //   ElMessageBox.confirm(
-  //     `确认要<strong>${
-  //       row.status === 0 ? "停用" : "启用"
-  //     }</strong><strong style='color:var(--el-color-primary)'>${
-  //       row.name
-  //     }</strong>吗?`,
-  //     "系统提示",
-  //     {
-  //       confirmButtonText: "确定",
-  //       cancelButtonText: "取消",
-  //       type: "warning",
-  //       dangerouslyUseHTMLString: true,
-  //       draggable: true
-  //     }
-  //   )
-  //     .then(() => {
-  //       switchLoadMap.value[index] = Object.assign(
-  //         {},
-  //         switchLoadMap.value[index],
-  //         {
-  //           loading: true
-  //         }
-  //       );
-  //       setTimeout(() => {
-  //         switchLoadMap.value[index] = Object.assign(
-  //           {},
-  //           switchLoadMap.value[index],
-  //           {
-  //             loading: false
-  //           }
-  //         );
-  //         message(`已${row.status === 0 ? "停用" : "启用"}${row.name}`, {
-  //           type: "success"
-  //         });
-  //       }, 300);
-  //     })
-  //     .catch(() => {
-  //       row.status === 0 ? (row.status = 1) : (row.status = 0);
-  //     });
-  // }
 
   function handleDelete(row) {
     message(`您删除了角色名称为${row.name}的这条数据`, { type: "success" });

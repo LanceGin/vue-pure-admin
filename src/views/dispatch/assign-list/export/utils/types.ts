@@ -11,6 +11,8 @@ interface FormItemProps {
   chuanming: string;
   daogangshijian: string;
   liuxiang: string;
+  kehu: string;
+  chehao: string;
 }
 interface FormProps {
   formInline: FormItemProps;
