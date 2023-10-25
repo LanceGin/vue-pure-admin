@@ -2,6 +2,7 @@
 
 interface FormItemProps {
   chehao: string;
+  jiashiyuan: string;
   riqi: string;
   shengshu: string;
   danjia: string;

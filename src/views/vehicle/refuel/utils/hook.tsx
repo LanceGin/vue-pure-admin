@@ -14,6 +14,7 @@ import { reactive, ref, onMounted, h, toRaw } from "vue";
 export function useRole() {
   const form = reactive({
     chehao: "",
+    jiashiyuan: "",
     riqi: "",
     shengshu: "",
     danjia: "",
@@ -38,6 +39,10 @@ export function useRole() {
     {
       label: "车号",
       prop: "chehao"
+    },
+    {
+      label: "驾驶员",
+      prop: "jiashiyuan"
     },
     {
       label: "日期",
@@ -161,6 +166,11 @@ export function useRole() {
     openDialog("编辑", row);
   }
 
+  // 退回操作
+  function handleRevoke() {
+    console.log("revoke");
+  }
+
   /** 菜单权限 */
   function handleMenu() {
     message("等菜单管理页面开发后完善");
@@ -189,6 +199,7 @@ export function useRole() {
     handleDelete,
     handleEdit,
     handleRowDblclick,
+    handleRevoke,
     // handleDatabase,
     handleSizeChange,
     handleCurrentChange,

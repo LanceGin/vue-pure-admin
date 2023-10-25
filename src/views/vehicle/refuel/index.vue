@@ -33,6 +33,7 @@ const {
   // handleDatabase,
   handleRowDblclick,
   handleEdit,
+  handleRevoke,
   handleSizeChange,
   handleCurrentChange,
   handleSelectionChange
@@ -107,6 +108,14 @@ const {
           @click="openDialog('买入')"
         >
           买入
+        </el-button>
+        <el-button
+          type="primary"
+          :icon="useRenderIcon(EditPen)"
+          @click="handleRevoke()"
+          :disabled="haveRow"
+        >
+          退回
         </el-button>
         <el-button :icon="useRenderIcon(Upload)" @click="resetForm(formRef)">
           导出
