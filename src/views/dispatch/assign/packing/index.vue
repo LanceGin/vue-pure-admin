@@ -67,6 +67,9 @@ const {
         <el-button :icon="useRenderIcon(EditPen)" @click="resetForm(formRef)">
           装箱派车
         </el-button>
+        <el-button :icon="useRenderIcon(EditPen)" @click="resetForm(formRef)">
+          一键完成
+        </el-button>
       </el-form-item>
     </el-form>
 
@@ -132,43 +135,6 @@ const {
                 </el-button>
               </template>
             </el-popconfirm>
-            <!-- <el-dropdown>
-              <el-button
-                class="ml-3 mt-[2px]"
-                link
-                type="primary"
-                :size="size"
-                :icon="useRenderIcon(More)"
-              />
-              <template #dropdown>
-                <el-dropdown-menu>
-                  <el-dropdown-item>
-                    <el-button
-                      :class="buttonClass"
-                      link
-                      type="primary"
-                      :size="size"
-                      :icon="useRenderIcon(Menu)"
-                      @click="handleMenu"
-                    >
-                      菜单权限
-                    </el-button>
-                  </el-dropdown-item>
-                  <el-dropdown-item>
-                    <el-button
-                      :class="buttonClass"
-                      link
-                      type="primary"
-                      :size="size"
-                      :icon="useRenderIcon(Database)"
-                      @click="handleDatabase"
-                    >
-                      数据权限
-                    </el-button>
-                  </el-dropdown-item>
-                </el-dropdown-menu>
-              </template>
-            </el-dropdown> -->
           </template>
         </pure-table>
       </template>
