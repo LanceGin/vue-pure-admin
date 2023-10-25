@@ -32,6 +32,8 @@ export function useRole() {
     remark: ""
   });
   const formRef = ref();
+  const haveRow = ref(true);
+  const multipleSelection = ref([]);
   let dataList = tableData;
   const loading = ref(true);
   // const switchLoadMap = ref({});
@@ -44,156 +46,87 @@ export function useRole() {
   });
   const columns: TableColumnList = [
     {
+      type: "selection",
+      align: "left"
+    },
+    {
       label: "状态",
-      prop: "status",
-      minWidth: 100
+      prop: "status"
     },
     {
       label: "行政/业务",
-      prop: "yewu",
-      minWidth: 120
+      prop: "yewu"
     },
     {
       label: "费用名称",
-      prop: "name",
-      minWidth: 150
+      prop: "name"
     },
     {
       label: "收/付",
-      prop: "zhifu",
-      minWidth: 150
+      prop: "zhifu"
     },
     {
       label: "支付类型",
-      prop: "zhifu_type",
-      minWidth: 150
+      prop: "zhifu_type"
     },
     {
       label: "申请金额",
-      prop: "amount",
-      minWidth: 150
+      prop: "amount"
     },
     {
       label: "报销金额",
-      prop: "submit",
-      minWidth: 150
+      prop: "submit"
     },
     {
       label: "税额",
-      prop: "tax",
-      minWidth: 150
+      prop: "tax"
     },
     {
       label: "申请人",
-      prop: "apply_staff",
-      minWidth: 150
+      prop: "apply_staff"
     },
     {
       label: "申请单位",
-      prop: "shenqingdanwei",
-      minWidth: 150
+      prop: "shenqingdanwei"
     },
     {
       label: "录入时间",
-      prop: "add_time",
-      minWidth: 150
+      prop: "add_time"
     },
     {
       label: "报销人",
-      prop: "submit_staff",
-      minWidth: 150
+      prop: "submit_staff"
     },
     {
       label: "审核人",
-      prop: "shenhe",
-      minWidth: 150
+      prop: "shenhe"
     },
     {
       label: "审批人",
-      prop: "shenpi",
-      minWidth: 150
+      prop: "shenpi"
     },
     {
       label: "记账人",
-      prop: "jizhang",
-      minWidth: 150
+      prop: "jizhang"
     },
     {
       label: "费用编号",
-      prop: "feiyongbianhao",
-      minWidth: 150
+      prop: "feiyongbianhao"
     },
     {
       label: "记账时间",
-      prop: "jizhang_time",
-      minWidth: 150
+      prop: "jizhang_time"
     },
     {
       label: "备注",
-      prop: "remark",
-      minWidth: 150
-    },
-    {
-      label: "操作",
-      fixed: "right",
-      width: 240,
-      slot: "operation"
+      prop: "remark"
     }
   ];
-  // const buttonClass = computed(() => {
-  //   return [
-  //     "!h-[20px]",
-  //     "reset-margin",
-  //     "!text-gray-500",
-  //     "dark:!text-white",
-  //     "dark:hover:!text-primary"
-  //   ];
-  // });
 
-  // function onChange({ row, index }) {
-  //   ElMessageBox.confirm(
-  //     `确认要<strong>${
-  //       row.status === 0 ? "停用" : "启用"
-  //     }</strong><strong style='color:var(--el-color-primary)'>${
-  //       row.name
-  //     }</strong>吗?`,
-  //     "系统提示",
-  //     {
-  //       confirmButtonText: "确定",
-  //       cancelButtonText: "取消",
-  //       type: "warning",
-  //       dangerouslyUseHTMLString: true,
-  //       draggable: true
-  //     }
-  //   )
-  //     .then(() => {
-  //       switchLoadMap.value[index] = Object.assign(
-  //         {},
-  //         switchLoadMap.value[index],
-  //         {
-  //           loading: true
-  //         }
-  //       );
-  //       setTimeout(() => {
-  //         switchLoadMap.value[index] = Object.assign(
-  //           {},
-  //           switchLoadMap.value[index],
-  //           {
-  //             loading: false
-  //           }
-  //         );
-  //         message(`已${row.status === 0 ? "停用" : "启用"}${row.name}`, {
-  //           type: "success"
-  //         });
-  //       }, 300);
-  //     })
-  //     .catch(() => {
-  //       row.status === 0 ? (row.status = 1) : (row.status = 0);
-  //     });
-  // }
-
-  function handleDelete(row) {
-    message(`您删除了费用名称为${row.name}的这条数据`, { type: "success" });
+  function handleDelete() {
+    message(`您删除了费用名为${multipleSelection.value}的这条数据`, {
+      type: "success"
+    });
     onSearch();
   }
 
@@ -206,7 +139,12 @@ export function useRole() {
   }
 
   function handleSelectionChange(val) {
-    console.log("handleSelectionChange", val);
+    multipleSelection.value = val;
+    if (multipleSelection.value.length != 0) {
+      haveRow.value = false;
+    } else {
+      haveRow.value = true;
+    }
   }
 
   async function onSearch() {
@@ -300,6 +238,7 @@ export function useRole() {
   return {
     form,
     loading,
+    haveRow,
     columns,
     dataList,
     pagination,

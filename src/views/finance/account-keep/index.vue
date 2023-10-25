@@ -21,6 +21,7 @@ const formRef = ref();
 const {
   form,
   loading,
+  haveRow,
   columns,
   dataList,
   pagination,
@@ -50,14 +51,6 @@ const {
           placeholder="请输入申请日期"
           clearable
           class="!w-[200px]"
-        />
-      </el-form-item>
-      <el-form-item label="费用编号：" prop="feiyongbianhao">
-        <el-input
-          v-model="form.feiyongbianhao"
-          placeholder="请输入费用编号"
-          clearable
-          class="!w-[180px]"
         />
       </el-form-item>
       <el-form-item label="申请编号：" prop="feiyongbianhao">
@@ -114,6 +107,13 @@ const {
           <el-option label="已记账" value="7" />
         </el-select>
       </el-form-item>
+    </el-form>
+    <el-form
+      ref="formRef"
+      :inline="true"
+      :model="form"
+      class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
+    >
       <el-form-item>
         <el-button
           type="primary"
@@ -128,6 +128,31 @@ const {
         </el-button>
         <el-button :icon="useRenderIcon(Upload)" @click="resetForm(formRef)">
           导出
+        </el-button>
+        <el-button
+          class="reset-margin"
+          type="success"
+          :icon="useRenderIcon(EditPen)"
+          :disabled="haveRow"
+        >
+          记账
+        </el-button>
+        <el-button
+          class="reset-margin"
+          type="danger"
+          :icon="useRenderIcon(EditPen)"
+          :disabled="haveRow"
+        >
+          撤销记账
+        </el-button>
+        <el-button
+          class="reset-margin"
+          type="danger"
+          :icon="useRenderIcon(Delete)"
+          :disabled="haveRow"
+          @click="handleDelete()"
+        >
+          删除
         </el-button>
       </el-form-item>
     </el-form>
@@ -157,44 +182,7 @@ const {
           @selection-change="handleSelectionChange"
           @page-size-change="handleSizeChange"
           @page-current-change="handleCurrentChange"
-        >
-          <template #operation="{ row }">
-            <el-button
-              class="reset-margin"
-              link
-              type="success"
-              :size="size"
-              :icon="useRenderIcon(EditPen)"
-            >
-              记账
-            </el-button>
-            <el-button
-              class="reset-margin"
-              link
-              type="danger"
-              :size="size"
-              :icon="useRenderIcon(EditPen)"
-            >
-              撤销记账
-            </el-button>
-            <el-popconfirm
-              :title="`是否确认删除客户名称为${row.name}的这条数据`"
-              @confirm="handleDelete(row)"
-            >
-              <template #reference>
-                <el-button
-                  class="reset-margin"
-                  link
-                  type="primary"
-                  :size="size"
-                  :icon="useRenderIcon(Delete)"
-                >
-                  删除
-                </el-button>
-              </template>
-            </el-popconfirm>
-          </template>
-        </pure-table>
+        />
       </template>
     </PureTableBar>
   </div>
