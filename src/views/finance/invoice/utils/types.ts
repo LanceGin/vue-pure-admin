@@ -11,6 +11,7 @@ interface FormItemProps {
   goufangmc: string;
   kaipiaoriqi: string;
   jine: string;
+  shuilv: string;
   shuie: string;
   jiashuiheji: string;
   laiyuan: string;
