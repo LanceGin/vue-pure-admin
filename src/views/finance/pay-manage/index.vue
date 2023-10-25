@@ -85,6 +85,14 @@ const {
           class="!w-[200px]"
         />
       </el-form-item>
+      <el-form-item label="账期：" prop="zhangqi">
+        <el-input
+          v-model="form.zhangqi"
+          placeholder="请输入账期"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
     </el-form>
     <el-form
       ref="formRef"
