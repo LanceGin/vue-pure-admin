@@ -24,6 +24,8 @@ export function useRole() {
     caozuo: ""
   });
   const formRef = ref();
+  const currentRow = ref();
+  const haveRow = ref(true);
   let dataList = tableData;
   const loading = ref(true);
   // const switchLoadMap = ref({});
@@ -37,115 +39,50 @@ export function useRole() {
   const columns: TableColumnList = [
     {
       label: "预存信息",
-      prop: "yucun",
-      minWidth: 100
+      prop: "yucun"
     },
     {
       label: "卡号/账号",
-      prop: "kahao",
-      minWidth: 120
+      prop: "kahao"
     },
     {
       label: "往来单位",
-      prop: "wanglaidanwei",
-      minWidth: 150
+      prop: "wanglaidanwei"
     },
     {
       label: "服务内容",
-      prop: "fuwu",
-      minWidth: 150
+      prop: "fuwu"
     },
     {
       label: "充值时间",
-      prop: "chongzhishijian",
-      minWidth: 150
+      prop: "chongzhishijian"
     },
     {
       label: "充值金额",
-      prop: "chongzhijine",
-      minWidth: 150
+      prop: "chongzhijine"
     },
     {
       label: "消费时间",
-      prop: "xiaofeishijian",
-      minWidth: 150
+      prop: "xiaofeishijian"
     },
     {
       label: "消费金额",
-      prop: "xiaofeijine",
-      minWidth: 150
+      prop: "xiaofeijine"
     },
     {
       label: "余额",
-      prop: "yue",
-      minWidth: 150
+      prop: "yue"
     },
     {
       label: "操作人员",
-      prop: "caozuo",
-      minWidth: 150
-    },
-    {
-      label: "操作",
-      fixed: "right",
-      width: 240,
-      slot: "operation"
+      prop: "caozuo"
     }
   ];
-  // const buttonClass = computed(() => {
-  //   return [
-  //     "!h-[20px]",
-  //     "reset-margin",
-  //     "!text-gray-500",
-  //     "dark:!text-white",
-  //     "dark:hover:!text-primary"
-  //   ];
-  // });
 
-  // function onChange({ row, index }) {
-  //   ElMessageBox.confirm(
-  //     `确认要<strong>${
-  //       row.status === 0 ? "停用" : "启用"
-  //     }</strong><strong style='color:var(--el-color-primary)'>${
-  //       row.name
-  //     }</strong>吗?`,
-  //     "系统提示",
-  //     {
-  //       confirmButtonText: "确定",
-  //       cancelButtonText: "取消",
-  //       type: "warning",
-  //       dangerouslyUseHTMLString: true,
-  //       draggable: true
-  //     }
-  //   )
-  //     .then(() => {
-  //       switchLoadMap.value[index] = Object.assign(
-  //         {},
-  //         switchLoadMap.value[index],
-  //         {
-  //           loading: true
-  //         }
-  //       );
-  //       setTimeout(() => {
-  //         switchLoadMap.value[index] = Object.assign(
-  //           {},
-  //           switchLoadMap.value[index],
-  //           {
-  //             loading: false
-  //           }
-  //         );
-  //         message(`已${row.status === 0 ? "停用" : "启用"}${row.name}`, {
-  //           type: "success"
-  //         });
-  //       }, 300);
-  //     })
-  //     .catch(() => {
-  //       row.status === 0 ? (row.status = 1) : (row.status = 0);
-  //     });
-  // }
-
-  function handleDelete(row) {
-    message(`您删除了订单号为${row.order_no}的这条数据`, { type: "success" });
+  function handleDelete() {
+    message(`您删除了角色名称为${currentRow.value.name}的这条数据`, {
+      type: "success"
+    });
     onSearch();
   }
 
@@ -153,8 +90,9 @@ export function useRole() {
     console.log(`${val} items per page`);
   }
 
-  function handleCurrentChange(val: number) {
-    console.log(`current page: ${val}`);
+  function handleCurrentChange(val) {
+    currentRow.value = val;
+    haveRow.value = false;
   }
 
   function handleSelectionChange(val) {
@@ -229,6 +167,17 @@ export function useRole() {
     });
   }
 
+  // 编辑按钮
+  function handleEdit() {
+    openDialog("编辑", currentRow.value);
+  }
+
+  // 双击行
+  function handleRowDblclick(row) {
+    console.log(row);
+    openDialog("编辑", row);
+  }
+
   /** 菜单权限 */
   function handleMenu() {
     message("等菜单管理页面开发后完善");
@@ -244,6 +193,7 @@ export function useRole() {
   return {
     form,
     loading,
+    haveRow,
     columns,
     dataList,
     pagination,
@@ -254,6 +204,8 @@ export function useRole() {
     handleMenu,
     handleDelete,
     // handleDatabase,
+    handleRowDblclick,
+    handleEdit,
     handleSizeChange,
     handleCurrentChange,
     handleSelectionChange
