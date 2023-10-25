@@ -49,6 +49,14 @@ export default {
       meta: {
         title: "撬装加油"
       }
+    },
+    {
+      path: "/vehicle/vehicle_fee",
+      name: "VehicleFee",
+      component: () => import("@/views/vehicle/vehicle-fee/index.vue"),
+      meta: {
+        title: "车辆费用"
+      }
     }
   ]
 } as RouteConfigsTable;
