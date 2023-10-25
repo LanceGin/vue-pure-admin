@@ -4,6 +4,7 @@ interface FormItemProps {
   zhangqi: string;
   gongyingshang: string;
   jiesuandanwei: string;
+  xiangmu: string;
   fuwu: string;
   f: string;
   t: string;

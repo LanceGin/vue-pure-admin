@@ -15,6 +15,7 @@ export function useRole() {
     zhangqi: "",
     gongyingshang: "",
     jiesuandanwei: "",
+    xiangmu: "",
     fuwu: "",
     f: "",
     t: "",
@@ -39,48 +40,39 @@ export function useRole() {
   const columns: TableColumnList = [
     {
       label: "账期",
-      prop: "zhangqi",
-      minWidth: 100
+      prop: "zhangqi"
     },
     {
-      label: "客户",
-      prop: "kehu",
-      minWidth: 120
+      label: "供应商",
+      prop: "gongyingshang"
+    },
+    {
+      label: "结算单位",
+      prop: "jiesuandanwei"
     },
     {
       label: "项目",
-      prop: "xiangmu",
-      minWidth: 150
-    },
-    {
-      label: "流向",
-      prop: "liuxiang",
-      minWidth: 150
+      prop: "xiangmu"
     },
     {
       label: "服务内容",
-      prop: "fuwu",
-      minWidth: 150
+      prop: "fuwu"
     },
     {
       label: "40",
-      prop: "f",
-      minWidth: 150
+      prop: "f"
     },
     {
       label: "20",
-      prop: "t",
-      minWidth: 150
+      prop: "t"
     },
     {
       label: "箱量合计",
-      prop: "xiangliang",
-      minWidth: 150
+      prop: "xiangliang"
     },
     {
       label: "应收金额",
-      prop: "yingshou",
-      minWidth: 150
+      prop: "yingshou"
     },
     {
       label: "审核",
