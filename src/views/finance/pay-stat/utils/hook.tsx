@@ -12,6 +12,9 @@ import { reactive, ref, onMounted, h, toRaw } from "vue";
 
 export function useRole() {
   const form = reactive({
+    zhangqi: "",
+    zuoxiangriqi: "",
+    feiyongming: "",
     yingfudanwei: "",
     yewu: "",
     mendian: "",
@@ -34,97 +37,50 @@ export function useRole() {
   });
   const columns: TableColumnList = [
     {
+      label: "账期",
+      prop: "zhangqi"
+    },
+    {
+      label: "做箱日期",
+      prop: "zuoxiangriqi"
+    },
+    {
+      label: "费用名称",
+      prop: "feiyongming"
+    },
+    {
       label: "应付单位",
-      prop: "yingfudanwei",
-      minWidth: 100
+      prop: "yingfudanwei"
     },
     {
       label: "业务名称",
-      prop: "yewu",
-      minWidth: 120
+      prop: "yewu"
     },
     {
       label: "门点",
-      prop: "mendian",
-      minWidth: 150
+      prop: "mendian"
     },
     {
       label: "20",
-      prop: "t",
-      minWidth: 150
+      prop: "t"
     },
     {
       label: "40",
-      prop: "f",
-      minWidth: 150
+      prop: "f"
     },
     {
       label: "箱量合计",
-      prop: "xiangliang",
-      minWidth: 150
+      prop: "xiangliang"
     },
     {
       label: "应付金额",
-      prop: "yingfu",
-      minWidth: 150
+      prop: "yingfu"
     },
     {
       label: "实付金额",
-      prop: "shifu",
-      minWidth: 150
+      prop: "shifu"
     }
   ];
-  // const buttonClass = computed(() => {
-  //   return [
-  //     "!h-[20px]",
-  //     "reset-margin",
-  //     "!text-gray-500",
-  //     "dark:!text-white",
-  //     "dark:hover:!text-primary"
-  //   ];
-  // });
-
-  // function onChange({ row, index }) {
-  //   ElMessageBox.confirm(
-  //     `确认要<strong>${
-  //       row.status === 0 ? "停用" : "启用"
-  //     }</strong><strong style='color:var(--el-color-primary)'>${
-  //       row.name
-  //     }</strong>吗?`,
-  //     "系统提示",
-  //     {
-  //       confirmButtonText: "确定",
-  //       cancelButtonText: "取消",
-  //       type: "warning",
-  //       dangerouslyUseHTMLString: true,
-  //       draggable: true
-  //     }
-  //   )
-  //     .then(() => {
-  //       switchLoadMap.value[index] = Object.assign(
-  //         {},
-  //         switchLoadMap.value[index],
-  //         {
-  //           loading: true
-  //         }
-  //       );
-  //       setTimeout(() => {
-  //         switchLoadMap.value[index] = Object.assign(
-  //           {},
-  //           switchLoadMap.value[index],
-  //           {
-  //             loading: false
-  //           }
-  //         );
-  //         message(`已${row.status === 0 ? "停用" : "启用"}${row.name}`, {
-  //           type: "success"
-  //         });
-  //       }, 300);
-  //     })
-  //     .catch(() => {
-  //       row.status === 0 ? (row.status = 1) : (row.status = 0);
-  //     });
-  // }
 
   function handleDelete(row) {
     message(`您删除了订单号为${row.order_no}的这条数据`, { type: "success" });
