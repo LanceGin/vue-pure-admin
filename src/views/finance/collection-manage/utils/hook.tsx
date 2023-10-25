@@ -41,78 +41,64 @@ export function useRole() {
   const columns: TableColumnList = [
     {
       label: "状态",
-      prop: "zhuangtai",
-      minWidth: 100
+      prop: "zhuangtai"
     },
     {
       label: "账期",
-      prop: "zhangqi",
-      minWidth: 120
+      prop: "zhangqi"
     },
     {
       label: "客户名称",
-      prop: "kehu",
-      minWidth: 150
+      prop: "kehu"
     },
     {
       label: "项目名称",
-      prop: "xiangmu",
-      minWidth: 150
+      prop: "xiangmu"
     },
     {
       label: "流向",
-      prop: "liuxiang",
-      minWidth: 150
+      prop: "liuxiang"
     },
     {
       label: "服务内容",
-      prop: "fuwu",
-      minWidth: 150
+      prop: "fuwu"
     },
     {
       label: "40",
-      prop: "f",
-      minWidth: 150
+      prop: "f"
     },
     {
       label: "20",
-      prop: "t",
-      minWidth: 150
+      prop: "t"
     },
     {
       label: "箱量合计",
-      prop: "xiangliang",
-      minWidth: 150
+      prop: "xiangliang"
     },
     {
       label: "应收金额",
-      prop: "yingshou",
-      minWidth: 150
+      prop: "yingshou"
     },
     {
       label: "开票申请",
-      width: 240,
+      width: 140,
       slot: "operation"
     },
     {
       label: "发票号码",
-      prop: "haoma",
-      minWidth: 150
+      prop: "haoma"
     },
     {
       label: "发票金额",
-      prop: "fapiaojine",
-      minWidth: 150
+      prop: "fapiaojine"
     },
     {
       label: "收款金额",
-      prop: "shoukuan",
-      minWidth: 150
+      prop: "shoukuan"
     },
     {
       label: "未收款金额",
-      prop: "weishoukuan",
-      minWidth: 150
+      prop: "weishoukuan"
     }
   ];
 

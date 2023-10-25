@@ -31,6 +31,8 @@ export function useRole() {
     beizhu: ""
   });
   const formRef = ref();
+  const currentRow = ref();
+  const haveRow = ref(true);
   let dataList = tableData;
   const loading = ref(true);
   // const switchLoadMap = ref({});
@@ -44,150 +46,78 @@ export function useRole() {
   const columns: TableColumnList = [
     {
       label: "状态",
-      prop: "zhuangtai",
-      minWidth: 100
+      prop: "zhuangtai"
     },
     {
       label: "账期",
-      prop: "zhangqi",
-      minWidth: 120
+      prop: "zhangqi"
     },
     {
       label: "供应商名称",
-      prop: "gongyingshang",
-      minWidth: 150
+      prop: "gongyingshang"
     },
     {
       label: "结算单位",
-      prop: "jiesuandanwei",
-      minWidth: 150
+      prop: "jiesuandanwei"
     },
     {
       label: "开户行",
-      prop: "kaihuhang",
-      minWidth: 150
+      prop: "kaihuhang"
     },
     {
       label: "银行账号",
-      prop: "yinhangzhanghao",
-      minWidth: 150
+      prop: "yinhangzhanghao"
     },
     {
       label: "服务内容",
-      prop: "fuwu",
-      minWidth: 150
+      prop: "fuwu"
     },
     {
       label: "40",
-      prop: "f",
-      minWidth: 150
+      prop: "f"
     },
     {
       label: "20",
-      prop: "t",
-      minWidth: 150
+      prop: "t"
     },
     {
       label: "箱量合计",
-      prop: "xiangliang",
-      minWidth: 150
+      prop: "xiangliang"
     },
     {
       label: "结算金额",
-      prop: "jiesuanjine",
-      minWidth: 150
+      prop: "jiesuanjine"
     },
     {
       label: "扣除项目",
-      prop: "kouchu",
-      minWidth: 150
+      prop: "kouchu"
     },
     {
       label: "增加项目",
-      prop: "zengjia",
-      minWidth: 150
+      prop: "zengjia"
     },
     {
       label: "实付金额",
-      prop: "shifu",
-      minWidth: 150
+      prop: "shifu"
     },
     {
       label: "发票号码",
-      prop: "haoma",
-      minWidth: 150
+      prop: "haoma"
     },
     {
       label: "记账日期",
-      prop: "jizhangriqi",
-      minWidth: 150
+      prop: "jizhangriqi"
     },
     {
       label: "备注",
-      prop: "beizhu",
-      minWidth: 150
-    },
-    {
-      label: "操作",
-      fixed: "right",
-      width: 240,
-      slot: "operation"
+      prop: "beizhu"
     }
   ];
-  // const buttonClass = computed(() => {
-  //   return [
-  //     "!h-[20px]",
-  //     "reset-margin",
-  //     "!text-gray-500",
-  //     "dark:!text-white",
-  //     "dark:hover:!text-primary"
-  //   ];
-  // });
 
-  // function onChange({ row, index }) {
-  //   ElMessageBox.confirm(
-  //     `确认要<strong>${
-  //       row.status === 0 ? "停用" : "启用"
-  //     }</strong><strong style='color:var(--el-color-primary)'>${
-  //       row.name
-  //     }</strong>吗?`,
-  //     "系统提示",
-  //     {
-  //       confirmButtonText: "确定",
-  //       cancelButtonText: "取消",
-  //       type: "warning",
-  //       dangerouslyUseHTMLString: true,
-  //       draggable: true
-  //     }
-  //   )
-  //     .then(() => {
-  //       switchLoadMap.value[index] = Object.assign(
-  //         {},
-  //         switchLoadMap.value[index],
-  //         {
-  //           loading: true
-  //         }
-  //       );
-  //       setTimeout(() => {
-  //         switchLoadMap.value[index] = Object.assign(
-  //           {},
-  //           switchLoadMap.value[index],
-  //           {
-  //             loading: false
-  //           }
-  //         );
-  //         message(`已${row.status === 0 ? "停用" : "启用"}${row.name}`, {
-  //           type: "success"
-  //         });
-  //       }, 300);
-  //     })
-  //     .catch(() => {
-  //       row.status === 0 ? (row.status = 1) : (row.status = 0);
-  //     });
-  // }
-
-  function handleDelete(row) {
-    message(`您删除了订单号为${row.order_no}的这条数据`, { type: "success" });
+  function handleDelete() {
+    message(`您删除了供应商名称为${currentRow.value.gongyingshang}的这条数据`, {
+      type: "success"
+    });
     onSearch();
   }
 
@@ -195,8 +125,9 @@ export function useRole() {
     console.log(`${val} items per page`);
   }
 
-  function handleCurrentChange(val: number) {
-    console.log(`current page: ${val}`);
+  function handleCurrentChange(val) {
+    currentRow.value = val;
+    haveRow.value = false;
   }
 
   function handleSelectionChange(val) {
@@ -278,6 +209,17 @@ export function useRole() {
     });
   }
 
+  // 编辑按钮
+  function handleEdit() {
+    openDialog("编辑", currentRow.value);
+  }
+
+  // 双击行
+  function handleRowDblclick(row) {
+    console.log(row);
+    openDialog("编辑", row);
+  }
+
   /** 菜单权限 */
   function handleMenu() {
     message("等菜单管理页面开发后完善");
@@ -293,6 +235,7 @@ export function useRole() {
   return {
     form,
     loading,
+    haveRow,
     columns,
     dataList,
     pagination,
@@ -303,6 +246,8 @@ export function useRole() {
     handleMenu,
     handleDelete,
     // handleDatabase,
+    handleRowDblclick,
+    handleEdit,
     handleSizeChange,
     handleCurrentChange,
     handleSelectionChange

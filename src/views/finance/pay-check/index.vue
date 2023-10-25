@@ -102,15 +102,6 @@ const {
       :columns="columns"
       @refresh="onSearch"
     >
-      <!-- <template #buttons>
-        <el-button
-          type="primary"
-          :icon="useRenderIcon(AddFill)"
-          @click="openDialog()"
-        >
-          添加驾驶员
-        </el-button>
-      </template> -->
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border

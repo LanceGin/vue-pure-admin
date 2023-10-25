@@ -81,7 +81,21 @@ const {
           class="!w-[200px]"
         />
       </el-form-item>
-
+      <el-form-item label="账期：" prop="zhangqi">
+        <el-input
+          v-model="form.zhangqi"
+          placeholder="请输入账期"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
+    </el-form>
+    <el-form
+      ref="formRef"
+      :inline="true"
+      :model="form"
+      class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
+    >
       <el-form-item>
         <el-button
           type="primary"
@@ -90,6 +104,13 @@ const {
           @click="onSearch"
         >
           搜索
+        </el-button>
+        <el-button
+          type="primary"
+          :icon="useRenderIcon(AddFill)"
+          @click="openDialog()"
+        >
+          添加应收记录
         </el-button>
         <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
           导入
@@ -105,15 +126,6 @@ const {
       :columns="columns"
       @refresh="onSearch"
     >
-      <template #buttons>
-        <el-button
-          type="primary"
-          :icon="useRenderIcon(AddFill)"
-          @click="openDialog()"
-        >
-          添加应收记录
-        </el-button>
-      </template>
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border
@@ -146,43 +158,6 @@ const {
             >
               开票申请
             </el-button>
-            <!-- <el-dropdown>
-              <el-button
-                class="ml-3 mt-[2px]"
-                link
-                type="primary"
-                :size="size"
-                :icon="useRenderIcon(More)"
-              />
-              <template #dropdown>
-                <el-dropdown-menu>
-                  <el-dropdown-item>
-                    <el-button
-                      :class="buttonClass"
-                      link
-                      type="primary"
-                      :size="size"
-                      :icon="useRenderIcon(Menu)"
-                      @click="handleMenu"
-                    >
-                      菜单权限
-                    </el-button>
-                  </el-dropdown-item>
-                  <el-dropdown-item>
-                    <el-button
-                      :class="buttonClass"
-                      link
-                      type="primary"
-                      :size="size"
-                      :icon="useRenderIcon(Database)"
-                      @click="handleDatabase"
-                    >
-                      数据权限
-                    </el-button>
-                  </el-dropdown-item>
-                </el-dropdown-menu>
-              </template>
-            </el-dropdown> -->
           </template>
         </pure-table>
       </template>
