@@ -36,107 +36,46 @@ export function useRole() {
   const columns: TableColumnList = [
     {
       label: "账期",
-      prop: "zhangqi",
-      minWidth: 100
+      prop: "zhangqi"
     },
     {
       label: "客户",
-      prop: "kehu",
-      minWidth: 120
+      prop: "kehu"
     },
     {
       label: "项目",
-      prop: "xiangmu",
-      minWidth: 150
+      prop: "xiangmu"
     },
     {
       label: "流向",
-      prop: "liuxiang",
-      minWidth: 150
+      prop: "liuxiang"
     },
     {
       label: "服务内容",
-      prop: "fuwu",
-      minWidth: 150
+      prop: "fuwu"
     },
     {
       label: "40",
-      prop: "f",
-      minWidth: 150
+      prop: "f"
     },
     {
       label: "20",
-      prop: "t",
-      minWidth: 150
+      prop: "t"
     },
     {
       label: "箱量合计",
-      prop: "xiangliang",
-      minWidth: 150
+      prop: "xiangliang"
     },
     {
       label: "应收金额",
-      prop: "yingshou",
-      minWidth: 150
+      prop: "yingshou"
     },
     {
       label: "审核",
-      fixed: "right",
       width: 240,
       slot: "operation"
     }
   ];
-  // const buttonClass = computed(() => {
-  //   return [
-  //     "!h-[20px]",
-  //     "reset-margin",
-  //     "!text-gray-500",
-  //     "dark:!text-white",
-  //     "dark:hover:!text-primary"
-  //   ];
-  // });
-
-  // function onChange({ row, index }) {
-  //   ElMessageBox.confirm(
-  //     `确认要<strong>${
-  //       row.status === 0 ? "停用" : "启用"
-  //     }</strong><strong style='color:var(--el-color-primary)'>${
-  //       row.name
-  //     }</strong>吗?`,
-  //     "系统提示",
-  //     {
-  //       confirmButtonText: "确定",
-  //       cancelButtonText: "取消",
-  //       type: "warning",
-  //       dangerouslyUseHTMLString: true,
-  //       draggable: true
-  //     }
-  //   )
-  //     .then(() => {
-  //       switchLoadMap.value[index] = Object.assign(
-  //         {},
-  //         switchLoadMap.value[index],
-  //         {
-  //           loading: true
-  //         }
-  //       );
-  //       setTimeout(() => {
-  //         switchLoadMap.value[index] = Object.assign(
-  //           {},
-  //           switchLoadMap.value[index],
-  //           {
-  //             loading: false
-  //           }
-  //         );
-  //         message(`已${row.status === 0 ? "停用" : "启用"}${row.name}`, {
-  //           type: "success"
-  //         });
-  //       }, 300);
-  //     })
-  //     .catch(() => {
-  //       row.status === 0 ? (row.status = 1) : (row.status = 0);
-  //     });
-  // }
 
   function handleDelete(row) {
     message(`您删除了角色名称为${row.name}的这条数据`, { type: "success" });
