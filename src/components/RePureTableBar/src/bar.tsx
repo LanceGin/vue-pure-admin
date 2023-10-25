@@ -38,7 +38,7 @@ export default defineComponent({
   emits: ["refresh"],
   setup(props, { emit, slots, attrs }) {
     const buttonRef = ref();
-    const size = ref("default");
+    const size = ref("small");
     const isExpandAll = ref(true);
     const loading = ref(false);
     const checkAll = ref(true);
