@@ -81,9 +81,36 @@ defineExpose({ getRef });
     </el-form-item>
 
     <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-      <el-tab-pane label="项目管理" name="first">项目管理</el-tab-pane>
-      <el-tab-pane label="作业门点" name="second">作业门点</el-tab-pane>
-      <el-tab-pane label="子项目" name="third">子项目</el-tab-pane>
+      <el-tab-pane label="项目管理" name="first">
+        <el-form :inline="true">
+          <el-form-item>
+            <el-button link type="primary">增加</el-button>
+            <el-button link type="primary">编辑</el-button>
+            <el-button link type="danger">删除</el-button>
+          </el-form-item>
+        </el-form>
+        项目管理
+      </el-tab-pane>
+      <el-tab-pane label="作业门点" name="second">
+        <el-form :inline="true">
+          <el-form-item>
+            <el-button link type="primary">增加</el-button>
+            <el-button link type="primary">编辑</el-button>
+            <el-button link type="danger">删除</el-button>
+          </el-form-item>
+        </el-form>
+        作业门点
+      </el-tab-pane>
+      <el-tab-pane label="子项目" name="third">
+        <el-form :inline="true">
+          <el-form-item>
+            <el-button link type="primary">增加</el-button>
+            <el-button link type="primary">编辑</el-button>
+            <el-button link type="danger">删除</el-button>
+          </el-form-item>
+        </el-form>
+        子项目
+      </el-tab-pane>
     </el-tabs>
   </el-form>
 </template>
