@@ -52,7 +52,6 @@ const {
           class="!w-[200px]"
         />
       </el-form-item>
-
       <el-form-item label="日期：" prop="zuoxiangshijian">
         <el-input
           v-model="form.zuoxiangshijian"
@@ -61,19 +60,17 @@ const {
           class="!w-[200px]"
         />
       </el-form-item>
-
-      <el-form-item label="门点：" prop="mendian">
+      <el-form-item label="暂落点：" prop="zanluodian">
         <el-input
-          v-model="form.mendian"
-          placeholder="请输入门点"
+          v-model="form.zanluodian"
+          placeholder="请输入暂落点"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-
-      <el-form-item label="箱号：" prop="xianghao">
+      <el-form-item label="箱号：" prop="xiangxing">
         <el-input
-          v-model="form.xianghao"
+          v-model="form.xiangxing"
           placeholder="请输入箱号"
           clearable
           class="!w-[200px]"
@@ -103,7 +100,7 @@ const {
     </el-form>
 
     <PureTableBar
-      title="出口派车单列表（测试用，操作后不生效）"
+      title="暂落派车单列表（测试用，操作后不生效）"
       :columns="columns"
       @refresh="onSearch"
     >

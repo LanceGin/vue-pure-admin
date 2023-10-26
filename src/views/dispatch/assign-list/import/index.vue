@@ -9,7 +9,7 @@ import { useRenderIcon } from "../../../../components/ReIcon/src/hooks";
 import Delete from "@iconify-icons/ep/delete";
 import EditPen from "@iconify-icons/ep/edit-pen";
 import Search from "@iconify-icons/ep/search";
-// import Upload from "@iconify-icons/ep/upload";
+import Upload from "@iconify-icons/ep/upload";
 // import Download from "@iconify-icons/ep/download";
 // import AddFill from "@iconify-icons/ri/add-circle-line";
 
@@ -26,7 +26,7 @@ const {
   pagination,
   // buttonClass,
   onSearch,
-  // resetForm,
+  resetForm,
   openDialog,
   handleDelete,
   // handleDatabase,
@@ -92,6 +92,9 @@ const {
           @click="onSearch"
         >
           搜索
+        </el-button>
+        <el-button :icon="useRenderIcon(Upload)" @click="resetForm(formRef)">
+          导出
         </el-button>
       </el-form-item>
     </el-form>

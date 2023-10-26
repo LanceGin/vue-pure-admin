@@ -70,6 +70,15 @@ export default {
           meta: {
             title: "出口"
           }
+        },
+        {
+          path: "/dispatch/car_assignation_list/temp_drop",
+          name: "TempDrop",
+          component: () =>
+            import("@/views/dispatch/assign-list/temp-drop/index.vue"),
+          meta: {
+            title: "暂落"
+          }
         }
       ]
     }
