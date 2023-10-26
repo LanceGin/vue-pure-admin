@@ -46,10 +46,6 @@ export function useRole() {
       prop: "riqi"
     },
     {
-      label: "类型",
-      prop: "leixing"
-    },
-    {
       label: "客户",
       prop: "kehu"
     },

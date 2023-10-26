@@ -37,7 +37,7 @@ export default {
     {
       path: "/operation/bulk",
       meta: {
-        title: "散货记录"
+        title: "其他业务管理"
       },
       children: [
         {

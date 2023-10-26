@@ -160,12 +160,12 @@ export function useRole() {
           wharf: row?.wharf ?? "",
           i20gp: row?.i20gp ?? "",
           i40gp: row?.i40gp ?? "",
-          i40tk: row?.i40tk ?? "",
+          i20tk: row?.i20tk ?? "",
           i40hc: row?.i40hc ?? "",
           o20gp: row?.o20gp ?? "",
           o40hc: row?.o40hc ?? "",
           o40gp: row?.o40gp ?? "",
-          o40ot: row?.o40ot ?? ""
+          o20tk: row?.o20tk ?? ""
         }
       },
       width: "40%",
