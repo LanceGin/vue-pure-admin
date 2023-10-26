@@ -19,11 +19,12 @@ export function useRole() {
     wharf: "",
     i20gp: "",
     i40gp: "",
+    i20tk: "",
     i40hc: "",
     o20gp: "",
     o40gp: "",
     o40hc: "",
-    o40ot: ""
+    o20tk: ""
   });
   const formRef = ref();
   const currentRow = ref();
@@ -75,6 +76,10 @@ export function useRole() {
           prop: "i40gp"
         },
         {
+          label: "20TK",
+          prop: "i20tk"
+        },
+        {
           label: "40HC",
           prop: "i40hc"
         }
@@ -90,6 +95,10 @@ export function useRole() {
         {
           label: "40GP",
           prop: "o40gp"
+        },
+        {
+          label: "20TK",
+          prop: "o20tk"
         },
         {
           label: "40HC",
@@ -156,11 +165,12 @@ export function useRole() {
           wharf: row?.wharf ?? "",
           i20gp: row?.i20gp ?? "",
           i40gp: row?.i40gp ?? "",
+          i20tk: row?.i20tk ?? "",
           i40hc: row?.i40hc ?? "",
           o20gp: row?.o20gp ?? "",
           o40gp: row?.o40gp ?? "",
           o40hc: row?.o40hc ?? "",
-          o40ot: row?.o40ot ?? ""
+          o20tk: row?.o20tk ?? ""
         }
       },
       width: "40%",

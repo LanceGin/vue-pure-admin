@@ -20,11 +20,12 @@ export function useRole() {
     i20gp: "",
     i40gp: "",
     i40tk: "",
+    i20tk: "",
     i40hc: "",
     o20gp: "",
     o40gp: "",
     o40hc: "",
-    o40ot: ""
+    o20tk: ""
   });
   const formRef = ref();
   const currentRow = ref();
@@ -76,6 +77,10 @@ export function useRole() {
           prop: "i40gp"
         },
         {
+          label: "20TK",
+          prop: "i20tk"
+        },
+        {
           label: "40HC",
           prop: "i40hc"
         }
@@ -91,6 +96,10 @@ export function useRole() {
         {
           label: "40GP",
           prop: "o40gp"
+        },
+        {
+          label: "20TK",
+          prop: "o20tk"
         },
         {
           label: "40HC",

@@ -14,13 +14,13 @@ interface FormItemProps {
   // 装箱
   i20gp: string;
   i40gp: string;
-  i40tk: string;
+  i20tk: string;
   i40hc: string;
   // 拆箱
   o20gp: string;
   o40gp: string;
+  o20tk: string;
   o40hc: string;
-  o40ot: string;
 }
 interface FormProps {
   formInline: FormItemProps;
