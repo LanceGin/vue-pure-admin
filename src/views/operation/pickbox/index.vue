@@ -85,6 +85,8 @@ const {
         <el-input
           v-model="form.xianghao"
           placeholder="请输入箱号"
+          autosize
+          type="textarea"
           clearable
           class="!w-[200px]"
         />
@@ -97,6 +99,21 @@ const {
           class="!w-[200px]"
         />
       </el-form-item>
+      <el-form-item label="计划做箱时间" prop="jihuashijian">
+        <el-input
+          v-model="form.jihuashijian"
+          placeholder="请输入计划做箱时间"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
+    </el-form>
+    <el-form
+      ref="formRef"
+      :inline="true"
+      :model="form"
+      class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
+    >
       <el-form-item>
         <el-button
           type="primary"
@@ -129,15 +146,6 @@ const {
       :columns="columns"
       @refresh="onSearch"
     >
-      <!-- <template #buttons>
-        <el-button
-          type="primary"
-          :icon="useRenderIcon(AddFill)"
-          @click="openDialog()"
-        >
-          单证录入
-        </el-button>
-      </template> -->
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border
