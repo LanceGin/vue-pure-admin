@@ -1,14 +1,14 @@
 import dayjs from "dayjs";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
-import { getRoleList } from "@/api/system";
+import { getUserList, addUser, deleteUser } from "@/api/user";
 // import { ElMessageBox } from "element-plus";
-import { tableData } from "./data";
-// import { usePublicHooks } from "../../hooks";
+// import { tableData } from "./data";
+import { usePublicHooks } from "../../hooks";
 import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
-import { reactive, ref, onMounted, h, toRaw } from "vue";
+import { reactive, ref, onMounted, h } from "vue";
 
 export function useRole() {
   const form = reactive({
@@ -30,10 +30,10 @@ export function useRole() {
   const formRef = ref();
   const currentRow = ref();
   const haveRow = ref(true);
-  let dataList = tableData;
+  const dataList = ref([]);
   const loading = ref(true);
   // const switchLoadMap = ref({});
-  // const { tagStyle } = usePublicHooks();
+  const { tagStyle } = usePublicHooks();
   const pagination = reactive<PaginationProps>({
     total: 0,
     pageSize: 10,
@@ -41,10 +41,6 @@ export function useRole() {
     background: true
   });
   const columns: TableColumnList = [
-    {
-      type: "selection",
-      align: "left"
-    },
     {
       label: "用户名",
       prop: "name"
@@ -87,13 +83,17 @@ export function useRole() {
     },
     {
       label: "在职状态",
-      prop: "zhuangtai"
+      cellRenderer: ({ row, props }) => (
+        <el-tag size={props.size} style={tagStyle.value(row.zhuangtai)}>
+          {row.zhuangtai === "0" ? "在职" : "离职"}
+        </el-tag>
+      )
     },
     {
       label: "创建时间",
-      prop: "creat_time",
-      formatter: ({ createTime }) =>
-        dayjs(createTime).format("YYYY-MM-DD HH:mm:ss")
+      prop: "create_time",
+      formatter: ({ create_time }) =>
+        dayjs(create_time).format("YYYY-MM-DD HH:mm:ss")
     },
     {
       label: "创建人",
@@ -101,15 +101,22 @@ export function useRole() {
     }
   ];
 
-  function handleDelete() {
+  async function handleDelete() {
     message(`您删除了用户名为${currentRow.value.name}的这条数据`, {
       type: "success"
     });
+    await deleteUser(currentRow.value);
     onSearch();
   }
 
   function handleSizeChange(val: number) {
-    console.log(`${val} items per page`);
+    pagination.pageSize = val;
+    onSearch();
+  }
+
+  function handlePageChange(val: number) {
+    pagination.currentPage = val;
+    onSearch();
   }
 
   function handleCurrentChange(val) {
@@ -123,12 +130,14 @@ export function useRole() {
 
   async function onSearch() {
     loading.value = true;
-    const { data } = await getRoleList(toRaw(form));
-    dataList = data.list;
+    const { data } = await getUserList({
+      pagination,
+      form
+    });
+    dataList.value = data.list;
     pagination.total = data.total;
     pagination.pageSize = data.pageSize;
     pagination.currentPage = data.currentPage;
-
     setTimeout(() => {
       loading.value = false;
     }, 500);
@@ -139,6 +148,10 @@ export function useRole() {
     formEl.resetFields();
     onSearch();
   };
+
+  async function handleAddUser(user) {
+    await addUser(user);
+  }
 
   function openDialog(title = "添加", row?: FormItemProps) {
     addDialog({
@@ -181,6 +194,8 @@ export function useRole() {
             // 表单规则校验通过
             if (title === "新增") {
               // 实际开发先调用新增接口，再进行下面操作
+              console.log(1111, curData);
+              handleAddUser(curData);
               chores();
             } else {
               // 实际开发先调用编辑接口，再进行下面操作
@@ -232,6 +247,7 @@ export function useRole() {
     handleRowDblclick,
     handleEdit,
     handleSizeChange,
+    handlePageChange,
     handleCurrentChange,
     handleSelectionChange
   };

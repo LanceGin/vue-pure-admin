@@ -1,8 +1,12 @@
 import { http } from "@/utils/http";
+import { baseUrlApi } from "./utils";
+// import { object } from "vue-types";
 
 export type UserResult = {
   success: boolean;
   data: {
+    // 后台返回消息
+    message: string;
     /** 用户名 */
     username: string;
     /** 当前登陆用户的角色 */
@@ -28,12 +32,65 @@ export type RefreshTokenResult = {
   };
 };
 
+export type UserListResult = {
+  success: boolean;
+  data?: {
+    /** 列表数据 */
+    list: Array<any>;
+    /** 总条目数 */
+    total?: number;
+    /** 每页显示条目个数 */
+    pageSize?: number;
+    /** 当前页数 */
+    currentPage?: number;
+  };
+};
+
+export type AddUserResult = {
+  success: boolean;
+  data?: {
+    // 后台返回消息
+    message: string;
+  };
+};
+
+export type DeleteUserResult = {
+  success: boolean;
+  data?: {
+    // 后台返回消息
+    message: string;
+  };
+};
+
 /** 登录 */
 export const getLogin = (data?: object) => {
-  return http.request<UserResult>("post", "/login", { data });
+  return http.request<UserResult>("post", baseUrlApi("login"), { data });
 };
 
 /** 刷新token */
 export const refreshTokenApi = (data?: object) => {
-  return http.request<RefreshTokenResult>("post", "/refreshToken", { data });
+  return http.request<RefreshTokenResult>("post", baseUrlApi("refreshToken"), {
+    data
+  });
+};
+
+// 获取用户列表
+export const getUserList = (data?: object) => {
+  return http.request<UserListResult>("post", baseUrlApi("userList"), {
+    data
+  });
+};
+
+// 新增用户
+export const addUser = (data?: object) => {
+  return http.request<AddUserResult>("post", baseUrlApi("addUser"), {
+    data
+  });
+};
+
+// 删除用户
+export const deleteUser = (data?: object) => {
+  return http.request<DeleteUserResult>("post", baseUrlApi("deleteUser"), {
+    data
+  });
 };

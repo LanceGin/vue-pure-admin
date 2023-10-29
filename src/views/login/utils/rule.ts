@@ -19,7 +19,9 @@ const loginRules = reactive<FormRules>({
         if (value === "") {
           callback(new Error(transformI18n($t("login.passwordReg"))));
         } else if (!REGEXP_PWD.test(value)) {
-          callback(new Error(transformI18n($t("login.passwordRuleReg"))));
+          // 免验证密码格式
+          // callback(new Error(transformI18n($t("login.passwordRuleReg"))));
+          callback();
         } else {
           callback();
         }

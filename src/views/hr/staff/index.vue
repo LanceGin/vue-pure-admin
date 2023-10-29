@@ -34,6 +34,7 @@ const {
   handleRowDblclick,
   handleEdit,
   handleSizeChange,
+  handlePageChange,
   handleCurrentChange,
   handleSelectionChange
 } = useRole();
@@ -86,21 +87,29 @@ const {
           type="primary"
           :icon="useRenderIcon(Search)"
           :loading="loading"
-          @click="onSearch"
+          @click="onSearch()"
         >
           搜索
         </el-button>
         <el-button
           type="primary"
           :icon="useRenderIcon(AddFill)"
-          @click="openDialog()"
+          @click="openDialog('新增')"
         >
           添加员工
         </el-button>
-        <el-button :icon="useRenderIcon(EditPen)" @click="resetForm(formRef)">
+        <el-button
+          :icon="useRenderIcon(EditPen)"
+          @click="resetForm(formRef)"
+          :disabled="haveRow"
+        >
           权限
         </el-button>
-        <el-button :icon="useRenderIcon(EditPen)" @click="resetForm(formRef)">
+        <el-button
+          :icon="useRenderIcon(EditPen)"
+          @click="resetForm(formRef)"
+          :disabled="haveRow"
+        >
           微信功能
         </el-button>
         <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
@@ -128,11 +137,7 @@ const {
       </el-form-item>
     </el-form>
 
-    <PureTableBar
-      title="员工列表（测试用，操作后不生效）"
-      :columns="columns"
-      @refresh="onSearch"
-    >
+    <PureTableBar title="员工列表" :columns="columns" @refresh="onSearch">
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border
@@ -154,6 +159,7 @@ const {
           @selection-change="handleSelectionChange"
           @row-dblclick="handleRowDblclick"
           @page-size-change="handleSizeChange"
+          @page-current-change="handlePageChange"
           @current-change="handleCurrentChange"
         />
       </template>
