@@ -26,6 +26,7 @@ const {
   dataList,
   pagination,
   // buttonClass,
+  exportExcel,
   onSearch,
   resetForm,
   openDialog,
@@ -115,7 +116,7 @@ const {
         <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
           导入
         </el-button>
-        <el-button :icon="useRenderIcon(Upload)" @click="resetForm(formRef)">
+        <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
           导出
         </el-button>
         <el-button

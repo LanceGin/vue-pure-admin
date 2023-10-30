@@ -100,6 +100,14 @@ defineExpose({ getRef });
         placeholder="请输入家庭住址"
       />
     </el-form-item>
+    <el-form-item label="入职时间" prop="ruzhishijian">
+      <el-date-picker
+        v-model="newFormInline.ruzhishijian"
+        type="date"
+        placeholder="请输入入职时间"
+        value-format="YYYY-MM-DD"
+      />
+    </el-form-item>
     <el-form-item label="在职状态" prop="zhuangtai">
       <el-select
         v-model="newFormInline.zhuangtai"

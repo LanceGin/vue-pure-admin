@@ -62,6 +62,14 @@ export type DeleteUserResult = {
   };
 };
 
+export type EditUserResult = {
+  success: boolean;
+  data?: {
+    // 后台返回消息
+    message: string;
+  };
+};
+
 /** 登录 */
 export const getLogin = (data?: object) => {
   return http.request<UserResult>("post", baseUrlApi("login"), { data });
@@ -91,6 +99,13 @@ export const addUser = (data?: object) => {
 // 删除用户
 export const deleteUser = (data?: object) => {
   return http.request<DeleteUserResult>("post", baseUrlApi("deleteUser"), {
+    data
+  });
+};
+
+// 编辑用户
+export const editUser = (data?: object) => {
+  return http.request<EditUserResult>("post", baseUrlApi("editUser"), {
     data
   });
 };

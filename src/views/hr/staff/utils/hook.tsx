@@ -1,7 +1,8 @@
 import dayjs from "dayjs";
+import { utils, writeFile } from "xlsx";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
-import { getUserList, addUser, deleteUser } from "@/api/user";
+import { getUserList, addUser, deleteUser, editUser } from "@/api/user";
 // import { ElMessageBox } from "element-plus";
 // import { tableData } from "./data";
 import { usePublicHooks } from "../../hooks";
@@ -79,7 +80,8 @@ export function useRole() {
     },
     {
       label: "入职时间",
-      prop: "ruzhishijian"
+      prop: "ruzhishijian",
+      formatter: ({ ruzhishijian }) => dayjs(ruzhishijian).format("YYYY-MM-DD")
     },
     {
       label: "在职状态",
@@ -100,6 +102,28 @@ export function useRole() {
       prop: "create_staff"
     }
   ];
+
+  function exportExcel() {
+    const res = dataList.value.map(item => {
+      const arr = [];
+      columns.forEach(column => {
+        arr.push(item[column.prop as string]);
+      });
+      return arr;
+    });
+    const titleList = [];
+    columns.forEach(column => {
+      titleList.push(column.label);
+    });
+    res.unshift(titleList);
+    const workSheet = utils.aoa_to_sheet(res);
+    const workBook = utils.book_new();
+    utils.book_append_sheet(workBook, workSheet, "数据报表");
+    writeFile(workBook, "员工列表.xlsx");
+    message("导出成功", {
+      type: "success"
+    });
+  }
 
   async function handleDelete() {
     message(`您删除了用户名为${currentRow.value.name}的这条数据`, {
@@ -194,11 +218,11 @@ export function useRole() {
             // 表单规则校验通过
             if (title === "新增") {
               // 实际开发先调用新增接口，再进行下面操作
-              console.log(1111, curData);
               handleAddUser(curData);
               chores();
             } else {
               // 实际开发先调用编辑接口，再进行下面操作
+              asyncEdit(curData);
               chores();
             }
           }
@@ -210,6 +234,10 @@ export function useRole() {
   // 编辑按钮
   function handleEdit() {
     openDialog("编辑", currentRow.value);
+  }
+
+  async function asyncEdit(user) {
+    await editUser(user);
   }
 
   // 双击行
@@ -238,6 +266,7 @@ export function useRole() {
     dataList,
     pagination,
     // buttonClass,
+    exportExcel,
     onSearch,
     resetForm,
     openDialog,
