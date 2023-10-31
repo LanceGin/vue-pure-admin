@@ -1,30 +1,31 @@
+import dayjs from "dayjs";
+import { utils, writeFile } from "xlsx";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
-import { getRoleList } from "@/api/system";
+import { getWxClockList } from "@/api/user";
 // import { ElMessageBox } from "element-plus";
-import { tableData } from "./data";
 // import { usePublicHooks } from "../../hooks";
 import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
-import { reactive, ref, onMounted, h, toRaw } from "vue";
+import { reactive, ref, onMounted, h } from "vue";
 
 export function useRole() {
   const form = reactive({
-    name: "",
-    check_on_date: "",
-    check_on_time: "",
-    check_on_address: "",
-    check_on_type: "",
-    check_on_remark: "",
-    check_out_time: "",
-    check_out_address: "",
-    check_out_type: "",
-    check_out_remark: "",
+    userName: "",
+    clock_date: "",
+    clockin_time: "",
+    clockin_location: "",
+    clockin_type: "",
+    clockin_remark: "",
+    clockout_time: "",
+    clockout_location: "",
+    clockout_type: "",
+    clockout_remark: "",
     remark: ""
   });
   const formRef = ref();
-  let dataList = tableData;
+  const dataList = ref([]);
   const loading = ref(true);
   // const switchLoadMap = ref({});
   // const { tagStyle } = usePublicHooks();
@@ -37,49 +38,98 @@ export function useRole() {
   const columns: TableColumnList = [
     {
       label: "姓名",
-      prop: "name"
+      prop: "userName"
     },
     {
       label: "考勤日期",
-      prop: "check_on_date"
+      prop: "clock_date",
+      formatter: ({ clock_date }) => dayjs(clock_date).format("YYYY-MM-DD")
     },
     {
       label: "签到时间",
-      prop: "check_on_time"
+      prop: "clockin_time",
+      formatter: ({ clockin_time }) =>
+        dayjs(clockin_time).format("YYYY-MM-DD HH:mm:ss")
     },
     {
       label: "签到地点",
-      prop: "check_on_address"
+      prop: "clockin_location"
     },
     {
       label: "签到类型",
-      prop: "check_on_type"
+      prop: "clockin_type",
+      formatter: ({ clockin_type }) => {
+        if (clockin_type == 0) {
+          return "正常";
+        } else if (clockin_type == 1) {
+          return "迟到";
+        } else if (clockin_type == 2) {
+          return "外勤";
+        } else {
+          return "迟到+外勤";
+        }
+      }
     },
     {
       label: "签到备注",
-      prop: "check_on_remark"
+      prop: "clockin_remark"
     },
     {
       label: "签退时间",
-      prop: "check_out_time"
+      prop: "clockout_time",
+      formatter: ({ clockout_time }) =>
+        dayjs(clockout_time).format("YYYY-MM-DD HH:mm:ss")
     },
     {
       label: "签退地点",
-      prop: "check_out_address"
+      prop: "clockout_location"
     },
     {
       label: "签退类型",
-      prop: "check_out_type"
+      prop: "clockout_type",
+      formatter: ({ clockout_type }) => {
+        if (clockout_type == 0) {
+          return "正常";
+        } else if (clockout_type == 1) {
+          return "早退";
+        } else if (clockout_type == 2) {
+          return "外勤";
+        } else {
+          return "早退+外勤";
+        }
+      }
     },
     {
       label: "签退备注",
-      prop: "check_out_remark"
+      prop: "clockout_remark"
     },
     {
       label: "备注",
       prop: "remark"
     }
   ];
+
+  function exportExcel() {
+    const res = dataList.value.map(item => {
+      const arr = [];
+      columns.forEach(column => {
+        arr.push(item[column.prop as string]);
+      });
+      return arr;
+    });
+    const titleList = [];
+    columns.forEach(column => {
+      titleList.push(column.label);
+    });
+    res.unshift(titleList);
+    const workSheet = utils.aoa_to_sheet(res);
+    const workBook = utils.book_new();
+    utils.book_append_sheet(workBook, workSheet, "数据报表");
+    writeFile(workBook, "考勤信息.xlsx");
+    message("导出成功", {
+      type: "success"
+    });
+  }
 
   function handleDelete(row) {
     message(`您删除了角色名称为${row.name}的这条数据`, { type: "success" });
@@ -88,10 +138,14 @@ export function useRole() {
 
   function handleSizeChange(val: number) {
     console.log(`${val} items per page`);
+    pagination.pageSize = val;
+    onSearch();
   }
 
   function handleCurrentChange(val: number) {
     console.log(`current page: ${val}`);
+    pagination.currentPage = val;
+    onSearch();
   }
 
   function handleSelectionChange(val) {
@@ -100,8 +154,11 @@ export function useRole() {
 
   async function onSearch() {
     loading.value = true;
-    const { data } = await getRoleList(toRaw(form));
-    dataList = data.list;
+    const { data } = await getWxClockList({
+      pagination,
+      form
+    });
+    dataList.value = data.list;
     pagination.total = data.total;
     pagination.pageSize = data.pageSize;
     pagination.currentPage = data.currentPage;
@@ -122,16 +179,16 @@ export function useRole() {
       title: `${title}统计`,
       props: {
         formInline: {
-          name: row?.name ?? "",
-          check_on_date: row?.check_on_date ?? "",
-          check_on_time: row?.check_on_time ?? "",
-          check_on_address: row?.check_on_address ?? "",
-          check_on_type: row?.check_on_type ?? "",
-          check_on_remark: row?.check_on_remark ?? "",
-          check_out_time: row?.check_out_time ?? "",
-          check_out_address: row?.check_out_address ?? "",
-          check_out_type: row?.check_out_type ?? "",
-          check_out_remark: row?.check_out_remark ?? "",
+          userName: row?.userName ?? "",
+          clock_date: row?.clock_date ?? "",
+          clockin_time: row?.clockin_time ?? "",
+          clockin_location: row?.clockin_location ?? "",
+          clockin_type: row?.clockin_type ?? "",
+          clockin_remark: row?.clockin_remark ?? "",
+          clockout_time: row?.clockout_time ?? "",
+          clockout_location: row?.clockout_location ?? "",
+          clockout_type: row?.clockout_type ?? "",
+          clockout_remark: row?.clockout_remark ?? "",
           remark: row?.remark ?? ""
         }
       },
@@ -144,7 +201,7 @@ export function useRole() {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
         function chores() {
-          message(`您${title}了角色名称为${curData.name}的这条数据`, {
+          message(`您${title}了角色名称为${curData.userName}的这条数据`, {
             type: "success"
           });
           done(); // 关闭弹框
@@ -186,6 +243,7 @@ export function useRole() {
     dataList,
     pagination,
     // buttonClass,
+    exportExcel,
     onSearch,
     resetForm,
     openDialog,

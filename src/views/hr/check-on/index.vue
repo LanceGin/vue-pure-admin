@@ -25,8 +25,9 @@ const {
   dataList,
   pagination,
   // buttonClass,
+  exportExcel,
   onSearch,
-  resetForm,
+  // resetForm,
   openDialog,
   handleDelete,
   // handleDatabase,
@@ -44,25 +45,28 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="时间" prop="check_on_date">
-        <el-input
-          v-model="form.check_on_date"
-          placeholder="请输入考勤时间："
-          clearable
-          class="!w-[200px]"
+      <el-form-item label="考勤时间：" prop="clock_date">
+        <el-date-picker
+          v-model="form.clock_date"
+          type="daterange"
+          start-placeholder="开始时间"
+          end-placeholder="结束时间"
+          format="YYYY-MM-DD HH:mm:ss"
+          date-format="YYYY/MM/DD ddd"
+          time-format="A hh:mm:ss"
         />
       </el-form-item>
-      <el-form-item label="员工姓名：" prop="name">
+      <el-form-item label="员工姓名：" prop="userName">
         <el-input
-          v-model="form.name"
-          placeholder="请输入联系人"
+          v-model="form.userName"
+          placeholder="请输入姓名"
           clearable
           class="!w-[180px]"
         />
       </el-form-item>
-      <el-form-item label="签到类型：" prop="check_on_type">
+      <el-form-item label="签到类型：" prop="clockin_type">
         <el-select
-          v-model="form.check_on_type"
+          v-model="form.clockin_type"
           placeholder="请选择类型"
           clearable
           class="!w-[180px]"
@@ -73,9 +77,9 @@ const {
           <el-option label="迟到+外勤" value="3" />
         </el-select>
       </el-form-item>
-      <el-form-item label="签退类型：" prop="check_out_type">
+      <el-form-item label="签退类型：" prop="clockout_type">
         <el-select
-          v-model="form.check_out_type"
+          v-model="form.clockout_type"
           placeholder="请选择类型"
           clearable
           class="!w-[180px]"
@@ -102,7 +106,7 @@ const {
         >
           搜索
         </el-button>
-        <el-button :icon="useRenderIcon(Upload)" @click="resetForm(formRef)">
+        <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
           导出
         </el-button>
         <el-button
@@ -115,11 +119,7 @@ const {
       </el-form-item>
     </el-form>
 
-    <PureTableBar
-      title="打卡记录（测试用，操作后不生效）"
-      :columns="columns"
-      @refresh="onSearch"
-    >
+    <PureTableBar title="打卡记录" :columns="columns" @refresh="onSearch">
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border
@@ -168,43 +168,6 @@ const {
                 </el-button>
               </template>
             </el-popconfirm>
-            <!-- <el-dropdown>
-              <el-button
-                class="ml-3 mt-[2px]"
-                link
-                type="primary"
-                :size="size"
-                :icon="useRenderIcon(More)"
-              />
-              <template #dropdown>
-                <el-dropdown-menu>
-                  <el-dropdown-item>
-                    <el-button
-                      :class="buttonClass"
-                      link
-                      type="primary"
-                      :size="size"
-                      :icon="useRenderIcon(Menu)"
-                      @click="handleMenu"
-                    >
-                      菜单权限
-                    </el-button>
-                  </el-dropdown-item>
-                  <el-dropdown-item>
-                    <el-button
-                      :class="buttonClass"
-                      link
-                      type="primary"
-                      :size="size"
-                      :icon="useRenderIcon(Database)"
-                      @click="handleDatabase"
-                    >
-                      数据权限
-                    </el-button>
-                  </el-dropdown-item>
-                </el-dropdown-menu>
-              </template>
-            </el-dropdown> -->
           </template>
         </pure-table>
       </template>
