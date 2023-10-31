@@ -34,6 +34,7 @@ const {
   handleRowDblclick,
   handleEdit,
   handleSizeChange,
+  handlePageChange,
   handleCurrentChange,
   handleSelectionChange
 } = useRole();
@@ -47,31 +48,31 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="客户简称：" prop="refer">
+      <el-form-item label="客户简称：" prop="companyShortName">
         <el-input
-          v-model="form.refer"
+          v-model="form.companyShortName"
           placeholder="请输入客户简称"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="客户地址：" prop="address">
+      <el-form-item label="客户地址：" prop="companyAddress">
         <el-input
-          v-model="form.address"
+          v-model="form.companyAddress"
           placeholder="请输入客户地址"
           clearable
           class="!w-[180px]"
         />
       </el-form-item>
-      <el-form-item label="客户状态：" prop="status">
+      <el-form-item label="客户状态：" prop="state">
         <el-select
-          v-model="form.status"
+          v-model="form.state"
           placeholder="请选择状态"
           clearable
           class="!w-[180px]"
         >
-          <el-option label="正常" value="1" />
-          <el-option label="异常" value="0" />
+          <el-option label="正常" value="正常" />
+          <el-option label="停用" value="停用" />
         </el-select>
       </el-form-item>
     </el-form>
@@ -122,11 +123,7 @@ const {
       </el-form-item>
     </el-form>
 
-    <PureTableBar
-      title="车队客户列表（测试用，操作后不生效）"
-      :columns="columns"
-      @refresh="onSearch"
-    >
+    <PureTableBar title="车队客户列表" :columns="columns" @refresh="onSearch">
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border
@@ -148,6 +145,7 @@ const {
           @selection-change="handleSelectionChange"
           @row-dblclick="handleRowDblclick"
           @page-size-change="handleSizeChange"
+          @page-current-change="handlePageChange"
           @current-change="handleCurrentChange"
         />
       </template>

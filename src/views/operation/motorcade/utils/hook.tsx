@@ -1,24 +1,24 @@
 import dayjs from "dayjs";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
-import { getRoleList } from "@/api/system";
+import { getMotorcadeList } from "@/api/operation";
 // import { ElMessageBox } from "element-plus";
-import { tableData } from "./data";
+// import { tableData } from "./data";
 import { usePublicHooks } from "../../hooks";
 import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
-import { reactive, ref, onMounted, h, toRaw } from "vue";
+import { reactive, ref, onMounted, h } from "vue";
 // import { func } from "vue-types";
 
 export function useRole() {
   const form = reactive({
-    refer: "",
-    name: "",
-    address: "",
-    contact_name: "",
-    contact_mobile: "",
-    status: "",
+    companyShortName: "",
+    companyName: "",
+    companyAddress: "",
+    companyContact: "",
+    companyPhone1: "",
+    state: "",
     project: "",
     mendian: "",
     zixiangmu: ""
@@ -26,7 +26,7 @@ export function useRole() {
   const formRef = ref();
   const currentRow = ref();
   const haveRow = ref(true);
-  let dataList = tableData;
+  const dataList = ref([]);
   const loading = ref(true);
   // const switchLoadMap = ref({});
   const { tagStyle } = usePublicHooks();
@@ -39,37 +39,37 @@ export function useRole() {
   const columns: TableColumnList = [
     {
       label: "客户简称",
-      prop: "refer"
+      prop: "companyShortName"
     },
     {
       label: "客户全称",
-      prop: "name"
+      prop: "companyName"
     },
     {
       label: "企业地址",
-      prop: "address"
+      prop: "companyAddress"
     },
     {
       label: "联系人",
-      prop: "contact_name"
+      prop: "companyContact"
     },
     {
       label: "联系电话",
-      prop: "contact_mobile"
+      prop: "companyPhone1"
     },
     {
       label: "状态",
       cellRenderer: ({ row, props }) => (
-        <el-tag size={props.size} style={tagStyle.value(row.status)}>
-          {row.status === 1 ? "正常" : "异常"}
+        <el-tag size={props.size} style={tagStyle.value(row.state)}>
+          {row.state === "正常" ? "正常" : "停用"}
         </el-tag>
       )
     },
     {
       label: "创建时间",
-      prop: "createTime",
-      formatter: ({ createTime }) =>
-        dayjs(createTime).format("YYYY-MM-DD HH:mm:ss")
+      prop: "registerTime",
+      formatter: ({ registerTime }) =>
+        dayjs(registerTime).format("YYYY-MM-DD HH:mm:ss")
     }
   ];
 
@@ -82,6 +82,14 @@ export function useRole() {
 
   function handleSizeChange(val: number) {
     console.log(`${val} items per page`);
+    pagination.pageSize = val;
+    onSearch();
+  }
+
+  function handlePageChange(val: number) {
+    console.log(`current page: ${val}`);
+    pagination.currentPage = val;
+    onSearch();
   }
 
   function handleCurrentChange(val) {
@@ -95,8 +103,12 @@ export function useRole() {
 
   async function onSearch() {
     loading.value = true;
-    const { data } = await getRoleList(toRaw(form));
-    dataList = data.list;
+    const { data } = await getMotorcadeList({
+      pagination,
+      form
+    });
+    console.log(1111, data.list);
+    dataList.value = data.list;
     pagination.total = data.total;
     pagination.pageSize = data.pageSize;
     pagination.currentPage = data.currentPage;
@@ -117,11 +129,12 @@ export function useRole() {
       title: `${title}客户`,
       props: {
         formInline: {
-          name: row?.name ?? "",
-          refer: row?.refer ?? "",
-          address: row?.address ?? "",
-          contact_name: row?.contact_name ?? "",
-          contact_mobile: row?.contact_mobile ?? "",
+          companyName: row?.companyName ?? "",
+          companyShortName: row?.companyShortName ?? "",
+          companyAddress: row?.companyAddress ?? "",
+          companyContact: row?.companyContact ?? "",
+          companyPhone1: row?.companyPhone1 ?? "",
+          state: row?.state ?? "",
           project: row?.project ?? "",
           mendian: row?.mendian ?? "",
           zixiangmu: row?.zixiangmu ?? ""
@@ -136,7 +149,7 @@ export function useRole() {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
         function chores() {
-          message(`您${title}了角色名称为${curData.name}的这条数据`, {
+          message(`您${title}了公司名称为${curData.companyName}的这条数据`, {
             type: "success"
           });
           done(); // 关闭弹框
@@ -200,6 +213,7 @@ export function useRole() {
     handleRowDblclick,
     // handleDatabase,
     handleSizeChange,
+    handlePageChange,
     handleCurrentChange,
     handleSelectionChange
   };

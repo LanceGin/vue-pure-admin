@@ -2,17 +2,17 @@
 
 interface FormItemProps {
   /** 用户全称 */
-  name: string;
+  companyName: string;
   // 用户简称
-  refer: string;
+  companyShortName: string;
   // 企业地址
-  address: string;
+  companyAddress: string;
   // 联系人
-  contact_name: string;
+  companyContact: string;
   // 联系人电话
-  contact_mobile: string;
+  companyPhone1: string;
   // 状态：
-  status: string;
+  state: string;
   // 项目管理
   project: string;
   // 门点
