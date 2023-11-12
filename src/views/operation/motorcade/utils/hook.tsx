@@ -1,7 +1,13 @@
 import dayjs from "dayjs";
+import { utils, writeFile } from "xlsx";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
-import { getMotorcadeList } from "@/api/operation";
+import {
+  getMotorcadeList,
+  addMotorcade,
+  deleteMotorcade,
+  editMotorcade
+} from "@/api/operation";
 // import { ElMessageBox } from "element-plus";
 // import { tableData } from "./data";
 import { usePublicHooks } from "../../hooks";
@@ -13,6 +19,7 @@ import { reactive, ref, onMounted, h } from "vue";
 
 export function useRole() {
   const form = reactive({
+    id: "",
     companyShortName: "",
     companyName: "",
     companyAddress: "",
@@ -73,10 +80,33 @@ export function useRole() {
     }
   ];
 
-  function handleDelete() {
-    message(`您删除了角色名称为${currentRow.value.name}的这条数据`, {
+  function exportExcel() {
+    const res = dataList.value.map(item => {
+      const arr = [];
+      columns.forEach(column => {
+        arr.push(item[column.prop as string]);
+      });
+      return arr;
+    });
+    const titleList = [];
+    columns.forEach(column => {
+      titleList.push(column.label);
+    });
+    res.unshift(titleList);
+    const workSheet = utils.aoa_to_sheet(res);
+    const workBook = utils.book_new();
+    utils.book_append_sheet(workBook, workSheet, "数据报表");
+    writeFile(workBook, "车队客户列表.xlsx");
+    message("导出成功", {
       type: "success"
     });
+  }
+
+  async function handleDelete() {
+    message(`您删除了客户名称为${currentRow.value.companyName}的这条数据`, {
+      type: "success"
+    });
+    await deleteMotorcade(currentRow.value);
     onSearch();
   }
 
@@ -107,7 +137,6 @@ export function useRole() {
       pagination,
       form
     });
-    console.log(1111, data.list);
     dataList.value = data.list;
     pagination.total = data.total;
     pagination.pageSize = data.pageSize;
@@ -124,11 +153,16 @@ export function useRole() {
     onSearch();
   };
 
+  async function handleAddMotorcade(motorcade) {
+    await addMotorcade(motorcade);
+  }
+
   function openDialog(title = "添加", row?: FormItemProps) {
     addDialog({
       title: `${title}客户`,
       props: {
         formInline: {
+          id: row?.id ?? "",
           companyName: row?.companyName ?? "",
           companyShortName: row?.companyShortName ?? "",
           companyAddress: row?.companyAddress ?? "",
@@ -140,7 +174,7 @@ export function useRole() {
           zixiangmu: row?.zixiangmu ?? ""
         }
       },
-      width: "40%",
+      width: "70%",
       draggable: true,
       fullscreenIcon: true,
       closeOnClickModal: false,
@@ -161,9 +195,11 @@ export function useRole() {
             // 表单规则校验通过
             if (title === "新增") {
               // 实际开发先调用新增接口，再进行下面操作
+              handleAddMotorcade(curData);
               chores();
             } else {
               // 实际开发先调用编辑接口，再进行下面操作
+              asyncEdit(curData);
               chores();
             }
           }
@@ -175,6 +211,10 @@ export function useRole() {
   // 编辑按钮
   function handleEdit() {
     openDialog("编辑", currentRow.value);
+  }
+
+  async function asyncEdit(motorcade) {
+    await editMotorcade(motorcade);
   }
 
   // 双击行
@@ -204,6 +244,7 @@ export function useRole() {
     dataList,
     pagination,
     // buttonClass,
+    exportExcel,
     onSearch,
     resetForm,
     openDialog,
