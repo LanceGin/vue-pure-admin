@@ -6,18 +6,19 @@ import type { TabsPaneContext } from "element-plus";
 
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
-    cata: "",
-    name: "",
-    address: "",
-    refer: "",
-    contact_name: "",
-    contact_mobile: "",
-    company: "",
-    remark: "",
+    id: "",
+    is_dock: "",
+    yard_name: "",
+    port_name: "",
+    yard_adress: "",
+    contacts_name: "",
+    mobile: "",
+    remarks: "",
     longitude: "",
     latitude: "",
-    price_20: "",
-    price_40: ""
+    base_price_20: "",
+    base_price_40: "",
+    create_time: ""
   })
 });
 
@@ -43,57 +44,60 @@ defineExpose({ getRef });
     :rules="formRules"
     label-width="82px"
   >
-    <el-form-item label="类型" prop="cata">
-      <el-input
-        v-model="newFormInline.cata"
+    <el-form-item label="类型" prop="is_dock">
+      <el-select
+        v-model="newFormInline.is_dock"
+        placeholder="请选择堆场类型"
         clearable
-        placeholder="请输入堆场类型"
-      />
+      >
+        <el-option label="堆场" value="0" />
+        <el-option label="码头" value="1" />
+      </el-select>
     </el-form-item>
 
-    <el-form-item label="堆场名称" prop="name">
+    <el-form-item label="堆场名称" prop="yard_name">
       <el-input
-        v-model="newFormInline.name"
+        v-model="newFormInline.yard_name"
         clearable
         placeholder="请输入堆场名称"
       />
     </el-form-item>
 
-    <el-form-item label="堆场地址" prop="address">
+    <el-form-item label="堆场地址" prop="yard_adress">
       <el-input
-        v-model="newFormInline.address"
+        v-model="newFormInline.yard_adress"
         clearable
         placeholder="请输入堆场地址"
       />
     </el-form-item>
 
-    <el-form-item label="所属港口" prop="refer">
+    <el-form-item label="所属港口" prop="port_name">
       <el-input
-        v-model="newFormInline.refer"
+        v-model="newFormInline.port_name"
         clearable
         placeholder="请输入所属港口"
       />
     </el-form-item>
 
-    <el-form-item label="联系人" prop="contact_name">
+    <el-form-item label="联系人" prop="contacts_name">
       <el-input
-        v-model="newFormInline.contact_name"
+        v-model="newFormInline.contacts_name"
         clearable
         placeholder="请输入联系人"
       />
     </el-form-item>
 
-    <el-form-item label="联系电话" prop="contact_mobile">
+    <el-form-item label="联系电话" prop="mobile">
       <el-input
-        v-model="newFormInline.contact_mobile"
+        v-model="newFormInline.mobile"
         clearable
         placeholder="请输入联系电话"
       />
     </el-form-item>
 
-    <el-form-item label="备注" prop="remark">
+    <el-form-item label="备注" prop="remarks">
       <el-input
-        v-model="newFormInline.remark"
+        v-model="newFormInline.remarks"
         clearable
         placeholder="请输入备注"
       />
@@ -115,17 +119,17 @@ defineExpose({ getRef });
       />
     </el-form-item>
 
-    <el-form-item label="进场价20" prop="price_20">
+    <el-form-item label="进场价20" prop="base_price_20">
       <el-input
-        v-model="newFormInline.price_20"
+        v-model="newFormInline.base_price_20"
         clearable
         placeholder="请输入进场价格20"
       />
     </el-form-item>
 
-    <el-form-item label="进场价40" prop="price_40">
+    <el-form-item label="进场价40" prop="base_price_40">
       <el-input
-        v-model="newFormInline.price_40"
+        v-model="newFormInline.base_price_40"
         clearable
         placeholder="请输入进场价格40"
       />

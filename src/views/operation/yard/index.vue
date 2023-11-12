@@ -26,6 +26,7 @@ const {
   dataList,
   pagination,
   // buttonClass,
+  exportExcel,
   onSearch,
   resetForm,
   openDialog,
@@ -35,6 +36,7 @@ const {
   handleRowDblclick,
   handleSizeChange,
   handleCurrentChange,
+  handlePageChange,
   handleSelectionChange
 } = useRole();
 </script>
@@ -47,31 +49,31 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="堆场名称" prop="name">
+      <el-form-item label="堆场名称" prop="yard_name">
         <el-input
-          v-model="form.name"
+          v-model="form.yard_name"
           placeholder="请输入堆场名称"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="联系人：" prop="contact_name">
+      <el-form-item label="联系人：" prop="contacts_name">
         <el-input
-          v-model="form.contact_name"
+          v-model="form.contacts_name"
           placeholder="请输入联系人"
           clearable
           class="!w-[180px]"
         />
       </el-form-item>
-      <el-form-item label="堆场类型：" prop="cata">
+      <el-form-item label="堆场类型：" prop="is_dock">
         <el-select
-          v-model="form.cata"
+          v-model="form.is_dock"
           placeholder="请选择类型"
           clearable
           class="!w-[180px]"
         >
-          <el-option label="堆场" value="1" />
-          <el-option label="码头" value="0" />
+          <el-option label="堆场" value="0" />
+          <el-option label="码头" value="1" />
         </el-select>
       </el-form-item>
     </el-form>
@@ -93,14 +95,14 @@ const {
         <el-button
           type="primary"
           :icon="useRenderIcon(AddFill)"
-          @click="openDialog()"
+          @click="openDialog('新增')"
         >
           添加堆场
         </el-button>
         <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
           导入
         </el-button>
-        <el-button :icon="useRenderIcon(Upload)" @click="resetForm(formRef)">
+        <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
           导出
         </el-button>
         <el-button
@@ -122,11 +124,7 @@ const {
       </el-form-item>
     </el-form>
 
-    <PureTableBar
-      title="堆场列表（测试用，操作后不生效）"
-      :columns="columns"
-      @refresh="onSearch"
-    >
+    <PureTableBar title="堆场列表" :columns="columns" @refresh="onSearch">
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border
@@ -148,6 +146,7 @@ const {
           @selection-change="handleSelectionChange"
           @row-dblclick="handleRowDblclick"
           @page-size-change="handleSizeChange"
+          @page-current-change="handlePageChange"
           @current-change="handleCurrentChange"
         />
       </template>
