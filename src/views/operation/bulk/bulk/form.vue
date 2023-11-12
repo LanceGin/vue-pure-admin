@@ -5,22 +5,29 @@ import { FormProps } from "./utils/types";
 
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
-    riqi: "",
-    leixing: "",
-    kehu: "",
-    chuangongsi: "",
-    tidanhao: "",
-    xianghao: "",
-    xiangxing: "",
-    fenghao: "",
-    liuxiang: "",
-    chuanming: "",
-    dizhi: "",
-    chehao: "",
-    dingcangfei: "",
-    huandanfei: "",
-    yunfei: "",
-    beizhu: ""
+    id: "",
+    type: "2",
+    customer: "",
+    ship_company: "",
+    fleet: "",
+    load_address: "",
+    unload_address: "",
+    bl_no: "",
+    container_no: "",
+    container_type: "",
+    seal_no: "",
+    flow_direction: "",
+    voyage: "",
+    address: "",
+    car_type: "",
+    car_no: "",
+    driver_mobile: "",
+    booking_fee: "",
+    exchange_fee: "",
+    freight: "",
+    error_fee: "",
+    remarks: "",
+    add_time: ""
   })
 });
 
@@ -41,11 +48,74 @@ defineExpose({ getRef });
     :rules="formRules"
     label-width="82px"
   >
-    <el-form-item label="客户" prop="kehu">
+    <el-form-item label="日期" prop="add_time">
+      <el-date-picker
+        v-model="newFormInline.add_time"
+        type="date"
+        placeholder="请输入日期"
+      />
+    </el-form-item>
+    <el-form-item label="客户" prop="customer">
       <el-input
-        v-model="newFormInline.kehu"
+        v-model="newFormInline.customer"
         clearable
         placeholder="请输入客户"
+      />
+    </el-form-item>
+    <el-form-item label="承运车队" prop="fleet">
+      <el-input
+        v-model="newFormInline.fleet"
+        clearable
+        placeholder="请输入承运车队"
+      />
+    </el-form-item>
+    <el-form-item label="装货地址" prop="load_address">
+      <el-input
+        v-model="newFormInline.load_address"
+        clearable
+        placeholder="请输入装货地址"
+      />
+    </el-form-item>
+    <el-form-item label="卸货地址" prop="unload_address">
+      <el-input
+        v-model="newFormInline.unload_address"
+        clearable
+        placeholder="请输入卸货地址"
+      />
+    </el-form-item>
+    <el-form-item label="车型" prop="car_type">
+      <el-input
+        v-model="newFormInline.car_type"
+        clearable
+        placeholder="请输入车型"
+      />
+    </el-form-item>
+    <el-form-item label="车号" prop="car_no">
+      <el-input
+        v-model="newFormInline.car_no"
+        clearable
+        placeholder="请输入车号"
+      />
+    </el-form-item>
+    <el-form-item label="驾驶员手机号" prop="driver_mobile">
+      <el-input
+        v-model="newFormInline.driver_mobile"
+        clearable
+        placeholder="请输入驾驶员手机号"
+      />
+    </el-form-item>
+    <el-form-item label="运费" prop="freight">
+      <el-input
+        v-model="newFormInline.freight"
+        clearable
+        placeholder="请输入运费"
+      />
+    </el-form-item>
+    <el-form-item label="备注" prop="remarks">
+      <el-input
+        v-model="newFormInline.remarks"
+        clearable
+        placeholder="请输入备注"
       />
     </el-form-item>
   </el-form>

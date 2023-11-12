@@ -26,6 +26,7 @@ const {
   dataList,
   pagination,
   // buttonClass,
+  exportExcel,
   onSearch,
   resetForm,
   openDialog,
@@ -47,33 +48,32 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="日期：" prop="riqi">
-        <el-input
-          v-model="form.riqi"
+      <el-form-item label="日期：" prop="add_time">
+        <el-date-picker
+          v-model="form.add_time"
+          type="date"
           placeholder="请输入日期"
-          clearable
-          class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="装货地址：" prop="zhaunghuo">
+      <el-form-item label="装货地址：" prop="load_address">
         <el-input
-          v-model="form.zhaunghuo"
+          v-model="form.load_address"
           placeholder="请输入装货地址"
           clearable
           class="!w-[180px]"
         />
       </el-form-item>
-      <el-form-item label="卸货地址：" prop="xiehuo">
+      <el-form-item label="卸货地址：" prop="unload_address">
         <el-input
-          v-model="form.xiehuo"
+          v-model="form.unload_address"
           placeholder="请输入卸货地址"
           clearable
           class="!w-[180px]"
         />
       </el-form-item>
-      <el-form-item label="车号：" prop="chehao">
+      <el-form-item label="车号：" prop="car_no">
         <el-input
-          v-model="form.chehao"
+          v-model="form.car_no"
           placeholder="请输入车号"
           clearable
           class="!w-[180px]"
@@ -98,14 +98,14 @@ const {
         <el-button
           type="primary"
           :icon="useRenderIcon(AddFill)"
-          @click="openDialog()"
+          @click="openDialog('新增')"
         >
           添加散货记录
         </el-button>
         <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
           导入
         </el-button>
-        <el-button :icon="useRenderIcon(Upload)" @click="resetForm(formRef)">
+        <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
           导出
         </el-button>
         <el-button
@@ -127,11 +127,7 @@ const {
       </el-form-item>
     </el-form>
 
-    <PureTableBar
-      title="散货列表（测试用，操作后不生效）"
-      :columns="columns"
-      @refresh="onSearch"
-    >
+    <PureTableBar title="散货列表" :columns="columns" @refresh="onSearch">
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border

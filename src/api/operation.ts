@@ -107,3 +107,31 @@ export const editFeeCollection = (data?: object) => {
     data
   });
 };
+
+// 获取散货记录列表
+export const getBulkCargoList = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("bulkCargoList"), {
+    data
+  });
+};
+
+// 新增散货记录
+export const addBulkCargo = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("addBulkCargo"), {
+    data
+  });
+};
+
+// 删除散货记录
+export const deleteBulkCargo = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("deleteBulkCargo"), {
+    data
+  });
+};
+
+// 编辑散货记录
+export const editBulkCargo = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("editBulkCargo"), {
+    data
+  });
+};

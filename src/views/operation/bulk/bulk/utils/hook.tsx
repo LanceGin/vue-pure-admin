@@ -1,33 +1,50 @@
 // import dayjs from "dayjs";
+import { utils, writeFile } from "xlsx";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
-import { getRoleList } from "@/api/system";
 // import { ElMessageBox } from "element-plus";
-import { tableData } from "./data";
 import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
-import { reactive, ref, onMounted, h, toRaw } from "vue";
+import { reactive, ref, onMounted, h } from "vue";
+import {
+  addBulkCargo,
+  deleteBulkCargo,
+  editBulkCargo,
+  getBulkCargoList
+} from "@/api/operation";
 // import { func } from "vue-types";
 
 export function useRole() {
   const form = reactive({
-    riqi: "",
-    leixing: "",
-    kehu: "",
-    chengyunchedui: "",
-    zhuanghuo: "",
-    xiehuo: "",
-    chexing: "",
-    chehao: "",
-    shoujihao: "",
-    yunfei: "",
-    beizhu: ""
+    id: "",
+    type: "2",
+    customer: "",
+    ship_company: "",
+    fleet: "",
+    load_address: "",
+    unload_address: "",
+    bl_no: "",
+    container_no: "",
+    container_type: "",
+    seal_no: "",
+    flow_direction: "",
+    voyage: "",
+    address: "",
+    car_type: "",
+    car_no: "",
+    driver_mobile: "",
+    booking_fee: "",
+    exchange_fee: "",
+    freight: "",
+    error_fee: "",
+    remarks: "",
+    add_time: ""
   });
   const formRef = ref();
   const currentRow = ref();
   const haveRow = ref(true);
-  let dataList = tableData;
+  const dataList = ref([]);
   const loading = ref(true);
   const pagination = reactive<PaginationProps>({
     total: 0,
@@ -38,55 +55,86 @@ export function useRole() {
   const columns: TableColumnList = [
     {
       label: "日期",
-      prop: "riqi"
+      prop: "add_time"
     },
     {
       label: "客户",
-      prop: "kehu"
+      prop: "customer"
     },
     {
       label: "承运车队",
-      prop: "chengyunchedui"
+      prop: "fleet"
     },
     {
       label: "装货地址",
-      prop: "zhuanghuo"
+      prop: "load_address"
     },
     {
       label: "卸货地址",
-      prop: "xiehuo"
+      prop: "unload_address"
     },
     {
       label: "车型",
-      prop: "chexing"
+      prop: "car_type"
     },
     {
       label: "车号",
-      prop: "chehao"
+      prop: "car_no"
     },
     {
       label: "驾驶员手机号",
-      prop: "shoujihao"
+      prop: "driver_mobile"
     },
     {
       label: "运费",
-      prop: "yunfei"
+      prop: "freight"
     },
     {
       label: "备注",
-      prop: "beizhu"
+      prop: "remarks"
     }
   ];
 
-  function handleDelete() {
-    message(`您删除了角色名称为${currentRow.value.name}的这条数据`, {
+  function exportExcel() {
+    const res = dataList.value.map(item => {
+      const arr = [];
+      columns.forEach(column => {
+        arr.push(item[column.prop as string]);
+      });
+      return arr;
+    });
+    const titleList = [];
+    columns.forEach(column => {
+      titleList.push(column.label);
+    });
+    res.unshift(titleList);
+    const workSheet = utils.aoa_to_sheet(res);
+    const workBook = utils.book_new();
+    utils.book_append_sheet(workBook, workSheet, "数据报表");
+    writeFile(workBook, "散货列表.xlsx");
+    message("导出成功", {
       type: "success"
     });
+  }
+
+  async function handleDelete() {
+    message(`您删除了客户名称为${currentRow.value.customer}的这条数据`, {
+      type: "success"
+    });
+    await deleteBulkCargo(currentRow.value);
     onSearch();
   }
 
   function handleSizeChange(val: number) {
     console.log(`${val} items per page`);
+    pagination.pageSize = val;
+    onSearch();
+  }
+
+  function handlePageChange(val: number) {
+    console.log(`current page: ${val}`);
+    pagination.currentPage = val;
+    onSearch();
   }
 
   function handleCurrentChange(val) {
@@ -100,8 +148,11 @@ export function useRole() {
 
   async function onSearch() {
     loading.value = true;
-    const { data } = await getRoleList(toRaw(form));
-    dataList = data.list;
+    const { data } = await getBulkCargoList({
+      pagination,
+      form
+    });
+    dataList.value = data.list;
     pagination.total = data.total;
     pagination.pageSize = data.pageSize;
     pagination.currentPage = data.currentPage;
@@ -117,22 +168,38 @@ export function useRole() {
     onSearch();
   };
 
+  async function handleAddBulkCargo(bulk) {
+    await addBulkCargo(bulk);
+  }
+
   function openDialog(title = "添加", row?: FormItemProps) {
     addDialog({
       title: `${title}散货记录`,
       props: {
         formInline: {
-          riqi: row?.riqi ?? "",
-          leixing: row?.leixing ?? "",
-          kehu: row?.kehu ?? "",
-          chengyunchedui: row?.chengyunchedui ?? "",
-          zhuanghuo: row?.zhuanghuo ?? "",
-          xiehuo: row?.xiehuo ?? "",
-          chexing: row?.chexing ?? "",
-          chehao: row?.chehao ?? "",
-          shoujihao: row?.shoujihao ?? "",
-          yunfei: row?.yunfei ?? "",
-          beizhu: row?.beizhu ?? ""
+          id: row?.id ?? "",
+          type: row?.type ?? "2",
+          customer: row?.customer ?? "",
+          ship_company: row?.ship_company ?? "",
+          fleet: row?.fleet ?? "",
+          load_address: row?.load_address ?? "",
+          unload_address: row?.unload_address ?? "",
+          bl_no: row?.bl_no ?? "",
+          container_no: row?.container_no ?? "",
+          container_type: row?.container_type ?? "",
+          seal_no: row?.seal_no ?? "",
+          flow_direction: row?.flow_direction ?? "",
+          voyage: row?.voyage ?? "",
+          address: row?.address ?? "",
+          car_type: row?.car_type ?? "",
+          car_no: row?.car_no ?? "",
+          driver_mobile: row?.driver_mobile ?? "",
+          booking_fee: row?.booking_fee ?? "",
+          exchange_fee: row?.exchange_fee ?? "",
+          freight: row?.freight ?? "",
+          error_fee: row?.error_fee ?? "",
+          remarks: row?.remarks ?? "",
+          add_time: row?.add_time ?? ""
         }
       },
       width: "40%",
@@ -144,7 +211,7 @@ export function useRole() {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
         function chores() {
-          message(`您${title}了客户名称为${curData.kehu}的这条数据`, {
+          message(`您${title}了客户名称为${curData.customer}的这条数据`, {
             type: "success"
           });
           done(); // 关闭弹框
@@ -156,9 +223,11 @@ export function useRole() {
             // 表单规则校验通过
             if (title === "新增") {
               // 实际开发先调用新增接口，再进行下面操作
+              handleAddBulkCargo(curData);
               chores();
             } else {
               // 实际开发先调用编辑接口，再进行下面操作
+              asyncEdit(curData);
               chores();
             }
           }
@@ -170,6 +239,10 @@ export function useRole() {
   // 编辑按钮
   function handleEdit() {
     openDialog("编辑", currentRow.value);
+  }
+
+  async function asyncEdit(yard) {
+    await editBulkCargo(yard);
   }
 
   // 双击行
@@ -199,6 +272,7 @@ export function useRole() {
     dataList,
     pagination,
     // buttonClass,
+    exportExcel,
     onSearch,
     resetForm,
     openDialog,
@@ -208,6 +282,7 @@ export function useRole() {
     handleRowDblclick,
     // handleDatabase,
     handleSizeChange,
+    handlePageChange,
     handleCurrentChange,
     handleSelectionChange
   };
