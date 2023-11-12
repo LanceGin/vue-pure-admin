@@ -79,3 +79,31 @@ export const editYard = (data?: object) => {
     data
   });
 };
+
+// 获取代收费用列表
+export const getFeeCollectionList = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("feeCollectionList"), {
+    data
+  });
+};
+
+// 新增代收费用
+export const addFeeCollection = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("addFeeCollection"), {
+    data
+  });
+};
+
+// 删除代收费用
+export const deleteFeeCollection = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("deleteFeeCollection"), {
+    data
+  });
+};
+
+// 编辑代收费用
+export const editFeeCollection = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("editFeeCollection"), {
+    data
+  });
+};

@@ -1,23 +1,25 @@
 // 虽然字段很少 但是抽离出来 后续有扩展字段需求就很方便了
 
 interface FormItemProps {
-  boat_company: string;
-  car_company: string;
-  name: string;
+  id: any;
+  old_id: string;
+  shipCompany: string;
+  fleet_customer_id: string;
+  fleetCompanyId: string;
   project: string;
-  fee_cata: string;
-  cata: string;
-  fee_name: string;
-  fee_code: string;
-  company_type: string;
-  gp20: string;
-  tk20: string;
-  gp40: string;
-  tk40: string;
-  hc40: string;
-  ot40: string;
-  ot20: string;
-  fr40: string;
+  costType: string;
+  isStart: string;
+  costName: string;
+  costCode: string;
+  accountCompanyType: string;
+  price_gp20: string;
+  price_tk20: string;
+  price_gp40: string;
+  price_tk40: string;
+  price_hc40: string;
+  price_ot40: string;
+  price_ot20: string;
+  price_fr40: string;
 }
 interface FormProps {
   formInline: FormItemProps;

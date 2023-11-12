@@ -1,39 +1,46 @@
 // import dayjs from "dayjs";
+import { utils, writeFile } from "xlsx";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
-import { getRoleList } from "@/api/system";
 // import { ElMessageBox } from "element-plus";
-import { tableData } from "./data";
 // import { usePublicHooks } from "../../hooks";
 import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
-import { reactive, ref, onMounted, h, toRaw } from "vue";
+import { reactive, ref, onMounted, h } from "vue";
+import {
+  addFeeCollection,
+  deleteFeeCollection,
+  editFeeCollection,
+  getFeeCollectionList
+} from "@/api/operation";
 
 export function useRole() {
   const form = reactive({
-    boat_company: "",
-    car_company: "",
-    name: "",
+    id: "",
+    old_id: "",
+    shipCompany: "",
+    fleet_customer_id: "",
+    fleetCompanyId: "",
     project: "",
-    fee_cata: "",
-    cata: "",
-    fee_name: "",
-    fee_code: "",
-    company_type: "",
-    gp20: "",
-    tk20: "",
-    gp40: "",
-    tk40: "",
-    hc40: "",
-    ot40: "",
-    ot20: "",
-    fr40: ""
+    costType: "",
+    isStart: "",
+    costName: "",
+    costCode: "",
+    accountCompanyType: "",
+    price_gp20: "",
+    price_tk20: "",
+    price_gp40: "",
+    price_tk40: "",
+    price_hc40: "",
+    price_ot40: "",
+    price_ot20: "",
+    price_fr40: ""
   });
   const formRef = ref();
   const currentRow = ref();
   const haveRow = ref(true);
-  let dataList = tableData;
+  const dataList = ref([]);
   const loading = ref(true);
   // const switchLoadMap = ref({});
   // const { tagStyle } = usePublicHooks();
@@ -46,15 +53,15 @@ export function useRole() {
   const columns: TableColumnList = [
     {
       label: "船公司",
-      prop: "boat_company"
+      prop: "shipCompany"
     },
     {
       label: "车队公司",
-      prop: "car_company"
+      prop: "fleetCompanyId"
     },
     {
       label: "客户",
-      prop: "name"
+      prop: "fleet_customer_id"
     },
     {
       label: "项目",
@@ -62,67 +69,98 @@ export function useRole() {
     },
     {
       label: "费用类型",
-      prop: "fee_cata"
+      prop: "costType"
     },
     {
       label: "类型",
-      prop: "cata"
+      prop: "isStart"
     },
     {
       label: "费用名称",
-      prop: "fee_name"
+      prop: "costName"
     },
     {
       label: "费用代码",
-      prop: "fee_code"
+      prop: "costCode"
     },
     {
       label: "往来单位类型",
-      prop: "company_type"
+      prop: "accountCompanyType"
     },
     {
       label: "20GP",
-      prop: "gp20"
+      prop: "price_gp20"
     },
     {
       label: "20TK",
-      prop: "tk20"
+      prop: "price_tk20"
     },
     {
       label: "40GP",
-      prop: "gp40"
+      prop: "price_gp40"
     },
     {
       label: "40TK",
-      prop: "tk40"
+      prop: "price_tk40"
     },
     {
       label: "40HC",
-      prop: "hc40"
+      prop: "price_hc40"
     },
     {
       label: "40OT",
-      prop: "ot40"
+      prop: "price_ot40"
     },
     {
       label: "20OT",
-      prop: "ot20"
+      prop: "price_ot20"
     },
     {
       label: "40FR",
-      prop: "fr40"
+      prop: "price_fr40"
     }
   ];
 
-  function handleDelete() {
-    message(`您删除了角色名称为${currentRow.value.name}的这条数据`, {
+  function exportExcel() {
+    const res = dataList.value.map(item => {
+      const arr = [];
+      columns.forEach(column => {
+        arr.push(item[column.prop as string]);
+      });
+      return arr;
+    });
+    const titleList = [];
+    columns.forEach(column => {
+      titleList.push(column.label);
+    });
+    res.unshift(titleList);
+    const workSheet = utils.aoa_to_sheet(res);
+    const workBook = utils.book_new();
+    utils.book_append_sheet(workBook, workSheet, "数据报表");
+    writeFile(workBook, "代收费用列表.xlsx");
+    message("导出成功", {
       type: "success"
     });
+  }
+
+  async function handleDelete() {
+    message(`您删除了费用id为${currentRow.value.id}的这条数据`, {
+      type: "success"
+    });
+    await deleteFeeCollection(currentRow.value);
     onSearch();
   }
 
   function handleSizeChange(val: number) {
     console.log(`${val} items per page`);
+    pagination.pageSize = val;
+    onSearch();
+  }
+
+  function handlePageChange(val: number) {
+    console.log(`current page: ${val}`);
+    pagination.currentPage = val;
+    onSearch();
   }
 
   function handleCurrentChange(val) {
@@ -136,8 +174,11 @@ export function useRole() {
 
   async function onSearch() {
     loading.value = true;
-    const { data } = await getRoleList(toRaw(form));
-    dataList = data.list;
+    const { data } = await getFeeCollectionList({
+      pagination,
+      form
+    });
+    dataList.value = data.list;
     pagination.total = data.total;
     pagination.pageSize = data.pageSize;
     pagination.currentPage = data.currentPage;
@@ -153,28 +194,34 @@ export function useRole() {
     onSearch();
   };
 
+  async function handleAddFeeCollection(fee) {
+    await addFeeCollection(fee);
+  }
+
   function openDialog(title = "添加", row?: FormItemProps) {
     addDialog({
       title: `${title}费用记录`,
       props: {
         formInline: {
-          boat_company: row?.boat_company ?? "",
-          car_company: row?.car_company ?? "",
-          name: row?.name ?? "",
+          id: row?.id ?? "",
+          old_id: row?.old_id ?? "",
+          shipCompany: row?.shipCompany ?? "",
+          fleet_customer_id: row?.fleet_customer_id ?? "",
+          fleetCompanyId: row?.fleetCompanyId ?? "",
           project: row?.project ?? "",
-          fee_cata: row?.fee_cata ?? "",
-          cata: row?.cata ?? "",
-          fee_name: row?.fee_name ?? "",
-          fee_code: row?.fee_code ?? "",
-          company_type: row?.company_type ?? "",
-          gp20: row?.gp20 ?? "",
-          tk20: row?.tk20 ?? "",
-          gp40: row?.gp40 ?? "",
-          tk40: row?.tk40 ?? "",
-          hc40: row?.hc40 ?? "",
-          ot40: row?.ot40 ?? "",
-          ot20: row?.ot20 ?? "",
-          fr40: row?.fr40 ?? ""
+          costType: row?.costType ?? "",
+          isStart: row?.isStart ?? "",
+          costName: row?.costName ?? "",
+          costCode: row?.costCode ?? "",
+          accountCompanyType: row?.accountCompanyType ?? "",
+          price_gp20: row?.price_gp20 ?? "",
+          price_tk20: row?.price_tk20 ?? "",
+          price_gp40: row?.price_gp40 ?? "",
+          price_tk40: row?.price_tk40 ?? "",
+          price_hc40: row?.price_hc40 ?? "",
+          price_ot40: row?.price_ot40 ?? "",
+          price_ot20: row?.price_ot20 ?? "",
+          price_fr40: row?.price_fr40 ?? ""
         }
       },
       width: "40%",
@@ -186,7 +233,7 @@ export function useRole() {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
         function chores() {
-          message(`您${title}了角色名称为${curData.name}的这条数据`, {
+          message(`您${title}了费用id为${curData.id}的这条数据`, {
             type: "success"
           });
           done(); // 关闭弹框
@@ -198,9 +245,11 @@ export function useRole() {
             // 表单规则校验通过
             if (title === "新增") {
               // 实际开发先调用新增接口，再进行下面操作
+              handleAddFeeCollection(curData);
               chores();
             } else {
               // 实际开发先调用编辑接口，再进行下面操作
+              asyncEdit(curData);
               chores();
             }
           }
@@ -212,6 +261,10 @@ export function useRole() {
   // 编辑按钮
   function handleEdit() {
     openDialog("编辑", currentRow.value);
+  }
+
+  async function asyncEdit(fee) {
+    await editFeeCollection(fee);
   }
 
   // 双击行
@@ -240,6 +293,7 @@ export function useRole() {
     dataList,
     pagination,
     // buttonClass,
+    exportExcel,
     onSearch,
     resetForm,
     openDialog,
@@ -249,6 +303,7 @@ export function useRole() {
     handleRowDblclick,
     handleEdit,
     handleSizeChange,
+    handlePageChange,
     handleCurrentChange,
     handleSelectionChange
   };

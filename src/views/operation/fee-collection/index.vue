@@ -26,6 +26,7 @@ const {
   dataList,
   pagination,
   // buttonClass,
+  exportExcel,
   onSearch,
   resetForm,
   openDialog,
@@ -34,6 +35,7 @@ const {
   handleRowDblclick,
   handleEdit,
   handleSizeChange,
+  handlePageChange,
   handleCurrentChange,
   handleSelectionChange
 } = useRole();
@@ -47,9 +49,9 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="往来单位类型" prop="company_type">
+      <el-form-item label="往来单位类型" prop="accountCompanyType">
         <el-select
-          v-model="form.company_type"
+          v-model="form.accountCompanyType"
           placeholder="请选择类型"
           clearable
           class="!w-[180px]"
@@ -61,9 +63,9 @@ const {
         </el-select>
       </el-form-item>
 
-      <el-form-item label="费用名称：" prop="fee_name">
+      <el-form-item label="费用名称：" prop="costName">
         <el-input
-          v-model="form.fee_name"
+          v-model="form.costName"
           placeholder="请输入费用名称"
           clearable
           class="!w-[180px]"
@@ -88,14 +90,14 @@ const {
         <el-button
           type="primary"
           :icon="useRenderIcon(AddFill)"
-          @click="openDialog()"
+          @click="openDialog('新增')"
         >
           添加费用记录
         </el-button>
         <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
           导入
         </el-button>
-        <el-button :icon="useRenderIcon(Upload)" @click="resetForm(formRef)">
+        <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
           导出
         </el-button>
         <el-button
@@ -143,6 +145,7 @@ const {
           @selection-change="handleSelectionChange"
           @row-dblclick="handleRowDblclick"
           @page-size-change="handleSizeChange"
+          @page-current-change="handlePageChange"
           @current-change="handleCurrentChange"
         />
       </template>

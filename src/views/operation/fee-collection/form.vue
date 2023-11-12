@@ -5,23 +5,25 @@ import { FormProps } from "./utils/types";
 
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
-    boat_company: "",
-    car_company: "",
-    name: "",
+    id: "",
+    old_id: "",
+    shipCompany: "",
+    fleet_customer_id: "",
+    fleetCompanyId: "",
     project: "",
-    fee_cata: "",
-    cata: "",
-    fee_name: "",
-    fee_code: "",
-    company_type: "",
-    gp20: "",
-    tk20: "",
-    gp40: "",
-    tk40: "",
-    hc40: "",
-    ot40: "",
-    ot20: "",
-    fr40: ""
+    costType: "",
+    isStart: "",
+    costName: "",
+    costCode: "",
+    accountCompanyType: "",
+    price_gp20: "",
+    price_tk20: "",
+    price_gp40: "",
+    price_tk40: "",
+    price_hc40: "",
+    price_ot40: "",
+    price_ot20: "",
+    price_fr40: ""
   })
 });
 
@@ -42,25 +44,25 @@ defineExpose({ getRef });
     :rules="formRules"
     label-width="82px"
   >
-    <el-form-item label="船公司" prop="boat_company">
+    <el-form-item label="船公司" prop="shipCompany">
       <el-input
-        v-model="newFormInline.boat_company"
+        v-model="newFormInline.shipCompany"
         clearable
         placeholder="请输入船公司名"
       />
     </el-form-item>
 
-    <el-form-item label="车队公司" prop="car_company">
+    <el-form-item label="车队公司" prop="fleetCompanyId">
       <el-input
-        v-model="newFormInline.car_company"
+        v-model="newFormInline.fleetCompanyId"
         clearable
         placeholder="请输入车队公司名"
       />
     </el-form-item>
 
-    <el-form-item label="客户" prop="name">
+    <el-form-item label="客户" prop="fleet_customer_id">
       <el-input
-        v-model="newFormInline.name"
+        v-model="newFormInline.fleet_customer_id"
         clearable
         placeholder="请输入客户名"
       />
@@ -74,9 +76,9 @@ defineExpose({ getRef });
       />
     </el-form-item>
 
-    <el-form-item label="费用类型" prop="fee_cata">
+    <el-form-item label="费用类型" prop="costType">
       <el-select
-        v-model="newFormInline.fee_cata"
+        v-model="newFormInline.costType"
         placeholder="请选择费用类型"
         clearable
         class="!w-[180px]"
@@ -86,9 +88,9 @@ defineExpose({ getRef });
       </el-select>
     </el-form-item>
 
-    <el-form-item label="类型" prop="cata">
+    <el-form-item label="类型" prop="isStart">
       <el-select
-        v-model="newFormInline.cata"
+        v-model="newFormInline.isStart"
         placeholder="请选择类型"
         clearable
         class="!w-[180px]"
@@ -98,25 +100,25 @@ defineExpose({ getRef });
       </el-select>
     </el-form-item>
 
-    <el-form-item label="费用名称" prop="fee_name">
+    <el-form-item label="费用名称" prop="costName">
       <el-input
-        v-model="newFormInline.fee_name"
+        v-model="newFormInline.costName"
         clearable
         placeholder="请输入费用名称"
       />
     </el-form-item>
 
-    <el-form-item label="费用代码" prop="fee_code">
+    <el-form-item label="费用代码" prop="costCode">
       <el-input
-        v-model="newFormInline.fee_code"
+        v-model="newFormInline.costCode"
         clearable
         placeholder="请输入费用代码"
       />
     </el-form-item>
 
-    <el-form-item label="单位类型" prop="company_type">
+    <el-form-item label="单位类型" prop="accountCompanyType">
       <el-select
-        v-model="newFormInline.company_type"
+        v-model="newFormInline.accountCompanyType"
         placeholder="请选择类型"
         clearable
         class="!w-[180px]"
@@ -128,33 +130,33 @@ defineExpose({ getRef });
       </el-select>
     </el-form-item>
 
-    <el-form-item label="20GP" prop="gp20">
+    <el-form-item label="20GP" prop="price_gp20">
       <el-input
-        v-model="newFormInline.gp20"
+        v-model="newFormInline.price_gp20"
         clearable
         placeholder="请输入gp20"
       />
     </el-form-item>
 
-    <el-form-item label="20TK" prop="tk20">
+    <el-form-item label="20TK" prop="price_tk20">
       <el-input
-        v-model="newFormInline.tk20"
+        v-model="newFormInline.price_tk20"
         clearable
         placeholder="请输入tk20"
       />
     </el-form-item>
 
-    <el-form-item label="40GP" prop="gp40">
+    <el-form-item label="40GP" prop="price_gp40">
       <el-input
-        v-model="newFormInline.gp40"
+        v-model="newFormInline.price_gp40"
         clearable
         placeholder="请输入gp40"
       />
     </el-form-item>
 
-    <el-form-item label="40TK" prop="tk40">
+    <el-form-item label="40TK" prop="price_tk40">
       <el-input
-        v-model="newFormInline.tk40"
+        v-model="newFormInline.price_tk40"
         clearable
         placeholder="请输入tk40"
       />
