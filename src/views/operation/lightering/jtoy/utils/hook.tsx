@@ -1,40 +1,49 @@
 // import dayjs from "dayjs";
+import { utils, writeFile } from "xlsx";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
-import { getRoleList } from "@/api/system";
 // import { ElMessageBox } from "element-plus";
-import { tableData } from "./data";
 // import { usePublicHooks } from "../../hooks";
 import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
-import { reactive, ref, onMounted, h, toRaw } from "vue";
+import { reactive, ref, onMounted, h } from "vue";
+import { getLighteringList } from "@/api/operation";
 
 export function useRole() {
   const form = reactive({
-    riqi: "",
-    chuanming: "",
-    tidanhao: "",
-    zhuanghuogang: "",
-    xiehuogang: "",
-    mudigang: "",
-    xianghuozongzhong: "",
-    xianghao: "",
-    chixiangren: "",
-    fujiacaozuo: "",
-    chuangongsixiangxing: "",
-    haiguanxiangxing: "",
-    ISO: "",
-    jinchukou: "",
-    kongzhong: "",
-    maoyileixing: "",
-    qianfenghao: "",
-    huoming: "",
-    xiechuanfufeiren: "",
-    zhongzhuanleixing: ""
+    id: "",
+    type: "1",
+    add_time: "",
+    voyage: "",
+    container_no: "",
+    seal_no: "",
+    customs_container_type: "",
+    iso: "",
+    container_type: "",
+    container_holder: "",
+    is_import: "",
+    extra_operation: "",
+    trade_type: "",
+    bl_no: "",
+    cargo_name: "",
+    load_port: "",
+    target_port: "",
+    unload_port: "",
+    load_payer: "",
+    unload_payer: "",
+    total_weight: "",
+    cargo_weight: "",
+    empty_weight: "",
+    volume: "",
+    amount: "",
+    cargo_owner: "",
+    forwarder: "",
+    transfer_type: "",
+    remarks: ""
   });
   const formRef = ref();
-  let dataList = tableData;
+  const dataList = ref([]);
   const loading = ref(true);
   // const switchLoadMap = ref({});
   // const { tagStyle } = usePublicHooks();
@@ -47,136 +56,107 @@ export function useRole() {
   const columns: TableColumnList = [
     {
       label: "日期",
-      prop: "riqi"
+      prop: "add_time"
     },
     {
       label: "船名航次",
-      prop: "chuanming"
+      prop: "voyage"
     },
     {
       label: "提单号",
-      prop: "tidanhao"
+      prop: "seal_no"
     },
     {
       label: "装货港",
-      prop: "zhuanghuogang"
+      prop: "load_port"
     },
     {
       label: "卸货港",
-      prop: "xiehuogang"
+      prop: "unload_port"
     },
     {
       label: "目的港",
-      prop: "mudigang"
+      prop: "target_port"
     },
     {
       label: "箱货总重",
-      prop: "xianghuozongzhong"
+      prop: "total_weight"
     },
     {
       label: "箱号",
-      prop: "xianghao"
+      prop: "container_no"
     },
     {
       label: "持箱人",
-      prop: "chixiangren"
+      prop: "container_holder"
     },
     {
       label: "附加操作",
-      prop: "fujiacaozuo"
+      prop: "extra_operation"
     },
     {
       label: "船公司箱型",
-      prop: "chuangongsixiangxing"
+      prop: "container_type"
     },
     {
       label: "海关箱类型",
-      prop: "haiguanxiangxing"
+      prop: "customs_container_type"
     },
     {
       label: "ISO",
-      prop: "ISO"
+      prop: "iso"
     },
     {
       label: "进出口",
-      prop: "jinchukou"
+      prop: "is_import"
     },
     {
       label: "空重",
-      prop: "kongzhong"
+      prop: "empty_weight"
     },
     {
       label: "贸易类型",
-      prop: "maoyileixing"
+      prop: "trade_type"
     },
     {
       label: "铅封号",
-      prop: "qianfenghao"
+      prop: "bl_no"
     },
     {
       label: "货名",
-      prop: "huoming"
+      prop: "cargo_name"
     },
     {
       label: "卸船付费人",
-      prop: "xiechuanfufeiren"
+      prop: "unload_payer"
     },
     {
       label: "中转类型",
-      prop: "zhongzhuanleixing"
+      prop: "transfer_type"
     }
   ];
-  // const buttonClass = computed(() => {
-  //   return [
-  //     "!h-[20px]",
-  //     "reset-margin",
-  //     "!text-gray-500",
-  //     "dark:!text-white",
-  //     "dark:hover:!text-primary"
-  //   ];
-  // });
 
-  // function onChange({ row, index }) {
-  //   ElMessageBox.confirm(
-  //     `确认要<strong>${
-  //       row.status === 0 ? "停用" : "启用"
-  //     }</strong><strong style='color:var(--el-color-primary)'>${
-  //       row.name
-  //     }</strong>吗?`,
-  //     "系统提示",
-  //     {
-  //       confirmButtonText: "确定",
-  //       cancelButtonText: "取消",
-  //       type: "warning",
-  //       dangerouslyUseHTMLString: true,
-  //       draggable: true
-  //     }
-  //   )
-  //     .then(() => {
-  //       switchLoadMap.value[index] = Object.assign(
-  //         {},
-  //         switchLoadMap.value[index],
-  //         {
-  //           loading: true
-  //         }
-  //       );
-  //       setTimeout(() => {
-  //         switchLoadMap.value[index] = Object.assign(
-  //           {},
-  //           switchLoadMap.value[index],
-  //           {
-  //             loading: false
-  //           }
-  //         );
-  //         message(`已${row.status === 0 ? "停用" : "启用"}${row.name}`, {
-  //           type: "success"
-  //         });
-  //       }, 300);
-  //     })
-  //     .catch(() => {
-  //       row.status === 0 ? (row.status = 1) : (row.status = 0);
-  //     });
-  // }
+  function exportExcel() {
+    const res = dataList.value.map(item => {
+      const arr = [];
+      columns.forEach(column => {
+        arr.push(item[column.prop as string]);
+      });
+      return arr;
+    });
+    const titleList = [];
+    columns.forEach(column => {
+      titleList.push(column.label);
+    });
+    res.unshift(titleList);
+    const workSheet = utils.aoa_to_sheet(res);
+    const workBook = utils.book_new();
+    utils.book_append_sheet(workBook, workSheet, "数据报表");
+    writeFile(workBook, "金口-阳逻列表.xlsx");
+    message("导出成功", {
+      type: "success"
+    });
+  }
 
   function handleDelete(row) {
     message(`您删除了角色名称为${row.name}的这条数据`, { type: "success" });
@@ -185,10 +165,14 @@ export function useRole() {
 
   function handleSizeChange(val: number) {
     console.log(`${val} items per page`);
+    pagination.pageSize = val;
+    onSearch();
   }
 
   function handleCurrentChange(val: number) {
     console.log(`current page: ${val}`);
+    pagination.currentPage = val;
+    onSearch();
   }
 
   function handleSelectionChange(val) {
@@ -197,8 +181,11 @@ export function useRole() {
 
   async function onSearch() {
     loading.value = true;
-    const { data } = await getRoleList(toRaw(form));
-    dataList = data.list;
+    const { data } = await getLighteringList({
+      pagination,
+      form
+    });
+    dataList.value = data.list;
     pagination.total = data.total;
     pagination.pageSize = data.pageSize;
     pagination.currentPage = data.currentPage;
@@ -219,26 +206,35 @@ export function useRole() {
       title: `${title}驳运记录`,
       props: {
         formInline: {
-          riqi: row?.riqi ?? "",
-          chuanming: row?.chuanming ?? "",
-          tidanhao: row?.tidanhao ?? "",
-          zhuanghuogang: row?.zhuanghuogang ?? "",
-          xiehuogang: row?.xiehuogang ?? "",
-          mudigang: row?.mudigang ?? "",
-          xianghuozongzhong: row?.xianghuozongzhong ?? "",
-          xianghao: row?.xianghao ?? "",
-          chixiangren: row?.chixiangren ?? "",
-          fujiacaozuo: row?.fujiacaozuo ?? "",
-          chuangongsixiangxing: row?.chuangongsixiangxing ?? "",
-          haiguanxiangxing: row?.haiguanxiangxing ?? "",
-          ISO: row?.ISO ?? "",
-          jinchukou: row?.jinchukou ?? "",
-          kongzhong: row?.kongzhong ?? "",
-          maoyileixing: row?.maoyileixing ?? "",
-          qianfenghao: row?.qianfenghao ?? "",
-          huoming: row?.huoming ?? "",
-          xiechuanfufeiren: row?.xiechuanfufeiren ?? "",
-          zhongzhuanleixing: row?.zhongzhuanleixing ?? ""
+          id: row?.id ?? "",
+          type: row?.type ?? "0",
+          add_time: row?.add_time ?? "",
+          voyage: row?.voyage ?? "",
+          container_no: row?.container_no ?? "",
+          seal_no: row?.seal_no ?? "",
+          customs_container_type: row?.customs_container_type ?? "",
+          iso: row?.iso ?? "",
+          container_type: row?.container_type ?? "",
+          container_holder: row?.container_holder ?? "",
+          is_import: row?.is_import ?? "",
+          extra_operation: row?.extra_operation ?? "",
+          trade_type: row?.trade_type ?? "",
+          bl_no: row?.bl_no ?? "",
+          cargo_name: row?.cargo_name ?? "",
+          load_port: row?.load_port ?? "",
+          target_port: row?.target_port ?? "",
+          unload_port: row?.unload_port ?? "",
+          load_payer: row?.load_payer ?? "",
+          unload_payer: row?.unload_payer ?? "",
+          total_weight: row?.total_weight ?? "",
+          cargo_weight: row?.cargo_weight ?? "",
+          empty_weight: row?.empty_weight ?? "",
+          volume: row?.volume ?? "",
+          amount: row?.amount ?? "",
+          cargo_owner: row?.cargo_owner ?? "",
+          forwarder: row?.forwarder ?? "",
+          transfer_type: row?.transfer_type ?? "",
+          remarks: row?.remarks ?? ""
         }
       },
       width: "40%",
@@ -250,7 +246,7 @@ export function useRole() {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
         function chores() {
-          message(`您${title}了箱号为${curData.xianghao}的这条数据`, {
+          message(`您${title}了箱号为${curData.container_no}的这条数据`, {
             type: "success"
           });
           done(); // 关闭弹框
@@ -292,6 +288,7 @@ export function useRole() {
     dataList,
     pagination,
     // buttonClass,
+    exportExcel,
     onSearch,
     resetForm,
     openDialog,

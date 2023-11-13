@@ -135,3 +135,10 @@ export const editBulkCargo = (data?: object) => {
     data
   });
 };
+
+// 获取驳运列表
+export const getLighteringList = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("lighteringList"), {
+    data
+  });
+};

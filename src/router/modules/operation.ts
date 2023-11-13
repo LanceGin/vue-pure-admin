@@ -84,23 +84,25 @@ export default {
       }
     },
     {
-      path: "/operation/litering",
+      path: "/operation/lightering",
       meta: {
         title: "驳运"
       },
       children: [
         {
-          path: "/operation/litering/ytoj",
+          path: "/operation/lightering/ytoj",
           name: "Ytoj",
-          component: () => import("@/views/operation/litering/ytoj/index.vue"),
+          component: () =>
+            import("@/views/operation/lightering/ytoj/index.vue"),
           meta: {
             title: "阳逻-金口"
           }
         },
         {
-          path: "/operation/litering/jtoy",
+          path: "/operation/lightering/jtoy",
           name: "Jtoy",
-          component: () => import("@/views/operation/litering/jtoy/index.vue"),
+          component: () =>
+            import("@/views/operation/lightering/jtoy/index.vue"),
           meta: {
             title: "金口-阳逻"
           }
