@@ -26,6 +26,7 @@ const {
   dataList,
   pagination,
   // buttonClass,
+  exportExcel,
   onSearch,
   resetForm,
   openDialog,
@@ -34,6 +35,7 @@ const {
   handleRowDblclick,
   handleEdit,
   handleSizeChange,
+  handlePageChange,
   handleCurrentChange,
   handleSelectionChange
 } = useRole();
@@ -47,49 +49,48 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="日期：" prop="riqi">
-        <el-input
-          v-model="form.riqi"
+      <el-form-item label="日期：" prop="add_time">
+        <el-date-picker
+          v-model="form.add_time"
+          type="date"
           placeholder="请输入日期"
-          clearable
-          class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="船公司：" prop="chuangongsi">
+      <el-form-item label="船公司：" prop="ship_company">
         <el-input
-          v-model="form.chuangongsi"
+          v-model="form.ship_company"
           placeholder="请输入船公司"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="提单号：" prop="tidanhao">
+      <el-form-item label="提单号：" prop="seal_no">
         <el-input
-          v-model="form.tidanhao"
+          v-model="form.seal_no"
           placeholder="请输入提单号"
           clearable
           class="!w-[180px]"
         />
       </el-form-item>
-      <el-form-item label="箱号：" prop="xianghao">
+      <el-form-item label="箱号：" prop="container_no">
         <el-input
-          v-model="form.xianghao"
+          v-model="form.container_no"
           placeholder="请输入箱号"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="车号：" prop="chehao">
+      <el-form-item label="车号：" prop="car_no">
         <el-input
-          v-model="form.chehao"
+          v-model="form.car_no"
           placeholder="请输入车号"
           clearable
           class="!w-[180px]"
         />
       </el-form-item>
-      <el-form-item label="船名航次：" prop="chuanming">
+      <el-form-item label="船名航次：" prop="voyage">
         <el-input
-          v-model="form.chuanming"
+          v-model="form.voyage"
           placeholder="请输入船名航次"
           clearable
           class="!w-[180px]"
@@ -114,14 +115,14 @@ const {
         <el-button
           type="primary"
           :icon="useRenderIcon(AddFill)"
-          @click="openDialog()"
+          @click="openDialog('新增')"
         >
           添加船运记录
         </el-button>
         <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
           导入
         </el-button>
-        <el-button :icon="useRenderIcon(Upload)" @click="resetForm(formRef)">
+        <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
           导出
         </el-button>
         <el-button
@@ -143,11 +144,7 @@ const {
       </el-form-item>
     </el-form>
 
-    <PureTableBar
-      title="船运列表（测试用，操作后不生效）"
-      :columns="columns"
-      @refresh="onSearch"
-    >
+    <PureTableBar title="船运列表" :columns="columns" @refresh="onSearch">
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border
@@ -169,6 +166,7 @@ const {
           @selection-change="handleSelectionChange"
           @row-dblclick="handleRowDblclick"
           @page-size-change="handleSizeChange"
+          @page-current-change="handlePageChange"
           @current-change="handleCurrentChange"
         />
       </template>
