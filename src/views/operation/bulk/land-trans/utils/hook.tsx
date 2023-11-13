@@ -1,35 +1,50 @@
 // import dayjs from "dayjs";
+import { utils, writeFile } from "xlsx";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
-import { getRoleList } from "@/api/system";
 // import { ElMessageBox } from "element-plus";
-import { tableData } from "./data";
 import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
-import { reactive, ref, onMounted, h, toRaw } from "vue";
+import { reactive, ref, onMounted, h } from "vue";
+import {
+  addBulkCargo,
+  deleteBulkCargo,
+  editBulkCargo,
+  getBulkCargoList
+} from "@/api/operation";
 // import { func } from "vue-types";
 
 export function useRole() {
   const form = reactive({
-    riqi: "",
-    leixing: "",
-    kehu: "",
-    chuangongsi: "",
-    xianghao: "",
-    xiangxing: "",
-    fenghao: "",
-    liuxiang: "",
-    dizhi: "",
-    chehao: "",
-    yunfei: "",
-    yichangfeiyong: "",
-    beizhu: ""
+    id: "",
+    type: "1",
+    customer: "",
+    ship_company: "",
+    fleet: "",
+    load_address: "",
+    unload_address: "",
+    bl_no: "",
+    container_no: "",
+    container_type: "",
+    seal_no: "",
+    flow_direction: "",
+    voyage: "",
+    address: "",
+    car_type: "",
+    car_no: "",
+    driver_mobile: "",
+    booking_fee: "",
+    exchange_fee: "",
+    freight: "",
+    error_fee: "",
+    remarks: "",
+    add_time: ""
   });
   const formRef = ref();
   const currentRow = ref();
   const haveRow = ref(true);
-  let dataList = tableData;
+  const dataList = ref([]);
   const loading = ref(true);
   const pagination = reactive<PaginationProps>({
     total: 0,
@@ -40,63 +55,94 @@ export function useRole() {
   const columns: TableColumnList = [
     {
       label: "日期",
-      prop: "riqi"
+      prop: "add_time"
     },
     {
       label: "客户",
-      prop: "kehu"
+      prop: "customer"
     },
     {
       label: "船公司",
-      prop: "chuangongsi"
+      prop: "ship_company"
     },
     {
       label: "箱号",
-      prop: "xianghao"
+      prop: "container_no"
     },
     {
       label: "箱型",
-      prop: "xiangxing"
+      prop: "container_type"
     },
     {
       label: "封号",
-      prop: "fenghao"
+      prop: "bl_no"
     },
     {
       label: "流向",
-      prop: "liuxiang"
+      prop: "flow_direction"
     },
     {
       label: "地址",
-      prop: "dizhi"
+      prop: "address"
     },
     {
       label: "车号",
-      prop: "chehao"
+      prop: "car_no"
     },
     {
       label: "运费",
-      prop: "yunfei"
+      prop: "freight"
     },
     {
       label: "异常费用",
-      prop: "yichangfeiyong"
+      prop: "error_fee"
     },
     {
       label: "备注",
-      prop: "beizhu"
+      prop: "remarks"
     }
   ];
 
-  function handleDelete() {
-    message(`您删除了角色名称为${currentRow.value.name}的这条数据`, {
+  function exportExcel() {
+    const res = dataList.value.map(item => {
+      const arr = [];
+      columns.forEach(column => {
+        arr.push(item[column.prop as string]);
+      });
+      return arr;
+    });
+    const titleList = [];
+    columns.forEach(column => {
+      titleList.push(column.label);
+    });
+    res.unshift(titleList);
+    const workSheet = utils.aoa_to_sheet(res);
+    const workBook = utils.book_new();
+    utils.book_append_sheet(workBook, workSheet, "数据报表");
+    writeFile(workBook, "陆运列表.xlsx");
+    message("导出成功", {
       type: "success"
     });
+  }
+
+  async function handleDelete() {
+    message(`您删除了箱号为${currentRow.value.container_no}的这条数据`, {
+      type: "success"
+    });
+    await deleteBulkCargo(currentRow.value);
     onSearch();
   }
 
   function handleSizeChange(val: number) {
     console.log(`${val} items per page`);
+    pagination.pageSize = val;
+    onSearch();
+  }
+
+  function handlePageChange(val: number) {
+    console.log(`current page: ${val}`);
+    pagination.currentPage = val;
+    onSearch();
   }
 
   function handleCurrentChange(val) {
@@ -110,8 +156,11 @@ export function useRole() {
 
   async function onSearch() {
     loading.value = true;
-    const { data } = await getRoleList(toRaw(form));
-    dataList = data.list;
+    const { data } = await getBulkCargoList({
+      pagination,
+      form
+    });
+    dataList.value = data.list;
     pagination.total = data.total;
     pagination.pageSize = data.pageSize;
     pagination.currentPage = data.currentPage;
@@ -127,24 +176,38 @@ export function useRole() {
     onSearch();
   };
 
+  async function handleAddBulkCargo(bulk) {
+    await addBulkCargo(bulk);
+  }
+
   function openDialog(title = "添加", row?: FormItemProps) {
     addDialog({
       title: `${title}陆运记录`,
       props: {
         formInline: {
-          riqi: row?.riqi ?? "",
-          leixing: row?.leixing ?? "",
-          kehu: row?.kehu ?? "",
-          chuangongsi: row?.chuangongsi ?? "",
-          xianghao: row?.xianghao ?? "",
-          xiangxing: row?.xiangxing ?? "",
-          fenghao: row?.fenghao ?? "",
-          liuxiang: row?.liuxiang ?? "",
-          dizhi: row?.dizhi ?? "",
-          chehao: row?.chehao ?? "",
-          yunfei: row?.yunfei ?? "",
-          yichangfeiyong: row?.yichangfeiyong ?? "",
-          beizhu: row?.beizhu ?? ""
+          id: row?.id ?? "",
+          type: row?.type ?? "1",
+          customer: row?.customer ?? "",
+          ship_company: row?.ship_company ?? "",
+          fleet: row?.fleet ?? "",
+          load_address: row?.load_address ?? "",
+          unload_address: row?.unload_address ?? "",
+          bl_no: row?.bl_no ?? "",
+          container_no: row?.container_no ?? "",
+          container_type: row?.container_type ?? "",
+          seal_no: row?.seal_no ?? "",
+          flow_direction: row?.flow_direction ?? "",
+          voyage: row?.voyage ?? "",
+          address: row?.address ?? "",
+          car_type: row?.car_type ?? "",
+          car_no: row?.car_no ?? "",
+          driver_mobile: row?.driver_mobile ?? "",
+          booking_fee: row?.booking_fee ?? "",
+          exchange_fee: row?.exchange_fee ?? "",
+          freight: row?.freight ?? "",
+          error_fee: row?.error_fee ?? "",
+          remarks: row?.remarks ?? "",
+          add_time: row?.add_time ?? ""
         }
       },
       width: "40%",
@@ -156,7 +219,7 @@ export function useRole() {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
         function chores() {
-          message(`您${title}了客户名称为${curData.kehu}的这条数据`, {
+          message(`您${title}了箱号为${curData.container_no}的这条数据`, {
             type: "success"
           });
           done(); // 关闭弹框
@@ -168,9 +231,11 @@ export function useRole() {
             // 表单规则校验通过
             if (title === "新增") {
               // 实际开发先调用新增接口，再进行下面操作
+              handleAddBulkCargo(curData);
               chores();
             } else {
               // 实际开发先调用编辑接口，再进行下面操作
+              asyncEdit(curData);
               chores();
             }
           }
@@ -182,6 +247,10 @@ export function useRole() {
   // 编辑按钮
   function handleEdit() {
     openDialog("编辑", currentRow.value);
+  }
+
+  async function asyncEdit(yard) {
+    await editBulkCargo(yard);
   }
 
   // 双击行
@@ -211,6 +280,7 @@ export function useRole() {
     dataList,
     pagination,
     // buttonClass,
+    exportExcel,
     onSearch,
     resetForm,
     openDialog,
@@ -220,6 +290,7 @@ export function useRole() {
     handleRowDblclick,
     // handleDatabase,
     handleSizeChange,
+    handlePageChange,
     handleCurrentChange,
     handleSelectionChange
   };
