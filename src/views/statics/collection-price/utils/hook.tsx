@@ -1,35 +1,43 @@
+import { utils, writeFile } from "xlsx";
 import dayjs from "dayjs";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
-import { getRoleList } from "@/api/system";
 // import { ElMessageBox } from "element-plus";
-import { tableData } from "./data";
 import { usePublicHooks } from "../../hooks";
 import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
-import { reactive, ref, onMounted, h, toRaw } from "vue";
+import { reactive, ref, onMounted, h } from "vue";
+import {
+  addDoorPrice,
+  deleteDoorPrice,
+  editDoorPrice,
+  getDoorPriceList
+} from "@/api/statics";
 
 export function useRole() {
   const form = reactive({
+    id: "",
+    is_pay: "0",
     status: "",
-    custom: "",
+    customer: "",
     project: "",
     door: "",
-    wharf: "",
+    port: "",
     i20gp: "",
     i40gp: "",
     i20tk: "",
     i40hc: "",
     o20gp: "",
     o40gp: "",
+    o20tk: "",
     o40hc: "",
-    o20tk: ""
+    add_time: ""
   });
   const formRef = ref();
   const currentRow = ref();
   const haveRow = ref(true);
-  let dataList = tableData;
+  const dataList = ref([]);
   const loading = ref(true);
   // const switchLoadMap = ref({});
   const { tagStyle } = usePublicHooks();
@@ -50,7 +58,7 @@ export function useRole() {
     },
     {
       label: "客户",
-      prop: "custom"
+      prop: "customer"
     },
     {
       label: "项目",
@@ -62,7 +70,7 @@ export function useRole() {
     },
     {
       label: "码头",
-      prop: "wharf"
+      prop: "port"
     },
     {
       label: "装箱",
@@ -108,21 +116,51 @@ export function useRole() {
     },
     {
       label: "创建时间",
-      prop: "createTime",
-      formatter: ({ createTime }) =>
-        dayjs(createTime).format("YYYY-MM-DD HH:mm:ss")
+      prop: "add_time",
+      formatter: ({ add_time }) => dayjs(add_time).format("YYYY-MM-DD HH:mm:ss")
     }
   ];
 
-  function handleDelete() {
-    message(`您删除了客户为${currentRow.value.custom}的这条数据`, {
+  function exportExcel() {
+    const res = dataList.value.map(item => {
+      const arr = [];
+      columns.forEach(column => {
+        arr.push(item[column.prop as string]);
+      });
+      return arr;
+    });
+    const titleList = [];
+    columns.forEach(column => {
+      titleList.push(column.label);
+    });
+    res.unshift(titleList);
+    const workSheet = utils.aoa_to_sheet(res);
+    const workBook = utils.book_new();
+    utils.book_append_sheet(workBook, workSheet, "数据报表");
+    writeFile(workBook, "散货列表.xlsx");
+    message("导出成功", {
       type: "success"
     });
+  }
+
+  async function handleDelete() {
+    message(`您删除了客户为${currentRow.value.customer}的这条数据`, {
+      type: "success"
+    });
+    await deleteDoorPrice(currentRow.value);
     onSearch();
   }
 
   function handleSizeChange(val: number) {
     console.log(`${val} items per page`);
+    pagination.pageSize = val;
+    onSearch();
+  }
+
+  function handlePageChange(val: number) {
+    console.log(`current page: ${val}`);
+    pagination.currentPage = val;
+    onSearch();
   }
 
   function handleCurrentChange(val) {
@@ -136,8 +174,11 @@ export function useRole() {
 
   async function onSearch() {
     loading.value = true;
-    const { data } = await getRoleList(toRaw(form));
-    dataList = data.list;
+    const { data } = await getDoorPriceList({
+      pagination,
+      form
+    });
+    dataList.value = data.list;
     pagination.total = data.total;
     pagination.pageSize = data.pageSize;
     pagination.currentPage = data.currentPage;
@@ -153,24 +194,31 @@ export function useRole() {
     onSearch();
   };
 
+  async function handleAddDoorPrice(door_price) {
+    await addDoorPrice(door_price);
+  }
+
   function openDialog(title = "添加", row?: FormItemProps) {
     addDialog({
       title: `${title}堆场`,
       props: {
         formInline: {
+          id: row?.id ?? "",
+          is_pay: row?.is_pay ?? "0",
           status: row?.status ?? "",
-          custom: row?.custom ?? "",
+          customer: row?.customer ?? "",
           project: row?.project ?? "",
           door: row?.door ?? "",
-          wharf: row?.wharf ?? "",
+          port: row?.port ?? "",
           i20gp: row?.i20gp ?? "",
           i40gp: row?.i40gp ?? "",
           i20tk: row?.i20tk ?? "",
           i40hc: row?.i40hc ?? "",
           o20gp: row?.o20gp ?? "",
           o40gp: row?.o40gp ?? "",
+          o20tk: row?.o20tk ?? "",
           o40hc: row?.o40hc ?? "",
-          o20tk: row?.o20tk ?? ""
+          add_time: row?.add_time ?? ""
         }
       },
       width: "40%",
@@ -182,7 +230,7 @@ export function useRole() {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
         function chores() {
-          message(`您${title}了客户名称为${curData.custom}的这条数据`, {
+          message(`您${title}了客户名称为${curData.customer}的这条数据`, {
             type: "success"
           });
           done(); // 关闭弹框
@@ -194,9 +242,11 @@ export function useRole() {
             // 表单规则校验通过
             if (title === "新增") {
               // 实际开发先调用新增接口，再进行下面操作
+              handleAddDoorPrice(curData);
               chores();
             } else {
               // 实际开发先调用编辑接口，再进行下面操作
+              asyncEdit(curData);
               chores();
             }
           }
@@ -208,6 +258,10 @@ export function useRole() {
   // 编辑按钮
   function handleEdit() {
     openDialog("编辑", currentRow.value);
+  }
+
+  async function asyncEdit(door_price) {
+    await editDoorPrice(door_price);
   }
 
   // 双击行
@@ -236,6 +290,7 @@ export function useRole() {
     dataList,
     pagination,
     // buttonClass,
+    exportExcel,
     onSearch,
     resetForm,
     openDialog,
@@ -245,6 +300,7 @@ export function useRole() {
     handleRowDblclick,
     handleEdit,
     handleSizeChange,
+    handlePageChange,
     handleCurrentChange,
     handleSelectionChange
   };

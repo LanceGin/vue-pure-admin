@@ -26,6 +26,7 @@ const {
   dataList,
   pagination,
   // buttonClass,
+  exportExcel,
   onSearch,
   resetForm,
   openDialog,
@@ -34,6 +35,7 @@ const {
   handleRowDblclick,
   handleEdit,
   handleSizeChange,
+  handlePageChange,
   handleCurrentChange,
   handleSelectionChange
 } = useRole();
@@ -47,9 +49,9 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="客户名：" prop="custom">
+      <el-form-item label="客户名：" prop="customer">
         <el-input
-          v-model="form.custom"
+          v-model="form.customer"
           placeholder="请输入客户名"
           clearable
           class="!w-[200px]"
@@ -71,9 +73,9 @@ const {
           class="!w-[180px]"
         />
       </el-form-item>
-      <el-form-item label="码头：" prop="wharf">
+      <el-form-item label="码头：" prop="port">
         <el-input
-          v-model="form.wharf"
+          v-model="form.port"
           placeholder="请输入码头"
           clearable
           class="!w-[180px]"
@@ -98,14 +100,14 @@ const {
         <el-button
           type="primary"
           :icon="useRenderIcon(AddFill)"
-          @click="openDialog()"
+          @click="openDialog('新增')"
         >
           添加价格
         </el-button>
         <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
           导入
         </el-button>
-        <el-button :icon="useRenderIcon(Upload)" @click="resetForm(formRef)">
+        <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
           导出
         </el-button>
         <el-button
@@ -128,7 +130,7 @@ const {
     </el-form>
 
     <PureTableBar
-      title="门点应收价格列表（测试用，操作后不生效）"
+      title="门点应收价格列表"
       :columns="columns"
       @refresh="onSearch"
     >
@@ -153,6 +155,7 @@ const {
           @selection-change="handleSelectionChange"
           @row-dblclick="handleRowDblclick"
           @page-size-change="handleSizeChange"
+          @page-current-change="handlePageChange"
           @current-change="handleCurrentChange"
         />
       </template>
