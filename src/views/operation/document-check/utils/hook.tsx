@@ -13,7 +13,7 @@ import { getDocumentCheckList, submitDocumentCheck } from "@/api/operation";
 export function useRole() {
   const form = reactive({
     id: "",
-    order_status: "",
+    order_status: "未审核",
     order_type: "",
     ship_company: "",
     customer: "",
