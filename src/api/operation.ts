@@ -142,3 +142,17 @@ export const getLighteringList = (data?: object) => {
     data
   });
 };
+
+// 获取单证记录
+export const getDocumentCheckList = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("documentCheckList"), {
+    data
+  });
+};
+
+// 提交单证记录
+export const submitDocumentCheck = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("submitdocumentCheck"), {
+    data
+  });
+};

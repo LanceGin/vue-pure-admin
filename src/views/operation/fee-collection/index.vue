@@ -119,11 +119,7 @@ const {
       </el-form-item>
     </el-form>
 
-    <PureTableBar
-      title="代收费用列表（测试用，操作后不生效）"
-      :columns="columns"
-      @refresh="onSearch"
-    >
+    <PureTableBar title="代收费用列表" :columns="columns" @refresh="onSearch">
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border

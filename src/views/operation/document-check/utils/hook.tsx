@@ -1,39 +1,50 @@
 // import dayjs from "dayjs";
+import { utils, writeFile } from "xlsx";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
-import { getRoleList } from "@/api/system";
 // import { ElMessageBox } from "element-plus";
-import { tableData } from "./data";
 // import { usePublicHooks } from "../../hooks";
 import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
-import { reactive, ref, onMounted, h, toRaw } from "vue";
+import { reactive, ref, onMounted, h } from "vue";
+import { getDocumentCheckList, submitDocumentCheck } from "@/api/operation";
 
 export function useRole() {
   const form = reactive({
-    status: "",
-    cata: "",
-    order_no: "",
-    custom: "",
-    project: "",
-    tracking_no: "",
-    box: "",
-    boat: "",
-    boat_company: "",
-    commission_no: "",
-    boat_date: "",
-    fee_time: "",
-    fee: "",
-    fee_amount: "",
-    add_time: "",
-    add_stuff: "",
-    zixiangmu: ""
+    id: "",
+    order_status: "",
+    order_type: "",
+    ship_company: "",
+    customer: "",
+    subproject: "",
+    arrive_time: "",
+    start_port: "",
+    target_port: "",
+    containner_no: "",
+    seal_no: "",
+    container_type: "",
+    ship_name: "",
+    track_no: "",
+    unload_port: "",
+    door: "",
+    make_time: "",
+    load_port: "",
+    count: "",
+    transfer_port: "",
+    package_count: "",
+    gross_weight: "",
+    volume: "",
+    container_weight: "",
+    container_status: "",
+    order_time: "",
+    order_fee: ""
   });
   const formRef = ref();
   const currentRow = ref();
+  const selectRows = ref([]);
   const haveRow = ref(true);
-  let dataList = tableData;
+  const dataList = ref([]);
   const loading = ref(true);
   // const switchLoadMap = ref({});
   // const { tagStyle } = usePublicHooks();
@@ -45,77 +56,87 @@ export function useRole() {
   });
   const columns: TableColumnList = [
     {
+      type: "selection",
+      align: "left"
+    },
+    {
       label: "状态",
-      prop: "status"
+      prop: "order_status"
     },
     {
       label: "类型",
-      prop: "cata"
-    },
-    {
-      label: "订单编号",
-      prop: "order_no"
-    },
-    {
-      label: "客户",
-      prop: "custom"
-    },
-    {
-      label: "项目",
-      prop: "project"
-    },
-    {
-      label: "运单号",
-      prop: "tracking_no"
-    },
-    {
-      label: "箱量",
-      prop: "box"
-    },
-    {
-      label: "船名/航次",
-      prop: "boat"
+      prop: "order_type"
     },
     {
       label: "船东",
-      prop: "boat_company"
+      prop: "ship_company"
     },
     {
-      label: "客户委托号",
-      prop: "commission_no"
-    },
-    {
-      label: "船期",
-      prop: "boat_date"
-    },
-    {
-      label: "打单日期",
-      prop: "fee_time"
-    },
-    {
-      label: "打单费",
-      prop: "fee"
-    },
-    {
-      label: "抵单数",
-      prop: "fee_amount"
-    },
-    {
-      label: "录入时间",
-      prop: "add_time"
-    },
-    {
-      label: "录入人",
-      prop: "add_stuff"
+      label: "客户",
+      prop: "customer"
     },
     {
       label: "子项目",
-      prop: "zixiangmu"
+      prop: "subproject"
+    },
+    {
+      label: "运单号",
+      prop: "track_no"
+    },
+    {
+      label: "箱量",
+      prop: "count"
+    },
+    {
+      label: "船名/航次",
+      prop: "ship_name"
+    },
+    {
+      label: "到港时间",
+      prop: "arrive_time"
+    },
+    {
+      label: "起始港",
+      prop: "start_port"
+    },
+    {
+      label: "目的港",
+      prop: "target_port"
+    },
+    {
+      label: "打单时间",
+      prop: "order_time"
+    },
+    {
+      label: "打单费",
+      prop: "order_fee"
     }
   ];
 
+  function exportExcel() {
+    const res = dataList.value.map(item => {
+      const arr = [];
+      columns.forEach(column => {
+        arr.push(item[column.prop as string]);
+      });
+      return arr;
+    });
+    const titleList = [];
+    columns.forEach(column => {
+      titleList.push(column.label);
+    });
+    res.unshift(titleList);
+    const workSheet = utils.aoa_to_sheet(res);
+    const workBook = utils.book_new();
+    utils.book_append_sheet(workBook, workSheet, "数据报表");
+    writeFile(workBook, "单证列表.xlsx");
+    message("导出成功", {
+      type: "success"
+    });
+  }
+
   function handleDelete() {
-    message(`您删除了角色名称为${currentRow.value.name}的这条数据`, {
+    message(`您删除了订单号为${currentRow.value.track_no}的这条数据`, {
       type: "success"
     });
     onSearch();
@@ -123,6 +144,14 @@ export function useRole() {
 
   function handleSizeChange(val: number) {
     console.log(`${val} items per page`);
+    pagination.pageSize = val;
+    onSearch();
+  }
+
+  function handlePageChange(val: number) {
+    console.log(`current page: ${val}`);
+    pagination.currentPage = val;
+    onSearch();
   }
 
   function handleCurrentChange(val) {
@@ -132,12 +161,22 @@ export function useRole() {
 
   function handleSelectionChange(val) {
     console.log("handleSelectionChange", val);
+    selectRows.value = val;
+    if (selectRows.value.length > 0) {
+      haveRow.value = false;
+    } else {
+      haveRow.value = true;
+    }
   }
 
   async function onSearch() {
     loading.value = true;
-    const { data } = await getRoleList(toRaw(form));
-    dataList = data.list;
+    const { data } = await getDocumentCheckList({
+      pagination,
+      form
+    });
+    console.log(data);
+    dataList.value = data.list;
     pagination.total = data.total;
     pagination.pageSize = data.pageSize;
     pagination.currentPage = data.currentPage;
@@ -158,23 +197,33 @@ export function useRole() {
       title: `${title}单证`,
       props: {
         formInline: {
-          status: row?.status ?? "",
-          cata: row?.cata ?? "",
-          order_no: row?.order_no ?? "",
-          project: row?.project ?? "",
-          custom: row?.custom ?? "",
-          tracking_no: row?.tracking_no ?? "",
-          box: row?.box ?? "",
-          boat: row?.boat ?? "",
-          boat_company: row?.boat_company ?? "",
-          commission_no: row?.commission_no ?? "",
-          boat_date: row?.boat_date ?? "",
-          fee_time: row?.fee_time ?? "",
-          fee: row?.fee ?? "",
-          fee_amount: row?.fee_amount ?? "",
-          add_time: row?.add_time ?? "",
-          add_stuff: row?.add_stuff ?? "",
-          zixiangmu: row?.zixiangmu ?? ""
+          id: row?.id ?? "",
+          order_status: row?.order_status ?? "",
+          order_type: row?.order_type ?? "",
+          ship_company: row?.ship_company ?? "",
+          customer: row?.customer ?? "",
+          subproject: row?.subproject ?? "",
+          arrive_time: row?.arrive_time ?? "",
+          start_port: row?.start_port ?? "",
+          target_port: row?.target_port ?? "",
+          containner_no: row?.containner_no ?? "",
+          seal_no: row?.seal_no ?? "",
+          container_type: row?.container_type ?? "",
+          ship_name: row?.ship_name ?? "",
+          track_no: row?.track_no ?? "",
+          unload_port: row?.unload_port ?? "",
+          door: row?.door ?? "",
+          make_time: row?.make_time ?? "",
+          load_port: row?.load_port ?? "",
+          count: row?.count ?? "",
+          transfer_port: row?.transfer_port ?? "",
+          package_count: row?.package_count ?? "",
+          gross_weight: row?.gross_weight ?? "",
+          volume: row?.volume ?? "",
+          container_weight: row?.container_weight ?? "",
+          container_status: row?.container_status ?? "",
+          order_time: row?.order_time ?? "",
+          order_fee: row?.order_fee ?? ""
         }
       },
       width: "40%",
@@ -186,7 +235,7 @@ export function useRole() {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
         function chores() {
-          message(`您${title}了订单号为${curData.order_no}的这条数据`, {
+          message(`您${title}了订单号为${curData.track_no}的这条数据`, {
             type: "success"
           });
           done(); // 关闭弹框
@@ -207,6 +256,17 @@ export function useRole() {
         });
       }
     });
+  }
+
+  // 提交单据
+  async function handleSubmit() {
+    console.log("submit", selectRows.value);
+    const select_track_no = [];
+    selectRows.value.forEach(v => {
+      select_track_no.push(v.track_no);
+    });
+    await submitDocumentCheck(select_track_no);
+    onSearch();
   }
 
   // 编辑按钮
@@ -240,6 +300,7 @@ export function useRole() {
     dataList,
     pagination,
     // buttonClass,
+    exportExcel,
     onSearch,
     resetForm,
     openDialog,
@@ -247,8 +308,10 @@ export function useRole() {
     handleDelete,
     // handleDatabase,
     handleRowDblclick,
+    handleSubmit,
     handleEdit,
     handleSizeChange,
+    handlePageChange,
     handleCurrentChange,
     handleSelectionChange
   };
