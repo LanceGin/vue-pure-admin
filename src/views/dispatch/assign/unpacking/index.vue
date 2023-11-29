@@ -21,6 +21,7 @@ const formRef = ref();
 const {
   form,
   loading,
+  haveRow,
   columns,
   dataList,
   pagination,
@@ -31,6 +32,7 @@ const {
   handleDelete,
   // handleDatabase,
   handleSizeChange,
+  handlePageChange,
   handleCurrentChange,
   handleSelectionChange
 } = useRole();
@@ -44,27 +46,27 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="运单号：" prop="yundanhao">
+      <el-form-item label="运单号：" prop="track_no">
         <el-input
-          v-model="form.yundanhao"
+          v-model="form.track_no"
           placeholder="请输入运单号"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
 
-      <el-form-item label="门点：" prop="mendian">
+      <el-form-item label="门点：" prop="door">
         <el-input
-          v-model="form.mendian"
+          v-model="form.door"
           placeholder="请输入门点"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
 
-      <el-form-item label="箱号：" prop="xianghao">
+      <el-form-item label="箱号：" prop="containner_no">
         <el-input
-          v-model="form.xianghao"
+          v-model="form.containner_no"
           placeholder="请输入箱号"
           clearable
           class="!w-[200px]"
@@ -82,29 +84,24 @@ const {
         <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
           导入派车
         </el-button>
-        <el-button :icon="useRenderIcon(EditPen)" @click="resetForm(formRef)">
+        <el-button
+          :icon="useRenderIcon(EditPen)"
+          @click="resetForm(formRef)"
+          :disabled="haveRow"
+        >
           拆箱派车
         </el-button>
-        <el-button :icon="useRenderIcon(EditPen)" @click="resetForm(formRef)">
+        <el-button
+          :icon="useRenderIcon(EditPen)"
+          @click="resetForm(formRef)"
+          :disabled="true"
+        >
           打包派车
         </el-button>
       </el-form-item>
     </el-form>
 
-    <PureTableBar
-      title="拆箱列表（测试用，操作后不生效）"
-      :columns="columns"
-      @refresh="onSearch"
-    >
-      <!-- <template #buttons>
-        <el-button
-          type="primary"
-          :icon="useRenderIcon(AddFill)"
-          @click="openDialog()"
-        >
-          添加驾驶员
-        </el-button>
-      </template> -->
+    <PureTableBar title="拆箱列表" :columns="columns" @refresh="onSearch">
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border
@@ -124,7 +121,8 @@ const {
           }"
           @selection-change="handleSelectionChange"
           @page-size-change="handleSizeChange"
-          @page-current-change="handleCurrentChange"
+          @page-current-change="handlePageChange"
+          @current-change="handleCurrentChange"
         >
           <template #operation="{ row }">
             <el-button
@@ -153,43 +151,6 @@ const {
                 </el-button>
               </template>
             </el-popconfirm>
-            <!-- <el-dropdown>
-              <el-button
-                class="ml-3 mt-[2px]"
-                link
-                type="primary"
-                :size="size"
-                :icon="useRenderIcon(More)"
-              />
-              <template #dropdown>
-                <el-dropdown-menu>
-                  <el-dropdown-item>
-                    <el-button
-                      :class="buttonClass"
-                      link
-                      type="primary"
-                      :size="size"
-                      :icon="useRenderIcon(Menu)"
-                      @click="handleMenu"
-                    >
-                      菜单权限
-                    </el-button>
-                  </el-dropdown-item>
-                  <el-dropdown-item>
-                    <el-button
-                      :class="buttonClass"
-                      link
-                      type="primary"
-                      :size="size"
-                      :icon="useRenderIcon(Database)"
-                      @click="handleDatabase"
-                    >
-                      数据权限
-                    </el-button>
-                  </el-dropdown-item>
-                </el-dropdown-menu>
-              </template>
-            </el-dropdown> -->
           </template>
         </pure-table>
       </template>
