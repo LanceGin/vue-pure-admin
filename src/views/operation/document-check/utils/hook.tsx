@@ -175,7 +175,6 @@ export function useRole() {
       pagination,
       form
     });
-    console.log(data);
     dataList.value = data.list;
     pagination.total = data.total;
     pagination.pageSize = data.pageSize;

@@ -10,7 +10,7 @@ import Delete from "@iconify-icons/ep/delete";
 import EditPen from "@iconify-icons/ep/edit-pen";
 import Search from "@iconify-icons/ep/search";
 import Upload from "@iconify-icons/ep/upload";
-import Download from "@iconify-icons/ep/download";
+// import Download from "@iconify-icons/ep/download";
 // import AddFill from "@iconify-icons/ri/add-circle-line";
 
 defineOptions({
@@ -21,18 +21,22 @@ const formRef = ref();
 const {
   form,
   loading,
+  haveRow,
   columns,
   dataList,
   pagination,
   // buttonClass,
+  exportExcel,
   onSearch,
   resetForm,
   openDialog,
   handleDelete,
   // handleDatabase,
   handleSizeChange,
+  handlePageChange,
   handleCurrentChange,
-  handleSelectionChange
+  handleSelectionChange,
+  handlePickBox
 } = useRole();
 </script>
 
@@ -44,46 +48,45 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="船期" prop="chuanqi">
-        <el-input
-          v-model="form.chuanqi"
+      <el-form-item label="船期" prop="arrive_time">
+        <el-date-picker
+          v-model="form.arrive_time"
+          type="date"
           placeholder="请输入船期"
-          clearable
-          class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="船名/航次" prop="chuanming">
+      <el-form-item label="船名/航次" prop="ship_name">
         <el-input
-          v-model="form.chuanming"
+          v-model="form.ship_name"
           placeholder="请输入船名/航次"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="运单号" prop="yundanhao">
+      <el-form-item label="运单号" prop="track_no">
         <el-input
-          v-model="form.yundanhao"
+          v-model="form.track_no"
           placeholder="请输入运单号"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
 
-      <el-form-item label="状态" prop="zhuangtai">
+      <el-form-item label="状态" prop="container_status">
         <el-select
-          v-model="form.zhuangtai"
+          v-model="form.container_status"
           placeholder="请选择状态"
           clearable
           class="!w-[180px]"
         >
-          <el-option label="未挑箱" value="0" />
-          <el-option label="已挑箱" value="1" />
+          <el-option label="待挑箱" value="待挑箱" />
+          <el-option label="待派车" value="待派车" />
         </el-select>
       </el-form-item>
 
-      <el-form-item label="箱号" prop="xianghao">
+      <el-form-item label="箱号" prop="containner_no">
         <el-input
-          v-model="form.xianghao"
+          v-model="form.containner_no"
           placeholder="请输入箱号"
           autosize
           type="textarea"
@@ -91,20 +94,19 @@ const {
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="门点" prop="mendian">
+      <el-form-item label="门点" prop="door">
         <el-input
-          v-model="form.mendian"
+          v-model="form.door"
           placeholder="请输入门点"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="计划做箱时间" prop="jihuashijian">
-        <el-input
-          v-model="form.jihuashijian"
+      <el-form-item label="计划做箱时间" prop="make_time">
+        <el-date-picker
+          v-model="form.make_time"
+          type="date"
           placeholder="请输入计划做箱时间"
-          clearable
-          class="!w-[200px]"
         />
       </el-form-item>
     </el-form>
@@ -123,29 +125,37 @@ const {
         >
           搜索
         </el-button>
-        <el-button :icon="useRenderIcon(EditPen)" @click="resetForm(formRef)">
+        <el-button
+          type="primary"
+          :icon="useRenderIcon(EditPen)"
+          @click="resetForm(formRef)"
+          :disabled="true"
+        >
           暂落
         </el-button>
-        <el-button :icon="useRenderIcon(EditPen)" @click="resetForm(formRef)">
+        <el-button
+          type="primary"
+          :icon="useRenderIcon(EditPen)"
+          @click="handlePickBox()"
+          :disabled="haveRow"
+        >
           挑箱
         </el-button>
-        <el-button :icon="useRenderIcon(EditPen)" @click="resetForm(formRef)">
+        <el-button
+          type="primary"
+          :icon="useRenderIcon(EditPen)"
+          @click="resetForm(formRef)"
+          :disabled="true"
+        >
           批量修改提箱点
         </el-button>
-        <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
-          导入
-        </el-button>
-        <el-button :icon="useRenderIcon(Upload)" @click="resetForm(formRef)">
+        <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
           导出
         </el-button>
       </el-form-item>
     </el-form>
 
-    <PureTableBar
-      title="挑箱（测试用，操作后不生效）"
-      :columns="columns"
-      @refresh="onSearch"
-    >
+    <PureTableBar title="挑箱" :columns="columns" @refresh="onSearch">
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border
@@ -165,7 +175,8 @@ const {
           }"
           @selection-change="handleSelectionChange"
           @page-size-change="handleSizeChange"
-          @page-current-change="handleCurrentChange"
+          @page-current-change="handlePageChange"
+          @current-change="handleCurrentChange"
         >
           <template #operation="{ row }">
             <el-button

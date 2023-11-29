@@ -156,3 +156,17 @@ export const submitDocumentCheck = (data?: object) => {
     data
   });
 };
+
+// 获取挑箱列表
+export const getPickBoxList = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("pickBoxList"), {
+    data
+  });
+};
+
+// 挑箱
+export const pickBox = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("pickBox"), {
+    data
+  });
+};

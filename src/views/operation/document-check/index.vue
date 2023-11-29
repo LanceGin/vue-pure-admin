@@ -79,11 +79,10 @@ const {
       </el-form-item>
 
       <el-form-item label="打单日期" prop="order_time">
-        <el-input
+        <el-date-picker
           v-model="form.order_time"
+          type="date"
           placeholder="请输入打单日期"
-          clearable
-          class="!w-[200px]"
         />
       </el-form-item>
       <el-form-item label="运单号" prop="track_no">
