@@ -37,3 +37,10 @@ export const dispatchCar = (data?: object) => {
     data
   });
 };
+
+// 获取进口派车列表
+export const getImportDispatchList = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("importDispatchList"), {
+    data
+  });
+};
