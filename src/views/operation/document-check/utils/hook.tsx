@@ -9,6 +9,7 @@ import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
 import {
+  addContainer,
   getContainerList,
   getDocumentCheckList,
   importDocumentCheck,
@@ -133,6 +134,14 @@ export function useRole() {
     {
       label: "箱型",
       prop: "container_type"
+    },
+    {
+      label: "提箱码头",
+      prop: "load_port"
+    },
+    {
+      label: "卸货门点",
+      prop: "door"
     }
   ];
 
@@ -214,6 +223,11 @@ export function useRole() {
     onSearch();
   };
 
+  async function handleAddContainer(container) {
+    console.log(1111, container);
+    await addContainer(container);
+  }
+
   function openDialog(title = "添加", row?: FormItemProps) {
     addDialog({
       title: `${title}单证`,
@@ -269,6 +283,7 @@ export function useRole() {
             // 表单规则校验通过
             if (title === "新增") {
               // 实际开发先调用新增接口，再进行下面操作
+              handleAddContainer(curData);
               chores();
             } else {
               // 实际开发先调用编辑接口，再进行下面操作

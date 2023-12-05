@@ -159,6 +159,13 @@ export const getContainerList = (data?: object) => {
   });
 };
 
+// 新增箱子
+export const addContainer = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("addContainer"), {
+    data
+  });
+};
+
 // 批量导入单证记录
 export const importDocumentCheck = data => {
   return http.request<ListResult>(

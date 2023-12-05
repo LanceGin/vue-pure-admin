@@ -53,10 +53,22 @@ defineExpose({ getRef });
     label-width="82px"
   >
     <el-form-item label="类型" prop="order_type">
-      <el-input
+      <el-select
         v-model="newFormInline.order_type"
+        placeholder="请选择类型"
         clearable
-        placeholder="请输入类型"
+        class="!w-[180px]"
+      >
+        <el-option label="进口" value="进口" />
+        <el-option label="出口" value="出口" />
+      </el-select>
+    </el-form-item>
+
+    <el-form-item label="船公司" prop="ship_company">
+      <el-input
+        v-model="newFormInline.ship_company"
+        clearable
+        placeholder="请输入船公司"
       />
     </el-form-item>
 
@@ -68,11 +80,68 @@ defineExpose({ getRef });
       />
     </el-form-item>
 
-    <el-form-item label="项目" prop="subproject">
+    <el-form-item label="子项目" prop="subproject">
       <el-input
         v-model="newFormInline.subproject"
         clearable
-        placeholder="请输入项目名"
+        placeholder="请输入子项目名"
+      />
+    </el-form-item>
+
+    <el-form-item label="到港时间" prop="arrive_time">
+      <el-date-picker
+        v-model="newFormInline.arrive_time"
+        type="date"
+        placeholder="请输入到港时间"
+        value-format="YYYY-MM-DD"
+      />
+    </el-form-item>
+
+    <el-form-item label="起始港" prop="start_port">
+      <el-input
+        v-model="newFormInline.start_port"
+        clearable
+        placeholder="请输入起始港"
+      />
+    </el-form-item>
+
+    <el-form-item label="目的港" prop="target_port">
+      <el-input
+        v-model="newFormInline.target_port"
+        clearable
+        placeholder="请输入目的港"
+      />
+    </el-form-item>
+
+    <el-form-item label="箱号" prop="containner_no">
+      <el-input
+        v-model="newFormInline.containner_no"
+        clearable
+        placeholder="请输入箱号"
+      />
+    </el-form-item>
+
+    <el-form-item label="封号" prop="seal_no">
+      <el-input
+        v-model="newFormInline.seal_no"
+        clearable
+        placeholder="请输入封号"
+      />
+    </el-form-item>
+
+    <el-form-item label="箱型" prop="container_type">
+      <el-input
+        v-model="newFormInline.container_type"
+        clearable
+        placeholder="请输入箱型"
+      />
+    </el-form-item>
+
+    <el-form-item label="船名航次" prop="ship_name">
+      <el-input
+        v-model="newFormInline.ship_name"
+        clearable
+        placeholder="请输入船名航次"
       />
     </el-form-item>
 
@@ -84,35 +153,19 @@ defineExpose({ getRef });
       />
     </el-form-item>
 
-    <el-form-item label="箱量" prop="package_count">
+    <el-form-item label="提箱码头" prop="load_port">
       <el-input
-        v-model="newFormInline.package_count"
+        v-model="newFormInline.load_port"
         clearable
-        placeholder="请输入箱量"
+        placeholder="请输入提箱码头"
       />
     </el-form-item>
 
-    <el-form-item label="船名/航次" prop="ship_name">
+    <el-form-item label="卸箱地点" prop="door">
       <el-input
-        v-model="newFormInline.ship_name"
+        v-model="newFormInline.door"
         clearable
-        placeholder="请输入船名/航次"
-      />
-    </el-form-item>
-
-    <el-form-item label="船东" prop="ship_company">
-      <el-input
-        v-model="newFormInline.ship_company"
-        clearable
-        placeholder="请输入船东"
-      />
-    </el-form-item>
-
-    <el-form-item label="船期" prop="arrive_time">
-      <el-input
-        v-model="newFormInline.arrive_time"
-        clearable
-        placeholder="请输入船期"
+        placeholder="请输入卸箱地点"
       />
     </el-form-item>
   </el-form>

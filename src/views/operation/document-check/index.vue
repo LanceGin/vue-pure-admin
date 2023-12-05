@@ -41,7 +41,7 @@ const {
   // handleDatabase,
   uploadExcelDetail,
   handleSubmit,
-  handleEdit,
+  // handleEdit,
   handleRowDblclick,
   handleSizeChange,
   handlePageChange,
@@ -136,9 +136,7 @@ const handleClose = () => {
           class="!w-[180px]"
         >
           <el-option label="未审核" value="未审核" />
-          <el-option label="未执行" value="未执行" />
-          <el-option label="已执行" value="已执行" />
-          <el-option label="已完成" value="已完成" />
+          <el-option label="已提交" value="已提交" />
         </el-select>
       </el-form-item>
     </el-form>
@@ -160,7 +158,7 @@ const handleClose = () => {
         <el-button
           type="primary"
           :icon="useRenderIcon(AddFill)"
-          @click="openDialog()"
+          @click="openDialog('新增')"
         >
           单证录入
         </el-button>
@@ -181,14 +179,14 @@ const handleClose = () => {
         >
           提交
         </el-button>
-        <el-button
+        <!-- <el-button
           type="primary"
           :icon="useRenderIcon(EditPen)"
           @click="handleEdit()"
           :disabled="true"
         >
           修改
-        </el-button>
+        </el-button> -->
         <el-button
           type="danger"
           :icon="useRenderIcon(Delete)"
@@ -204,7 +202,7 @@ const handleClose = () => {
       v-model="containerVisible"
       title="箱子列表"
       width="80%"
-      height="60%"
+      custom-class="container-list"
     >
       <pure-table
         border
@@ -276,6 +274,11 @@ const handleClose = () => {
 </template>
 
 <style scoped lang="scss">
+.container-list {
+  height: 60%;
+  overflow: scroll;
+}
+
 :deep(.el-dropdown-menu__item i) {
   margin: 0;
 }

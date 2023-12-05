@@ -7,7 +7,7 @@ import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
-import { getUnpackingList } from "@/api/dispatch";
+import { dispatchCar, getUnpackingList } from "@/api/dispatch";
 import { ElMessage, ElMessageBox } from "element-plus";
 
 export function useRole() {
@@ -154,24 +154,26 @@ export function useRole() {
   };
 
   function handleDispatch() {
-    ElMessageBox.confirm("确认派车后箱子将进入运输流程？", "派车确认", {
+    ElMessageBox.prompt("请输入车牌号", "派车确认", {
       confirmButtonText: "确认",
-      cancelButtonText: "取消",
-      type: "warning"
+      cancelButtonText: "取消"
     })
-      .then(() => {
-        const select_container_no = [];
+      .then(car_no => {
+        console.log(car_no);
+        const data = {
+          select_container_no: [],
+          car_no: car_no
+        };
         selectRows.value.forEach(v => {
-          select_container_no.push(v.containner_no);
+          data.select_container_no.push(v.containner_no);
         });
-        console.log("dispatch");
-        // vehicleDispatch(select_container_no);
+        dispatchCar(data);
         onSearch();
       })
       .catch(() => {
         ElMessage({
           type: "info",
-          message: "取消挑箱"
+          message: "取消派车"
         });
       });
   }
