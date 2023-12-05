@@ -1,4 +1,4 @@
-// import dayjs from "dayjs";
+import dayjs from "dayjs";
 import { utils, writeFile } from "xlsx";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
@@ -8,7 +8,13 @@ import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
-import { getPickBoxList, pickBox } from "@/api/operation";
+import {
+  getPickBoxList,
+  loadPort,
+  makeTime,
+  pickBox,
+  tempDrop
+} from "@/api/operation";
 import { ElMessage, ElMessageBox } from "element-plus";
 
 export function useRole() {
@@ -101,7 +107,12 @@ export function useRole() {
     },
     {
       label: "堆存天数",
-      prop: "duicuntianshu"
+      prop: "arrive_time",
+      formatter: ({ arrive_time }) => {
+        const a_time = dayjs(arrive_time).format("YYYY-MM-DD");
+        const now_time = dayjs().format("YYYY-MM-DD");
+        return dayjs(now_time).diff(a_time, "day").toString();
+      }
     },
     {
       label: "船公司",
@@ -189,6 +200,7 @@ export function useRole() {
       form
     });
     dataList.value = data.list;
+    console.log(1111, dataList.value);
     pagination.total = data.total;
     pagination.pageSize = data.pageSize;
     pagination.currentPage = data.currentPage;
@@ -293,6 +305,79 @@ export function useRole() {
       });
   }
 
+  // 暂落
+  async function handleTempDrop() {
+    ElMessageBox.confirm("确认暂落后箱子将进入派车流程？", "暂落确认", {
+      confirmButtonText: "确认",
+      cancelButtonText: "取消",
+      type: "warning"
+    })
+      .then(() => {
+        const select_container_no = [];
+        selectRows.value.forEach(v => {
+          select_container_no.push(v.containner_no);
+        });
+        tempDrop(select_container_no);
+        onSearch();
+      })
+      .catch(() => {
+        ElMessage({
+          type: "info",
+          message: "取消暂落"
+        });
+      });
+  }
+
+  // 批量设置做箱时间
+  async function handleMakeTime() {
+    ElMessageBox.prompt("请输入新的做箱时间", "批量设置做箱时间", {
+      confirmButtonText: "确认",
+      cancelButtonText: "取消"
+    })
+      .then(make_time => {
+        const data = {
+          select_container_no: [],
+          make_time: make_time
+        };
+        selectRows.value.forEach(v => {
+          data.select_container_no.push(v.containner_no);
+        });
+        makeTime(data);
+        onSearch();
+      })
+      .catch(() => {
+        ElMessage({
+          type: "info",
+          message: "取消修改提箱点"
+        });
+      });
+  }
+
+  // 批量修改提箱地点
+  async function handleLoadPort() {
+    ElMessageBox.prompt("请输入新的提箱点", "批量修改提箱点", {
+      confirmButtonText: "确认",
+      cancelButtonText: "取消"
+    })
+      .then(port => {
+        const data = {
+          select_container_no: [],
+          port: port
+        };
+        selectRows.value.forEach(v => {
+          data.select_container_no.push(v.containner_no);
+        });
+        loadPort(data);
+        onSearch();
+      })
+      .catch(() => {
+        ElMessage({
+          type: "info",
+          message: "取消修改提箱点"
+        });
+      });
+  }
+
   /** 菜单权限 */
   function handleMenu() {
     message("等菜单管理页面开发后完善");
@@ -324,6 +409,9 @@ export function useRole() {
     handlePageChange,
     handleCurrentChange,
     handleSelectionChange,
-    handlePickBox
+    handlePickBox,
+    handleTempDrop,
+    handleMakeTime,
+    handleLoadPort
   };
 }

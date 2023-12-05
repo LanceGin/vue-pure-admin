@@ -26,8 +26,11 @@ const {
   form,
   loading,
   haveRow,
+  containerVisible,
   columns,
+  containerColumns,
   dataList,
+  containerList,
   pagination,
   // buttonClass,
   exportExcel,
@@ -39,7 +42,7 @@ const {
   uploadExcelDetail,
   handleSubmit,
   handleEdit,
-  // handleRowDblclick,
+  handleRowDblclick,
   handleSizeChange,
   handlePageChange,
   // handleCurrentChange,
@@ -158,7 +161,6 @@ const handleClose = () => {
           type="primary"
           :icon="useRenderIcon(AddFill)"
           @click="openDialog()"
-          :disabled="true"
         >
           单证录入
         </el-button>
@@ -197,6 +199,26 @@ const handleClose = () => {
         </el-button>
       </el-form-item>
     </el-form>
+
+    <el-dialog
+      v-model="containerVisible"
+      title="箱子列表"
+      width="80%"
+      height="60%"
+    >
+      <pure-table
+        border
+        align-whole="center"
+        showOverflowTooltip
+        highlight-current-row
+        :data="containerList"
+        :columns="containerColumns"
+        :header-cell-style="{
+          background: 'var(--el-table-row-hover-bg-color)',
+          color: 'var(--el-text-color-primary)'
+        }"
+      />
+    </el-dialog>
 
     <el-dialog v-model="dialogVisible" title="导入单证列表" width="30%">
       <el-upload
@@ -243,6 +265,7 @@ const handleClose = () => {
             background: 'var(--el-table-row-hover-bg-color)',
             color: 'var(--el-text-color-primary)'
           }"
+          @row-dblclick="handleRowDblclick"
           @selection-change="handleSelectionChange"
           @page-size-change="handleSizeChange"
           @page-current-change="handlePageChange"

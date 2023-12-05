@@ -80,7 +80,7 @@ export function useRole() {
     },
     {
       label: "暂落",
-      prop: "zanluo"
+      prop: "temp_time"
     },
     {
       label: "运单号",

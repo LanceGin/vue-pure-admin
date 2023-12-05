@@ -28,7 +28,7 @@ const {
   // buttonClass,
   exportExcel,
   onSearch,
-  resetForm,
+  // resetForm,
   openDialog,
   handleDelete,
   // handleDatabase,
@@ -36,7 +36,10 @@ const {
   handlePageChange,
   handleCurrentChange,
   handleSelectionChange,
-  handlePickBox
+  handlePickBox,
+  handleTempDrop,
+  handleMakeTime,
+  handleLoadPort
 } = useRole();
 </script>
 
@@ -80,7 +83,8 @@ const {
           class="!w-[180px]"
         >
           <el-option label="待挑箱" value="待挑箱" />
-          <el-option label="待派车" value="待派车" />
+          <el-option label="已挑箱" value="已挑箱" />
+          <el-option label="已暂落" value="已暂落" />
         </el-select>
       </el-form-item>
 
@@ -102,13 +106,6 @@ const {
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="计划做箱时间" prop="make_time">
-        <el-date-picker
-          v-model="form.make_time"
-          type="date"
-          placeholder="请输入计划做箱时间"
-        />
-      </el-form-item>
     </el-form>
     <el-form
       ref="formRef"
@@ -128,8 +125,8 @@ const {
         <el-button
           type="primary"
           :icon="useRenderIcon(EditPen)"
-          @click="resetForm(formRef)"
-          :disabled="true"
+          @click="handleTempDrop()"
+          :disabled="haveRow"
         >
           暂落
         </el-button>
@@ -144,8 +141,16 @@ const {
         <el-button
           type="primary"
           :icon="useRenderIcon(EditPen)"
-          @click="resetForm(formRef)"
-          :disabled="true"
+          @click="handleMakeTime()"
+          :disabled="haveRow"
+        >
+          批量设置做箱时间
+        </el-button>
+        <el-button
+          type="primary"
+          :icon="useRenderIcon(EditPen)"
+          @click="handleLoadPort()"
+          :disabled="haveRow"
         >
           批量修改提箱点
         </el-button>

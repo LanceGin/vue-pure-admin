@@ -152,6 +152,13 @@ export const getDocumentCheckList = (data?: object) => {
   });
 };
 
+// 获取箱子记录
+export const getContainerList = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("containerList"), {
+    data
+  });
+};
+
 // 批量导入单证记录
 export const importDocumentCheck = data => {
   return http.request<ListResult>(
@@ -193,6 +200,27 @@ export const getPickBoxList = (data?: object) => {
 // 挑箱
 export const pickBox = (data?: object) => {
   return http.request<ListResult>("post", baseUrlApi("pickBox"), {
+    data
+  });
+};
+
+// 暂落
+export const tempDrop = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("tempDrop"), {
+    data
+  });
+};
+
+// 批量设置提箱点
+export const loadPort = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("loadPort"), {
+    data
+  });
+};
+
+// 批量设置做箱时间
+export const makeTime = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("makeTime"), {
     data
   });
 };

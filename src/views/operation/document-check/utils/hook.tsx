@@ -9,6 +9,7 @@ import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
 import {
+  getContainerList,
   getDocumentCheckList,
   importDocumentCheck,
   submitDocumentCheck
@@ -50,7 +51,9 @@ export function useRole() {
   const selectRows = ref([]);
   const haveRow = ref(true);
   const dataList = ref([]);
+  const containerList = ref([]);
   const loading = ref(true);
+  const containerVisible = ref(false);
   // const switchLoadMap = ref({});
   // const { tagStyle } = usePublicHooks();
   const pagination = reactive<PaginationProps>({
@@ -115,6 +118,21 @@ export function useRole() {
     {
       label: "打单费",
       prop: "order_fee"
+    }
+  ];
+
+  const containerColumns: TableColumnList = [
+    {
+      label: "箱号",
+      prop: "containner_no"
+    },
+    {
+      label: "封号",
+      prop: "seal_no"
+    },
+    {
+      label: "箱型",
+      prop: "container_type"
     }
   ];
 
@@ -299,9 +317,13 @@ export function useRole() {
   }
 
   // 双击行
-  function handleRowDblclick(row) {
-    console.log(row);
-    openDialog("编辑", row);
+  async function handleRowDblclick(form) {
+    getContainerList({
+      form
+    }).then(data => {
+      containerList.value = data.data.list;
+      containerVisible.value = true;
+    });
   }
 
   /** 菜单权限 */
@@ -320,8 +342,11 @@ export function useRole() {
     form,
     loading,
     haveRow,
+    containerVisible,
     columns,
+    containerColumns,
     dataList,
+    containerList,
     pagination,
     // buttonClass,
     exportExcel,
