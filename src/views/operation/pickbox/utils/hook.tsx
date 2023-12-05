@@ -9,6 +9,7 @@ import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
 import { getPickBoxList, pickBox } from "@/api/operation";
+import { ElMessage, ElMessageBox } from "element-plus";
 
 export function useRole() {
   const form = reactive({
@@ -271,12 +272,25 @@ export function useRole() {
 
   // 挑箱
   async function handlePickBox() {
-    const select_container_no = [];
-    selectRows.value.forEach(v => {
-      select_container_no.push(v.containner_no);
-    });
-    await pickBox(select_container_no);
-    onSearch();
+    ElMessageBox.confirm("确认挑箱后箱子将进入派车流程？", "挑箱确认", {
+      confirmButtonText: "确认",
+      cancelButtonText: "取消",
+      type: "warning"
+    })
+      .then(() => {
+        const select_container_no = [];
+        selectRows.value.forEach(v => {
+          select_container_no.push(v.containner_no);
+        });
+        pickBox(select_container_no);
+        onSearch();
+      })
+      .catch(() => {
+        ElMessage({
+          type: "info",
+          message: "取消挑箱"
+        });
+      });
   }
 
   /** 菜单权限 */

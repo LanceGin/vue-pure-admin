@@ -2,6 +2,8 @@ import { http } from "@/utils/http";
 import { baseUrlApi } from "./utils";
 // import { object } from "vue-types";
 
+// import axios from "axios";
+
 export type ListResult = {
   success: boolean;
   data?: {
@@ -148,6 +150,30 @@ export const getDocumentCheckList = (data?: object) => {
   return http.request<ListResult>("post", baseUrlApi("documentCheckList"), {
     data
   });
+};
+
+// 批量导入单证记录
+export const importDocumentCheck = data => {
+  return http.request<ListResult>(
+    "post",
+    baseUrlApi("importDocumentCheck"),
+    {
+      data
+    },
+    {
+      transformRequest: [
+        function (data, headers) {
+          delete headers["Content-Type"];
+          return data;
+        }
+      ]
+    }
+  );
+  // return axios.post(baseUrlApi("importDocumentCheck"), formData, {
+  //   headers: {
+  //     "Content-Type": "multipart/form-data"
+  //   }
+  // });
 };
 
 // 提交单证记录

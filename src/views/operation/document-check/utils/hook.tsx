@@ -8,7 +8,12 @@ import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
-import { getDocumentCheckList, submitDocumentCheck } from "@/api/operation";
+import {
+  getDocumentCheckList,
+  importDocumentCheck,
+  submitDocumentCheck
+} from "@/api/operation";
+import { ElMessage, ElMessageBox } from "element-plus";
 
 export function useRole() {
   const form = reactive({
@@ -257,15 +262,35 @@ export function useRole() {
     });
   }
 
+  // 上传文件批量导入
+  async function uploadExcelDetail(item) {
+    const form = new FormData();
+    form.append("file", item.file);
+    await importDocumentCheck(form);
+  }
+
   // 提交单据
   async function handleSubmit() {
-    console.log("submit", selectRows.value);
-    const select_track_no = [];
-    selectRows.value.forEach(v => {
-      select_track_no.push(v.track_no);
-    });
-    await submitDocumentCheck(select_track_no);
-    onSearch();
+    ElMessageBox.confirm("确认提交后箱子将进入挑箱流程？", "提交确认", {
+      confirmButtonText: "确认",
+      cancelButtonText: "取消",
+      type: "warning"
+    })
+      .then(() => {
+        console.log("submit", selectRows.value);
+        const select_track_no = [];
+        selectRows.value.forEach(v => {
+          select_track_no.push(v.track_no);
+        });
+        submitDocumentCheck(select_track_no);
+        onSearch();
+      })
+      .catch(() => {
+        ElMessage({
+          type: "info",
+          message: "取消提交"
+        });
+      });
   }
 
   // 编辑按钮
@@ -307,6 +332,7 @@ export function useRole() {
     handleDelete,
     // handleDatabase,
     handleRowDblclick,
+    uploadExcelDetail,
     handleSubmit,
     handleEdit,
     handleSizeChange,

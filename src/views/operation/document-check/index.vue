@@ -4,6 +4,9 @@ import { useRole } from "./utils/hook";
 import { PureTableBar } from "@/components/RePureTableBar";
 import { useRenderIcon } from "@/components/ReIcon/src/hooks";
 
+import { ElMessageBox } from "element-plus";
+import { genFileId } from "element-plus";
+import type { UploadInstance, UploadProps, UploadRawFile } from "element-plus";
 // import Database from "@iconify-icons/ri/database-2-line";
 // import More from "@iconify-icons/ep/more-filled";
 import Delete from "@iconify-icons/ep/delete";
@@ -18,6 +21,7 @@ defineOptions({
 });
 
 const formRef = ref();
+const dialogVisible = ref(false);
 const {
   form,
   loading,
@@ -28,10 +32,11 @@ const {
   // buttonClass,
   exportExcel,
   onSearch,
-  resetForm,
+  // resetForm,
   openDialog,
   handleDelete,
   // handleDatabase,
+  uploadExcelDetail,
   handleSubmit,
   handleEdit,
   // handleRowDblclick,
@@ -40,6 +45,32 @@ const {
   // handleCurrentChange,
   handleSelectionChange
 } = useRole();
+
+const upload = ref<UploadInstance>();
+
+const handleExceed: UploadProps["onExceed"] = files => {
+  upload.value!.clearFiles();
+  const file = files[0] as UploadRawFile;
+  file.uid = genFileId();
+  upload.value!.handleStart(file);
+};
+
+const submitUpload = () => {
+  upload.value!.submit();
+  dialogVisible.value = false;
+  onSearch();
+};
+
+const handleClose = () => {
+  ElMessageBox.confirm("确定取消导入单证列表？")
+    .then(() => {
+      // then
+      dialogVisible.value = false;
+    })
+    .catch(() => {
+      // catch error
+    });
+};
 </script>
 
 <template>
@@ -133,8 +164,7 @@ const {
         </el-button>
         <el-button
           :icon="useRenderIcon(Download)"
-          @click="resetForm(formRef)"
-          :disabled="true"
+          @click="dialogVisible = true"
         >
           导入
         </el-button>
@@ -167,6 +197,32 @@ const {
         </el-button>
       </el-form-item>
     </el-form>
+
+    <el-dialog v-model="dialogVisible" title="导入单证列表" width="30%">
+      <el-upload
+        ref="upload"
+        accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
+        :limit="1"
+        :on-exceed="handleExceed"
+        :auto-upload="false"
+        :http-request="uploadExcelDetail"
+      >
+        <template #trigger>
+          <el-button type="primary">选择文件</el-button>
+        </template>
+        <template #tip>
+          <div class="el-upload__tip text-red">
+            仅限上传1份文件，多次上传覆盖之前文件
+          </div>
+        </template>
+      </el-upload>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="handleClose">取消</el-button>
+          <el-button type="primary" @click="submitUpload"> 上传 </el-button>
+        </span>
+      </template>
+    </el-dialog>
 
     <PureTableBar title="单证管理" :columns="columns" @refresh="onSearch">
       <template v-slot="{ size, dynamicColumns }">

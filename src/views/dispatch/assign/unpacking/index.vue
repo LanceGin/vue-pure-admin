@@ -34,7 +34,8 @@ const {
   handleSizeChange,
   handlePageChange,
   handleCurrentChange,
-  handleSelectionChange
+  handleSelectionChange,
+  handleDispatch
 } = useRole();
 </script>
 
@@ -86,7 +87,7 @@ const {
         </el-button>
         <el-button
           :icon="useRenderIcon(EditPen)"
-          @click="resetForm(formRef)"
+          @click="handleDispatch()"
           :disabled="haveRow"
         >
           拆箱派车

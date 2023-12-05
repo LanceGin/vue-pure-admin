@@ -5,23 +5,33 @@ import { FormProps } from "./utils/types";
 
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
-    status: "",
-    cata: "",
-    order_no: "",
-    custom: "",
-    project: "",
-    tracking_no: "",
-    box: "",
-    boat: "",
-    boat_company: "",
-    commission_no: "",
-    boat_date: "",
-    fee_time: "",
-    fee: "",
-    fee_amount: "",
-    add_time: "",
-    add_stuff: "",
-    zixiangmu: ""
+    id: "",
+    order_status: "未审核",
+    order_type: "",
+    ship_company: "",
+    customer: "",
+    subproject: "",
+    arrive_time: "",
+    start_port: "",
+    target_port: "",
+    containner_no: "",
+    seal_no: "",
+    container_type: "",
+    ship_name: "",
+    track_no: "",
+    unload_port: "",
+    door: "",
+    make_time: "",
+    load_port: "",
+    count: "",
+    transfer_port: "",
+    package_count: "",
+    gross_weight: "",
+    volume: "",
+    container_weight: "",
+    container_status: "",
+    order_time: "",
+    order_fee: ""
   })
 });
 
@@ -42,91 +52,67 @@ defineExpose({ getRef });
     :rules="formRules"
     label-width="82px"
   >
-    <el-form-item label="类型" prop="cata">
+    <el-form-item label="类型" prop="order_type">
       <el-input
-        v-model="newFormInline.cata"
+        v-model="newFormInline.order_type"
         clearable
         placeholder="请输入类型"
       />
     </el-form-item>
 
-    <el-form-item label="订单编号" prop="order_no">
+    <el-form-item label="客户" prop="customer">
       <el-input
-        v-model="newFormInline.order_no"
-        clearable
-        placeholder="请输入订单编号"
-      />
-    </el-form-item>
-
-    <el-form-item label="客户" prop="custom">
-      <el-input
-        v-model="newFormInline.custom"
+        v-model="newFormInline.customer"
         clearable
         placeholder="请输入客户名"
       />
     </el-form-item>
 
-    <el-form-item label="项目" prop="project">
+    <el-form-item label="项目" prop="subproject">
       <el-input
-        v-model="newFormInline.project"
+        v-model="newFormInline.subproject"
         clearable
         placeholder="请输入项目名"
       />
     </el-form-item>
 
-    <el-form-item label="运单号" prop="tracking_no">
+    <el-form-item label="运单号" prop="track_no">
       <el-input
-        v-model="newFormInline.tracking_no"
+        v-model="newFormInline.track_no"
         clearable
         placeholder="请输入运单号"
       />
     </el-form-item>
 
-    <el-form-item label="箱量" prop="box">
+    <el-form-item label="箱量" prop="package_count">
       <el-input
-        v-model="newFormInline.box"
+        v-model="newFormInline.package_count"
         clearable
         placeholder="请输入箱量"
       />
     </el-form-item>
 
-    <el-form-item label="船名/航次" prop="boat">
+    <el-form-item label="船名/航次" prop="ship_name">
       <el-input
-        v-model="newFormInline.boat"
+        v-model="newFormInline.ship_name"
         clearable
         placeholder="请输入船名/航次"
       />
     </el-form-item>
 
-    <el-form-item label="船东" prop="boat_company">
+    <el-form-item label="船东" prop="ship_company">
       <el-input
-        v-model="newFormInline.boat_company"
+        v-model="newFormInline.ship_company"
         clearable
         placeholder="请输入船东"
       />
     </el-form-item>
 
-    <el-form-item label="客户委托号" prop="commission_no">
+    <el-form-item label="船期" prop="arrive_time">
       <el-input
-        v-model="newFormInline.commission_no"
-        clearable
-        placeholder="请输入客户委托号"
-      />
-    </el-form-item>
-
-    <el-form-item label="船期" prop="boat_date">
-      <el-input
-        v-model="newFormInline.boat_date"
+        v-model="newFormInline.arrive_time"
         clearable
         placeholder="请输入船期"
-      />
-    </el-form-item>
-
-    <el-form-item label="子项目" prop="zixiangmu">
-      <el-input
-        v-model="newFormInline.zixiangmu"
-        clearable
-        placeholder="请输入子项目"
       />
     </el-form-item>
   </el-form>
