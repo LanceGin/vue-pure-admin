@@ -145,6 +145,44 @@ export const getLighteringList = (data?: object) => {
   });
 };
 
+// 批量导入驳运ytoj记录
+export const importYtoj = data => {
+  return http.request<ListResult>(
+    "post",
+    baseUrlApi("importYtoj"),
+    {
+      data
+    },
+    {
+      transformRequest: [
+        function (data, headers) {
+          delete headers["Content-Type"];
+          return data;
+        }
+      ]
+    }
+  );
+};
+
+// 批量导入驳运ytoj记录
+export const importJtoy = data => {
+  return http.request<ListResult>(
+    "post",
+    baseUrlApi("importJtoy"),
+    {
+      data
+    },
+    {
+      transformRequest: [
+        function (data, headers) {
+          delete headers["Content-Type"];
+          return data;
+        }
+      ]
+    }
+  );
+};
+
 // 获取单证记录
 export const getDocumentCheckList = (data?: object) => {
   return http.request<ListResult>("post", baseUrlApi("documentCheckList"), {

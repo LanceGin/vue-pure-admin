@@ -8,7 +8,7 @@ import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
-import { getLighteringList } from "@/api/operation";
+import { getLighteringList, importJtoy } from "@/api/operation";
 
 export function useRole() {
   const form = reactive({
@@ -16,6 +16,7 @@ export function useRole() {
     type: "1",
     add_time: "",
     voyage: "",
+    voyage_index: "",
     container_no: "",
     seal_no: "",
     customs_container_type: "",
@@ -63,8 +64,12 @@ export function useRole() {
       prop: "voyage"
     },
     {
+      label: "序号",
+      prop: "voyage_index"
+    },
+    {
       label: "提单号",
-      prop: "seal_no"
+      prop: "bl_no"
     },
     {
       label: "装货港",
@@ -120,7 +125,7 @@ export function useRole() {
     },
     {
       label: "铅封号",
-      prop: "bl_no"
+      prop: "seal_no"
     },
     {
       label: "货名",
@@ -129,10 +134,6 @@ export function useRole() {
     {
       label: "卸船付费人",
       prop: "unload_payer"
-    },
-    {
-      label: "中转类型",
-      prop: "transfer_type"
     }
   ];
 
@@ -177,6 +178,13 @@ export function useRole() {
 
   function handleSelectionChange(val) {
     console.log("handleSelectionChange", val);
+  }
+
+  // 上传文件批量导入
+  async function uploadExcelDetail(item) {
+    const form = new FormData();
+    form.append("file", item.file);
+    await importJtoy(form);
   }
 
   async function onSearch() {
@@ -288,6 +296,7 @@ export function useRole() {
     dataList,
     pagination,
     // buttonClass,
+    uploadExcelDetail,
     exportExcel,
     onSearch,
     resetForm,

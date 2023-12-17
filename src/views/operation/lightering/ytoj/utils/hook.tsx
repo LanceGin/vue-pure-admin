@@ -8,7 +8,7 @@ import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
-import { getLighteringList } from "@/api/operation";
+import { getLighteringList, importYtoj } from "@/api/operation";
 
 export function useRole() {
   const form = reactive({
@@ -16,6 +16,7 @@ export function useRole() {
     type: "0",
     add_time: "",
     voyage: "",
+    voyage_index: "",
     container_no: "",
     seal_no: "",
     customs_container_type: "",
@@ -61,12 +62,16 @@ export function useRole() {
       prop: "voyage"
     },
     {
+      label: "序号",
+      prop: "voyage_index"
+    },
+    {
       label: "箱号",
       prop: "container_no"
     },
     {
       label: "提单号",
-      prop: "seal_no"
+      prop: "bl_no"
     },
     {
       label: "海关箱类型",
@@ -98,7 +103,7 @@ export function useRole() {
     },
     {
       label: "铅封号",
-      prop: "bl_no"
+      prop: "seal_no"
     },
     {
       label: "货名",
@@ -111,42 +116,6 @@ export function useRole() {
     {
       label: "目的港",
       prop: "target_port"
-    },
-    {
-      label: "卸货港",
-      prop: "unload_port"
-    },
-    {
-      label: "装船付费人",
-      prop: "load_payer"
-    },
-    {
-      label: "箱货总重",
-      prop: "total_weight"
-    },
-    {
-      label: "货重",
-      prop: "cargo_weight"
-    },
-    {
-      label: "体积",
-      prop: "volume"
-    },
-    {
-      label: "件数",
-      prop: "amount"
-    },
-    {
-      label: "货主",
-      prop: "cargo_owner"
-    },
-    {
-      label: "货代",
-      prop: "forwarder"
-    },
-    {
-      label: "特殊标记",
-      prop: "remarks"
     }
   ];
 
@@ -191,6 +160,13 @@ export function useRole() {
 
   function handleSelectionChange(val) {
     console.log("handleSelectionChange", val);
+  }
+
+  // 上传文件批量导入
+  async function uploadExcelDetail(item) {
+    const form = new FormData();
+    form.append("file", item.file);
+    await importYtoj(form);
   }
 
   async function onSearch() {
@@ -302,6 +278,7 @@ export function useRole() {
     dataList,
     pagination,
     // buttonClass,
+    uploadExcelDetail,
     exportExcel,
     onSearch,
     resetForm,

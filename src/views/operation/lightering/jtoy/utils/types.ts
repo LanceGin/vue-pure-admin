@@ -5,6 +5,7 @@ interface FormItemProps {
   type: string;
   add_time: string;
   voyage: string;
+  voyage_index: string;
   container_no: string;
   seal_no: string;
   customs_container_type: string;

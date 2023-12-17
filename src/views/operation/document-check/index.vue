@@ -179,14 +179,6 @@ const handleClose = () => {
         >
           提交
         </el-button>
-        <!-- <el-button
-          type="primary"
-          :icon="useRenderIcon(EditPen)"
-          @click="handleEdit()"
-          :disabled="true"
-        >
-          修改
-        </el-button> -->
         <el-button
           type="danger"
           :icon="useRenderIcon(Delete)"

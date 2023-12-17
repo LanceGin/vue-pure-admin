@@ -293,14 +293,20 @@ export function useRole() {
         const select_container_no = [];
         selectRows.value.forEach(v => {
           select_container_no.push(v.containner_no);
+          if (v.make_time === null) {
+            throw new Error("所选箱未设置做箱时间");
+          }
         });
         pickBox(select_container_no);
         onSearch();
       })
-      .catch(() => {
+      .catch(info => {
+        if (info == "cancel") {
+          info = "取消挑箱";
+        }
         ElMessage({
           type: "info",
-          message: "取消挑箱"
+          message: info
         });
       });
   }
@@ -316,14 +322,20 @@ export function useRole() {
         const select_container_no = [];
         selectRows.value.forEach(v => {
           select_container_no.push(v.containner_no);
+          if (v.make_time === null) {
+            throw new Error("所选箱未设置做箱时间");
+          }
         });
         tempDrop(select_container_no);
         onSearch();
       })
-      .catch(() => {
+      .catch(info => {
+        if (info == "cancel") {
+          info = "取消暂落";
+        }
         ElMessage({
           type: "info",
-          message: "取消暂落"
+          message: info
         });
       });
   }
@@ -332,7 +344,8 @@ export function useRole() {
   async function handleMakeTime() {
     ElMessageBox.prompt("请输入新的做箱时间", "批量设置做箱时间", {
       confirmButtonText: "确认",
-      cancelButtonText: "取消"
+      cancelButtonText: "取消",
+      inputType: "date"
     })
       .then(make_time => {
         const data = {

@@ -85,6 +85,7 @@ const {
           <el-option label="待挑箱" value="待挑箱" />
           <el-option label="已挑箱" value="已挑箱" />
           <el-option label="已暂落" value="已暂落" />
+          <el-option label="未暂落" value="未暂落" />
         </el-select>
       </el-form-item>
 
