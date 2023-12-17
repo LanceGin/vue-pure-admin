@@ -32,7 +32,7 @@ export default {
           name: "Packing",
           component: () => import("@/views/dispatch/assign/packing/index.vue"),
           meta: {
-            title: "装箱列表"
+            title: "装箱临时派车"
           }
         }
       ]

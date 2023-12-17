@@ -9,9 +9,6 @@ import { useRenderIcon } from "../../../../components/ReIcon/src/hooks";
 import Delete from "@iconify-icons/ep/delete";
 import EditPen from "@iconify-icons/ep/edit-pen";
 import Search from "@iconify-icons/ep/search";
-// import Upload from "@iconify-icons/ep/upload";
-import Download from "@iconify-icons/ep/download";
-// import AddFill from "@iconify-icons/ri/add-circle-line";
 
 defineOptions({
   name: "Role"
@@ -44,10 +41,18 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="运单号：" prop="yundanhao">
+      <el-form-item label="车号：" prop="car_no">
         <el-input
-          v-model="form.yundanhao"
-          placeholder="请输入运单号"
+          v-model="form.car_no"
+          placeholder="请输入车号"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
+      <el-form-item label="门点：" prop="door">
+        <el-input
+          v-model="form.door"
+          placeholder="请输入门点"
           clearable
           class="!w-[200px]"
         />
@@ -61,10 +66,7 @@ const {
         >
           搜索
         </el-button>
-        <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
-          导入派车
-        </el-button>
-        <el-button :icon="useRenderIcon(EditPen)" @click="resetForm(formRef)">
+        <el-button :icon="useRenderIcon(EditPen)" @click="openDialog('新增')">
           装箱派车
         </el-button>
         <el-button :icon="useRenderIcon(EditPen)" @click="resetForm(formRef)">
@@ -74,7 +76,7 @@ const {
     </el-form>
 
     <PureTableBar
-      title="装箱列表（测试用，操作后不生效）"
+      title="装箱临时派车列表"
       :columns="columns"
       @refresh="onSearch"
     >

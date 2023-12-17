@@ -44,3 +44,17 @@ export const getImportDispatchList = (data?: object) => {
     data
   });
 };
+
+// 获取临时出口派车列表
+export const exportTmpDispatchList = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("exportTmpDispatchList"), {
+    data
+  });
+};
+
+// 临时出口派车
+export const tmpDispatchCar = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("tmpDispatchCar"), {
+    data
+  });
+};

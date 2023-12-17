@@ -1,29 +1,23 @@
 // import dayjs from "dayjs";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
-import { getRoleList } from "@/api/system";
 // import { ElMessageBox } from "element-plus";
-import { tableData } from "./data";
 // import { usePublicHooks } from "../../hooks";
 import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
-import { reactive, ref, onMounted, h, toRaw } from "vue";
+import { reactive, ref, onMounted, h } from "vue";
+import { exportTmpDispatchList, tmpDispatchCar } from "@/api/dispatch";
 
 export function useRole() {
   const form = reactive({
-    kehu: "",
-    yundanhao: "",
-    xiangxing: "",
-    zuoxiangshijian: "",
-    mendian: "",
-    huanxiangdian: "",
-    chuanming: "",
-    kaichuanshijian: "",
-    liuxiang: ""
+    id: "",
+    door: "",
+    car_no: "",
+    status: ""
   });
   const formRef = ref();
-  let dataList = tableData;
+  const dataList = ref([]);
   const loading = ref(true);
   // const switchLoadMap = ref({});
   // const { tagStyle } = usePublicHooks();
@@ -35,109 +29,21 @@ export function useRole() {
   });
   const columns: TableColumnList = [
     {
-      type: "selection",
-      align: "left"
-    },
-    {
-      label: "客户/项目",
-      prop: "kehu",
-      minWidth: 100
-    },
-    {
-      label: "运单号",
-      prop: "yundanhao",
-      minWidth: 120
-    },
-    {
-      label: "箱型",
-      prop: "xiangxing",
-      minWidth: 150
-    },
-    {
-      label: "做箱时间",
-      prop: "zuoxiangshijian",
-      minWidth: 150
-    },
-    {
       label: "门点",
-      prop: "mendian",
-      minWidth: 150
+      prop: "door"
     },
     {
-      label: "还箱点",
-      prop: "huanxiangdian",
-      minWidth: 150
+      label: "车号",
+      prop: "car_no"
     },
     {
-      label: "船名航次",
-      prop: "chuanming",
-      minWidth: 150
-    },
-    {
-      label: "开船时间",
-      prop: "kaichuanshijian",
-      minWidth: 150
-    },
-    {
-      label: "流向",
-      prop: "liuxiang",
-      minWidth: 150
+      label: "状态",
+      prop: "status"
     }
   ];
-  // const buttonClass = computed(() => {
-  //   return [
-  //     "!h-[20px]",
-  //     "reset-margin",
-  //     "!text-gray-500",
-  //     "dark:!text-white",
-  //     "dark:hover:!text-primary"
-  //   ];
-  // });
-
-  // function onChange({ row, index }) {
-  //   ElMessageBox.confirm(
-  //     `确认要<strong>${
-  //       row.status === 0 ? "停用" : "启用"
-  //     }</strong><strong style='color:var(--el-color-primary)'>${
-  //       row.name
-  //     }</strong>吗?`,
-  //     "系统提示",
-  //     {
-  //       confirmButtonText: "确定",
-  //       cancelButtonText: "取消",
-  //       type: "warning",
-  //       dangerouslyUseHTMLString: true,
-  //       draggable: true
-  //     }
-  //   )
-  //     .then(() => {
-  //       switchLoadMap.value[index] = Object.assign(
-  //         {},
-  //         switchLoadMap.value[index],
-  //         {
-  //           loading: true
-  //         }
-  //       );
-  //       setTimeout(() => {
-  //         switchLoadMap.value[index] = Object.assign(
-  //           {},
-  //           switchLoadMap.value[index],
-  //           {
-  //             loading: false
-  //           }
-  //         );
-  //         message(`已${row.status === 0 ? "停用" : "启用"}${row.name}`, {
-  //           type: "success"
-  //         });
-  //       }, 300);
-  //     })
-  //     .catch(() => {
-  //       row.status === 0 ? (row.status = 1) : (row.status = 0);
-  //     });
-  // }
 
   function handleDelete(row) {
-    message(`您删除了运单号为${row.yundanhao}的这条数据`, { type: "success" });
+    message(`您删除了车号为${row.car_no}的这条数据`, { type: "success" });
     onSearch();
   }
 
@@ -155,8 +61,11 @@ export function useRole() {
 
   async function onSearch() {
     loading.value = true;
-    const { data } = await getRoleList(toRaw(form));
-    dataList = data.list;
+    const { data } = await exportTmpDispatchList({
+      pagination,
+      form
+    });
+    dataList.value = data.list;
     pagination.total = data.total;
     pagination.pageSize = data.pageSize;
     pagination.currentPage = data.currentPage;
@@ -172,20 +81,19 @@ export function useRole() {
     onSearch();
   };
 
+  async function handleTmpDispatchCar(data) {
+    await tmpDispatchCar(data);
+  }
+
   function openDialog(title = "添加", row?: FormItemProps) {
     addDialog({
-      title: `${title}装箱`,
+      title: `${title}装箱派车`,
       props: {
         formInline: {
-          kehu: row?.kehu ?? "",
-          yundanhao: row?.yundanhao ?? "",
-          xiangxing: row?.xiangxing ?? "",
-          zuoxiangshijian: row?.zuoxiangshijian ?? "",
-          mendian: row?.mendian ?? "",
-          huanxiangdian: row?.huanxiangdian ?? "",
-          chuanming: row?.chuanming ?? "",
-          kaichuanshijian: row?.kaichuanshijian ?? "",
-          liuxiang: row?.liuxiang ?? ""
+          id: row?.id ?? "",
+          door: row?.door ?? "",
+          car_no: row?.car_no ?? "",
+          status: row?.status ?? ""
         }
       },
       width: "40%",
@@ -197,7 +105,7 @@ export function useRole() {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
         function chores() {
-          message(`您${title}了运单号为${curData.yundanhao}的这条数据`, {
+          message(`您${title}了车号为${curData.car_no}的这条数据`, {
             type: "success"
           });
           done(); // 关闭弹框
@@ -209,6 +117,7 @@ export function useRole() {
             // 表单规则校验通过
             if (title === "新增") {
               // 实际开发先调用新增接口，再进行下面操作
+              handleTmpDispatchCar(curData);
               chores();
             } else {
               // 实际开发先调用编辑接口，再进行下面操作
