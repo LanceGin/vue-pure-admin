@@ -106,6 +106,15 @@ export default {
           meta: {
             title: "金口-阳逻"
           }
+        },
+        {
+          path: "/operation/lightering/stat",
+          name: "LighteringStat",
+          component: () =>
+            import("@/views/operation/lightering/stat/index.vue"),
+          meta: {
+            title: "驳运统计"
+          }
         }
       ]
     }

@@ -145,6 +145,13 @@ export const getLighteringList = (data?: object) => {
   });
 };
 
+// 获取驳运统计列表
+export const getLighteringStatList = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("lighteringStatList"), {
+    data
+  });
+};
+
 // 批量导入驳运ytoj记录
 export const importYtoj = data => {
   return http.request<ListResult>(
