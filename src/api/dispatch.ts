@@ -45,6 +45,32 @@ export const getImportDispatchList = (data?: object) => {
   });
 };
 
+// 获取出口派车列表
+export const getExportDispatchList = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("exportDispatchList"), {
+    data
+  });
+};
+
+// 批量导入单证记录
+export const importExportContainer = data => {
+  return http.request<ListResult>(
+    "post",
+    baseUrlApi("importExportContainer"),
+    {
+      data
+    },
+    {
+      transformRequest: [
+        function (data, headers) {
+          delete headers["Content-Type"];
+          return data;
+        }
+      ]
+    }
+  );
+};
+
 // 获取临时出口派车列表
 export const exportTmpDispatchList = (data?: object) => {
   return http.request<ListResult>("post", baseUrlApi("exportTmpDispatchList"), {

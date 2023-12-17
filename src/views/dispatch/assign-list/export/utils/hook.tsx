@@ -1,30 +1,47 @@
 // import dayjs from "dayjs";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
-import { getRoleList } from "@/api/system";
 // import { ElMessageBox } from "element-plus";
-import { tableData } from "./data";
 // import { usePublicHooks } from "../../hooks";
 import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
-import { reactive, ref, onMounted, h, toRaw } from "vue";
+import { reactive, ref, onMounted, h } from "vue";
+import { getExportDispatchList, importExportContainer } from "@/api/dispatch";
 
 export function useRole() {
   const form = reactive({
-    xianghao: "",
-    xiangxing: "",
-    mendian: "",
-    tixiangdian: "",
-    zuoxiangshijian: "",
-    zanluo: "",
-    yundanhao: "",
-    chuanming: "",
-    daogangshijian: "",
-    liuxiang: ""
+    id: "",
+    order_status: "",
+    order_type: "",
+    ship_company: "",
+    customer: "",
+    subproject: "",
+    arrive_time: "",
+    start_port: "",
+    target_port: "",
+    containner_no: "",
+    seal_no: "",
+    container_type: "",
+    ship_name: "",
+    track_no: "",
+    unload_port: "",
+    door: "",
+    make_time: "",
+    load_port: "",
+    count: "",
+    transfer_port: "",
+    package_count: "",
+    gross_weight: "",
+    volume: "",
+    container_weight: "",
+    container_status: "",
+    order_time: "",
+    order_fee: "",
+    car_no: ""
   });
   const formRef = ref();
-  let dataList = tableData;
+  const dataList = ref([]);
   const loading = ref(true);
   // const switchLoadMap = ref({});
   // const { tagStyle } = usePublicHooks();
@@ -37,43 +54,43 @@ export function useRole() {
   const columns: TableColumnList = [
     {
       label: "做箱时间",
-      prop: "zuoxiangshijian"
+      prop: "make_time"
     },
     {
       label: "客户",
-      prop: "kehu"
+      prop: "customer"
     },
     {
       label: "提箱点",
-      prop: "tixiangdian"
+      prop: "load_port"
     },
     {
       label: "箱号",
-      prop: "xianghao"
+      prop: "containner_no"
     },
     {
       label: "箱型",
-      prop: "xiangxing"
+      prop: "container_type"
     },
     {
       label: "船名航次",
-      prop: "chuanming"
+      prop: "ship_name"
     },
     {
       label: "运单号",
-      prop: "yundanhao"
+      prop: "track_no"
     },
     {
       label: "门点",
-      prop: "mendian"
+      prop: "door"
     },
     {
       label: "流向",
-      prop: "liuxiang"
+      prop: "target_port"
     },
     {
       label: "车号",
-      prop: "chehao"
+      prop: "car_no"
     }
   ];
 
@@ -84,6 +101,14 @@ export function useRole() {
 
   function handleSizeChange(val: number) {
     console.log(`${val} items per page`);
+    pagination.pageSize = val;
+    onSearch();
+  }
+
+  function handlePageChange(val: number) {
+    console.log(`current page: ${val}`);
+    pagination.currentPage = val;
+    onSearch();
   }
 
   function handleCurrentChange(val: number) {
@@ -96,8 +121,11 @@ export function useRole() {
 
   async function onSearch() {
     loading.value = true;
-    const { data } = await getRoleList(toRaw(form));
-    dataList = data.list;
+    const { data } = await getExportDispatchList({
+      pagination,
+      form
+    });
+    dataList.value = data.list;
     pagination.total = data.total;
     pagination.pageSize = data.pageSize;
     pagination.currentPage = data.currentPage;
@@ -113,22 +141,11 @@ export function useRole() {
     onSearch();
   };
 
-  function openDialog(title = "添加", row?: FormItemProps) {
+  function openDialog(title = "添加") {
     addDialog({
       title: `${title}驾驶员`,
       props: {
-        formInline: {
-          xianghao: row?.xianghao ?? "",
-          xiangxing: row?.xiangxing ?? "",
-          mendian: row?.mendian ?? "",
-          tixiangdian: row?.tixiangdian ?? "",
-          zuoxiangshijian: row?.zuoxiangshijian ?? "",
-          zanluo: row?.zanluo ?? "",
-          yundanhao: row?.yundanhao ?? "",
-          chuanming: row?.chuanming ?? "",
-          daogangshijian: row?.daogangshijian ?? "",
-          liuxiang: row?.liuxiang ?? ""
-        }
+        formInline: {}
       },
       width: "40%",
       draggable: true,
@@ -139,7 +156,7 @@ export function useRole() {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
         function chores() {
-          message(`您${title}了箱号为${curData.xianghao}的这条数据`, {
+          message(`您${title}了箱号为${curData.containner_no}的这条数据`, {
             type: "success"
           });
           done(); // 关闭弹框
@@ -162,6 +179,13 @@ export function useRole() {
     });
   }
 
+  // 上传文件批量导入
+  async function uploadExcelDetail(item) {
+    const form = new FormData();
+    form.append("file", item.file);
+    await importExportContainer(form);
+  }
+
   /** 菜单权限 */
   function handleMenu() {
     message("等菜单管理页面开发后完善");
@@ -181,6 +205,7 @@ export function useRole() {
     dataList,
     pagination,
     // buttonClass,
+    uploadExcelDetail,
     onSearch,
     resetForm,
     openDialog,
@@ -188,6 +213,7 @@ export function useRole() {
     handleDelete,
     // handleDatabase,
     handleSizeChange,
+    handlePageChange,
     handleCurrentChange,
     handleSelectionChange
   };

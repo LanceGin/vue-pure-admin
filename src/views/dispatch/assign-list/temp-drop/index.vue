@@ -99,11 +99,7 @@ const {
       </el-form-item>
     </el-form>
 
-    <PureTableBar
-      title="暂落派车单列表（测试用，操作后不生效）"
-      :columns="columns"
-      @refresh="onSearch"
-    >
+    <PureTableBar title="暂落派车单列表" :columns="columns" @refresh="onSearch">
       <!-- <template #buttons>
         <el-button
           type="primary"
