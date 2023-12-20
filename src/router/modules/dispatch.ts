@@ -37,20 +37,20 @@ export default {
         }
       ]
     },
-    {
-      path: "/dispatch/car_assignation_status",
-      name: "CarAssignationStatus",
-      component: () => import("@/views/dispatch/assign-status/index.vue"),
-      meta: {
-        title: $t("menus.carAssignationStatus")
-      }
-    },
+    // {
+    //   path: "/dispatch/car_assignation_status",
+    //   name: "CarAssignationStatus",
+    //   component: () => import("@/views/dispatch/assign-status/index.vue"),
+    //   meta: {
+    //     title: $t("menus.carAssignationStatus")
+    //   }
+    // },
     {
       path: "/dispatch/car_assignation_list",
       redirect: "/dispatch/car_assignation_list/import",
       name: "CarAssignationList",
       meta: {
-        title: "派车单查看"
+        title: "派车单管理"
       },
       children: [
         {

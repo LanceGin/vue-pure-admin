@@ -29,6 +29,7 @@ interface FormItemProps {
   order_time: string;
   order_fee: string;
   car_no: string;
+  transport_status: string;
 }
 interface FormProps {
   formInline: FormItemProps;

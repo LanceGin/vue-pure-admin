@@ -45,6 +45,13 @@ export const getImportDispatchList = (data?: object) => {
   });
 };
 
+// 编辑进口派车单箱子信息
+export const editContainerInfo = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("editContainerInfo"), {
+    data
+  });
+};
+
 // 获取出口派车列表
 export const getExportDispatchList = (data?: object) => {
   return http.request<ListResult>("post", baseUrlApi("exportDispatchList"), {

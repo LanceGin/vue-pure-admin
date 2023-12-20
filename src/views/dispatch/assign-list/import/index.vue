@@ -7,7 +7,7 @@ import { useRenderIcon } from "../../../../components/ReIcon/src/hooks";
 // import Database from "@iconify-icons/ri/database-2-line";
 // import More from "@iconify-icons/ep/more-filled";
 // import Delete from "@iconify-icons/ep/delete";
-// import EditPen from "@iconify-icons/ep/edit-pen";
+import EditPen from "@iconify-icons/ep/edit-pen";
 import Search from "@iconify-icons/ep/search";
 import Upload from "@iconify-icons/ep/upload";
 // import Download from "@iconify-icons/ep/download";
@@ -30,6 +30,7 @@ const {
   // openDialog,
   // handleDelete,
   // handleDatabase,
+  handleRowDblclick,
   handleSizeChange,
   handlePageChange,
   handleCurrentChange,
@@ -53,12 +54,11 @@ const {
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="日期：" prop="make_time">
-        <el-input
+      <el-form-item label="做箱时间：" prop="make_time">
+        <el-date-picker
           v-model="form.make_time"
-          placeholder="请输入日期"
-          clearable
-          class="!w-[200px]"
+          type="date"
+          placeholder="请输入做箱时间"
         />
       </el-form-item>
       <el-form-item label="门点：" prop="door">
@@ -68,6 +68,19 @@ const {
           clearable
           class="!w-[200px]"
         />
+      </el-form-item>
+      <el-form-item label="箱型：" prop="container_type">
+        <el-select
+          v-model="form.container_type"
+          placeholder="请选择箱型"
+          clearable
+          class="!w-[180px]"
+        >
+          <el-option label="40HC" value="40HC" />
+          <el-option label="40GP" value="40GP" />
+          <el-option label="20HC" value="20HC" />
+          <el-option label="20GP" value="20GP" />
+        </el-select>
       </el-form-item>
       <el-form-item label="箱号：" prop="containner_no">
         <el-input
@@ -97,6 +110,22 @@ const {
         <el-button :icon="useRenderIcon(Upload)" @click="resetForm(formRef)">
           导出
         </el-button>
+        <el-button
+          type="danger"
+          :icon="useRenderIcon(EditPen)"
+          @click="resetForm(formRef)"
+          :disabled="true"
+        >
+          一键撤回
+        </el-button>
+        <el-button
+          type="success"
+          :icon="useRenderIcon(EditPen)"
+          @click="resetForm(formRef)"
+          :disabled="true"
+        >
+          一键完成
+        </el-button>
       </el-form-item>
     </el-form>
 
@@ -119,10 +148,24 @@ const {
             color: 'var(--el-text-color-primary)'
           }"
           @selection-change="handleSelectionChange"
+          @row-dblclick="handleRowDblclick"
           @page-size-change="handleSizeChange"
           @page-current-change="handlePageChange"
           @current-change="handleCurrentChange"
-        />
+        >
+          <template #expand="{ row }">
+            <div class="p-6 ml-10 mr-10">
+              <el-steps :active="Number(row.transport_status)">
+                <el-step title="已执行" />
+                <el-step title="已提箱" />
+                <el-step title="进拆箱门点" />
+                <el-step title="出拆箱门点" />
+                <el-step title="已还箱" />
+                <el-step title="已完成" />
+              </el-steps>
+            </div>
+          </template>
+        </pure-table>
       </template>
     </PureTableBar>
   </div>

@@ -1,4 +1,4 @@
-// import dayjs from "dayjs";
+import dayjs from "dayjs";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
 // import { ElMessageBox } from "element-plus";
@@ -54,7 +54,8 @@ export function useRole() {
   const columns: TableColumnList = [
     {
       label: "做箱时间",
-      prop: "make_time"
+      prop: "make_time",
+      formatter: ({ make_time }) => dayjs(make_time).format("YYYY-MM-DD")
     },
     {
       label: "客户",
