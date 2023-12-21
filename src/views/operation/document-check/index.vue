@@ -255,6 +255,7 @@ const handleClose = () => {
             background: 'var(--el-table-row-hover-bg-color)',
             color: 'var(--el-text-color-primary)'
           }"
+          show-summary
           @row-dblclick="handleRowDblclick"
           @selection-change="handleSelectionChange"
           @page-size-change="handleSizeChange"

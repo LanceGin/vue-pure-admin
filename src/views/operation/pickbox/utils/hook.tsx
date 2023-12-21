@@ -95,7 +95,8 @@ export function useRole() {
     },
     {
       label: "计划做箱时间",
-      prop: "make_time"
+      prop: "make_time",
+      formatter: ({ make_time }) => dayjs(make_time).format("YYYY-MM-DD")
     },
     {
       label: "船名/航次",
@@ -103,7 +104,8 @@ export function useRole() {
     },
     {
       label: "船期",
-      prop: "arrive_time"
+      prop: "arrive_time",
+      formatter: ({ arrive_time }) => dayjs(arrive_time).format("YYYY-MM-DD")
     },
     {
       label: "堆存天数",
@@ -136,7 +138,8 @@ export function useRole() {
     },
     {
       label: "打包暂落日期",
-      prop: "temp_time"
+      prop: "temp_time",
+      formatter: ({ temp_time }) => dayjs(temp_time).format("YYYY-MM-DD")
     }
   ];
 
