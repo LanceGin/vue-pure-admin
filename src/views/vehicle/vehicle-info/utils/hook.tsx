@@ -1,36 +1,42 @@
 // import dayjs from "dayjs";
+import { utils, writeFile } from "xlsx";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
-import { getRoleList } from "@/api/system";
 // import { ElMessageBox } from "element-plus";
-import { tableData } from "./data";
 // import { usePublicHooks } from "../../hooks";
 import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
-import { reactive, ref, onMounted, h, toRaw } from "vue";
+import { reactive, ref, onMounted, h } from "vue";
+import {
+  addVehicleInfo,
+  deleteVehicleInfo,
+  editVehicleInfo,
+  vehicleInfoList
+} from "@/api/vehicle";
 
 export function useRole() {
   const form = reactive({
-    area: "",
+    id: "",
+    territory: "",
     brand: "",
     car_no: "",
     emission: "",
-    buy_year: "",
+    life: "",
     axles: "",
-    company: "",
-    guakao: "",
-    youka: "",
-    guaban_no: "",
+    owner: "",
+    attachment: "",
+    oil_card_owner: "",
+    hang_board_no: "",
     driver: "",
     mobile: "",
-    meta: "",
+    attribute: "",
     remark: ""
   });
   const formRef = ref();
   const currentRow = ref();
   const haveRow = ref(true);
-  let dataList = tableData;
+  const dataList = ref([]);
   const loading = ref(true);
   // const switchLoadMap = ref({});
   // const { tagStyle } = usePublicHooks();
@@ -43,7 +49,7 @@ export function useRole() {
   const columns: TableColumnList = [
     {
       label: "车辆属地",
-      prop: "area"
+      prop: "territory"
     },
     {
       label: "品牌",
@@ -59,7 +65,7 @@ export function useRole() {
     },
     {
       label: "车辆购买年限",
-      prop: "buy_year"
+      prop: "life"
     },
     {
       label: "轴数",
@@ -67,19 +73,19 @@ export function useRole() {
     },
     {
       label: "车辆所属",
-      prop: "company"
+      prop: "owner"
     },
     {
       label: "车辆挂靠",
-      prop: "guakao"
+      prop: "attachment"
     },
     {
       label: "油卡归属",
-      prop: "youka"
+      prop: "oil_card_owner"
     },
     {
       label: "挂板号",
-      prop: "guaban_no"
+      prop: "hang_board_no"
     },
     {
       label: "驾驶员",
@@ -91,7 +97,7 @@ export function useRole() {
     },
     {
       label: "属性",
-      prop: "meta"
+      prop: "attribute"
     },
     {
       label: "备注",
@@ -99,15 +105,46 @@ export function useRole() {
     }
   ];
 
-  function handleDelete() {
-    message(`您删除了车号为${currentRow.value.car_no}的这条数据`, {
+  function exportExcel() {
+    const res = dataList.value.map(item => {
+      const arr = [];
+      columns.forEach(column => {
+        arr.push(item[column.prop as string]);
+      });
+      return arr;
+    });
+    const titleList = [];
+    columns.forEach(column => {
+      titleList.push(column.label);
+    });
+    res.unshift(titleList);
+    const workSheet = utils.aoa_to_sheet(res);
+    const workBook = utils.book_new();
+    utils.book_append_sheet(workBook, workSheet, "数据报表");
+    writeFile(workBook, "车辆信息.xlsx");
+    message("导出成功", {
       type: "success"
     });
+  }
+
+  async function handleDelete() {
+    message(`您删除了司机名称为${currentRow.value.driver}的这条数据`, {
+      type: "success"
+    });
+    await deleteVehicleInfo(currentRow.value);
     onSearch();
   }
 
   function handleSizeChange(val: number) {
     console.log(`${val} items per page`);
+    pagination.pageSize = val;
+    onSearch();
+  }
+
+  function handlePageChange(val: number) {
+    console.log(`current page: ${val}`);
+    pagination.currentPage = val;
+    onSearch();
   }
 
   function handleCurrentChange(val) {
@@ -121,8 +158,11 @@ export function useRole() {
 
   async function onSearch() {
     loading.value = true;
-    const { data } = await getRoleList(toRaw(form));
-    dataList = data.list;
+    const { data } = await vehicleInfoList({
+      pagination,
+      form
+    });
+    dataList.value = data.list;
     pagination.total = data.total;
     pagination.pageSize = data.pageSize;
     pagination.currentPage = data.currentPage;
@@ -138,24 +178,29 @@ export function useRole() {
     onSearch();
   };
 
+  async function handleAddMotorcade(vehicle) {
+    await addVehicleInfo(vehicle);
+  }
+
   function openDialog(title = "添加", row?: FormItemProps) {
     addDialog({
       title: `${title}车辆`,
       props: {
         formInline: {
-          area: row?.area ?? "",
+          id: row?.id ?? "",
+          territory: row?.territory ?? "",
           brand: row?.brand ?? "",
           car_no: row?.car_no ?? "",
           emission: row?.emission ?? "",
-          buy_year: row?.buy_year ?? "",
+          life: row?.life ?? "",
           axles: row?.axles ?? "",
-          company: row?.company ?? "",
-          guakao: row?.guakao ?? "",
-          youka: row?.youka ?? "",
-          guaban_no: row?.guaban_no ?? "",
+          owner: row?.owner ?? "",
+          attachment: row?.attachment ?? "",
+          oil_card_owner: row?.oil_card_owner ?? "",
+          hang_board_no: row?.hang_board_no ?? "",
           driver: row?.driver ?? "",
           mobile: row?.mobile ?? "",
-          meta: row?.meta ?? "",
+          attribute: row?.attribute ?? "",
           remark: row?.remark ?? ""
         }
       },
@@ -180,9 +225,11 @@ export function useRole() {
             // 表单规则校验通过
             if (title === "新增") {
               // 实际开发先调用新增接口，再进行下面操作
+              handleAddMotorcade(curData);
               chores();
             } else {
               // 实际开发先调用编辑接口，再进行下面操作
+              asyncEdit(curData);
               chores();
             }
           }
@@ -194,6 +241,10 @@ export function useRole() {
   // 编辑按钮
   function handleEdit() {
     openDialog("编辑", currentRow.value);
+  }
+
+  async function asyncEdit(vehicle) {
+    await editVehicleInfo(vehicle);
   }
 
   // 双击行
@@ -222,15 +273,17 @@ export function useRole() {
     dataList,
     pagination,
     // buttonClass,
+    exportExcel,
     onSearch,
     resetForm,
     openDialog,
     handleMenu,
     handleDelete,
-    // handleDatabase,
-    handleRowDblclick,
     handleEdit,
+    handleRowDblclick,
+    // handleDatabase,
     handleSizeChange,
+    handlePageChange,
     handleCurrentChange,
     handleSelectionChange
   };
