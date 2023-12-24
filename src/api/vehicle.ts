@@ -117,3 +117,35 @@ export const editVehicleExtraInfo = (data?: object) => {
     }
   );
 };
+
+// 获取油耗核算列表
+export const oilConsumptionList = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("oilConsumptionList"), {
+    data
+  });
+};
+
+// 新增油耗核算
+export const addOilConsumption = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("addOilConsumption"), {
+    data
+  });
+};
+
+// 删除油耗核算
+export const deleteOilConsumption = (data?: object) => {
+  return http.request<ChangeResult>(
+    "post",
+    baseUrlApi("deleteOilConsumption"),
+    {
+      data
+    }
+  );
+};
+
+// 编辑油耗核算
+export const editOilConsumption = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("editOilConsumption"), {
+    data
+  });
+};
