@@ -5,13 +5,15 @@ import { FormProps } from "./utils/types";
 
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
-    chehao: "",
-    riqi: "",
-    shengshu: "",
-    danjia: "",
-    leixing: "",
-    jine: "",
-    beizhu: ""
+    id: "",
+    car_no: "",
+    driver: "",
+    addtime: "",
+    volume: "",
+    unit_price: "",
+    type: "",
+    amount: "",
+    remark: ""
   })
 });
 
@@ -32,50 +34,62 @@ defineExpose({ getRef });
     :rules="formRules"
     label-width="82px"
   >
-    <el-form-item label="车号" prop="chehao">
+    <el-form-item label="车号" prop="car_no">
       <el-input
-        v-model="newFormInline.chehao"
+        v-model="newFormInline.car_no"
         clearable
         placeholder="请输入车号"
       />
     </el-form-item>
 
-    <el-form-item label="日期" prop="riqi">
+    <el-form-item label="驾驶员" prop="driver">
       <el-input
-        v-model="newFormInline.riqi"
+        v-model="newFormInline.driver"
         clearable
-        placeholder="请输入日期"
+        placeholder="请输入驾驶员"
       />
     </el-form-item>
 
-    <el-form-item label="升数" prop="shengshu">
+    <el-form-item label="日期" prop="addtime">
+      <el-date-picker
+        v-model="newFormInline.addtime"
+        type="date"
+        placeholder="请输入日期"
+        value-format="YYYY-MM-DD"
+      />
+    </el-form-item>
+
+    <el-form-item label="升数" prop="volume">
       <el-input
-        v-model="newFormInline.shengshu"
+        v-model="newFormInline.volume"
         clearable
         placeholder="请输入升数"
       />
     </el-form-item>
 
-    <el-form-item label="单价" prop="danjia">
+    <el-form-item label="单价" prop="unit_price">
       <el-input
-        v-model="newFormInline.danjia"
+        v-model="newFormInline.unit_price"
         clearable
         placeholder="请输入单价"
       />
     </el-form-item>
 
-    <el-form-item label="金额" prop="danjia*shengshu">
-      <el-input
-        v-model="newFormInline.jine"
+    <el-form-item label="类型" prop="type">
+      <el-select
+        v-model="newFormInline.type"
+        placeholder="请选择类型"
         clearable
-        placeholder="自动计算"
-        disabled
-      />
+        class="!w-[180px]"
+      >
+        <el-option label="分配" value="分配" />
+        <el-option label="买入" value="买入" />
+      </el-select>
     </el-form-item>
 
-    <el-form-item label="备注" prop="beizhu">
+    <el-form-item label="备注" prop="remark">
       <el-input
-        v-model="newFormInline.beizhu"
+        v-model="newFormInline.remark"
         clearable
         placeholder="请输入备注"
       />

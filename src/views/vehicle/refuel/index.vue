@@ -21,20 +21,22 @@ const formRef = ref();
 const {
   form,
   loading,
+  remainOil,
   haveRow,
   columns,
   dataList,
   pagination,
   // buttonClass,
+  exportExcel,
   onSearch,
-  resetForm,
+  // resetForm,
   openDialog,
   handleDelete,
   // handleDatabase,
   handleRowDblclick,
   handleEdit,
-  handleRevoke,
   handleSizeChange,
+  handlePageChange,
   handleCurrentChange,
   handleSelectionChange
 } = useRole();
@@ -48,36 +50,36 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="日期：" prop="riqi">
-        <el-input
-          v-model="form.riqi"
+      <el-form-item label="日期" prop="addtime">
+        <el-date-picker
+          v-model="form.addtime"
+          type="date"
           placeholder="请输入日期"
-          clearable
-          class="!w-[200px]"
+          format="YYYY/MM/DD"
         />
       </el-form-item>
-      <el-form-item label="车号：" prop="chehao">
+      <el-form-item label="车号：" prop="car_no">
         <el-input
-          v-model="form.chehao"
+          v-model="form.car_no"
           placeholder="请输入车号"
           clearable
           class="!w-[180px]"
         />
       </el-form-item>
-      <el-form-item label="类型：" prop="leixing">
+      <el-form-item label="类型：" prop="type">
         <el-select
-          v-model="form.leixing"
+          v-model="form.type"
           placeholder="请选择类型"
           clearable
           class="!w-[180px]"
         >
-          <el-option label="全部" value="0" />
-          <el-option label="分配" value="1" />
-          <el-option label="买入" value="2" />
+          <el-option label="全部" value="" />
+          <el-option label="分配" value="分配" />
+          <el-option label="买入" value="买入" />
         </el-select>
       </el-form-item>
-      <el-form-item label="现库存：" prop="shengshu">
-        <p>0 升</p>
+      <el-form-item label="现库存：">
+        <p>{{ remainOil }} 升</p>
       </el-form-item>
     </el-form>
     <el-form
@@ -98,26 +100,11 @@ const {
         <el-button
           type="primary"
           :icon="useRenderIcon(AddFill)"
-          @click="openDialog('分配')"
+          @click="openDialog('新增')"
         >
-          分配
+          添加
         </el-button>
-        <el-button
-          type="primary"
-          :icon="useRenderIcon(AddFill)"
-          @click="openDialog('买入')"
-        >
-          买入
-        </el-button>
-        <el-button
-          type="primary"
-          :icon="useRenderIcon(EditPen)"
-          @click="handleRevoke()"
-          :disabled="haveRow"
-        >
-          退回
-        </el-button>
-        <el-button :icon="useRenderIcon(Upload)" @click="resetForm(formRef)">
+        <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
           导出
         </el-button>
         <el-button
@@ -134,16 +121,12 @@ const {
           @click="handleDelete()"
           :disabled="haveRow"
         >
-          删除
+          退回
         </el-button>
       </el-form-item>
     </el-form>
 
-    <PureTableBar
-      title="撬装加油列表（测试用，操作后不生效）"
-      :columns="columns"
-      @refresh="onSearch"
-    >
+    <PureTableBar title="撬装加油列表" :columns="columns" @refresh="onSearch">
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border
@@ -165,6 +148,7 @@ const {
           @selection-change="handleSelectionChange"
           @row-dblclick="handleRowDblclick"
           @page-size-change="handleSizeChange"
+          @page-current-change="handlePageChange"
           @current-change="handleCurrentChange"
         />
       </template>

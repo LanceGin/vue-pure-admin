@@ -112,14 +112,6 @@ export function useRole() {
       label: "目的港",
       prop: "target_port"
     }
-    // {
-    //   label: "打单时间",
-    //   prop: "order_time"
-    // },
-    // {
-    //   label: "打单费",
-    //   prop: "order_fee"
-    // }
   ];
 
   const containerColumns: TableColumnList = [

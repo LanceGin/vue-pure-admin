@@ -7,6 +7,7 @@ import { baseUrlApi } from "./utils";
 export type ListResult = {
   success: boolean;
   data?: {
+    remain_oil: number;
     /** 列表数据 */
     list: Array<any>;
     /** 总条目数 */
@@ -146,6 +147,34 @@ export const deleteOilConsumption = (data?: object) => {
 // 编辑油耗核算
 export const editOilConsumption = (data?: object) => {
   return http.request<ChangeResult>("post", baseUrlApi("editOilConsumption"), {
+    data
+  });
+};
+
+// 获取撬装加油列表
+export const vehicleRefuelList = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("vehicleRefuelList"), {
+    data
+  });
+};
+
+// 新增撬装加油
+export const addVehicleRefuel = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("addVehicleRefuel"), {
+    data
+  });
+};
+
+// 删除撬装加油
+export const deleteVehicleRefuel = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("deleteVehicleRefuel"), {
+    data
+  });
+};
+
+// 编辑撬装加油
+export const editVehicleRefuel = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("editVehicleRefuel"), {
     data
   });
 };
