@@ -91,3 +91,10 @@ export const tmpDispatchCar = (data?: object) => {
     data
   });
 };
+
+// 获取暂落派车列表
+export const tempDropDispatchList = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("tempDropDispatchList"), {
+    data
+  });
+};
