@@ -56,6 +56,7 @@ const {
           type="date"
           placeholder="请输入日期"
           format="YYYY/MM/DD"
+          value-format="YYYY-MM-DD"
         />
       </el-form-item>
       <el-form-item label="车号：" prop="car_no">
