@@ -34,6 +34,7 @@ const {
   handleRowDblclick,
   handleEdit,
   handleSizeChange,
+  handlePageChange,
   handleCurrentChange,
   handleSelectionChange
 } = useRole();
@@ -47,72 +48,74 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="签订日期：" prop="qiandingriqi">
-        <el-input
-          v-model="form.qiandingriqi"
+      <el-form-item label="签订日期" prop="sign_time">
+        <el-date-picker
+          v-model="form.sign_time"
+          type="date"
           placeholder="请输入签订日期"
-          clearable
-          class="!w-[200px]"
+          format="YYYY/MM/DD"
+          value-format="YYYY-MM-DD"
         />
       </el-form-item>
-      <el-form-item label="终止日期：" prop="zhongzhiriqi">
-        <el-input
-          v-model="form.zhongzhiriqi"
+      <el-form-item label="终止日期" prop="end_time">
+        <el-date-picker
+          v-model="form.end_time"
+          type="date"
           placeholder="请输入终止日期"
-          clearable
-          class="!w-[200px]"
+          format="YYYY/MM/DD"
+          value-format="YYYY-MM-DD"
         />
       </el-form-item>
-      <el-form-item label="合同编号：" prop="bianhao">
+      <el-form-item label="合同编号：" prop="contract_no">
         <el-input
-          v-model="form.bianhao"
+          v-model="form.contract_no"
           placeholder="请输入合同编号"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="合同余款：" prop="yukuan">
+      <el-form-item label="总价款：" prop="total_amount">
         <el-input
-          v-model="form.yukuan"
-          placeholder="请输入合同余款"
+          v-model="form.total_amount"
+          placeholder="请输入总价款"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="合同类型：" prop="leixing">
+      <el-form-item label="合同类型：" prop="type">
         <el-select
-          v-model="form.leixing"
+          v-model="form.type"
           placeholder="请选择类型"
           clearable
           class="!w-[180px]"
         >
-          <el-option label="全部" value="0" />
-          <el-option label="劳动合同" value="1" />
-          <el-option label="驾驶员合同" value="2" />
-          <el-option label="货物运输合同" value="3" />
-          <el-option label="物流运输" value="4" />
-          <el-option label="挂靠协议" value="5" />
-          <el-option label="购买车辆" value="6" />
-          <el-option label="车辆租赁" value="7" />
-          <el-option label="承包运营" value="8" />
-          <el-option label="商业保险" value="9" />
-          <el-option label="行政" value="10" />
-          <el-option label="其他" value="11" />
+          <el-option label="全部" value="" />
+          <el-option label="劳动合同" value="劳动合同" />
+          <el-option label="驾驶员合同" value="驾驶员合同" />
+          <el-option label="货物运输合同" value="货物运输合同" />
+          <el-option label="物流运输" value="物流运输" />
+          <el-option label="挂靠协议" value="挂靠协议" />
+          <el-option label="购买车辆" value="购买车辆" />
+          <el-option label="车辆租赁" value="车辆租赁" />
+          <el-option label="承包运营" value="承包运营" />
+          <el-option label="商业保险" value="商业保险" />
+          <el-option label="行政" value="行政" />
+          <el-option label="其他" value="其他" />
         </el-select>
       </el-form-item>
-      <el-form-item label="履行情况：" prop="hetongzhuangtai">
+      <el-form-item label="履行情况：" prop="status">
         <el-select
-          v-model="form.hetongzhuangtai"
+          v-model="form.status"
           placeholder="请选择情况"
           clearable
           class="!w-[180px]"
         >
-          <el-option label="全部" value="0" />
-          <el-option label="履行中" value="1" />
-          <el-option label="到期终止" value="2" />
-          <el-option label="异常-变更" value="3" />
-          <el-option label="异常-解除" value="4" />
-          <el-option label="异常-违约" value="5" />
+          <el-option label="全部" value="" />
+          <el-option label="履行中" value="履行中" />
+          <el-option label="到期终止" value="到期终止" />
+          <el-option label="异常-变更" value="异常-变更" />
+          <el-option label="异常-解除" value="异常-解除" />
+          <el-option label="异常-违约" value="异常-违约" />
         </el-select>
       </el-form-item>
     </el-form>
@@ -134,7 +137,7 @@ const {
         <el-button
           type="primary"
           :icon="useRenderIcon(AddFill)"
-          @click="openDialog()"
+          @click="openDialog('新增')"
         >
           添加合同
         </el-button>
@@ -169,11 +172,7 @@ const {
       </el-form-item>
     </el-form>
 
-    <PureTableBar
-      title="合同管理（测试用，操作后不生效）"
-      :columns="columns"
-      @refresh="onSearch"
-    >
+    <PureTableBar title="合同管理" :columns="columns" @refresh="onSearch">
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border
@@ -195,6 +194,7 @@ const {
           @selection-change="handleSelectionChange"
           @row-dblclick="handleRowDblclick"
           @page-size-change="handleSizeChange"
+          @page-current-change="handlePageChange"
           @current-change="handleCurrentChange"
         />
       </template>

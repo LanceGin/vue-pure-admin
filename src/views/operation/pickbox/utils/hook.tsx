@@ -203,7 +203,6 @@ export function useRole() {
       form
     });
     dataList.value = data.list;
-    console.log(1111, dataList.value);
     pagination.total = data.total;
     pagination.pageSize = data.pageSize;
     pagination.currentPage = data.currentPage;
