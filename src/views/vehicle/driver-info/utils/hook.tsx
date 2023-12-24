@@ -1,31 +1,37 @@
 // import dayjs from "dayjs";
+import { utils, writeFile } from "xlsx";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
-import { getRoleList } from "@/api/system";
 // import { ElMessageBox } from "element-plus";
-import { tableData } from "./data";
 // import { usePublicHooks } from "../../hooks";
 import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
-import { reactive, ref, onMounted, h, toRaw } from "vue";
+import { reactive, ref, onMounted, h } from "vue";
+import {
+  addDriverInfo,
+  deleteDriverInfo,
+  driverInfoList,
+  editDriverInfo
+} from "@/api/vehicle";
 
 export function useRole() {
   const form = reactive({
-    driver: "",
-    idcard: "",
+    id: "",
+    name: "",
+    id_no: "",
     mobile: "",
-    meta: "",
-    jiesuandanwei: "",
+    attribute: "",
+    settlement_company: "",
     remark: "",
-    idcard_pic: "",
-    driver_license: "",
-    congye: ""
+    id_card_url: "",
+    driver_license_url: "",
+    certifiacation_url: ""
   });
   const formRef = ref();
   const currentRow = ref();
   const haveRow = ref(true);
-  let dataList = tableData;
+  const dataList = ref([]);
   const loading = ref(true);
   // const switchLoadMap = ref({});
   // const { tagStyle } = usePublicHooks();
@@ -38,11 +44,11 @@ export function useRole() {
   const columns: TableColumnList = [
     {
       label: "驾驶员",
-      prop: "driver"
+      prop: "name"
     },
     {
       label: "身份证号",
-      prop: "idcard"
+      prop: "id_no"
     },
     {
       label: "手机号",
@@ -50,11 +56,11 @@ export function useRole() {
     },
     {
       label: "属性",
-      prop: "meta"
+      prop: "attribute"
     },
     {
       label: "结算单位",
-      prop: "jiesuandanwei"
+      prop: "settlement_company"
     },
     {
       label: "备注",
@@ -62,78 +68,58 @@ export function useRole() {
     },
     {
       label: "身份证",
-      prop: "idcard_pic"
+      prop: "id_card_url"
     },
     {
       label: "驾驶证",
-      prop: "driver_license"
+      prop: "driver_license_url"
     },
     {
       label: "从业资格证",
-      prop: "congye"
+      prop: "certifiacation_url"
     }
   ];
-  // const buttonClass = computed(() => {
-  //   return [
-  //     "!h-[20px]",
-  //     "reset-margin",
-  //     "!text-gray-500",
-  //     "dark:!text-white",
-  //     "dark:hover:!text-primary"
-  //   ];
-  // });
 
-  // function onChange({ row, index }) {
-  //   ElMessageBox.confirm(
-  //     `确认要<strong>${
-  //       row.status === 0 ? "停用" : "启用"
-  //     }</strong><strong style='color:var(--el-color-primary)'>${
-  //       row.name
-  //     }</strong>吗?`,
-  //     "系统提示",
-  //     {
-  //       confirmButtonText: "确定",
-  //       cancelButtonText: "取消",
-  //       type: "warning",
-  //       dangerouslyUseHTMLString: true,
-  //       draggable: true
-  //     }
-  //   )
-  //     .then(() => {
-  //       switchLoadMap.value[index] = Object.assign(
-  //         {},
-  //         switchLoadMap.value[index],
-  //         {
-  //           loading: true
-  //         }
-  //       );
-  //       setTimeout(() => {
-  //         switchLoadMap.value[index] = Object.assign(
-  //           {},
-  //           switchLoadMap.value[index],
-  //           {
-  //             loading: false
-  //           }
-  //         );
-  //         message(`已${row.status === 0 ? "停用" : "启用"}${row.name}`, {
-  //           type: "success"
-  //         });
-  //       }, 300);
-  //     })
-  //     .catch(() => {
-  //       row.status === 0 ? (row.status = 1) : (row.status = 0);
-  //     });
-  // }
-
-  function handleDelete() {
-    message(`您删除了驾驶员为${currentRow.value.driver}的这条数据`, {
+  function exportExcel() {
+    const res = dataList.value.map(item => {
+      const arr = [];
+      columns.forEach(column => {
+        arr.push(item[column.prop as string]);
+      });
+      return arr;
+    });
+    const titleList = [];
+    columns.forEach(column => {
+      titleList.push(column.label);
+    });
+    res.unshift(titleList);
+    const workSheet = utils.aoa_to_sheet(res);
+    const workBook = utils.book_new();
+    utils.book_append_sheet(workBook, workSheet, "数据报表");
+    writeFile(workBook, "车辆信息.xlsx");
+    message("导出成功", {
       type: "success"
     });
+  }
+
+  async function handleDelete() {
+    message(`您删除了司机名称为${currentRow.value.driver}的这条数据`, {
+      type: "success"
+    });
+    await deleteDriverInfo(currentRow.value);
     onSearch();
   }
 
   function handleSizeChange(val: number) {
     console.log(`${val} items per page`);
+    pagination.pageSize = val;
+    onSearch();
+  }
+
+  function handlePageChange(val: number) {
+    console.log(`current page: ${val}`);
+    pagination.currentPage = val;
+    onSearch();
   }
 
   function handleCurrentChange(val) {
@@ -147,8 +133,11 @@ export function useRole() {
 
   async function onSearch() {
     loading.value = true;
-    const { data } = await getRoleList(toRaw(form));
-    dataList = data.list;
+    const { data } = await driverInfoList({
+      pagination,
+      form
+    });
+    dataList.value = data.list;
     pagination.total = data.total;
     pagination.pageSize = data.pageSize;
     pagination.currentPage = data.currentPage;
@@ -164,20 +153,25 @@ export function useRole() {
     onSearch();
   };
 
+  async function handleAddDriver(driver) {
+    await addDriverInfo(driver);
+  }
+
   function openDialog(title = "添加", row?: FormItemProps) {
     addDialog({
       title: `${title}驾驶员`,
       props: {
         formInline: {
-          driver: row?.driver ?? "",
-          idcard: row?.idcard ?? "",
+          id: row?.id ?? "",
+          name: row?.name ?? "",
+          id_no: row?.id_no ?? "",
           mobile: row?.mobile ?? "",
-          meta: row?.meta ?? "",
-          jiesuandanwei: row?.jiesuandanwei ?? "",
+          attribute: row?.attribute ?? "",
+          settlement_company: row?.settlement_company ?? "",
           remark: row?.remark ?? "",
-          idcard_pic: row?.idcard_pic ?? "",
-          driver_license: row?.driver_license ?? "",
-          congye: row?.congye ?? ""
+          id_card_url: row?.id_card_url ?? "",
+          driver_license_url: row?.driver_license_url ?? "",
+          certifiacation_url: row?.certifiacation_url ?? ""
         }
       },
       width: "40%",
@@ -189,7 +183,7 @@ export function useRole() {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
         function chores() {
-          message(`您${title}了司机名称为${curData.driver}的这条数据`, {
+          message(`您${title}了司机名称为${curData.name}的这条数据`, {
             type: "success"
           });
           done(); // 关闭弹框
@@ -201,9 +195,11 @@ export function useRole() {
             // 表单规则校验通过
             if (title === "新增") {
               // 实际开发先调用新增接口，再进行下面操作
+              handleAddDriver(curData);
               chores();
             } else {
               // 实际开发先调用编辑接口，再进行下面操作
+              asyncEdit(curData);
               chores();
             }
           }
@@ -215,6 +211,10 @@ export function useRole() {
   // 编辑按钮
   function handleEdit() {
     openDialog("编辑", currentRow.value);
+  }
+
+  async function asyncEdit(driver) {
+    await editDriverInfo(driver);
   }
 
   // 双击行
@@ -243,6 +243,7 @@ export function useRole() {
     dataList,
     pagination,
     // buttonClass,
+    exportExcel,
     onSearch,
     resetForm,
     openDialog,
@@ -252,6 +253,7 @@ export function useRole() {
     handleRowDblclick,
     handleEdit,
     handleSizeChange,
+    handlePageChange,
     handleCurrentChange,
     handleSelectionChange
   };

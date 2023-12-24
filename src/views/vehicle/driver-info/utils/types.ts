@@ -1,15 +1,16 @@
 // 虽然字段很少 但是抽离出来 后续有扩展字段需求就很方便了
 
 interface FormItemProps {
-  driver: string;
-  idcard: string;
+  id: string;
+  name: string;
+  id_no: string;
   mobile: string;
-  jiesuandanwei: string;
-  meta: string;
+  attribute: string;
+  settlement_company: string;
   remark: string;
-  idcard_pic: string;
-  driver_license: string;
-  congye: string;
+  id_card_url: string;
+  driver_license_url: string;
+  certifiacation_url: string;
 }
 interface FormProps {
   formInline: FormItemProps;

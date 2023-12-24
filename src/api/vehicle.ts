@@ -53,3 +53,31 @@ export const editVehicleInfo = (data?: object) => {
     data
   });
 };
+
+// 获取司机信息列表
+export const driverInfoList = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("driverInfoList"), {
+    data
+  });
+};
+
+// 新增司机
+export const addDriverInfo = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("addDriverInfo"), {
+    data
+  });
+};
+
+// 删除司机
+export const deleteDriverInfo = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("deleteDriverInfo"), {
+    data
+  });
+};
+
+// 编辑司机
+export const editDriverInfo = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("editDriverInfo"), {
+    data
+  });
+};
