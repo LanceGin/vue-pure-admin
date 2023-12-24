@@ -1,4 +1,4 @@
-// import dayjs from "dayjs";
+import dayjs from "dayjs";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
 // import { ElMessageBox } from "element-plus";
@@ -76,7 +76,8 @@ export function useRole() {
     },
     {
       label: "做箱时间",
-      prop: "make_time"
+      prop: "make_time",
+      formatter: ({ make_time }) => dayjs(make_time).format("YYYY-MM-DD")
     },
     {
       label: "暂落",
@@ -92,7 +93,8 @@ export function useRole() {
     },
     {
       label: "到港时间",
-      prop: "arrive_time"
+      prop: "arrive_time",
+      formatter: ({ arrive_time }) => dayjs(arrive_time).format("YYYY-MM-DD")
     },
     {
       label: "流向",

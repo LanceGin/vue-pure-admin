@@ -117,6 +117,8 @@ const handleClose = () => {
           v-model="form.order_time"
           type="date"
           placeholder="请输入打单日期"
+          format="YYYY/MM/DD"
+          value-format="YYYY-MM-DD"
         />
       </el-form-item>
       <el-form-item label="运单号" prop="track_no">

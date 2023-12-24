@@ -1,4 +1,4 @@
-// import dayjs from "dayjs";
+import dayjs from "dayjs";
 import { utils, writeFile } from "xlsx";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
@@ -102,7 +102,8 @@ export function useRole() {
     },
     {
       label: "到港时间",
-      prop: "arrive_time"
+      prop: "arrive_time",
+      formatter: ({ arrive_time }) => dayjs(arrive_time).format("YYYY-MM-DD")
     },
     {
       label: "起始港",

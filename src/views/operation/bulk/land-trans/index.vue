@@ -54,6 +54,8 @@ const {
           v-model="form.add_time"
           type="date"
           placeholder="请输入日期"
+          format="YYYY/MM/DD"
+          value-format="YYYY-MM-DD"
         />
       </el-form-item>
       <el-form-item label="箱号：" prop="container_no">

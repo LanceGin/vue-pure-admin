@@ -88,12 +88,13 @@ const handleClose = () => {
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="日期：" prop="make_time">
-        <el-input
+      <el-form-item label="日期" prop="make_time">
+        <el-date-picker
           v-model="form.make_time"
+          type="date"
           placeholder="请输入日期"
-          clearable
-          class="!w-[200px]"
+          format="YYYY/MM/DD"
+          value-format="YYYY-MM-DD"
         />
       </el-form-item>
       <el-form-item label="门点：" prop="door">
@@ -119,6 +120,17 @@ const handleClose = () => {
           clearable
           class="!w-[200px]"
         />
+      </el-form-item>
+      <el-form-item label="完成情况：" prop="container_status">
+        <el-select
+          v-model="form.container_status"
+          placeholder="请选择完成情况"
+          clearable
+          class="!w-[180px]"
+        >
+          <el-option label="未完成" value="未完成" />
+          <el-option label="已完成" value="已完成" />
+        </el-select>
       </el-form-item>
       <el-form-item>
         <el-button

@@ -27,7 +27,7 @@ export function useRole() {
     track_no: "",
     unload_port: "",
     door: "",
-    make_time: "",
+    make_time: dayjs().format("YYYY-MM-DD"),
     load_port: "",
     count: "",
     transfer_port: "",

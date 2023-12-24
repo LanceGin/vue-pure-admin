@@ -1,4 +1,4 @@
-// import dayjs from "dayjs";
+import dayjs from "dayjs";
 import { utils, writeFile } from "xlsx";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
@@ -55,7 +55,8 @@ export function useRole() {
   const columns: TableColumnList = [
     {
       label: "日期",
-      prop: "add_time"
+      prop: "add_time",
+      formatter: ({ add_time }) => dayjs(add_time).format("YYYY-MM-DD")
     },
     {
       label: "客户",
