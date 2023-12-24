@@ -81,3 +81,39 @@ export const editDriverInfo = (data?: object) => {
     data
   });
 };
+
+// 获取车辆额外信息列表
+export const vehicleExtraInfoList = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("vehicleExtraInfoList"), {
+    data
+  });
+};
+
+// 新增车辆额外信息
+export const addVehicleExtraInfo = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("addVehicleExtraInfo"), {
+    data
+  });
+};
+
+// 删除车辆额外信息
+export const deleteVehicleExtraInfo = (data?: object) => {
+  return http.request<ChangeResult>(
+    "post",
+    baseUrlApi("deleteVehicleExtraInfo"),
+    {
+      data
+    }
+  );
+};
+
+// 编辑车辆额外信息
+export const editVehicleExtraInfo = (data?: object) => {
+  return http.request<ChangeResult>(
+    "post",
+    baseUrlApi("editVehicleExtraInfo"),
+    {
+      data
+    }
+  );
+};

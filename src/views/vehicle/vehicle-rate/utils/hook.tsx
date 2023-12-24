@@ -1,30 +1,36 @@
 // import dayjs from "dayjs";
+import { utils, writeFile } from "xlsx";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
-import { getRoleList } from "@/api/system";
 // import { ElMessageBox } from "element-plus";
-import { tableData } from "./data";
 // import { usePublicHooks } from "../../hooks";
 import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
-import { reactive, ref, onMounted, h, toRaw } from "vue";
+import { reactive, ref, onMounted, h } from "vue";
+import {
+  addVehicleExtraInfo,
+  deleteVehicleExtraInfo,
+  editVehicleExtraInfo,
+  vehicleExtraInfoList
+} from "@/api/vehicle";
 
 export function useRole() {
   const form = reactive({
+    id: "",
     car_no: "",
     company: "",
-    year_deadline: "",
-    rate_deadline: "",
-    jiaoqiang: "",
-    shangye: "",
-    huowuyunshu: "",
+    inspect: "",
+    rate: "",
+    compulsory_insurance: "",
+    commercial_insurance: "",
+    trans_insurance: "",
     remark: ""
   });
   const formRef = ref();
   const currentRow = ref();
   const haveRow = ref(true);
-  let dataList = tableData;
+  const dataList = ref([]);
   const loading = ref(true);
   // const switchLoadMap = ref({});
   // const { tagStyle } = usePublicHooks();
@@ -45,23 +51,23 @@ export function useRole() {
     },
     {
       label: "年检到期",
-      prop: "year_deadline"
+      prop: "inspect"
     },
     {
       label: "等评到期",
-      prop: "rate_deadline"
+      prop: "rate"
     },
     {
       label: "交强险",
-      prop: "jiaoqiang"
+      prop: "compulsory_insurance"
     },
     {
       label: "商业险",
-      prop: "shangye"
+      prop: "commercial_insurance"
     },
     {
       label: "货物运输险",
-      prop: "huowuyunshu"
+      prop: "trans_insurance"
     },
     {
       label: "备注",
@@ -69,15 +75,46 @@ export function useRole() {
     }
   ];
 
-  function handleDelete() {
+  function exportExcel() {
+    const res = dataList.value.map(item => {
+      const arr = [];
+      columns.forEach(column => {
+        arr.push(item[column.prop as string]);
+      });
+      return arr;
+    });
+    const titleList = [];
+    columns.forEach(column => {
+      titleList.push(column.label);
+    });
+    res.unshift(titleList);
+    const workSheet = utils.aoa_to_sheet(res);
+    const workBook = utils.book_new();
+    utils.book_append_sheet(workBook, workSheet, "数据报表");
+    writeFile(workBook, "车辆信息.xlsx");
+    message("导出成功", {
+      type: "success"
+    });
+  }
+
+  async function handleDelete() {
     message(`您删除了车号为${currentRow.value.car_no}的这条数据`, {
       type: "success"
     });
+    await deleteVehicleExtraInfo(currentRow.value);
     onSearch();
   }
 
   function handleSizeChange(val: number) {
     console.log(`${val} items per page`);
+    pagination.pageSize = val;
+    onSearch();
+  }
+
+  function handlePageChange(val: number) {
+    console.log(`current page: ${val}`);
+    pagination.currentPage = val;
+    onSearch();
   }
 
   function handleCurrentChange(val) {
@@ -91,8 +128,11 @@ export function useRole() {
 
   async function onSearch() {
     loading.value = true;
-    const { data } = await getRoleList(toRaw(form));
-    dataList = data.list;
+    const { data } = await vehicleExtraInfoList({
+      pagination,
+      form
+    });
+    dataList.value = data.list;
     pagination.total = data.total;
     pagination.pageSize = data.pageSize;
     pagination.currentPage = data.currentPage;
@@ -108,18 +148,23 @@ export function useRole() {
     onSearch();
   };
 
+  async function handleAddData(data) {
+    await addVehicleExtraInfo(data);
+  }
+
   function openDialog(title = "添加", row?: FormItemProps) {
     addDialog({
       title: `${title}等评记录`,
       props: {
         formInline: {
+          id: row?.id ?? "",
           car_no: row?.car_no ?? "",
           company: row?.company ?? "",
-          year_deadline: row?.year_deadline ?? "",
-          rate_deadline: row?.rate_deadline ?? "",
-          jiaoqiang: row?.jiaoqiang ?? "",
-          shangye: row?.shangye ?? "",
-          huowuyunshu: row?.huowuyunshu ?? "",
+          inspect: row?.inspect ?? "",
+          rate: row?.rate ?? "",
+          compulsory_insurance: row?.compulsory_insurance ?? "",
+          commercial_insurance: row?.commercial_insurance ?? "",
+          trans_insurance: row?.trans_insurance ?? "",
           remark: row?.remark ?? ""
         }
       },
@@ -144,9 +189,11 @@ export function useRole() {
             // 表单规则校验通过
             if (title === "新增") {
               // 实际开发先调用新增接口，再进行下面操作
+              handleAddData(curData);
               chores();
             } else {
               // 实际开发先调用编辑接口，再进行下面操作
+              asyncEdit(curData);
               chores();
             }
           }
@@ -158,6 +205,10 @@ export function useRole() {
   // 编辑按钮
   function handleEdit() {
     openDialog("编辑", currentRow.value);
+  }
+
+  async function asyncEdit(data) {
+    await editVehicleExtraInfo(data);
   }
 
   // 双击行
@@ -186,6 +237,7 @@ export function useRole() {
     dataList,
     pagination,
     // buttonClass,
+    exportExcel,
     onSearch,
     resetForm,
     openDialog,
@@ -195,6 +247,7 @@ export function useRole() {
     handleRowDblclick,
     handleEdit,
     handleSizeChange,
+    handlePageChange,
     handleCurrentChange,
     handleSelectionChange
   };
