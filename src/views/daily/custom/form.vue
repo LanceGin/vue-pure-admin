@@ -5,11 +5,12 @@ import { FormProps } from "./utils/types";
 
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
-    daima: "",
-    mingcheng: "",
-    kaihuhang: "",
-    yinhangzhanghao: "",
-    beizhu: ""
+    id: "",
+    company_code: "",
+    company_name: "",
+    bank: "",
+    account_no: "",
+    remark: ""
   })
 });
 
@@ -30,37 +31,37 @@ defineExpose({ getRef });
     :rules="formRules"
     label-width="82px"
   >
-    <el-form-item label="代码" prop="daima">
+    <el-form-item label="代码" prop="company_code">
       <el-input
-        v-model="newFormInline.daima"
+        v-model="newFormInline.company_code"
         clearable
         placeholder="请输入代码"
       />
     </el-form-item>
-    <el-form-item label="名称" prop="mingcheng">
+    <el-form-item label="名称" prop="company_name">
       <el-input
-        v-model="newFormInline.mingcheng"
+        v-model="newFormInline.company_name"
         clearable
         placeholder="请输入名称"
       />
     </el-form-item>
-    <el-form-item label="开户行" prop="kaihuhang">
+    <el-form-item label="开户行" prop="bank">
       <el-input
-        v-model="newFormInline.kaihuhang"
+        v-model="newFormInline.bank"
         clearable
         placeholder="请输入开户行"
       />
     </el-form-item>
-    <el-form-item label="银行账号" prop="yinhangzhanghao">
+    <el-form-item label="银行账号" prop="account_no">
       <el-input
-        v-model="newFormInline.yinhangzhanghao"
+        v-model="newFormInline.account_no"
         clearable
         placeholder="请输入银行账号"
       />
     </el-form-item>
-    <el-form-item label="备注" prop="beizhu">
+    <el-form-item label="备注" prop="remark">
       <el-input
-        v-model="newFormInline.beizhu"
+        v-model="newFormInline.remark"
         clearable
         placeholder="请输入备注"
       />

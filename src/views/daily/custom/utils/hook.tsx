@@ -1,27 +1,33 @@
 // import dayjs from "dayjs";
+import { utils, writeFile } from "xlsx";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
-import { getRoleList } from "@/api/system";
 // import { ElMessageBox } from "element-plus";
-import { tableData } from "./data";
 // import { usePublicHooks } from "../../hooks";
 import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
-import { reactive, ref, onMounted, h, toRaw } from "vue";
+import { reactive, ref, onMounted, h } from "vue";
+import {
+  accCompanyList,
+  addAccCompany,
+  deleteAccCompany,
+  editAccCompany
+} from "@/api/daily";
 
 export function useRole() {
   const form = reactive({
-    daima: "",
-    mingcheng: "",
-    kaihuhang: "",
-    yinhangzhanghao: "",
-    beizhu: ""
+    id: "",
+    company_code: "",
+    company_name: "",
+    bank: "",
+    account_no: "",
+    remark: ""
   });
   const formRef = ref();
   const currentRow = ref();
   const haveRow = ref(true);
-  let dataList = tableData;
+  const dataList = ref([]);
   const loading = ref(true);
   // const switchLoadMap = ref({});
   // const { tagStyle } = usePublicHooks();
@@ -34,86 +40,66 @@ export function useRole() {
   const columns: TableColumnList = [
     {
       label: "代码",
-      prop: "daima"
+      prop: "company_code"
     },
     {
       label: "名称",
-      prop: "mingcheng"
+      prop: "company_name"
     },
     {
       label: "开户行",
-      prop: "kaihuhang"
+      prop: "bank"
     },
     {
       label: "银行账号",
-      prop: "yinhangzhanghao"
+      prop: "account_no"
     },
     {
       label: "备注",
-      prop: "beizhu"
+      prop: "remark"
     }
   ];
-  // const buttonClass = computed(() => {
-  //   return [
-  //     "!h-[20px]",
-  //     "reset-margin",
-  //     "!text-gray-500",
-  //     "dark:!text-white",
-  //     "dark:hover:!text-primary"
-  //   ];
-  // });
 
-  // function onChange({ row, index }) {
-  //   ElMessageBox.confirm(
-  //     `确认要<strong>${
-  //       row.status === 0 ? "停用" : "启用"
-  //     }</strong><strong style='color:var(--el-color-primary)'>${
-  //       row.name
-  //     }</strong>吗?`,
-  //     "系统提示",
-  //     {
-  //       confirmButtonText: "确定",
-  //       cancelButtonText: "取消",
-  //       type: "warning",
-  //       dangerouslyUseHTMLString: true,
-  //       draggable: true
-  //     }
-  //   )
-  //     .then(() => {
-  //       switchLoadMap.value[index] = Object.assign(
-  //         {},
-  //         switchLoadMap.value[index],
-  //         {
-  //           loading: true
-  //         }
-  //       );
-  //       setTimeout(() => {
-  //         switchLoadMap.value[index] = Object.assign(
-  //           {},
-  //           switchLoadMap.value[index],
-  //           {
-  //             loading: false
-  //           }
-  //         );
-  //         message(`已${row.status === 0 ? "停用" : "启用"}${row.name}`, {
-  //           type: "success"
-  //         });
-  //       }, 300);
-  //     })
-  //     .catch(() => {
-  //       row.status === 0 ? (row.status = 1) : (row.status = 0);
-  //     });
-  // }
-
-  function handleDelete() {
-    message(`您删除了代码为${currentRow.value.daima}的这条数据`, {
+  function exportExcel() {
+    const res = dataList.value.map(item => {
+      const arr = [];
+      columns.forEach(column => {
+        arr.push(item[column.prop as string]);
+      });
+      return arr;
+    });
+    const titleList = [];
+    columns.forEach(column => {
+      titleList.push(column.label);
+    });
+    res.unshift(titleList);
+    const workSheet = utils.aoa_to_sheet(res);
+    const workBook = utils.book_new();
+    utils.book_append_sheet(workBook, workSheet, "数据报表");
+    writeFile(workBook, "车辆信息.xlsx");
+    message("导出成功", {
       type: "success"
     });
+  }
+
+  async function handleDelete() {
+    message(`您删除了代码为${currentRow.value.company_code}的这条数据`, {
+      type: "success"
+    });
+    await deleteAccCompany(currentRow.value);
     onSearch();
   }
 
   function handleSizeChange(val: number) {
     console.log(`${val} items per page`);
+    pagination.pageSize = val;
+    onSearch();
+  }
+
+  function handlePageChange(val: number) {
+    console.log(`current page: ${val}`);
+    pagination.currentPage = val;
+    onSearch();
   }
 
   function handleCurrentChange(val) {
@@ -127,8 +113,11 @@ export function useRole() {
 
   async function onSearch() {
     loading.value = true;
-    const { data } = await getRoleList(toRaw(form));
-    dataList = data.list;
+    const { data } = await accCompanyList({
+      pagination,
+      form
+    });
+    dataList.value = data.list;
     pagination.total = data.total;
     pagination.pageSize = data.pageSize;
     pagination.currentPage = data.currentPage;
@@ -144,16 +133,21 @@ export function useRole() {
     onSearch();
   };
 
+  async function handleAddData(data) {
+    await addAccCompany(data);
+  }
+
   function openDialog(title = "添加", row?: FormItemProps) {
     addDialog({
       title: `${title}往来单位`,
       props: {
         formInline: {
-          daima: row?.daima ?? "",
-          mingcheng: row?.mingcheng ?? "",
-          kaihuhang: row?.kaihuhang ?? "",
-          yinhangzhanghao: row?.yinhangzhanghao ?? "",
-          beizhu: row?.beizhu ?? ""
+          id: row?.id ?? "",
+          company_code: row?.company_code ?? "",
+          company_name: row?.company_name ?? "",
+          bank: row?.bank ?? "",
+          account_no: row?.account_no ?? "",
+          remark: row?.remark ?? ""
         }
       },
       width: "40%",
@@ -165,7 +159,7 @@ export function useRole() {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
         function chores() {
-          message(`您${title}了客户名为${curData.mingcheng}的这条数据`, {
+          message(`您${title}了代码名为${curData.company_code}的这条数据`, {
             type: "success"
           });
           done(); // 关闭弹框
@@ -177,9 +171,11 @@ export function useRole() {
             // 表单规则校验通过
             if (title === "新增") {
               // 实际开发先调用新增接口，再进行下面操作
+              handleAddData(curData);
               chores();
             } else {
               // 实际开发先调用编辑接口，再进行下面操作
+              asyncEdit(curData);
               chores();
             }
           }
@@ -191,6 +187,10 @@ export function useRole() {
   // 编辑按钮
   function handleEdit() {
     openDialog("编辑", currentRow.value);
+  }
+
+  async function asyncEdit(data) {
+    await editAccCompany(data);
   }
 
   // 双击行
@@ -219,6 +219,7 @@ export function useRole() {
     dataList,
     pagination,
     // buttonClass,
+    exportExcel,
     onSearch,
     resetForm,
     openDialog,
@@ -228,6 +229,7 @@ export function useRole() {
     handleRowDblclick,
     handleEdit,
     handleSizeChange,
+    handlePageChange,
     handleCurrentChange,
     handleSelectionChange
   };

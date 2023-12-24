@@ -26,6 +26,7 @@ const {
   dataList,
   pagination,
   // buttonClass,
+  exportExcel,
   onSearch,
   resetForm,
   openDialog,
@@ -34,6 +35,7 @@ const {
   handleRowDblclick,
   handleEdit,
   handleSizeChange,
+  handlePageChange,
   handleCurrentChange,
   handleSelectionChange
 } = useRole();
@@ -47,9 +49,9 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="名称：" prop="mingcheng">
+      <el-form-item label="名称：" prop="company_name">
         <el-input
-          v-model="form.mingcheng"
+          v-model="form.company_name"
           placeholder="请输入名称"
           clearable
           class="!w-[200px]"
@@ -74,14 +76,14 @@ const {
         <el-button
           type="primary"
           :icon="useRenderIcon(AddFill)"
-          @click="openDialog()"
+          @click="openDialog('新增')"
         >
           添加往来单位
         </el-button>
         <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
           导入
         </el-button>
-        <el-button :icon="useRenderIcon(Upload)" @click="resetForm(formRef)">
+        <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
           导出
         </el-button>
         <el-button
@@ -103,11 +105,7 @@ const {
       </el-form-item>
     </el-form>
 
-    <PureTableBar
-      title="往来单位管理（测试用，操作后不生效）"
-      :columns="columns"
-      @refresh="onSearch"
-    >
+    <PureTableBar title="往来单位管理" :columns="columns" @refresh="onSearch">
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border
@@ -129,6 +127,7 @@ const {
           @selection-change="handleSelectionChange"
           @row-dblclick="handleRowDblclick"
           @page-size-change="handleSizeChange"
+          @page-current-change="handlePageChange"
           @current-change="handleCurrentChange"
         />
       </template>
