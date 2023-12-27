@@ -1,41 +1,51 @@
-// import dayjs from "dayjs";
+import dayjs from "dayjs";
+import { utils, writeFile } from "xlsx";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
-import { getRoleList } from "@/api/system";
 // import { ElMessageBox } from "element-plus";
-import { tableData } from "./data";
 // import { usePublicHooks } from "../../hooks";
 import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
-import { reactive, ref, onMounted, h, toRaw } from "vue";
+import { reactive, ref, onMounted, h } from "vue";
+import {
+  addAppliedFee,
+  appliedFeeList,
+  deleteAppliedFee,
+  editAppliedFee,
+  submitAppliedFee
+} from "@/api/daily";
+import { useUserStore } from "@/store/modules/user";
+import { ElMessage, ElMessageBox } from "element-plus";
 
 export function useRole() {
+  const user = useUserStore();
   const form = reactive({
-    zhuangtai: "",
-    xingzhengyewu: "",
-    feiyongming: "",
-    shoufu: "",
-    zhifuleixing: "",
-    shenqingjine: "",
-    baoxiaojine: "",
-    shuie: "",
-    shenqingren: "",
-    shenqingdanwei: "",
-    lurushijian: "",
-    baoxiaoren: "",
-    shenheren: "",
-    shenheshijian: "",
-    shenpiren: "",
-    feiyongbianhao: "",
-    shenqingbianhao: "",
-    beizhu: "",
-    shenqingriqi: ""
+    id: "",
+    status: "",
+    is_admin: "",
+    fee_name: "",
+    is_pay: "",
+    pay_type: "",
+    apply_amount: "",
+    reimburse_amount: "",
+    tax_amount: "",
+    apply_by: user.username,
+    apply_department: "",
+    create_time: "",
+    reimburse_by: "",
+    audit_by: "",
+    audit_time: "",
+    approve_by: "",
+    fee_no: "",
+    remark: "",
+    apply_time: ""
   });
   const formRef = ref();
   const currentRow = ref();
+  const selectRows = ref([]);
   const haveRow = ref(true);
-  let dataList = tableData;
+  const dataList = ref([]);
   const loading = ref(true);
   // const switchLoadMap = ref({});
   // const { tagStyle } = usePublicHooks();
@@ -52,87 +62,121 @@ export function useRole() {
     },
     {
       label: "状态",
-      prop: "zhuangtai"
+      prop: "status"
     },
     {
       label: "行政/业务",
-      prop: "xingzhengyewu"
+      prop: "is_admin"
     },
     {
       label: "费用名称",
-      prop: "feiyongming"
+      prop: "fee_name"
     },
     {
       label: "收/付",
-      prop: "shoufu"
+      prop: "is_pay"
     },
     {
       label: "支付类型",
-      prop: "zhifuleixing"
+      prop: "pay_type"
     },
     {
       label: "申请金额",
-      prop: "shenqingjine"
+      prop: "apply_amount"
     },
     {
       label: "报销金额",
-      prop: "baoxiaojine"
+      prop: "reimburse_amount"
     },
     {
       label: "税额",
-      prop: "shuie"
+      prop: "tax_amount"
     },
     {
       label: "申请人",
-      prop: "shenqingren"
+      prop: "apply_by"
     },
     {
       label: "申请单位",
-      prop: "shenqingdanwei"
+      prop: "apply_department"
     },
     {
       label: "录入时间",
-      prop: "lurushijian"
+      prop: "create_time",
+      formatter: ({ create_time }) => dayjs(create_time).format("YYYY-MM-DD")
     },
     {
       label: "报销人",
-      prop: "baoxiaoren"
+      prop: "reimburse_by"
     },
     {
       label: "审核人",
-      prop: "shenheren"
+      prop: "audit_by"
     },
     {
       label: "审核时间",
-      prop: "shenheshijian"
+      prop: "audit_time",
+      formatter: ({ audit_time }) => dayjs(audit_time).format("YYYY-MM-DD")
     },
     {
       label: "审批人",
-      prop: "shenpiren"
+      prop: "approve_by"
     },
     {
       label: "费用编号",
-      prop: "feiyongbianhao"
+      prop: "fee_no"
     },
     {
       label: "备注",
-      prop: "beizhu"
+      prop: "remark"
     },
     {
       label: "申请日期",
-      prop: "shenqingriqi"
+      prop: "apply_time",
+      formatter: ({ apply_time }) => dayjs(apply_time).format("YYYY-MM-DD")
     }
   ];
 
-  function handleDelete() {
-    message(`您删除了费用名为${currentRow.value.feiyongming}的这条数据`, {
+  function exportExcel() {
+    const res = dataList.value.map(item => {
+      const arr = [];
+      columns.forEach(column => {
+        arr.push(item[column.prop as string]);
+      });
+      return arr;
+    });
+    const titleList = [];
+    columns.forEach(column => {
+      titleList.push(column.label);
+    });
+    res.unshift(titleList);
+    const workSheet = utils.aoa_to_sheet(res);
+    const workBook = utils.book_new();
+    utils.book_append_sheet(workBook, workSheet, "数据报表");
+    writeFile(workBook, "挑箱列表.xlsx");
+    message("导出成功", {
       type: "success"
     });
+  }
+
+  async function handleDelete() {
+    message(`您删除了费用名称为${currentRow.value.fee_name}的这条数据`, {
+      type: "success"
+    });
+    await deleteAppliedFee(currentRow.value);
     onSearch();
   }
 
   function handleSizeChange(val: number) {
     console.log(`${val} items per page`);
+    pagination.pageSize = val;
+    onSearch();
+  }
+
+  function handlePageChange(val: number) {
+    console.log(`current page: ${val}`);
+    pagination.currentPage = val;
+    onSearch();
   }
 
   function handleCurrentChange(val) {
@@ -142,12 +186,21 @@ export function useRole() {
 
   function handleSelectionChange(val) {
     console.log("handleSelectionChange", val);
+    selectRows.value = val;
+    if (selectRows.value.length > 0) {
+      haveRow.value = false;
+    } else {
+      haveRow.value = true;
+    }
   }
 
   async function onSearch() {
     loading.value = true;
-    const { data } = await getRoleList(toRaw(form));
-    dataList = data.list;
+    const { data } = await appliedFeeList({
+      pagination,
+      form
+    });
+    dataList.value = data.list;
     pagination.total = data.total;
     pagination.pageSize = data.pageSize;
     pagination.currentPage = data.currentPage;
@@ -163,29 +216,34 @@ export function useRole() {
     onSearch();
   };
 
+  async function handleAddData(data) {
+    await addAppliedFee(data);
+  }
+
   function openDialog(title = "申请", row?: FormItemProps) {
     addDialog({
       title: `${title}费用`,
       props: {
         formInline: {
-          zhuangtai: row?.zhuangtai ?? "",
-          xingzhengyewu: row?.xingzhengyewu ?? "",
-          feiyongming: row?.feiyongming ?? "",
-          shoufu: row?.shoufu ?? "",
-          zhifuleixing: row?.zhifuleixing ?? "",
-          shenqingjine: row?.shenqingjine ?? "",
-          baoxiaojine: row?.baoxiaojine ?? "",
-          shuie: row?.shuie ?? "",
-          shenqingren: row?.shenqingren ?? "",
-          shenqingdanwei: row?.shenqingdanwei ?? "",
-          lurushijian: row?.lurushijian ?? "",
-          baoxiaoren: row?.baoxiaoren ?? "",
-          shenheren: row?.shenheren ?? "",
-          shenheshijian: row?.shenheshijian ?? "",
-          shenpiren: row?.shenpiren ?? "",
-          feiyongbianhao: row?.feiyongbianhao ?? "",
-          shenqingbianhao: row?.shenqingbianhao ?? "",
-          beizhu: row?.beizhu ?? ""
+          id: row?.id ?? "",
+          status: row?.status ?? "",
+          is_admin: row?.is_admin ?? "",
+          fee_name: row?.fee_name ?? "",
+          is_pay: row?.is_pay ?? "",
+          pay_type: row?.pay_type ?? "",
+          apply_amount: row?.apply_amount ?? "",
+          reimburse_amount: row?.reimburse_amount ?? "",
+          tax_amount: row?.tax_amount ?? "",
+          apply_by: row?.apply_by ?? user.username,
+          apply_department: row?.apply_department ?? "",
+          create_time: row?.create_time ?? "",
+          reimburse_by: row?.reimburse_by ?? "",
+          audit_by: row?.audit_by ?? "",
+          audit_time: row?.audit_time ?? "",
+          approve_by: row?.approve_by ?? "",
+          fee_no: row?.fee_no ?? "",
+          remark: row?.remark ?? "",
+          apply_time: row?.apply_time ?? ""
         }
       },
       width: "40%",
@@ -197,7 +255,7 @@ export function useRole() {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
         function chores() {
-          message(`您${title}了费用名为${curData.feiyongming}的这条数据`, {
+          message(`您${title}了费用名为${curData.fee_name}的这条数据`, {
             type: "success"
           });
           done(); // 关闭弹框
@@ -209,9 +267,11 @@ export function useRole() {
             // 表单规则校验通过
             if (title === "新增") {
               // 实际开发先调用新增接口，再进行下面操作
+              handleAddData(curData);
               chores();
             } else {
               // 实际开发先调用编辑接口，再进行下面操作
+              asyncEdit(curData);
               chores();
             }
           }
@@ -223,6 +283,34 @@ export function useRole() {
   // 编辑按钮
   function handleEdit() {
     openDialog("编辑", currentRow.value);
+  }
+
+  async function asyncEdit(data) {
+    await editAppliedFee(data);
+  }
+
+  // 提交费用
+  async function handleSubmit() {
+    ElMessageBox.confirm("确认提交后所选费用将进入审核流程？", "提交确认", {
+      confirmButtonText: "确认",
+      cancelButtonText: "取消",
+      type: "warning"
+    })
+      .then(() => {
+        console.log("submit", selectRows.value);
+        const select_id = [];
+        selectRows.value.forEach(v => {
+          select_id.push(v.id);
+        });
+        submitAppliedFee(select_id);
+        onSearch();
+      })
+      .catch(() => {
+        ElMessage({
+          type: "info",
+          message: "取消提交"
+        });
+      });
   }
 
   // 双击行
@@ -251,15 +339,18 @@ export function useRole() {
     dataList,
     pagination,
     // buttonClass,
+    exportExcel,
     onSearch,
     resetForm,
     openDialog,
     handleMenu,
     handleDelete,
     // handleDatabase,
+    handleSubmit,
     handleRowDblclick,
     handleEdit,
     handleSizeChange,
+    handlePageChange,
     handleCurrentChange,
     handleSelectionChange
   };

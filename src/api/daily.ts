@@ -82,3 +82,38 @@ export const editContract = (data?: object) => {
     data
   });
 };
+
+// 获取费用申请列表
+export const appliedFeeList = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("appliedFeeList"), {
+    data
+  });
+};
+
+// 新增费用申请
+export const addAppliedFee = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("addAppliedFee"), {
+    data
+  });
+};
+
+// 删除费用申请
+export const deleteAppliedFee = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("deleteAppliedFee"), {
+    data
+  });
+};
+
+// 编辑费用申请
+export const editAppliedFee = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("editAppliedFee"), {
+    data
+  });
+};
+
+// 提交费用申请
+export const submitAppliedFee = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("submitAppliedFee"), {
+    data
+  });
+};

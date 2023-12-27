@@ -26,14 +26,17 @@ const {
   dataList,
   pagination,
   // buttonClass,
+  exportExcel,
   onSearch,
   resetForm,
   openDialog,
   handleDelete,
   // handleDatabase,
+  handleSubmit,
   handleRowDblclick,
   handleEdit,
   handleSizeChange,
+  handlePageChange,
   handleCurrentChange,
   handleSelectionChange
 } = useRole();
@@ -47,89 +50,73 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="申请日期：" prop="shenqingriqi">
+      <el-form-item label="申请日期：" prop="apply_time">
         <el-input
-          v-model="form.shenqingriqi"
+          v-model="form.apply_time"
           placeholder="请输入申请日期"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="费用编号：" prop="feiyongbianhao">
+      <el-form-item label="费用编号：" prop="fee_no">
         <el-input
-          v-model="form.feiyongbianhao"
+          v-model="form.fee_no"
           placeholder="请输入费用编号"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="费用名称：" prop="feiyongming">
+      <el-form-item label="费用名称：" prop="fee_name">
         <el-input
-          v-model="form.feiyongming"
+          v-model="form.fee_name"
           placeholder="请输入费用名称"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="申请人：" prop="shenqingren">
-        <el-input
-          v-model="form.shenqingren"
-          placeholder="请输入申请人"
-          clearable
-          class="!w-[200px]"
-        />
-      </el-form-item>
-      <el-form-item label="申请单位：" prop="shenqingdanwei">
-        <el-input
-          v-model="form.shenqingdanwei"
-          placeholder="请输入申请单位"
-          clearable
-          class="!w-[200px]"
-        />
-      </el-form-item>
-      <el-form-item label="收/付：" prop="shoufu">
+      <el-form-item label="收/付：" prop="is_pay">
         <el-select
-          v-model="form.shoufu"
+          v-model="form.is_pay"
           placeholder="请选择类型"
           clearable
           class="!w-[180px]"
         >
-          <el-option label="全部" value="0" />
-          <el-option label="收" value="1" />
-          <el-option label="付" value="2" />
+          <el-option label="全部" value="" />
+          <el-option label="收" value="收" />
+          <el-option label="付" value="付" />
         </el-select>
       </el-form-item>
-      <el-form-item label="支付类型：" prop="zhifuleixing">
+      <el-form-item label="支付类型：" prop="pay_type">
         <el-select
-          v-model="form.zhifuleixing"
+          v-model="form.pay_type"
           placeholder="请选择类型"
           clearable
           class="!w-[180px]"
         >
-          <el-option label="全部" value="0" />
-          <el-option label="转账" value="1" />
-          <el-option label="现金" value="2" />
-          <el-option label="支票" value="3" />
-          <el-option label="结算卡" value="4" />
-          <el-option label="银行" value="5" />
-          <el-option label="汇票" value="6" />
+          <el-option label="全部" value="" />
+          <el-option label="转账" value="转账" />
+          <el-option label="现金" value="现金" />
+          <el-option label="支票" value="支票" />
+          <el-option label="结算卡" value="结算卡" />
+          <el-option label="银行" value="银行" />
+          <el-option label="汇票" value="汇票" />
         </el-select>
       </el-form-item>
-      <el-form-item label="状态：" prop="zhuangtai">
+      <el-form-item label="状态：" prop="status">
         <el-select
-          v-model="form.zhuangtai"
+          v-model="form.status"
           placeholder="请选择状态"
           clearable
           class="!w-[180px]"
         >
-          <el-option label="全部" value="0" />
-          <el-option label="未提交" value="1" />
-          <el-option label="已提交" value="2" />
-          <el-option label="已撤销" value="3" />
-          <el-option label="通过审核" value="4" />
-          <el-option label="未通过审核" value="5" />
-          <el-option label="通过审批" value="6" />
-          <el-option label="已记账" value="6" />
+          <el-option label="全部" value="" />
+          <el-option label="未提交" value="未提交" />
+          <el-option label="已提交" value="已提交" />
+          <el-option label="已撤销" value="已撤销" />
+          <el-option label="通过审核" value="通过审核" />
+          <el-option label="未通过审核" value="未通过审核" />
+          <el-option label="通过审批" value="通过审批" />
+          <el-option label="已记账" value="已记账" />
         </el-select>
       </el-form-item>
     </el-form>
@@ -143,7 +130,7 @@ const {
         <el-button
           type="primary"
           :icon="useRenderIcon(AddFill)"
-          @click="openDialog()"
+          @click="openDialog('新增')"
         >
           申请费用
         </el-button>
@@ -158,7 +145,8 @@ const {
         <el-button
           type="success"
           :icon="useRenderIcon(EditPen)"
-          @click="resetForm(formRef)"
+          @click="handleSubmit()"
+          :disabled="haveRow"
         >
           提交
         </el-button>
@@ -166,6 +154,7 @@ const {
           type="danger"
           :icon="useRenderIcon(EditPen)"
           @click="resetForm(formRef)"
+          :disabled="haveRow"
         >
           撤销
         </el-button>
@@ -175,10 +164,10 @@ const {
         <el-button :icon="useRenderIcon(EditPen)" @click="resetForm(formRef)">
           打印报销单
         </el-button>
-        <el-button :icon="useRenderIcon(Upload)" @click="resetForm(formRef)">
+        <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
           导出费用
         </el-button>
-        <el-button :icon="useRenderIcon(Upload)" @click="resetForm(formRef)">
+        <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
           导出列表
         </el-button>
         <el-button
@@ -200,11 +189,7 @@ const {
       </el-form-item>
     </el-form>
 
-    <PureTableBar
-      title="费用申请管理（测试用，操作后不生效）"
-      :columns="columns"
-      @refresh="onSearch"
-    >
+    <PureTableBar title="费用申请管理" :columns="columns" @refresh="onSearch">
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border
@@ -226,6 +211,7 @@ const {
           @selection-change="handleSelectionChange"
           @row-dblclick="handleRowDblclick"
           @page-size-change="handleSizeChange"
+          @page-current-change="handlePageChange"
           @current-change="handleCurrentChange"
         />
       </template>
