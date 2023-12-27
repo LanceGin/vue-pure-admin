@@ -76,6 +76,14 @@ export default {
       }
     },
     {
+      path: "/operation/container_done",
+      name: "ContainerDone",
+      component: () => import("@/views/operation/container-done/index.vue"),
+      meta: {
+        title: "单据查看"
+      }
+    },
+    {
       path: "/operation/pick_box",
       name: "PickBox",
       component: () => import("@/views/operation/pickbox/index.vue"),
