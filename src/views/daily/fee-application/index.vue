@@ -50,12 +50,13 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="申请日期：" prop="apply_time">
-        <el-input
+      <el-form-item label="申请日期" prop="apply_time">
+        <el-date-picker
           v-model="form.apply_time"
+          type="date"
           placeholder="请输入申请日期"
-          clearable
-          class="!w-[200px]"
+          format="YYYY/MM/DD"
+          value-format="YYYY-MM-DD"
         />
       </el-form-item>
       <el-form-item label="费用编号：" prop="fee_no">
