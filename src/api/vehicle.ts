@@ -178,3 +178,31 @@ export const editVehicleRefuel = (data?: object) => {
     data
   });
 };
+
+// 获取车辆费用列表
+export const vehicleFeeList = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("vehicleFeeList"), {
+    data
+  });
+};
+
+// 新增车辆费用
+export const addVehicleFee = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("addVehicleFee"), {
+    data
+  });
+};
+
+// 删除车辆费用
+export const deleteVehicleFee = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("deleteVehicleFee"), {
+    data
+  });
+};
+
+// 编辑车辆费用
+export const editVehicleFee = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("editVehicleFee"), {
+    data
+  });
+};

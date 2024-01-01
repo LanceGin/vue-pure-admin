@@ -1,20 +1,22 @@
 // 虽然字段很少 但是抽离出来 后续有扩展字段需求就很方便了
 
 interface FormItemProps {
-  riqi: string;
-  siji: string;
-  suoshugongsi: string;
-  chetouhao: string;
-  cheguahao: string;
-  cheliangfeiyong: string;
-  zhuangtaineirong: string;
-  shuliang: string;
-  jine: string;
-  fentanyuefen: string;
-  shijijine: string;
-  jiesuanqueren: string;
-  fujian: string;
-  beizhu: string;
+  id: string;
+  add_time: string;
+  driver: string;
+  company: string;
+  car_no: string;
+  hang_board_no: string;
+  car_fees: string;
+  content: string;
+  quantity: string;
+  amount: string;
+  allocation_month: string;
+  actual_amount: string;
+  settlement_confirm: string;
+  annex_url: string;
+  remark: string;
+  add_by: string;
 }
 interface FormProps {
   formInline: FormItemProps;

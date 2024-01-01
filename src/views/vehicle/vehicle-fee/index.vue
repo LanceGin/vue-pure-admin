@@ -26,6 +26,7 @@ const {
   dataList,
   pagination,
   // buttonClass,
+  exportExcel,
   onSearch,
   resetForm,
   openDialog,
@@ -34,6 +35,7 @@ const {
   handleRowDblclick,
   handleEdit,
   handleSizeChange,
+  handlePageChange,
   handleCurrentChange,
   handleSelectionChange
 } = useRole();
@@ -47,49 +49,50 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="日期：" prop="riqi">
-        <el-input
-          v-model="form.riqi"
+      <el-form-item label="日期" prop="add_time">
+        <el-date-picker
+          v-model="form.add_time"
+          type="date"
           placeholder="请输入日期"
-          clearable
-          class="!w-[200px]"
+          format="YYYY/MM/DD"
+          value-format="YYYY-MM-DD"
         />
       </el-form-item>
-      <el-form-item label="所属公司：" prop="suoshugongsi">
+      <el-form-item label="所属公司：" prop="company">
         <el-input
-          v-model="form.suoshugongsi"
+          v-model="form.company"
           placeholder="请输入所属公司"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="车头号：" prop="chetouhao">
+      <el-form-item label="车头号：" prop="car_no">
         <el-input
-          v-model="form.chetouhao"
+          v-model="form.car_no"
           placeholder="请输入车头号"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="车挂号：" prop="cheguahao">
+      <el-form-item label="车挂号：" prop="hang_board_no">
         <el-input
-          v-model="form.cheguahao"
+          v-model="form.hang_board_no"
           placeholder="请输入车挂号"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="车辆费用：" prop="cheliangfeiyong">
+      <el-form-item label="车辆费用：" prop="car_fees">
         <el-input
-          v-model="form.cheliangfeiyong"
+          v-model="form.car_fees"
           placeholder="请输入车辆费用"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="状态变化内容：" prop="zhuangtaineirong">
+      <el-form-item label="状态变化内容：" prop="content">
         <el-input
-          v-model="form.zhuangtaineirong"
+          v-model="form.content"
           placeholder="请输入状态变化内容"
           clearable
           class="!w-[200px]"
@@ -114,14 +117,14 @@ const {
         <el-button
           type="primary"
           :icon="useRenderIcon(AddFill)"
-          @click="openDialog()"
+          @click="openDialog('新增')"
         >
           添加费用
         </el-button>
         <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
           导入
         </el-button>
-        <el-button :icon="useRenderIcon(Upload)" @click="resetForm(formRef)">
+        <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
           导出
         </el-button>
         <el-button
@@ -151,11 +154,7 @@ const {
       </el-form-item>
     </el-form>
 
-    <PureTableBar
-      title="车辆费用管理（测试用，操作后不生效）"
-      :columns="columns"
-      @refresh="onSearch"
-    >
+    <PureTableBar title="车辆费用管理" :columns="columns" @refresh="onSearch">
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border
@@ -177,6 +176,7 @@ const {
           @selection-change="handleSelectionChange"
           @row-dblclick="handleRowDblclick"
           @page-size-change="handleSizeChange"
+          @page-current-change="handlePageChange"
           @current-change="handleCurrentChange"
         />
       </template>
