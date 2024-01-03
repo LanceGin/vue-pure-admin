@@ -114,11 +114,7 @@ const {
       </el-form-item>
     </el-form>
 
-    <PureTableBar
-      title="应付报表管理（测试用，操作后不生效）"
-      :columns="columns"
-      @refresh="onSearch"
-    >
+    <PureTableBar title="应付报表管理" :columns="columns" @refresh="onSearch">
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border

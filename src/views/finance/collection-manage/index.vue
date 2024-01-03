@@ -10,8 +10,8 @@ import { useRenderIcon } from "../../../components/ReIcon/src/hooks";
 import EditPen from "@iconify-icons/ep/edit-pen";
 import Search from "@iconify-icons/ep/search";
 import Upload from "@iconify-icons/ep/upload";
-import Download from "@iconify-icons/ep/download";
-import AddFill from "@iconify-icons/ri/add-circle-line";
+// import Download from "@iconify-icons/ep/download";
+// import AddFill from "@iconify-icons/ri/add-circle-line";
 
 defineOptions({
   name: "Role"
@@ -105,27 +105,13 @@ const {
         >
           搜索
         </el-button>
-        <el-button
-          type="primary"
-          :icon="useRenderIcon(AddFill)"
-          @click="openDialog()"
-        >
-          添加应收记录
-        </el-button>
-        <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
-          导入
-        </el-button>
         <el-button :icon="useRenderIcon(Upload)" @click="resetForm(formRef)">
           导出
         </el-button>
       </el-form-item>
     </el-form>
 
-    <PureTableBar
-      title="应收管理（测试用，操作后不生效）"
-      :columns="columns"
-      @refresh="onSearch"
-    >
+    <PureTableBar title="应收管理" :columns="columns" @refresh="onSearch">
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border

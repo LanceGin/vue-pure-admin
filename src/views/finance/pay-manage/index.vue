@@ -10,8 +10,8 @@ import Delete from "@iconify-icons/ep/delete";
 import EditPen from "@iconify-icons/ep/edit-pen";
 import Search from "@iconify-icons/ep/search";
 import Upload from "@iconify-icons/ep/upload";
-import Download from "@iconify-icons/ep/download";
-import AddFill from "@iconify-icons/ri/add-circle-line";
+// import Download from "@iconify-icons/ep/download";
+// import AddFill from "@iconify-icons/ri/add-circle-line";
 
 defineOptions({
   name: "Role"
@@ -28,7 +28,7 @@ const {
   // buttonClass,
   onSearch,
   resetForm,
-  openDialog,
+  // openDialog,
   handleDelete,
   // handleDatabase,
   handleRowDblclick,
@@ -109,16 +109,6 @@ const {
         >
           搜索
         </el-button>
-        <el-button
-          type="primary"
-          :icon="useRenderIcon(AddFill)"
-          @click="openDialog()"
-        >
-          添加应付记录
-        </el-button>
-        <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
-          导入
-        </el-button>
         <el-button :icon="useRenderIcon(Upload)" @click="resetForm(formRef)">
           导出
         </el-button>
@@ -128,7 +118,7 @@ const {
           @click="handleEdit()"
           :disabled="haveRow"
         >
-          修改
+          修改?
         </el-button>
         <el-button
           type="danger"
@@ -136,16 +126,12 @@ const {
           @click="handleDelete()"
           :disabled="haveRow"
         >
-          删除
+          删除?
         </el-button>
       </el-form-item>
     </el-form>
 
-    <PureTableBar
-      title="应付管理（测试用，操作后不生效）"
-      :columns="columns"
-      @refresh="onSearch"
-    >
+    <PureTableBar title="应付管理" :columns="columns" @refresh="onSearch">
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border

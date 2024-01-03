@@ -1,33 +1,31 @@
-// import dayjs from "dayjs";
+import dayjs from "dayjs";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
-import { getRoleList } from "@/api/system";
 // import { ElMessageBox } from "element-plus";
-import { tableData } from "./data";
 // import { usePublicHooks } from "../../hooks";
 import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
-import { reactive, ref, onMounted, h, toRaw } from "vue";
+import { reactive, ref, onMounted, h } from "vue";
+import { financeCheckList } from "@/api/finance";
 
 export function useRole() {
   const form = reactive({
-    zhangqi: "",
-    gongyingshang: "",
-    jiesuandanwei: "",
-    xiangmu: "",
-    fuwu: "",
+    id: "",
+    type: "应付",
+    status: "未审核",
+    account_period: "",
+    custom_name: "",
+    project_name: "",
+    flow_direction: "",
+    content: "",
+    amount: "",
+    total: "",
     f: "",
-    t: "",
-    xiangliang: "",
-    jiesuan: "",
-    kouchu: "",
-    zengjia: "",
-    shifu: "",
-    beizhu: ""
+    t: ""
   });
   const formRef = ref();
-  let dataList = tableData;
+  const dataList = ref([]);
   const loading = ref(true);
   // const switchLoadMap = ref({});
   // const { tagStyle } = usePublicHooks();
@@ -40,23 +38,25 @@ export function useRole() {
   const columns: TableColumnList = [
     {
       label: "账期",
-      prop: "zhangqi"
+      prop: "account_period",
+      formatter: ({ account_period }) =>
+        dayjs(account_period).format("YYYY-MM-DD")
     },
     {
       label: "供应商",
-      prop: "gongyingshang"
+      prop: "custom_name"
     },
     {
       label: "结算单位",
-      prop: "jiesuandanwei"
+      prop: "project_name"
     },
     {
-      label: "项目",
-      prop: "xiangmu"
+      label: "流向",
+      prop: "flow_direction"
     },
     {
       label: "服务内容",
-      prop: "fuwu"
+      prop: "content"
     },
     {
       label: "40",
@@ -68,11 +68,11 @@ export function useRole() {
     },
     {
       label: "箱量合计",
-      prop: "xiangliang"
+      prop: "total"
     },
     {
       label: "应收金额",
-      prop: "yingshou"
+      prop: "amount"
     },
     {
       label: "审核",
@@ -81,57 +81,6 @@ export function useRole() {
       slot: "operation"
     }
   ];
-  // const buttonClass = computed(() => {
-  //   return [
-  //     "!h-[20px]",
-  //     "reset-margin",
-  //     "!text-gray-500",
-  //     "dark:!text-white",
-  //     "dark:hover:!text-primary"
-  //   ];
-  // });
-
-  // function onChange({ row, index }) {
-  //   ElMessageBox.confirm(
-  //     `确认要<strong>${
-  //       row.status === 0 ? "停用" : "启用"
-  //     }</strong><strong style='color:var(--el-color-primary)'>${
-  //       row.name
-  //     }</strong>吗?`,
-  //     "系统提示",
-  //     {
-  //       confirmButtonText: "确定",
-  //       cancelButtonText: "取消",
-  //       type: "warning",
-  //       dangerouslyUseHTMLString: true,
-  //       draggable: true
-  //     }
-  //   )
-  //     .then(() => {
-  //       switchLoadMap.value[index] = Object.assign(
-  //         {},
-  //         switchLoadMap.value[index],
-  //         {
-  //           loading: true
-  //         }
-  //       );
-  //       setTimeout(() => {
-  //         switchLoadMap.value[index] = Object.assign(
-  //           {},
-  //           switchLoadMap.value[index],
-  //           {
-  //             loading: false
-  //           }
-  //         );
-  //         message(`已${row.status === 0 ? "停用" : "启用"}${row.name}`, {
-  //           type: "success"
-  //         });
-  //       }, 300);
-  //     })
-  //     .catch(() => {
-  //       row.status === 0 ? (row.status = 1) : (row.status = 0);
-  //     });
-  // }
 
   function handleDelete(row) {
     message(`您删除了角色名称为${row.name}的这条数据`, { type: "success" });
@@ -152,8 +101,11 @@ export function useRole() {
 
   async function onSearch() {
     loading.value = true;
-    const { data } = await getRoleList(toRaw(form));
-    dataList = data.list;
+    const { data } = await financeCheckList({
+      pagination,
+      form
+    });
+    dataList.value = data.list;
     pagination.total = data.total;
     pagination.pageSize = data.pageSize;
     pagination.currentPage = data.currentPage;
@@ -174,18 +126,18 @@ export function useRole() {
       title: `${title}驾驶员`,
       props: {
         formInline: {
-          zhangqi: row?.zhangqi ?? "",
-          gongyingshang: row?.gongyingshang ?? "",
-          jiesuandanwei: row?.jiesuandanwei ?? "",
-          fuwu: row?.fuwu ?? "",
+          id: row?.id ?? "",
+          type: row?.type ?? "应收",
+          status: row?.status ?? "未审核",
+          account_period: row?.account_period ?? "",
+          custom_name: row?.custom_name ?? "",
+          project_name: row?.project_name ?? "",
+          flow_direction: row?.flow_direction ?? "",
+          content: row?.content ?? "",
+          amount: row?.amount ?? "",
+          total: row?.total ?? "",
           f: row?.f ?? "",
-          t: row?.t ?? "",
-          xiangliang: row?.xiangliang ?? "",
-          jiesuan: row?.jiesuan ?? "",
-          kouchu: row?.kouchu ?? "",
-          zengjia: row?.zengjia ?? "",
-          shifu: row?.shifu ?? "",
-          beizhu: row?.beizhu ?? ""
+          t: row?.t ?? ""
         }
       },
       width: "40%",
@@ -197,7 +149,7 @@ export function useRole() {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
         function chores() {
-          message(`您${title}了供应商名称为${curData.fuwu}的这条数据`, {
+          message(`您${title}了供应商名称为${curData.custom_name}的这条数据`, {
             type: "success"
           });
           done(); // 关闭弹框

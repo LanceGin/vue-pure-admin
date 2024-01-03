@@ -44,37 +44,35 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="供应商：" prop="gongyingshang">
+      <el-form-item label="供应商：" prop="custom_name">
         <el-input
-          v-model="form.gongyingshang"
+          v-model="form.custom_name"
           placeholder="请输入供应商名"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-
-      <el-form-item label="结算单位：" prop="jiesuandanwei">
+      <el-form-item label="结算单位：" prop="project_name">
         <el-input
-          v-model="form.jiesuandanwei"
+          v-model="form.project_name"
           placeholder="请输入结算单位"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-
-      <el-form-item label="账期：" prop="zhangqi">
-        <el-input
-          v-model="form.zhangqi"
+      <el-form-item label="账期" prop="account_period">
+        <el-date-picker
+          v-model="form.account_period"
+          type="date"
           placeholder="请输入账期"
-          clearable
-          class="!w-[200px]"
+          format="YYYY/MM/DD"
+          value-format="YYYY-MM-DD"
         />
       </el-form-item>
-
-      <el-form-item label="项目：" prop="xiangmu">
+      <el-form-item label="流向：" prop="flow_direction">
         <el-input
-          v-model="form.xiangmu"
-          placeholder="请输入项目"
+          v-model="form.flow_direction"
+          placeholder="请输入流向"
           clearable
           class="!w-[200px]"
         />
@@ -97,11 +95,7 @@ const {
       </el-form-item>
     </el-form>
 
-    <PureTableBar
-      title="应付费用列表（测试用，操作后不生效）"
-      :columns="columns"
-      @refresh="onSearch"
-    >
+    <PureTableBar title="应付费用列表" :columns="columns" @refresh="onSearch">
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border

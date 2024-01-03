@@ -74,3 +74,10 @@ export const generateAbnormalFee = (data?: object) => {
     data
   });
 };
+
+// 费用审核列表
+export const financeCheckList = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("financeCheckList"), {
+    data
+  });
+};
