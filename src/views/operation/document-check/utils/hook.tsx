@@ -16,6 +16,7 @@ import {
   submitDocumentCheck
 } from "@/api/operation";
 import { ElMessage, ElMessageBox } from "element-plus";
+import { generateOrderFee } from "@/api/finance";
 
 export function useRole() {
   const form = reactive({
@@ -309,6 +310,7 @@ export function useRole() {
           select_track_no.push(v.track_no);
         });
         submitDocumentCheck(select_track_no);
+        generateOrderFee(select_track_no);
         onSearch();
       })
       .catch(() => {

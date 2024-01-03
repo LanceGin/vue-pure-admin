@@ -1,50 +1,71 @@
-// import dayjs from "dayjs";
+import dayjs from "dayjs";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
-import { getRoleList } from "@/api/system";
 // import { ElMessageBox } from "element-plus";
-import { tableData } from "./data";
 // import { usePublicHooks } from "../../hooks";
 import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
-import { reactive, ref, onMounted, h, toRaw } from "vue";
+import { reactive, ref, onMounted, h } from "vue";
+import {
+  containerFeeList,
+  setAmount,
+  setInvoiceNo,
+  setRemark,
+  submitContainerFee
+} from "@/api/statics";
+import { ElMessage, ElMessageBox } from "element-plus";
 
 export function useRole() {
   const form = reactive({
-    zhuangtai: "",
-    zhangqi: "",
-    feiyongmc: "",
-    jine: "",
-    zuoxiangshijian: "",
-    kehu: "",
-    qishigang: "",
-    mudigang: "",
-    matou: "",
-    chuangongsi: "",
-    chuanming: "",
-    xiangfenghao: "",
-    xianghao: "",
-    yundanhao: "",
-    xiangxing: "",
-    danjuleibie: "",
-    mendian: "",
-    yewu: "",
-    wanglaidanwei: "",
-    cheliang: "",
-    beizhu: "",
-    fapiaohao: "",
-    chedui: "",
-    jiesuanhao: "",
-    jihuahao: "",
-    lururen: "",
-    lurushijian: "",
-    feiyongleixing: "",
-    huidanbeizhu: ""
+    id: "",
+    status: "",
+    type: "应收",
+    account_period: "",
+    fee_name: "",
+    amount: "",
+    fee_type: "",
+    remark: "",
+    order_status: "",
+    order_type: "",
+    ship_company: "",
+    customer: "",
+    subproject: "",
+    arrive_time: "",
+    start_port: "",
+    target_port: "",
+    containner_no: "",
+    seal_no: "",
+    container_type: "",
+    ship_name: "",
+    track_no: "",
+    unload_port: "",
+    door: "",
+    make_time: "",
+    load_port: "",
+    count: "",
+    transfer_port: "",
+    package_count: "",
+    gross_weight: "",
+    volume: "",
+    container_weight: "",
+    container_status: "",
+    order_time: "",
+    order_fee: "",
+    car_no: "",
+    add_by: "",
+    add_time: "",
+    project_name: "",
+    custom_name: "",
+    flow_direction: "",
+    content: "",
+    invoice_no: ""
   });
   const formRef = ref();
+  const selectRows = ref([]);
   const multipleSelection = ref([]);
-  let dataList = tableData;
+  const haveRow = ref(true);
+  const dataList = ref([]);
   const loading = ref(true);
   // const switchLoadMap = ref({});
   // const { tagStyle } = usePublicHooks();
@@ -61,119 +82,109 @@ export function useRole() {
     },
     {
       label: "状态",
-      prop: "zhuangtai"
+      prop: "status"
     },
     {
       label: "账期",
-      prop: "zhangqi"
+      prop: "account_period",
+      formatter: ({ account_period }) =>
+        dayjs(account_period).format("YYYY-MM-DD")
     },
     {
       label: "费用名称",
-      prop: "feiyongmc"
+      prop: "fee_name"
     },
     {
       label: "金额",
-      prop: "jine"
+      prop: "amount"
+    },
+    {
+      label: "客户名",
+      prop: "custom_name"
+    },
+    {
+      label: "项目名",
+      prop: "project_name"
+    },
+    {
+      label: "流向",
+      prop: "flow_direction"
+    },
+    {
+      label: "服务内容",
+      prop: "content"
     },
     {
       label: "做箱时间",
-      prop: "zuoxiangshijian"
+      prop: "make_time"
     },
     {
       label: "客户简称",
-      prop: "kehu"
+      prop: "customer"
     },
     {
       label: "起始港",
-      prop: "qishigang"
+      prop: "start_port"
     },
     {
       label: "目的港",
-      prop: "mudigang"
+      prop: "target_port"
     },
     {
       label: "码头",
-      prop: "matou"
+      prop: "load_port"
     },
     {
       label: "船公司",
-      prop: "chuangongsi"
+      prop: "ship_company"
     },
     {
       label: "船名航次",
-      prop: "chuanming"
+      prop: "ship_name"
     },
     {
       label: "箱封号",
-      prop: "xiangfenghao"
+      prop: "seal_no"
     },
     {
       label: "箱号",
-      prop: "xianghao"
+      prop: "containner_no"
     },
     {
       label: "运单号",
-      prop: "yundanhao"
+      prop: "track_no"
     },
     {
       label: "箱型",
-      prop: "xiangxing"
-    },
-    {
-      label: "单据类别",
-      prop: "danjuleibie"
+      prop: "container_type"
     },
     {
       label: "门点",
-      prop: "mendian"
-    },
-    {
-      label: "业务名称",
-      prop: "yewu"
-    },
-    {
-      label: "往来单位",
-      prop: "wanglaidanwei"
+      prop: "door"
     },
     {
       label: "车辆",
-      prop: "cheliang"
+      prop: "car_no"
     },
     {
       label: "备注",
-      prop: "beizhu"
+      prop: "remark"
     },
     {
       label: "发票号",
-      prop: "fapiaohao"
-    },
-    {
-      label: "车队",
-      prop: "chedui"
-    },
-    {
-      label: "结算票据号",
-      prop: "jiesuanhao"
-    },
-    {
-      label: "计划号",
-      prop: "jihuahao"
+      prop: "invoice_no"
     },
     {
       label: "录入人",
-      prop: "lururen"
+      prop: "add_by"
     },
     {
       label: "录入时间",
-      prop: "lurushijian"
+      prop: "add_time"
     },
     {
       label: "费用类型",
-      prop: "feiyongleixing"
-    },
-    {
-      label: "回单备注",
-      prop: "huidanbeizhu"
+      prop: "fee_type"
     }
   ];
 
@@ -192,12 +203,21 @@ export function useRole() {
 
   function handleSelectionChange(val) {
     multipleSelection.value = val;
+    selectRows.value = val;
+    if (selectRows.value.length > 0) {
+      haveRow.value = false;
+    } else {
+      haveRow.value = true;
+    }
   }
 
   async function onSearch() {
     loading.value = true;
-    const { data } = await getRoleList(toRaw(form));
-    dataList = data.list;
+    const { data } = await containerFeeList({
+      pagination,
+      form
+    });
+    dataList.value = data.list;
     pagination.total = data.total;
     pagination.pageSize = data.pageSize;
     pagination.currentPage = data.currentPage;
@@ -218,35 +238,47 @@ export function useRole() {
       title: `${title}费用`,
       props: {
         formInline: {
-          zhuangtai: row?.zhuangtai ?? "",
-          zhangqi: row?.zhangqi ?? "",
-          feiyongmc: row?.feiyongmc ?? "",
-          jine: row?.jine ?? "",
-          zuoxiangshijian: row?.zuoxiangshijian ?? "",
-          kehu: row?.kehu ?? "",
-          qishigang: row?.qishigang ?? "",
-          mudigang: row?.mudigang ?? "",
-          matou: row?.matou ?? "",
-          chuangongsi: row?.chuangongsi ?? "",
-          chuanming: row?.chuanming ?? "",
-          xiangfenghao: row?.xiangfenghao ?? "",
-          xianghao: row?.xianghao ?? "",
-          yundanhao: row?.yundanhao ?? "",
-          xiangxing: row?.xiangxing ?? "",
-          danjuleibie: row?.danjuleibie ?? "",
-          mendian: row?.mendian ?? "",
-          yewu: row?.yewu ?? "",
-          wanglaidanwei: row?.wanglaidanwei ?? "",
-          cheliang: row?.cheliang ?? "",
-          beizhu: row?.beizhu ?? "",
-          fapiaohao: row?.fapiaohao ?? "",
-          chedui: row?.chedui ?? "",
-          jiesuanhao: row?.jiesuanhao ?? "",
-          jihuahao: row?.jihuahao ?? "",
-          lururen: row?.lururen ?? "",
-          lurushijian: row?.lurushijian ?? "",
-          feiyongleixing: row?.feiyongleixing ?? "",
-          huidanbeizhu: row?.huidanbeizhu ?? ""
+          id: row?.id ?? "",
+          status: row?.status ?? "",
+          type: row?.type ?? "应收",
+          account_period: row?.account_period ?? "",
+          fee_name: row?.fee_name ?? "",
+          amount: row?.amount ?? "",
+          fee_type: row?.fee_type ?? "",
+          remark: row?.remark ?? "",
+          order_status: row?.order_status ?? "",
+          order_type: row?.order_type ?? "",
+          ship_company: row?.ship_company ?? "",
+          customer: row?.customer ?? "",
+          subproject: row?.subproject ?? "",
+          arrive_time: row?.arrive_time ?? "",
+          start_port: row?.start_port ?? "",
+          target_port: row?.target_port ?? "",
+          containner_no: row?.containner_no ?? "",
+          seal_no: row?.seal_no ?? "",
+          container_type: row?.container_type ?? "",
+          ship_name: row?.ship_name ?? "",
+          track_no: row?.track_no ?? "",
+          unload_port: row?.unload_port ?? "",
+          door: row?.door ?? "",
+          make_time: row?.make_time ?? "",
+          load_port: row?.load_port ?? "",
+          count: row?.count ?? "",
+          transfer_port: row?.transfer_port ?? "",
+          package_count: row?.package_count ?? "",
+          gross_weight: row?.gross_weight ?? "",
+          volume: row?.volume ?? "",
+          container_weight: row?.container_weight ?? "",
+          container_status: row?.container_status ?? "",
+          order_time: row?.order_time ?? "",
+          order_fee: row?.order_fee ?? "",
+          car_no: row?.car_no ?? "",
+          add_by: row?.add_by ?? "",
+          add_time: row?.add_time ?? "",
+          project_name: row?.project_name ?? "",
+          custom_name: row?.custom_name ?? "",
+          flow_direction: row?.flow_direction ?? "",
+          content: row?.content ?? ""
         }
       },
       width: "40%",
@@ -258,7 +290,7 @@ export function useRole() {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
         function chores() {
-          message(`您${title}了费用名为${curData.feiyongmc}的这条数据`, {
+          message(`您${title}了费用名为${curData.fee_name}的这条数据`, {
             type: "success"
           });
           done(); // 关闭弹框
@@ -268,8 +300,9 @@ export function useRole() {
           if (valid) {
             console.log("curData", curData);
             // 表单规则校验通过
-            if (title === "新增") {
+            if (title === "提交") {
               // 实际开发先调用新增接口，再进行下面操作
+              handleSubmit(curData);
               chores();
             } else {
               // 实际开发先调用编辑接口，再进行下面操作
@@ -279,6 +312,94 @@ export function useRole() {
         });
       }
     });
+  }
+
+  // 提交统计费用
+  async function handleSubmit(curData) {
+    const data = {
+      select_id: [],
+      data: curData
+    };
+    selectRows.value.forEach(v => {
+      data.select_id.push(v.fee_id);
+    });
+    submitContainerFee(data);
+    onSearch();
+  }
+
+  // 批量设置发票号
+  async function handleSetInvoiceNo() {
+    ElMessageBox.prompt("请输入发票号", "批量设置发票号", {
+      confirmButtonText: "确认",
+      cancelButtonText: "取消"
+    })
+      .then(invoice_no => {
+        const data = {
+          select_id: [],
+          invoice_no: invoice_no
+        };
+        selectRows.value.forEach(v => {
+          data.select_id.push(v.fee_id);
+        });
+        setInvoiceNo(data);
+        onSearch();
+      })
+      .catch(() => {
+        ElMessage({
+          type: "info",
+          message: "取消设置发票号"
+        });
+      });
+  }
+
+  // 批量修改金额
+  async function handleSetAmount() {
+    ElMessageBox.prompt("请输入金额", "批量设置金额", {
+      confirmButtonText: "确认",
+      cancelButtonText: "取消"
+    })
+      .then(amount => {
+        const data = {
+          select_id: [],
+          amount: amount
+        };
+        selectRows.value.forEach(v => {
+          data.select_id.push(v.fee_id);
+        });
+        setAmount(data);
+        onSearch();
+      })
+      .catch(() => {
+        ElMessage({
+          type: "info",
+          message: "取消设置金额"
+        });
+      });
+  }
+
+  // 批量修改备注
+  async function handleSetRemark() {
+    ElMessageBox.prompt("请输入备注", "批量设置备注", {
+      confirmButtonText: "确认",
+      cancelButtonText: "取消"
+    })
+      .then(remark => {
+        const data = {
+          select_id: [],
+          remark: remark
+        };
+        selectRows.value.forEach(v => {
+          data.select_id.push(v.fee_id);
+        });
+        setRemark(data);
+        onSearch();
+      })
+      .catch(() => {
+        ElMessage({
+          type: "info",
+          message: "取消设置备注"
+        });
+      });
   }
 
   /** 菜单权限 */
@@ -296,6 +417,7 @@ export function useRole() {
   return {
     form,
     loading,
+    haveRow,
     columns,
     dataList,
     pagination,
@@ -308,6 +430,9 @@ export function useRole() {
     // handleDatabase,
     handleSizeChange,
     handleCurrentChange,
-    handleSelectionChange
+    handleSelectionChange,
+    handleSetInvoiceNo,
+    handleSetAmount,
+    handleSetRemark
   };
 }

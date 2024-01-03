@@ -7,7 +7,6 @@ import { baseUrlApi } from "./utils";
 export type ListResult = {
   success: boolean;
   data?: {
-    remain_oil: number;
     /** 列表数据 */
     list: Array<any>;
     /** 总条目数 */
@@ -37,6 +36,41 @@ export const keepAppliedFee = (data?: object) => {
 // 费用撤销记账
 export const cancelKeepAppliedFee = (data?: object) => {
   return http.request<ListResult>("post", baseUrlApi("cancelKeepAppliedFee"), {
+    data
+  });
+};
+
+// 生成打单费
+export const generateOrderFee = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("generateOrderFee"), {
+    data
+  });
+};
+
+// 生成码头计划费
+export const generatePlanningFee = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("generatePlanningFee"), {
+    data
+  });
+};
+
+// 生成堆存费
+export const generateStorageFee = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("generateStorageFee"), {
+    data
+  });
+};
+
+// 生成拖车费
+export const generateDispatchFee = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("generateDispatchFee"), {
+    data
+  });
+};
+
+// 生成异常费
+export const generateAbnormalFee = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("generateAbnormalFee"), {
     data
   });
 };
