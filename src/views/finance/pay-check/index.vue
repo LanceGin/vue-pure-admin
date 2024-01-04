@@ -10,7 +10,7 @@ import { useRenderIcon } from "../../../components/ReIcon/src/hooks";
 import EditPen from "@iconify-icons/ep/edit-pen";
 import Search from "@iconify-icons/ep/search";
 import Upload from "@iconify-icons/ep/upload";
-import Download from "@iconify-icons/ep/download";
+// import Download from "@iconify-icons/ep/download";
 // import AddFill from "@iconify-icons/ri/add-circle-line";
 
 defineOptions({
@@ -85,9 +85,6 @@ const {
           @click="onSearch"
         >
           搜索
-        </el-button>
-        <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
-          导入
         </el-button>
         <el-button :icon="useRenderIcon(Upload)" @click="resetForm(formRef)">
           导出

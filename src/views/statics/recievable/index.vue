@@ -31,7 +31,7 @@ const {
   handleSizeChange,
   handleCurrentChange,
   handleSelectionChange,
-  handleSetInvoiceNo,
+  // handleSetInvoiceNo,
   handleSetAmount,
   handleSetRemark
 } = useRole();
@@ -129,13 +129,6 @@ const {
           :disabled="haveRow"
         >
           提交
-        </el-button>
-        <el-button
-          :icon="useRenderIcon(EditPen)"
-          @click="handleSetInvoiceNo()"
-          :disabled="haveRow"
-        >
-          设置发票号
         </el-button>
         <el-button
           :icon="useRenderIcon(EditPen)"

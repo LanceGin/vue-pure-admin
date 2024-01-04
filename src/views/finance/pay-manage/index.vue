@@ -6,7 +6,7 @@ import { useRenderIcon } from "../../../components/ReIcon/src/hooks";
 
 // import Database from "@iconify-icons/ri/database-2-line";
 // import More from "@iconify-icons/ep/more-filled";
-import Delete from "@iconify-icons/ep/delete";
+// import Delete from "@iconify-icons/ep/delete";
 import EditPen from "@iconify-icons/ep/edit-pen";
 import Search from "@iconify-icons/ep/search";
 import Upload from "@iconify-icons/ep/upload";
@@ -29,7 +29,7 @@ const {
   onSearch,
   resetForm,
   // openDialog,
-  handleDelete,
+  // handleDelete,
   // handleDatabase,
   handleRowDblclick,
   handleEdit,
@@ -119,14 +119,6 @@ const {
           :disabled="haveRow"
         >
           修改?
-        </el-button>
-        <el-button
-          type="danger"
-          :icon="useRenderIcon(Delete)"
-          @click="handleDelete()"
-          :disabled="haveRow"
-        >
-          删除?
         </el-button>
       </el-form-item>
     </el-form>
