@@ -124,5 +124,12 @@ defineExpose({ getRef });
         placeholder="请输入申请单位"
       />
     </el-form-item>
+    <el-form-item label="备注" prop="remark">
+      <el-input
+        v-model="newFormInline.remark"
+        clearable
+        placeholder="请输入备注"
+      />
+    </el-form-item>
   </el-form>
 </template>

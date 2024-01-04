@@ -9,6 +9,7 @@ import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
 import {
   containerFeeList,
+  // dataCheck,
   setAmount,
   setInvoiceNo,
   setRemark,
@@ -171,10 +172,6 @@ export function useRole() {
       prop: "remark"
     },
     {
-      label: "发票号",
-      prop: "invoice_no"
-    },
-    {
       label: "录入人",
       prop: "add_by"
     },
@@ -314,6 +311,17 @@ export function useRole() {
     });
   }
 
+  // 上传文件批量导入
+  async function uploadExcelDetail(item) {
+    const form = new FormData();
+    form.append("file", item.file);
+    // await dataCheck(form);
+    ElMessage({
+      type: "error",
+      message: "缺少比对逻辑"
+    });
+  }
+
   // 提交统计费用
   async function handleSubmit(curData) {
     const data = {
@@ -427,6 +435,7 @@ export function useRole() {
     openDialog,
     handleMenu,
     handleDelete,
+    uploadExcelDetail,
     // handleDatabase,
     handleSizeChange,
     handleCurrentChange,

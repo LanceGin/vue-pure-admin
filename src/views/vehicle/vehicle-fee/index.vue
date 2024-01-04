@@ -58,10 +58,10 @@ const {
           value-format="YYYY-MM-DD"
         />
       </el-form-item>
-      <el-form-item label="所属公司：" prop="company">
+      <el-form-item label="申请单位：" prop="company">
         <el-input
           v-model="form.company"
-          placeholder="请输入所属公司"
+          placeholder="请输入申请单位"
           clearable
           class="!w-[200px]"
         />
@@ -82,10 +82,10 @@ const {
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="车辆费用：" prop="car_fees">
+      <el-form-item label="费用名称：" prop="car_fees">
         <el-input
           v-model="form.car_fees"
-          placeholder="请输入车辆费用"
+          placeholder="请输入费用名称"
           clearable
           class="!w-[200px]"
         />

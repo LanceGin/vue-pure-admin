@@ -9,12 +9,20 @@ import { useRenderIcon } from "../../../components/ReIcon/src/hooks";
 // import Delete from "@iconify-icons/ep/delete";
 import EditPen from "@iconify-icons/ep/edit-pen";
 import Search from "@iconify-icons/ep/search";
+import {
+  ElMessageBox,
+  UploadInstance,
+  UploadProps,
+  UploadRawFile,
+  genFileId
+} from "element-plus";
 
 defineOptions({
   name: "Role"
 });
 
 const formRef = ref();
+const dialogVisible = ref(false);
 const {
   form,
   loading,
@@ -24,8 +32,8 @@ const {
   pagination,
   // buttonClass,
   onSearch,
-  resetForm,
   openDialog,
+  uploadExcelDetail,
   // handleDelete,
   // handleDatabase,
   handleSizeChange,
@@ -35,6 +43,32 @@ const {
   handleSetAmount,
   handleSetRemark
 } = useRole();
+
+const upload = ref<UploadInstance>();
+
+const handleExceed: UploadProps["onExceed"] = files => {
+  upload.value!.clearFiles();
+  const file = files[0] as UploadRawFile;
+  file.uid = genFileId();
+  upload.value!.handleStart(file);
+};
+
+const submitUpload = () => {
+  upload.value!.submit();
+  dialogVisible.value = false;
+  onSearch();
+};
+
+const handleClose = () => {
+  ElMessageBox.confirm("确定取消数据对比？")
+    .then(() => {
+      // then
+      dialogVisible.value = false;
+    })
+    .catch(() => {
+      // catch error
+    });
+};
 </script>
 
 <template>
@@ -130,11 +164,7 @@ const {
         >
           提交
         </el-button>
-        <el-button
-          :icon="useRenderIcon(EditPen)"
-          @click="resetForm(formRef)"
-          :disabled="true"
-        >
+        <el-button :icon="useRenderIcon(EditPen)" @click="dialogVisible = true">
           数据比对
         </el-button>
         <el-button
@@ -153,6 +183,32 @@ const {
         </el-button>
       </el-form-item>
     </el-form>
+
+    <el-dialog v-model="dialogVisible" title="数据比对" width="30%">
+      <el-upload
+        ref="upload"
+        accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
+        :limit="1"
+        :on-exceed="handleExceed"
+        :auto-upload="false"
+        :http-request="uploadExcelDetail"
+      >
+        <template #trigger>
+          <el-button type="primary">选择文件</el-button>
+        </template>
+        <template #tip>
+          <div class="el-upload__tip text-red">
+            仅限上传1份文件，多次上传覆盖之前文件
+          </div>
+        </template>
+      </el-upload>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="handleClose">取消</el-button>
+          <el-button type="primary" @click="submitUpload"> 比对 </el-button>
+        </span>
+      </template>
+    </el-dialog>
 
     <PureTableBar title="应收费用" :columns="columns" @refresh="onSearch">
       <template v-slot="{ size, dynamicColumns }">

@@ -25,12 +25,14 @@ export function useRole() {
     company: "",
     car_no: "",
     hang_board_no: "",
+    type: "",
     car_fees: "",
     content: "",
     quantity: "",
     amount: "",
     allocation_month: "",
     actual_amount: "",
+    tax_amount: "",
     settlement_confirm: "",
     annex_url: "",
     remark: "",
@@ -60,7 +62,7 @@ export function useRole() {
       prop: "driver"
     },
     {
-      label: "所属公司",
+      label: "申请单位",
       prop: "company"
     },
     {
@@ -72,32 +74,24 @@ export function useRole() {
       prop: "hang_board_no"
     },
     {
-      label: "车辆费用",
+      label: "支付类型",
+      prop: "type"
+    },
+    {
+      label: "费用名称",
       prop: "car_fees"
     },
     {
-      label: "状态变化内容",
-      prop: "content"
-    },
-    {
-      label: "数量（升）",
-      prop: "volume"
-    },
-    {
-      label: "金额（元）",
+      label: "申请金额（元）",
       prop: "amount"
     },
     {
-      label: "分摊月份",
-      prop: "allocation_month"
-    },
-    {
-      label: "实际金额",
+      label: "报销金额",
       prop: "actual_amount"
     },
     {
-      label: "结算确认",
-      prop: "settlement_confirm"
+      label: "税额",
+      prop: "tax_amount"
     },
     {
       label: "附件",
@@ -106,6 +100,10 @@ export function useRole() {
     {
       label: "备注",
       prop: "remark"
+    },
+    {
+      label: "分摊月份",
+      prop: "allocation_month"
     }
   ];
 
@@ -125,7 +123,7 @@ export function useRole() {
     const workSheet = utils.aoa_to_sheet(res);
     const workBook = utils.book_new();
     utils.book_append_sheet(workBook, workSheet, "数据报表");
-    writeFile(workBook, "车辆信息.xlsx");
+    writeFile(workBook, "车辆费用信息.xlsx");
     message("导出成功", {
       type: "success"
     });
@@ -197,12 +195,14 @@ export function useRole() {
           company: row?.company ?? "",
           car_no: row?.car_no ?? "",
           hang_board_no: row?.hang_board_no ?? "",
+          type: row?.type ?? "",
           car_fees: row?.car_fees ?? "",
           content: row?.content ?? "",
           quantity: row?.quantity ?? "",
           amount: row?.amount ?? "",
           allocation_month: row?.allocation_month ?? "",
           actual_amount: row?.actual_amount ?? "",
+          tax_amount: row?.tax_amount ?? "",
           settlement_confirm: row?.settlement_confirm ?? "",
           annex_url: row?.annex_url ?? "",
           remark: row?.remark ?? "",

@@ -11,12 +11,14 @@ const props = withDefaults(defineProps<FormProps>(), {
     company: "",
     car_no: "",
     hang_board_no: "",
+    type: "",
     car_fees: "",
     content: "",
     quantity: "",
     amount: "",
     allocation_month: "",
     actual_amount: "",
+    tax_amount: "",
     settlement_confirm: "",
     annex_url: "",
     remark: "",
@@ -41,15 +43,6 @@ defineExpose({ getRef });
     :rules="formRules"
     label-width="82px"
   >
-    <el-form-item label="日期" prop="add_time">
-      <el-date-picker
-        v-model="newFormInline.add_time"
-        type="date"
-        placeholder="请输入日期"
-        format="YYYY/MM/DD"
-        value-format="YYYY-MM-DD"
-      />
-    </el-form-item>
     <el-form-item label="司机" prop="driver">
       <el-input
         v-model="newFormInline.driver"
@@ -57,11 +50,11 @@ defineExpose({ getRef });
         placeholder="请输入司机"
       />
     </el-form-item>
-    <el-form-item label="所属公司" prop="company">
+    <el-form-item label="申请单位" prop="company">
       <el-input
         v-model="newFormInline.company"
         clearable
-        placeholder="请输入所属公司"
+        placeholder="请输入申请单位"
       />
     </el-form-item>
     <el-form-item label="车头号" prop="car_no">
@@ -78,53 +71,47 @@ defineExpose({ getRef });
         placeholder="请输入车挂号"
       />
     </el-form-item>
-    <el-form-item label="车辆费用" prop="car_fees">
+    <el-form-item label="支付类型" prop="type">
+      <el-select
+        v-model="newFormInline.type"
+        placeholder="请选择支付类型"
+        clearable
+        class="!w-[180px]"
+      >
+        <el-option label="转账" value="转账" />
+        <el-option label="现金" value="现金" />
+        <el-option label="支票" value="支票" />
+        <el-option label="结算卡" value="结算卡" />
+        <el-option label="银行" value="银行" />
+        <el-option label="汇票" value="汇票" />
+      </el-select>
+    </el-form-item>
+    <el-form-item label="费用名称" prop="car_fees">
       <el-input
         v-model="newFormInline.car_fees"
         clearable
-        placeholder="请输入车辆费用"
+        placeholder="请输入费用名称"
       />
     </el-form-item>
-    <el-form-item label="状态变化内容" prop="content">
-      <el-input
-        v-model="newFormInline.content"
-        clearable
-        placeholder="请输入状态变化内容"
-      />
-    </el-form-item>
-    <el-form-item label="数量" prop="quantity">
-      <el-input
-        v-model="newFormInline.quantity"
-        clearable
-        placeholder="请输入数量"
-      />
-    </el-form-item>
-    <el-form-item label="金额" prop="amount">
+    <el-form-item label="申请金额" prop="amount">
       <el-input
         v-model="newFormInline.amount"
         clearable
-        placeholder="请输入金额"
+        placeholder="请输入申请金额"
       />
     </el-form-item>
-    <el-form-item label="分摊月份" prop="allocation_month">
-      <el-input
-        v-model="newFormInline.allocation_month"
-        clearable
-        placeholder="请输入分摊月份"
-      />
-    </el-form-item>
-    <el-form-item label="实际金额" prop="actual_amount">
+    <el-form-item label="报销金额" prop="actual_amount">
       <el-input
         v-model="newFormInline.actual_amount"
         clearable
-        placeholder="请输入实际金额"
+        placeholder="请输入报销金额"
       />
     </el-form-item>
-    <el-form-item label="结算确认" prop="settlement_confirm">
+    <el-form-item label="税额" prop="tax_amount">
       <el-input
-        v-model="newFormInline.settlement_confirm"
+        v-model="newFormInline.tax_amount"
         clearable
-        placeholder="请输入结算确认"
+        placeholder="请输入税额"
       />
     </el-form-item>
     <el-form-item label="备注" prop="remark">
@@ -132,6 +119,13 @@ defineExpose({ getRef });
         v-model="newFormInline.remark"
         clearable
         placeholder="请输入备注"
+      />
+    </el-form-item>
+    <el-form-item label="分摊月份" prop="allocation_month">
+      <el-input
+        v-model="newFormInline.allocation_month"
+        clearable
+        placeholder="请输入分摊月份"
       />
     </el-form-item>
   </el-form>

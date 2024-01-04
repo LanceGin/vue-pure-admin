@@ -66,6 +66,13 @@ export const submitContainerFee = (data?: object) => {
   });
 };
 
+// 数据比对
+export const dataCheck = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("dataCheck"), {
+    data
+  });
+};
+
 // 设置发票号
 export const setInvoiceNo = (data?: object) => {
   return http.request<ChangeResult>("post", baseUrlApi("setInvoiceNo"), {
