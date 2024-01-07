@@ -81,3 +81,38 @@ export const financeCheckList = (data?: object) => {
     data
   });
 };
+
+// 发票列表
+export const invoicetList = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("invoicetList"), {
+    data
+  });
+};
+
+// 新增发票
+export const addInvoice = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("addInvoice"), {
+    data
+  });
+};
+
+// 编辑发票
+export const editInvoice = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("editInvoice"), {
+    data
+  });
+};
+
+// 设置收款日期
+export const setReceiptTime = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("setReceiptTime"), {
+    data
+  });
+};
+
+// 删除发票
+export const deleteInvoice = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("deleteInvoice"), {
+    data
+  });
+};

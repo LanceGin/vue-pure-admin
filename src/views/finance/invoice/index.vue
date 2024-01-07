@@ -26,16 +26,19 @@ const {
   dataList,
   pagination,
   // buttonClass,
+  exportExcel,
   onSearch,
   resetForm,
-  // openDialog,
+  openDialog,
   handleDelete,
   // handleDatabase,
   handleRowDblclick,
   handleEdit,
   handleSizeChange,
+  handlePageChange,
   handleCurrentChange,
-  handleSelectionChange
+  handleSelectionChange,
+  handleReceiptTime
 } = useRole();
 </script>
 
@@ -47,57 +50,58 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="发票代码：" prop="daima">
+      <el-form-item label="发票代码：" prop="code">
         <el-input
-          v-model="form.daima"
+          v-model="form.code"
           placeholder="请输入发票代码"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="发票号码：" prop="haoma">
+      <el-form-item label="发票号码：" prop="no">
         <el-input
-          v-model="form.haoma"
+          v-model="form.no"
           placeholder="请输入发票号码"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="数电票号码：" prop="shudianpiao">
+      <el-form-item label="数电票号码：" prop="digital_ticket_no">
         <el-input
-          v-model="form.shudianpiao"
+          v-model="form.digital_ticket_no"
           placeholder="请输入数电票号码"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="销方识别号：" prop="xiaofangsbh">
+      <el-form-item label="销方识别号：" prop="seller_identification_no">
         <el-input
-          v-model="form.xiaofangsbh"
+          v-model="form.seller_identification_no"
           placeholder="请输入销方识别号"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="购方识别号：" prop="goufangsbh">
+      <el-form-item label="购方识别号：" prop="buyer_identification_no">
         <el-input
-          v-model="form.goufangsbh"
+          v-model="form.buyer_identification_no"
           placeholder="请输入购方识别号"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="开票日期：" prop="kaipiaoriqi">
-        <el-input
-          v-model="form.kaipiaoriqi"
+      <el-form-item label="开票日期" prop="invoice_time">
+        <el-date-picker
+          v-model="form.invoice_time"
+          type="date"
           placeholder="请输入开票日期"
-          clearable
-          class="!w-[200px]"
+          format="YYYY/MM/DD"
+          value-format="YYYY-MM-DD"
         />
       </el-form-item>
-      <el-form-item label="税率：" prop="shuilv">
+      <el-form-item label="税率：" prop="tax_rate">
         <el-input
-          v-model="form.shuilv"
+          v-model="form.tax_rate"
           placeholder="请输入税率"
           clearable
           class="!w-[200px]"
@@ -122,8 +126,23 @@ const {
         <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
           导入
         </el-button>
-        <el-button :icon="useRenderIcon(Upload)" @click="resetForm(formRef)">
+        <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
           导出
+        </el-button>
+        <el-button
+          type="primary"
+          :icon="useRenderIcon(EditPen)"
+          @click="openDialog('新增')"
+        >
+          添加发票
+        </el-button>
+        <el-button
+          type="success"
+          :icon="useRenderIcon(Delete)"
+          @click="handleReceiptTime()"
+          :disabled="haveRow"
+        >
+          批量设置收款日期
         </el-button>
         <el-button
           type="primary"
@@ -144,11 +163,7 @@ const {
       </el-form-item>
     </el-form>
 
-    <PureTableBar
-      title="开票信息管理（测试用，操作后不生效）"
-      :columns="columns"
-      @refresh="onSearch"
-    >
+    <PureTableBar title="开票信息管理" :columns="columns" @refresh="onSearch">
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border
@@ -170,6 +185,7 @@ const {
           @selection-change="handleSelectionChange"
           @row-dblclick="handleRowDblclick"
           @page-size-change="handleSizeChange"
+          @page-current-change="handlePageChange"
           @current-change="handleCurrentChange"
         />
       </template>
