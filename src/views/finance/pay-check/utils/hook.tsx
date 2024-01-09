@@ -51,10 +51,6 @@ export function useRole() {
       prop: "project_name"
     },
     {
-      label: "流向",
-      prop: "flow_direction"
-    },
-    {
       label: "服务内容",
       prop: "content"
     },
@@ -71,7 +67,7 @@ export function useRole() {
       prop: "total"
     },
     {
-      label: "应收金额",
+      label: "应付金额",
       prop: "amount"
     },
     {
