@@ -25,13 +25,15 @@ const {
   columns,
   dataList,
   pagination,
+  exportExcel,
   onSearch,
   resetForm,
-  // openDialog,
+  openDialog,
   handleDelete,
   handleRowDblclick,
   handleEdit,
   handleSizeChange,
+  handlePageChange,
   handleCurrentChange,
   handleSelectionChange
 } = useRole();
@@ -45,49 +47,49 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="发票代码：" prop="daima">
+      <el-form-item label="发票代码：" prop="code">
         <el-input
-          v-model="form.daima"
+          v-model="form.code"
           placeholder="请输入发票代码"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="发票号码：" prop="haoma">
+      <el-form-item label="发票号码：" prop="no">
         <el-input
-          v-model="form.haoma"
+          v-model="form.no"
           placeholder="请输入发票号码"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="数电票号码：" prop="shudianpiao">
+      <el-form-item label="数电票号码：" prop="digital_ticket_no">
         <el-input
-          v-model="form.shudianpiao"
+          v-model="form.digital_ticket_no"
           placeholder="请输入数电票号码"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="销方名称：" prop="xiaofangmc">
+      <el-form-item label="销方名称：" prop="seller_name">
         <el-input
-          v-model="form.xiaofangmc"
+          v-model="form.seller_name"
           placeholder="请输入销方名称"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="购方名称：" prop="goufangmc">
+      <el-form-item label="购方名称：" prop="buyer_name">
         <el-input
-          v-model="form.goufangmc"
+          v-model="form.buyer_name"
           placeholder="请输入购方名称"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="税率：" prop="shuilv">
+      <el-form-item label="税率：" prop="tax_rate">
         <el-input
-          v-model="form.shuilv"
+          v-model="form.tax_rate"
           placeholder="请输入税率"
           clearable
           class="!w-[200px]"
@@ -109,10 +111,17 @@ const {
         >
           搜索
         </el-button>
+        <el-button
+          type="primary"
+          :icon="useRenderIcon(EditPen)"
+          @click="openDialog('新增')"
+        >
+          添加发票
+        </el-button>
         <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
           导入
         </el-button>
-        <el-button :icon="useRenderIcon(Upload)" @click="resetForm(formRef)">
+        <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
           导出
         </el-button>
         <el-button
@@ -135,7 +144,7 @@ const {
     </el-form>
 
     <PureTableBar
-      title="应付发票原始数据管理（测试用，操作后不生效）"
+      title="应付发票原始数据管理"
       :columns="columns"
       @refresh="onSearch"
     >
@@ -159,6 +168,7 @@ const {
           @selection-change="handleSelectionChange"
           @row-dblclick="handleRowDblclick"
           @page-size-change="handleSizeChange"
+          @page-current-change="handlePageChange"
           @current-change="handleCurrentChange"
         />
       </template>

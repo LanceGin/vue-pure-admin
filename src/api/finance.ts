@@ -116,3 +116,38 @@ export const deleteInvoice = (data?: object) => {
     data
   });
 };
+
+// 应付发票列表
+export const payInvoicetList = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("payInvoicetList"), {
+    data
+  });
+};
+
+// 新增应付发票
+export const addPayInvoice = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("addPayInvoice"), {
+    data
+  });
+};
+
+// 编辑应付发票
+export const editPayInvoice = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("editPayInvoice"), {
+    data
+  });
+};
+
+// 批量登记
+export const registerPayInvoice = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("registerPayInvoice"), {
+    data
+  });
+};
+
+// 删除应付发票
+export const deletePayInvoice = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("deletePayInvoice"), {
+    data
+  });
+};

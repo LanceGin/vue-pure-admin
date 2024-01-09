@@ -1,49 +1,60 @@
-// import dayjs from "dayjs";
+import dayjs from "dayjs";
+import { utils, writeFile } from "xlsx";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
-import { getRoleList } from "@/api/system";
 // import { ElMessageBox } from "element-plus";
-import { tableData } from "./data";
 // import { usePublicHooks } from "../../hooks";
 import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
-import { reactive, ref, onMounted, h, toRaw } from "vue";
+import { reactive, ref, onMounted, h } from "vue";
+import {
+  addPayInvoice,
+  deletePayInvoice,
+  editPayInvoice,
+  payInvoicetList
+} from "@/api/finance";
+import { useUserStore } from "@/store/modules/user";
 
 export function useRole() {
+  const user = useUserStore();
   const form = reactive({
-    xuhao: "",
-    daima: "",
-    haoma: "",
-    shudianpiao: "",
-    xiaofangsbh: "",
-    xiaofangmc: "",
-    goufangsbh: "",
-    goufangmc: "",
-    kaipiaoriqi: "",
-    fenleibianma: "",
-    huowu: "",
-    guige: "",
-    danwei: "",
-    shuliang: "",
-    danjia: "",
-    jine: "",
-    shuilv: "",
-    shuie: "",
-    laiyuan: "",
-    piaozhong: "",
-    zhuangtai: "",
-    fengxiandengji: "",
-    kaipiaoren: "",
-    beizhu: "",
-    shifoushoupiao: "",
-    fukuanriqi: "",
-    renzhengqi: ""
+    id: "",
+    code: "",
+    no: "",
+    digital_ticket_no: "",
+    seller_identification_no: "",
+    seller_name: "",
+    buyer_identification_no: "",
+    buyer_name: "",
+    invoice_time: "",
+    classification_code: "",
+    specific_type: "",
+    goods_or_taxable_service: "",
+    specification: "",
+    unit: "",
+    quantity: "",
+    unit_price: "",
+    amount: "",
+    tax_rate: "",
+    tax: "",
+    total_amount: "",
+    invoice_from: "",
+    invoice_type: "",
+    status: "",
+    is_positive: "",
+    risk_level: "",
+    invoice_by: user.username,
+    remark: "",
+    is_invoice: "",
+    paid_time: "",
+    certification_period: ""
   });
   const formRef = ref();
   const currentRow = ref();
+  const selectRows = ref([]);
   const haveRow = ref(true);
-  let dataList = tableData;
+  const dataList = ref([]);
   const loading = ref(true);
   // const switchLoadMap = ref({});
   // const { tagStyle } = usePublicHooks();
@@ -56,123 +67,158 @@ export function useRole() {
   const columns: TableColumnList = [
     {
       label: "序号",
-      prop: "xuhao"
+      type: "index"
     },
     {
       label: "发票代码",
-      prop: "daima"
+      prop: "code"
     },
     {
       label: "发票号码",
-      prop: "haoma"
+      prop: "no"
     },
     {
       label: "数电票号码",
-      prop: "shudianpiao"
+      prop: "digital_ticket_no"
     },
     {
       label: "销方识别号",
-      prop: "xiaofangsbh"
+      prop: "seller_identification_no"
     },
     {
       label: "销方名称",
-      prop: "xiaofangmc"
+      prop: "seller_name"
     },
     {
       label: "购方识别号",
-      prop: "goufangsbh"
+      prop: "buyer_identification_no"
     },
     {
       label: "购买方名称",
-      prop: "goufangmc"
+      prop: "buyer_name"
     },
     {
       label: "开票日期",
-      prop: "kaipiaoriqi"
+      prop: "invoice_time",
+      formatter: ({ invoice_time }) => dayjs(invoice_time).format("YYYY-MM-DD")
     },
     {
       label: "税收分类编码",
-      prop: "fenleibianma"
+      prop: "classification_code"
     },
     {
       label: "货物或应税劳务名称",
-      prop: "huowu"
+      prop: "goods_or_taxable_service"
     },
     {
       label: "规格型号",
-      prop: "guige"
+      prop: "specification"
     },
     {
       label: "单位",
-      prop: "danwei"
+      prop: "unit"
     },
     {
       label: "数量",
-      prop: "shuliang"
+      prop: "quantity"
     },
     {
       label: "单价",
-      prop: "danjia"
+      prop: "unit_price"
     },
     {
       label: "金额",
-      prop: "jine"
+      prop: "amount"
     },
     {
       label: "税率",
-      prop: "shuilv"
+      prop: "tax_rate"
     },
     {
       label: "税额",
-      prop: "shuie"
+      prop: "tax"
     },
     {
       label: "发票来源",
-      prop: "laiyuan"
+      prop: "invoice_from"
     },
     {
       label: "发票票种",
-      prop: "piaozhong"
+      prop: "invoice_type"
     },
     {
       label: "发票状态",
-      prop: "zhuangtai"
+      prop: "status"
     },
     {
       label: "发票风险等级",
-      prop: "fengxiandengji"
+      prop: "risk_level"
     },
     {
       label: "开票人",
-      prop: "kaipiaoren"
+      prop: "invoice_by"
     },
     {
       label: "备注",
-      prop: "beizhu"
+      prop: "remark"
     },
     {
       label: "是否已收票",
-      prop: "shifoushoupiao"
+      prop: "is_invoice"
     },
     {
       label: "付款日期",
-      prop: "fukuanriqi"
+      prop: "paid_time",
+      formatter: ({ paid_time }) => dayjs(paid_time).format("YYYY-MM-DD")
     },
     {
       label: "认证期",
-      prop: "renzhengqi"
+      prop: "certification_period",
+      formatter: ({ certification_period }) =>
+        dayjs(certification_period).format("YYYY-MM-DD")
     }
   ];
 
-  function handleDelete() {
-    message(`您删除了角色名称为${currentRow.value.name}的这条数据`, {
+  function exportExcel() {
+    const res = dataList.value.map(item => {
+      const arr = [];
+      columns.forEach(column => {
+        arr.push(item[column.prop as string]);
+      });
+      return arr;
+    });
+    const titleList = [];
+    columns.forEach(column => {
+      titleList.push(column.label);
+    });
+    res.unshift(titleList);
+    const workSheet = utils.aoa_to_sheet(res);
+    const workBook = utils.book_new();
+    utils.book_append_sheet(workBook, workSheet, "数据报表");
+    writeFile(workBook, "挑箱列表.xlsx");
+    message("导出成功", {
       type: "success"
     });
+  }
+
+  async function handleDelete() {
+    message(`您删除了发票代码为${currentRow.value.code}的这条数据`, {
+      type: "success"
+    });
+    await deletePayInvoice(currentRow.value);
     onSearch();
   }
 
   function handleSizeChange(val: number) {
     console.log(`${val} items per page`);
+    pagination.pageSize = val;
+    onSearch();
+  }
+
+  function handlePageChange(val: number) {
+    console.log(`current page: ${val}`);
+    pagination.currentPage = val;
+    onSearch();
   }
 
   function handleCurrentChange(val) {
@@ -182,12 +228,21 @@ export function useRole() {
 
   function handleSelectionChange(val) {
     console.log("handleSelectionChange", val);
+    selectRows.value = val;
+    if (selectRows.value.length > 0) {
+      haveRow.value = false;
+    } else {
+      haveRow.value = true;
+    }
   }
 
   async function onSearch() {
     loading.value = true;
-    const { data } = await getRoleList(toRaw(form));
-    dataList = data.list;
+    const { data } = await payInvoicetList({
+      pagination,
+      form
+    });
+    dataList.value = data.list;
     pagination.total = data.total;
     pagination.pageSize = data.pageSize;
     pagination.currentPage = data.currentPage;
@@ -203,28 +258,45 @@ export function useRole() {
     onSearch();
   };
 
+  async function handleAddData(data) {
+    await addPayInvoice(data);
+  }
+
   function openDialog(title = "添加", row?: FormItemProps) {
     addDialog({
       title: `${title}发票信息`,
       props: {
         formInline: {
-          xuhao: row?.xuhao ?? "",
-          daima: row?.daima ?? "",
-          haoma: row?.haoma ?? "",
-          shudianpiao: row?.shudianpiao ?? "",
-          xiaofangsbh: row?.xiaofangsbh ?? "",
-          xiaofangmc: row?.xiaofangmc ?? "",
-          goufangsbh: row?.goufangsbh ?? "",
-          goufangmc: row?.goufangmc ?? "",
-          kaipiaoriqi: row?.kaipiaoriqi ?? "",
-          jine: row?.jine ?? "",
-          shuie: row?.shuie ?? "",
-          laiyuan: row?.laiyuan ?? "",
-          piaozhong: row?.piaozhong ?? "",
-          zhuangtai: row?.zhuangtai ?? "",
-          fengxiandengji: row?.fengxiandengji ?? "",
-          kaipiaoren: row?.kaipiaoren ?? "",
-          beizhu: row?.beizhu ?? ""
+          id: row?.id ?? "",
+          code: row?.code ?? "",
+          no: row?.no ?? "",
+          digital_ticket_no: row?.digital_ticket_no ?? "",
+          seller_identification_no: row?.seller_identification_no ?? "",
+          seller_name: row?.seller_name ?? "",
+          buyer_identification_no: row?.buyer_identification_no ?? "",
+          buyer_name: row?.buyer_name ?? "",
+          invoice_time: row?.invoice_time ?? "",
+          classification_code: row?.classification_code ?? "",
+          specific_type: row?.specific_type ?? "",
+          goods_or_taxable_service: row?.goods_or_taxable_service ?? "",
+          specification: row?.specification ?? "",
+          unit: row?.unit ?? "",
+          quantity: row?.quantity ?? "",
+          unit_price: row?.unit_price ?? "",
+          amount: row?.amount ?? "",
+          tax_rate: row?.tax_rate ?? "",
+          tax: row?.tax ?? "",
+          total_amount: row?.total_amount ?? "",
+          invoice_from: row?.invoice_from ?? "",
+          invoice_type: row?.invoice_type ?? "",
+          status: row?.status ?? "",
+          is_positive: row?.is_positive ?? "",
+          risk_level: row?.risk_level ?? "",
+          invoice_by: row?.invoice_by ?? user.username,
+          remark: row?.remark ?? "",
+          is_invoice: row?.is_invoice ?? "",
+          paid_time: row?.paid_time ?? "",
+          certification_period: row?.certification_period ?? ""
         }
       },
       width: "40%",
@@ -236,7 +308,7 @@ export function useRole() {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
         function chores() {
-          message(`您${title}了发票号为${curData.haoma}的这条数据`, {
+          message(`您${title}了发票号为${curData.no}的这条数据`, {
             type: "success"
           });
           done(); // 关闭弹框
@@ -248,9 +320,11 @@ export function useRole() {
             // 表单规则校验通过
             if (title === "新增") {
               // 实际开发先调用新增接口，再进行下面操作
+              handleAddData(curData);
               chores();
             } else {
               // 实际开发先调用编辑接口，再进行下面操作
+              asyncEdit(curData);
               chores();
             }
           }
@@ -262,6 +336,10 @@ export function useRole() {
   // 编辑按钮
   function handleEdit() {
     openDialog("编辑", currentRow.value);
+  }
+
+  async function asyncEdit(data) {
+    await editPayInvoice(data);
   }
 
   // 双击行
@@ -290,6 +368,7 @@ export function useRole() {
     dataList,
     pagination,
     // buttonClass,
+    exportExcel,
     onSearch,
     resetForm,
     openDialog,
@@ -299,6 +378,7 @@ export function useRole() {
     handleRowDblclick,
     handleEdit,
     handleSizeChange,
+    handlePageChange,
     handleCurrentChange,
     handleSelectionChange
   };

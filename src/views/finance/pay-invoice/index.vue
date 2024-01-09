@@ -5,13 +5,10 @@ import { PureTableBar } from "../../../components/RePureTableBar";
 import { useRenderIcon } from "../../../components/ReIcon/src/hooks";
 
 // import Database from "@iconify-icons/ri/database-2-line";
-// import More from "@iconify-icons/ep/more-filled";
-import Delete from "@iconify-icons/ep/delete";
-import EditPen from "@iconify-icons/ep/edit-pen";
+// import More from "@iconify-icons/ep/more-filled";n";
 import Search from "@iconify-icons/ep/search";
-import Upload from "@iconify-icons/ep/upload";
-import Download from "@iconify-icons/ep/download";
 // import AddFill from "@iconify-icons/ri/add-circle-line";
+import Edit from "@iconify-icons/ep/edit";
 
 defineOptions({
   name: "Role"
@@ -21,18 +18,15 @@ const formRef = ref();
 const {
   form,
   loading,
-  haveRow,
+  // haveRow,
   columns,
   dataList,
   pagination,
   // buttonClass,
   onSearch,
-  resetForm,
   // openDialog,
-  handleDelete,
   // handleDatabase,
   handleRowDblclick,
-  handleEdit,
   handleSizeChange,
   handleCurrentChange,
   handleSelectionChange
@@ -111,36 +105,18 @@ const {
         >
           搜索
         </el-button>
-        <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
-          导入
-        </el-button>
-        <el-button :icon="useRenderIcon(Upload)" @click="resetForm(formRef)">
-          导出
-        </el-button>
         <el-button
-          type="primary"
-          :icon="useRenderIcon(EditPen)"
-          @click="handleEdit()"
-          :disabled="haveRow"
+          type="success"
+          :icon="useRenderIcon(Edit)"
+          :loading="loading"
+          @click="onSearch"
         >
-          修改
-        </el-button>
-        <el-button
-          type="danger"
-          :icon="useRenderIcon(Delete)"
-          @click="handleDelete()"
-          :disabled="haveRow"
-        >
-          删除
+          批量登记
         </el-button>
       </el-form-item>
     </el-form>
 
-    <PureTableBar
-      title="应付发票管理（测试用，操作后不生效）"
-      :columns="columns"
-      @refresh="onSearch"
-    >
+    <PureTableBar title="应付发票管理" :columns="columns" @refresh="onSearch">
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border

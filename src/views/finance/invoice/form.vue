@@ -82,6 +82,20 @@ defineExpose({ getRef });
         placeholder="请输入销方名称"
       />
     </el-form-item>
+    <el-form-item label="购方识别号" prop="buyer_identification_no">
+      <el-input
+        v-model="newFormInline.buyer_identification_no"
+        clearable
+        placeholder="请输入购方识别号"
+      />
+    </el-form-item>
+    <el-form-item label="购方名称" prop="buyer_name">
+      <el-input
+        v-model="newFormInline.buyer_name"
+        clearable
+        placeholder="请输入购方名称"
+      />
+    </el-form-item>
     <el-form-item label="开票时间" prop="invoice_time">
       <el-date-picker
         v-model="newFormInline.invoice_time"
