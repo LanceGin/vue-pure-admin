@@ -24,6 +24,8 @@ const props = withDefaults(defineProps<FormProps>(), {
     containner_no: "",
     seal_no: "",
     container_type: "",
+    container_count: "",
+    container_fee: "",
     ship_name: "",
     track_no: "",
     unload_port: "",
@@ -102,6 +104,30 @@ defineExpose({ getRef });
         v-model="newFormInline.content"
         clearable
         placeholder="请输入服务内容"
+      />
+    </el-form-item>
+    <el-form-item label="箱型" prop="container_type">
+      <el-input
+        v-model="newFormInline.container_type"
+        clearable
+        placeholder="请输入箱型"
+        disabled
+      />
+    </el-form-item>
+    <el-form-item label="箱量" prop="container_count">
+      <el-input
+        v-model="newFormInline.container_count"
+        clearable
+        placeholder="请输入箱量"
+        disabled
+      />
+    </el-form-item>
+    <el-form-item label="应收费用" prop="container_fee">
+      <el-input
+        v-model="newFormInline.container_fee"
+        clearable
+        placeholder="请输入应收费用"
+        disabled
       />
     </el-form-item>
   </el-form>

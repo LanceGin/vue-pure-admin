@@ -231,6 +231,14 @@ export function useRole() {
   };
 
   function openDialog(title = "应收", row?: FormItemProps) {
+    let a = "";
+    let b = 0;
+    let c = 0;
+    selectRows.value.forEach(v => {
+      a = v.container_type;
+      b++;
+      c += Number(v.amount);
+    });
     addDialog({
       title: `${title}费用`,
       props: {
@@ -253,7 +261,9 @@ export function useRole() {
           target_port: row?.target_port ?? "",
           containner_no: row?.containner_no ?? "",
           seal_no: row?.seal_no ?? "",
-          container_type: row?.container_type ?? "",
+          container_type: row?.container_type ?? a,
+          container_count: row?.container_type ?? b,
+          container_fee: row?.container_type ?? c,
           ship_name: row?.ship_name ?? "",
           track_no: row?.track_no ?? "",
           unload_port: row?.unload_port ?? "",
