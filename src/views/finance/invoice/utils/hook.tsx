@@ -64,7 +64,7 @@ export function useRole() {
     },
     {
       label: "序号",
-      prop: "id"
+      type: "index"
     },
     {
       label: "发票代码",

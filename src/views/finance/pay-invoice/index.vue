@@ -18,15 +18,15 @@ const formRef = ref();
 const {
   form,
   loading,
-  // haveRow,
+  haveRow,
   columns,
   dataList,
   pagination,
   // buttonClass,
   onSearch,
-  // openDialog,
+  openDialog,
   // handleDatabase,
-  handleRowDblclick,
+  // handleRowDblclick,
   handleSizeChange,
   handleCurrentChange,
   handleSelectionChange
@@ -41,49 +41,49 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="发票代码：" prop="daima">
+      <el-form-item label="发票代码：" prop="code">
         <el-input
-          v-model="form.daima"
+          v-model="form.code"
           placeholder="请输入发票代码"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="发票号码：" prop="haoma">
+      <el-form-item label="发票号码：" prop="no">
         <el-input
-          v-model="form.haoma"
+          v-model="form.no"
           placeholder="请输入发票号码"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="数电票号码：" prop="shudianpiao">
+      <el-form-item label="数电票号码：" prop="digital_ticket_no">
         <el-input
-          v-model="form.shudianpiao"
+          v-model="form.digital_ticket_no"
           placeholder="请输入数电票号码"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="销方名称：" prop="xiaofangmc">
+      <el-form-item label="销方名称：" prop="seller_name">
         <el-input
-          v-model="form.xiaofangmc"
+          v-model="form.seller_name"
           placeholder="请输入销方名称"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="购方名称：" prop="goufangmc">
+      <el-form-item label="购方名称：" prop="buyer_name">
         <el-input
-          v-model="form.goufangmc"
+          v-model="form.buyer_name"
           placeholder="请输入购方名称"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="税率：" prop="shuilv">
+      <el-form-item label="税率：" prop="tax_rate">
         <el-input
-          v-model="form.shuilv"
+          v-model="form.tax_rate"
           placeholder="请输入税率"
           clearable
           class="!w-[200px]"
@@ -109,7 +109,8 @@ const {
           type="success"
           :icon="useRenderIcon(Edit)"
           :loading="loading"
-          @click="onSearch"
+          @click="openDialog('批量登记')"
+          :disabled="haveRow"
         >
           批量登记
         </el-button>
@@ -136,7 +137,6 @@ const {
             color: 'var(--el-text-color-primary)'
           }"
           @selection-change="handleSelectionChange"
-          @row-dblclick="handleRowDblclick"
           @page-size-change="handleSizeChange"
           @current-change="handleCurrentChange"
         />

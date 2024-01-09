@@ -1,3 +1,0 @@
-const tableData = [];
-
-export { tableData };
