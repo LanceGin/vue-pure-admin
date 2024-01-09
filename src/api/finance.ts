@@ -117,6 +117,25 @@ export const deleteInvoice = (data?: object) => {
   });
 };
 
+// 批量导入发票
+export const importInvoice = data => {
+  return http.request<ListResult>(
+    "post",
+    baseUrlApi("importInvoice"),
+    {
+      data
+    },
+    {
+      transformRequest: [
+        function (data, headers) {
+          delete headers["Content-Type"];
+          return data;
+        }
+      ]
+    }
+  );
+};
+
 // 应付发票列表
 export const payInvoicetList = (data?: object) => {
   return http.request<ListResult>("post", baseUrlApi("payInvoicetList"), {
@@ -150,4 +169,23 @@ export const deletePayInvoice = (data?: object) => {
   return http.request<ChangeResult>("post", baseUrlApi("deletePayInvoice"), {
     data
   });
+};
+
+// 批量导入应付发票
+export const importPayInvoice = data => {
+  return http.request<ListResult>(
+    "post",
+    baseUrlApi("importPayInvoice"),
+    {
+      data
+    },
+    {
+      transformRequest: [
+        function (data, headers) {
+          delete headers["Content-Type"];
+          return data;
+        }
+      ]
+    }
+  );
 };

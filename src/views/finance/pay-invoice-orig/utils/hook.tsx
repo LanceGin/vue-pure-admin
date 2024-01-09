@@ -12,6 +12,7 @@ import {
   addPayInvoice,
   deletePayInvoice,
   editPayInvoice,
+  importPayInvoice,
   payInvoicetList
 } from "@/api/finance";
 import { useUserStore } from "@/store/modules/user";
@@ -333,6 +334,13 @@ export function useRole() {
     });
   }
 
+  // 上传文件批量导入
+  async function uploadExcelDetail(item) {
+    const form = new FormData();
+    form.append("file", item.file);
+    await importPayInvoice(form);
+  }
+
   // 编辑按钮
   function handleEdit() {
     openDialog("编辑", currentRow.value);
@@ -368,6 +376,7 @@ export function useRole() {
     dataList,
     pagination,
     // buttonClass,
+    uploadExcelDetail,
     exportExcel,
     onSearch,
     resetForm,

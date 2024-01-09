@@ -11,6 +11,13 @@ import EditPen from "@iconify-icons/ep/edit-pen";
 import Search from "@iconify-icons/ep/search";
 import Upload from "@iconify-icons/ep/upload";
 import Download from "@iconify-icons/ep/download";
+import {
+  UploadInstance,
+  UploadProps,
+  UploadRawFile,
+  genFileId,
+  ElMessageBox
+} from "element-plus";
 // import AddFill from "@iconify-icons/ri/add-circle-line";
 
 defineOptions({
@@ -18,6 +25,7 @@ defineOptions({
 });
 
 const formRef = ref();
+const dialogVisible = ref(false);
 const {
   form,
   loading,
@@ -25,9 +33,9 @@ const {
   columns,
   dataList,
   pagination,
+  uploadExcelDetail,
   exportExcel,
   onSearch,
-  resetForm,
   openDialog,
   handleDelete,
   handleRowDblclick,
@@ -37,6 +45,32 @@ const {
   handleCurrentChange,
   handleSelectionChange
 } = useRole();
+
+const upload = ref<UploadInstance>();
+
+const handleExceed: UploadProps["onExceed"] = files => {
+  upload.value!.clearFiles();
+  const file = files[0] as UploadRawFile;
+  file.uid = genFileId();
+  upload.value!.handleStart(file);
+};
+
+const submitUpload = () => {
+  upload.value!.submit();
+  dialogVisible.value = false;
+  onSearch();
+};
+
+const handleClose = () => {
+  ElMessageBox.confirm("确定取消导入单证列表？")
+    .then(() => {
+      // then
+      dialogVisible.value = false;
+    })
+    .catch(() => {
+      // catch error
+    });
+};
 </script>
 
 <template>
@@ -118,7 +152,10 @@ const {
         >
           添加发票
         </el-button>
-        <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
+        <el-button
+          :icon="useRenderIcon(Download)"
+          @click="dialogVisible = true"
+        >
           导入
         </el-button>
         <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
@@ -142,6 +179,32 @@ const {
         </el-button>
       </el-form-item>
     </el-form>
+
+    <el-dialog v-model="dialogVisible" title="导入应付发票" width="30%">
+      <el-upload
+        ref="upload"
+        accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
+        :limit="1"
+        :on-exceed="handleExceed"
+        :auto-upload="false"
+        :http-request="uploadExcelDetail"
+      >
+        <template #trigger>
+          <el-button type="primary">选择文件</el-button>
+        </template>
+        <template #tip>
+          <div class="el-upload__tip text-red">
+            仅限上传1份文件，多次上传覆盖之前文件
+          </div>
+        </template>
+      </el-upload>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="handleClose">取消</el-button>
+          <el-button type="primary" @click="submitUpload"> 上传 </el-button>
+        </span>
+      </template>
+    </el-dialog>
 
     <PureTableBar
       title="应付发票原始数据管理"
