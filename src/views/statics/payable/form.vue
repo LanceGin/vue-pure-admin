@@ -24,6 +24,7 @@ const props = withDefaults(defineProps<FormProps>(), {
     containner_no: "",
     seal_no: "",
     container_type: "",
+    container_fee: "",
     ship_name: "",
     track_no: "",
     unload_port: "",
@@ -90,18 +91,19 @@ defineExpose({ getRef });
         placeholder="请输入结算单位"
       />
     </el-form-item>
-    <el-form-item label="流向" prop="flow_direction">
-      <el-input
-        v-model="newFormInline.flow_direction"
-        clearable
-        placeholder="请输入流向"
-      />
-    </el-form-item>
     <el-form-item label="服务内容" prop="content">
       <el-input
         v-model="newFormInline.content"
         clearable
         placeholder="请输入服务内容"
+      />
+    </el-form-item>
+    <el-form-item label="金额" prop="container_fee">
+      <el-input
+        v-model="newFormInline.container_fee"
+        clearable
+        placeholder="请输入金额"
+        disabled
       />
     </el-form-item>
   </el-form>

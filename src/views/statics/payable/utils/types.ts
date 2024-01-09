@@ -20,6 +20,7 @@ interface FormItemProps {
   containner_no: string;
   seal_no: string;
   container_type: string;
+  container_fee: string;
   ship_name: string;
   track_no: string;
   unload_port: string;
