@@ -21,15 +21,21 @@ const formRef = ref();
 const {
   form,
   loading,
+  containerVisible,
   columns,
+  containerColumns,
   dataList,
+  containerList,
   pagination,
   // buttonClass,
   onSearch,
   resetForm,
   // openDialog,
-  handleDelete,
+  // handleDelete,
   // handleDatabase,
+  handleApprove,
+  handleReject,
+  handleRowDblclick,
   handleSizeChange,
   handleCurrentChange,
   handleSelectionChange
@@ -99,16 +105,27 @@ const {
       </el-form-item>
     </el-form>
 
+    <el-dialog
+      v-model="containerVisible"
+      title="箱子列表"
+      width="80%"
+      custom-class="container-list"
+    >
+      <pure-table
+        border
+        align-whole="center"
+        showOverflowTooltip
+        highlight-current-row
+        :data="containerList"
+        :columns="containerColumns"
+        :header-cell-style="{
+          background: 'var(--el-table-row-hover-bg-color)',
+          color: 'var(--el-text-color-primary)'
+        }"
+      />
+    </el-dialog>
+
     <PureTableBar title="应收费用列表" :columns="columns" @refresh="onSearch">
-      <!-- <template #buttons>
-        <el-button
-          type="primary"
-          :icon="useRenderIcon(AddFill)"
-          @click="openDialog()"
-        >
-          添加驾驶员
-        </el-button>
-      </template> -->
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border
@@ -126,6 +143,7 @@ const {
             background: 'var(--el-table-row-hover-bg-color)',
             color: 'var(--el-text-color-primary)'
           }"
+          @row-dblclick="handleRowDblclick"
           @selection-change="handleSelectionChange"
           @page-size-change="handleSizeChange"
           @page-current-change="handleCurrentChange"
@@ -133,7 +151,7 @@ const {
           <template #operation="{ row }">
             <el-popconfirm
               :title="`是否确认通过客户名称为${row.custom_name}的这条数据`"
-              @confirm="handleDelete(row)"
+              @confirm="handleApprove(row)"
             >
               <template #reference>
                 <el-button
@@ -148,8 +166,8 @@ const {
               </template>
             </el-popconfirm>
             <el-popconfirm
-              :title="`是否确认删除客户名称为${row.custom_name}的这条数据`"
-              @confirm="handleDelete(row)"
+              :title="`是否确认退回客户名称为${row.custom_name}的这条数据`"
+              @confirm="handleReject(row)"
             >
               <template #reference>
                 <el-button

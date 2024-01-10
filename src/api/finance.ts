@@ -189,3 +189,28 @@ export const importPayInvoice = data => {
     }
   );
 };
+
+// 获取应收费用箱子列表
+export const collectionContainerList = (data?: object) => {
+  return http.request<ListResult>(
+    "post",
+    baseUrlApi("collectionContainerList"),
+    {
+      data
+    }
+  );
+};
+
+// 通过应收费用审核
+export const approveCollection = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("approveCollection"), {
+    data
+  });
+};
+
+// 驳回应收费用审核
+export const rejectCollection = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("rejectCollection"), {
+    data
+  });
+};

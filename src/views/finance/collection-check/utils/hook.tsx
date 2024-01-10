@@ -7,7 +7,12 @@ import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
-import { financeCheckList } from "@/api/finance";
+import {
+  approveCollection,
+  collectionContainerList,
+  financeCheckList,
+  rejectCollection
+} from "@/api/finance";
 
 export function useRole() {
   const form = reactive({
@@ -15,6 +20,7 @@ export function useRole() {
     type: "应收",
     status: "未审核",
     account_period: "",
+    fee_name: "",
     custom_name: "",
     project_name: "",
     flow_direction: "",
@@ -22,11 +28,14 @@ export function useRole() {
     amount: "",
     total: "",
     f: "",
-    t: ""
+    t: "",
+    add_by: ""
   });
   const formRef = ref();
   const dataList = ref([]);
+  const containerList = ref([]);
   const loading = ref(true);
+  const containerVisible = ref(false);
   // const switchLoadMap = ref({});
   // const { tagStyle } = usePublicHooks();
   const pagination = reactive<PaginationProps>({
@@ -78,6 +87,33 @@ export function useRole() {
       label: "审核",
       width: 240,
       slot: "operation"
+    }
+  ];
+
+  const containerColumns: TableColumnList = [
+    {
+      label: "箱号",
+      prop: "containner_no"
+    },
+    {
+      label: "封号",
+      prop: "seal_no"
+    },
+    {
+      label: "箱型",
+      prop: "container_type"
+    },
+    {
+      label: "提箱码头",
+      prop: "load_port"
+    },
+    {
+      label: "卸货门点",
+      prop: "door"
+    },
+    {
+      label: "费用",
+      prop: "amount"
     }
   ];
 
@@ -136,7 +172,8 @@ export function useRole() {
           amount: row?.amount ?? "",
           total: row?.total ?? "",
           f: row?.f ?? "",
-          t: row?.t ?? ""
+          t: row?.t ?? "",
+          add_by: row?.add_by ?? ""
         }
       },
       width: "40%",
@@ -171,6 +208,30 @@ export function useRole() {
     });
   }
 
+  // 双击行
+  async function handleRowDblclick(form) {
+    collectionContainerList({
+      form
+    }).then(data => {
+      containerList.value = data.data.list;
+      containerVisible.value = true;
+    });
+  }
+
+  // 审核通过
+  function handleApprove(row) {
+    console.log(row);
+    approveCollection(row);
+    onSearch();
+  }
+
+  // 审核驳回
+  function handleReject(row) {
+    console.log(row);
+    rejectCollection(row);
+    onSearch();
+  }
+
   /** 菜单权限 */
   function handleMenu() {
     message("等菜单管理页面开发后完善");
@@ -186,8 +247,11 @@ export function useRole() {
   return {
     form,
     loading,
+    containerVisible,
     columns,
+    containerColumns,
     dataList,
+    containerList,
     pagination,
     // buttonClass,
     onSearch,
@@ -196,6 +260,9 @@ export function useRole() {
     handleMenu,
     handleDelete,
     // handleDatabase,
+    handleApprove,
+    handleReject,
+    handleRowDblclick,
     handleSizeChange,
     handleCurrentChange,
     handleSelectionChange

@@ -5,6 +5,7 @@ interface FormItemProps {
   type: string;
   status: string;
   account_period: string;
+  fee_name: string;
   custom_name: string;
   project_name: string;
   flow_direction: string;
@@ -13,6 +14,7 @@ interface FormItemProps {
   total: string;
   f: string;
   t: string;
+  add_by: string;
 }
 interface FormProps {
   formInline: FormItemProps;
