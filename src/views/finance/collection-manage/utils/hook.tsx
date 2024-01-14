@@ -12,20 +12,20 @@ import { reactive, ref, onMounted, h, toRaw } from "vue";
 
 export function useRole() {
   const form = reactive({
-    zhuangtai: "",
-    zhangqi: "",
-    kehu: "",
-    xiangmu: "",
-    liuxiang: "",
-    fuwu: "",
+    id: "",
+    type: "应收",
+    status: "已审核",
+    account_period: "",
+    fee_name: "",
+    custom_name: "",
+    project_name: "",
+    flow_direction: "",
+    content: "",
+    amount: "",
+    total: "",
     f: "",
     t: "",
-    xiangliang: "",
-    yingshou: "",
-    haoma: "",
-    fapiaojine: "",
-    shoukuan: "",
-    weishoukuan: ""
+    add_by: ""
   });
   const formRef = ref();
   let dataList = tableData;
@@ -41,27 +41,27 @@ export function useRole() {
   const columns: TableColumnList = [
     {
       label: "状态",
-      prop: "zhuangtai"
+      prop: "status"
     },
     {
       label: "账期",
-      prop: "zhangqi"
+      prop: "account_period"
     },
     {
       label: "客户名称",
-      prop: "kehu"
+      prop: "custom_name"
     },
     {
       label: "项目名称",
-      prop: "xiangmu"
+      prop: "project_name"
     },
     {
       label: "流向",
-      prop: "liuxiang"
+      prop: "flow_direction"
     },
     {
       label: "服务内容",
-      prop: "fuwu"
+      prop: "content"
     },
     {
       label: "40",
@@ -73,11 +73,11 @@ export function useRole() {
     },
     {
       label: "箱量合计",
-      prop: "xiangliang"
+      prop: "total"
     },
     {
       label: "应收金额",
-      prop: "yingshou"
+      prop: "amount"
     },
     {
       label: "开票申请",
@@ -86,19 +86,19 @@ export function useRole() {
     },
     {
       label: "发票号码",
-      prop: "haoma"
+      prop: "invoice_no"
     },
     {
       label: "发票金额",
-      prop: "fapiaojine"
+      prop: "invoice_amount"
     },
     {
       label: "收款金额",
-      prop: "shoukuan"
+      prop: "recieve_amount"
     },
     {
       label: "未收款金额",
-      prop: "weishoukuan"
+      prop: "remain_amount"
     }
   ];
 
@@ -140,23 +140,23 @@ export function useRole() {
 
   function openDialog(title = "开票", row?: FormItemProps) {
     addDialog({
-      title: `${title}申请`,
+      title: `${title}应收费用`,
       props: {
         formInline: {
-          zhuangtai: row?.zhuangtai ?? "",
-          zhangqi: row?.zhangqi ?? "",
-          kehu: row?.kehu ?? "",
-          xiangmu: row?.xiangmu ?? "",
-          liuxiang: row?.liuxiang ?? "",
-          fuwu: row?.fuwu ?? "",
+          id: row?.id ?? "",
+          type: row?.type ?? "应收",
+          status: row?.status ?? "已审核",
+          account_period: row?.account_period ?? "",
+          fee_name: row?.fee_name ?? "",
+          custom_name: row?.custom_name ?? "",
+          project_name: row?.project_name ?? "",
+          flow_direction: row?.flow_direction ?? "",
+          content: row?.content ?? "",
+          amount: row?.amount ?? "",
+          total: row?.total ?? "",
           f: row?.f ?? "",
           t: row?.t ?? "",
-          xiangliang: row?.xiangliang ?? "",
-          yingshou: row?.yingshou ?? "",
-          haoma: row?.haoma ?? "",
-          fapiaojine: row?.fapiaojine ?? "",
-          shoukuan: row?.shoukuan ?? "",
-          weishoukuan: row?.weishoukuan ?? ""
+          add_by: row?.add_by ?? ""
         }
       },
       width: "40%",
@@ -168,7 +168,7 @@ export function useRole() {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
         function chores() {
-          message(`您${title}了项目名为${curData.xiangmu}的这条数据`, {
+          message(`您${title}了项目名为${curData.project_name}的这条数据`, {
             type: "success"
           });
           done(); // 关闭弹框

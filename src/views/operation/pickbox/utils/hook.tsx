@@ -286,7 +286,7 @@ export function useRole() {
 
   // 挑箱
   async function handlePickBox() {
-    ElMessageBox.confirm("确认挑箱后箱子将进入派车流程？", "挑箱确认", {
+    ElMessageBox.prompt("请输入实付金额", "挑箱确认", {
       confirmButtonText: "确认",
       cancelButtonText: "取消",
       type: "warning"

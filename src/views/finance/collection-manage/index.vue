@@ -101,6 +101,14 @@ const {
           type="primary"
           :icon="useRenderIcon(Search)"
           :loading="loading"
+          @click="openDialog('新增')"
+        >
+          添加应收费用
+        </el-button>
+        <el-button
+          type="primary"
+          :icon="useRenderIcon(Search)"
+          :loading="loading"
           @click="onSearch"
         >
           搜索
