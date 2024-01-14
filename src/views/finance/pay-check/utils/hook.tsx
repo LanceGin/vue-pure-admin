@@ -7,7 +7,12 @@ import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
-import { financeCheckList } from "@/api/finance";
+import {
+  approvePay,
+  collectionContainerList,
+  financeCheckList,
+  rejectPay
+} from "@/api/finance";
 
 export function useRole() {
   const form = reactive({
@@ -20,13 +25,18 @@ export function useRole() {
     flow_direction: "",
     content: "",
     amount: "",
+    less_amount: "",
+    more_amount: "",
+    actual_amount: "",
     total: "",
     f: "",
     t: ""
   });
   const formRef = ref();
   const dataList = ref([]);
+  const containerList = ref([]);
   const loading = ref(true);
+  const containerVisible = ref(false);
   // const switchLoadMap = ref({});
   // const { tagStyle } = usePublicHooks();
   const pagination = reactive<PaginationProps>({
@@ -67,14 +77,65 @@ export function useRole() {
       prop: "total"
     },
     {
-      label: "应付金额",
+      label: "结算金额",
       prop: "amount"
+    },
+    {
+      label: "扣除金额",
+      prop: "less_amount"
+    },
+    {
+      label: "增加金额",
+      prop: "more_amount"
+    },
+    {
+      label: "实付金额",
+      prop: "actual_amount"
     },
     {
       label: "审核",
       fixed: "right",
       width: 240,
       slot: "operation"
+    }
+  ];
+
+  const containerColumns: TableColumnList = [
+    {
+      label: "箱号",
+      prop: "containner_no"
+    },
+    {
+      label: "封号",
+      prop: "seal_no"
+    },
+    {
+      label: "箱型",
+      prop: "container_type"
+    },
+    {
+      label: "提箱码头",
+      prop: "load_port"
+    },
+    {
+      label: "卸货门点",
+      prop: "door"
+    },
+    {
+      label: "结算费用",
+      prop: "amount"
+    },
+    {
+      label: "扣除费用",
+      prop: "less_amount"
+    },
+    {
+      label: "增加费用",
+      prop: "more_amount"
+    },
+    {
+      label: "实付费用",
+      prop: "actual_amount"
     }
   ];
 
@@ -123,7 +184,7 @@ export function useRole() {
       props: {
         formInline: {
           id: row?.id ?? "",
-          type: row?.type ?? "应收",
+          type: row?.type ?? "应付",
           status: row?.status ?? "未审核",
           account_period: row?.account_period ?? "",
           custom_name: row?.custom_name ?? "",
@@ -168,6 +229,30 @@ export function useRole() {
     });
   }
 
+  // 双击行
+  async function handleRowDblclick(form) {
+    collectionContainerList({
+      form
+    }).then(data => {
+      containerList.value = data.data.list;
+      containerVisible.value = true;
+    });
+  }
+
+  // 审核通过
+  function handleApprove(row) {
+    console.log(row);
+    approvePay(row);
+    onSearch();
+  }
+
+  // 审核驳回
+  function handleReject(row) {
+    console.log(row);
+    rejectPay(row);
+    onSearch();
+  }
+
   /** 菜单权限 */
   function handleMenu() {
     message("等菜单管理页面开发后完善");
@@ -183,8 +268,11 @@ export function useRole() {
   return {
     form,
     loading,
+    containerVisible,
     columns,
+    containerColumns,
     dataList,
+    containerList,
     pagination,
     // buttonClass,
     onSearch,
@@ -192,6 +280,9 @@ export function useRole() {
     openDialog,
     handleMenu,
     handleDelete,
+    handleApprove,
+    handleReject,
+    handleRowDblclick,
     // handleDatabase,
     handleSizeChange,
     handleCurrentChange,

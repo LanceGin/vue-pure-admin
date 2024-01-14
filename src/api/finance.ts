@@ -214,3 +214,17 @@ export const rejectCollection = (data?: object) => {
     data
   });
 };
+
+// 通过应付费用审核
+export const approvePay = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("approvePay"), {
+    data
+  });
+};
+
+// 驳回应付费用审核
+export const rejectPay = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("rejectPay"), {
+    data
+  });
+};

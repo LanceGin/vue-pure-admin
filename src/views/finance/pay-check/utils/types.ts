@@ -10,6 +10,9 @@ interface FormItemProps {
   flow_direction: string;
   content: string;
   amount: string;
+  less_amount: string;
+  more_amount: string;
+  actual_amount: string;
   total: string;
   f: string;
   t: string;
