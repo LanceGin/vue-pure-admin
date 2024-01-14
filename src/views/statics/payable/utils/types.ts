@@ -7,6 +7,8 @@ interface FormItemProps {
   account_period: string;
   fee_name: string;
   amount: string;
+  less_amount: string;
+  more_amount: string;
   fee_type: string;
   remark: string;
   order_status: string;

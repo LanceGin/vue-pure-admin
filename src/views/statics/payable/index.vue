@@ -40,8 +40,8 @@ const {
   handleCurrentChange,
   handleSelectionChange,
   handleSetInvoiceNo,
-  handleSetAmount,
-  handleSetRemark
+  handleSetAmount
+  // handleSetRemark
 } = useRole();
 
 const upload = ref<UploadInstance>();
@@ -181,13 +181,13 @@ const handleClose = () => {
         >
           批量调整金额
         </el-button>
-        <el-button
+        <!-- <el-button
           :icon="useRenderIcon(EditPen)"
           @click="handleSetRemark()"
           :disabled="haveRow"
         >
           批量备注
-        </el-button>
+        </el-button> -->
       </el-form-item>
     </el-form>
 

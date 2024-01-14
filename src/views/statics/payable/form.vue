@@ -11,6 +11,8 @@ const props = withDefaults(defineProps<FormProps>(), {
     account_period: "",
     fee_name: "",
     amount: "",
+    less_amount: "",
+    more_amount: "",
     fee_type: "",
     remark: "",
     order_status: "",
@@ -104,6 +106,27 @@ defineExpose({ getRef });
         clearable
         placeholder="请输入金额"
         disabled
+      />
+    </el-form-item>
+    <el-form-item label="扣除金额" prop="less_amount">
+      <el-input
+        v-model="newFormInline.less_amount"
+        clearable
+        placeholder="请输入扣除金额"
+      />
+    </el-form-item>
+    <el-form-item label="增加金额" prop="more_amount">
+      <el-input
+        v-model="newFormInline.more_amount"
+        clearable
+        placeholder="请输入增加金额"
+      />
+    </el-form-item>
+    <el-form-item label="备注" prop="remark">
+      <el-input
+        v-model="newFormInline.remark"
+        clearable
+        placeholder="请输入备注"
       />
     </el-form-item>
   </el-form>

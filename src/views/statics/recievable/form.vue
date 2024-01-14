@@ -106,6 +106,13 @@ defineExpose({ getRef });
         placeholder="请输入服务内容"
       />
     </el-form-item>
+    <el-form-item label="备注" prop="remark">
+      <el-input
+        v-model="newFormInline.remark"
+        clearable
+        placeholder="请输入备注"
+      />
+    </el-form-item>
     <el-form-item label="箱型" prop="container_type">
       <el-input
         v-model="newFormInline.container_type"
