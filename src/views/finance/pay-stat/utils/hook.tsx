@@ -36,18 +36,18 @@ export function useRole() {
     background: true
   });
   const columns: TableColumnList = [
-    {
-      label: "账期",
-      prop: "zhangqi"
-    },
-    {
-      label: "做箱日期",
-      prop: "zuoxiangriqi"
-    },
-    {
-      label: "费用名称",
-      prop: "feiyongming"
-    },
+    // {
+    //   label: "账期",
+    //   prop: "zhangqi"
+    // },
+    // {
+    //   label: "做箱日期",
+    //   prop: "zuoxiangriqi"
+    // },
+    // {
+    //   label: "费用名称",
+    //   prop: "feiyongming"
+    // },
     {
       label: "应付单位",
       prop: "yingfudanwei"

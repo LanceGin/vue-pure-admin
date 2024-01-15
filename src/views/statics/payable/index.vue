@@ -39,7 +39,7 @@ const {
   handleSizeChange,
   handleCurrentChange,
   handleSelectionChange,
-  handleSetInvoiceNo,
+  // handleSetInvoiceNo,
   handleSetAmount
   // handleSetRemark
 } = useRole();
@@ -164,13 +164,13 @@ const handleClose = () => {
         >
           提交
         </el-button>
-        <el-button
+        <!-- <el-button
           :icon="useRenderIcon(EditPen)"
           @click="handleSetInvoiceNo()"
           :disabled="haveRow"
         >
           设置发票号
-        </el-button>
+        </el-button> -->
         <el-button :icon="useRenderIcon(EditPen)" @click="dialogVisible = true">
           数据比对
         </el-button>
