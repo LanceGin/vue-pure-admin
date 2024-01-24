@@ -10,6 +10,7 @@ import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
 import {
   addContainer,
+  deleteDocumentCheck,
   getContainerList,
   getDocumentCheckList,
   importDocumentCheck,
@@ -161,10 +162,15 @@ export function useRole() {
     });
   }
 
-  function handleDelete() {
-    message(`您删除了订单号为${currentRow.value.track_no}的这条数据`, {
+  async function handleDelete() {
+    const select_track_no = [];
+    selectRows.value.forEach(v => {
+      select_track_no.push(v.track_no);
+    });
+    message(`您删除了订单号为${select_track_no}的数据`, {
       type: "success"
     });
+    await deleteDocumentCheck(select_track_no);
     onSearch();
   }
 
