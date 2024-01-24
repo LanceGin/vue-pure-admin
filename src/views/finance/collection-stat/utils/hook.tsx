@@ -1,33 +1,38 @@
 // import dayjs from "dayjs";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
-import { getRoleList } from "@/api/system";
 // import { ElMessageBox } from "element-plus";
-import { tableData } from "./data";
 // import { usePublicHooks } from "../../hooks";
 import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
-import { reactive, ref, onMounted, h, toRaw } from "vue";
+import { reactive, ref, onMounted, h } from "vue";
+import { collectionContainerList, financeStatList } from "@/api/finance";
 
 export function useRole() {
   const form = reactive({
-    zhangqi: "",
-    zuoxiangriqi: "",
-    feiyongming: "",
-    kehu: "",
-    yewu: "",
-    mendian: "",
-    t: "",
+    id: "",
+    type: "应收",
+    status: "",
+    account_period: "",
+    fee_name: "",
+    custom_name: "",
+    project_name: "",
+    flow_direction: "",
+    content: "",
+    door: "",
+    amount: "",
+    total: "",
     f: "",
-    xiangliang: "",
-    yingshou: "",
-    jiesuan: "",
-    kaipiao: ""
+    t: "",
+    is_invoice: "",
+    add_by: ""
   });
   const formRef = ref();
-  let dataList = tableData;
+  const dataList = ref([]);
+  const containerList = ref([]);
   const loading = ref(true);
+  const containerVisible = ref(false);
   // const switchLoadMap = ref({});
   // const { tagStyle } = usePublicHooks();
   const pagination = reactive<PaginationProps>({
@@ -37,29 +42,17 @@ export function useRole() {
     background: true
   });
   const columns: TableColumnList = [
-    // {
-    //   label: "账期",
-    //   prop: "zhangqi"
-    // },
-    // {
-    //   label: "做箱日期",
-    //   prop: "zuoxiangriqi"
-    // },
-    // {
-    //   label: "费用名称",
-    //   prop: "feiyongming"
-    // },
     {
       label: "客户",
-      prop: "kehu"
+      prop: "custom_name"
     },
     {
       label: "业务名称",
-      prop: "yewu"
+      prop: "project_name"
     },
     {
       label: "门点",
-      prop: "mendian"
+      prop: "door"
     },
     {
       label: "20",
@@ -71,19 +64,46 @@ export function useRole() {
     },
     {
       label: "箱量合计",
-      prop: "xiangliang"
+      prop: "total"
     },
     {
       label: "应收金额",
-      prop: "yingshou"
+      prop: "amount"
     },
     {
       label: "结算金额",
-      prop: "jiesuan"
+      prop: "amount"
     },
     {
       label: "开票金额",
-      prop: "kaipiao"
+      prop: "amount"
+    }
+  ];
+
+  const containerColumns: TableColumnList = [
+    {
+      label: "箱号",
+      prop: "containner_no"
+    },
+    {
+      label: "封号",
+      prop: "seal_no"
+    },
+    {
+      label: "箱型",
+      prop: "container_type"
+    },
+    {
+      label: "提箱码头",
+      prop: "load_port"
+    },
+    {
+      label: "门点",
+      prop: "door"
+    },
+    {
+      label: "费用",
+      prop: "amount"
     }
   ];
 
@@ -106,8 +126,11 @@ export function useRole() {
 
   async function onSearch() {
     loading.value = true;
-    const { data } = await getRoleList(toRaw(form));
-    dataList = data.list;
+    const { data } = await financeStatList({
+      pagination,
+      form
+    });
+    dataList.value = data.list;
     pagination.total = data.total;
     pagination.pageSize = data.pageSize;
     pagination.currentPage = data.currentPage;
@@ -128,18 +151,22 @@ export function useRole() {
       title: `${title}车辆`,
       props: {
         formInline: {
-          zhangqi: row?.zhangqi ?? "",
-          zuoxiangriqi: row?.zuoxiangriqi ?? "",
-          feiyongming: row?.feiyongming ?? "",
-          kehu: row?.kehu ?? "",
-          yewu: row?.yewu ?? "",
-          mendian: row?.mendian ?? "",
-          t: row?.t ?? "",
+          id: row?.id ?? "",
+          type: row?.type ?? "",
+          status: row?.status ?? "",
+          account_period: row?.account_period ?? "",
+          fee_name: row?.fee_name ?? "",
+          custom_name: row?.custom_name ?? "",
+          project_name: row?.project_name ?? "",
+          flow_direction: row?.flow_direction ?? "",
+          content: row?.content ?? "",
+          door: row?.door ?? "",
+          amount: row?.amount ?? "",
+          total: row?.total ?? "",
           f: row?.f ?? "",
-          xiangliang: row?.xiangliang ?? "",
-          yingshou: row?.yingshou ?? "",
-          jiesuan: row?.jiesuan ?? "",
-          kaipiao: row?.kaipiao ?? ""
+          t: row?.t ?? "",
+          is_invoice: row?.is_invoice ?? "",
+          add_by: row?.add_by ?? ""
         }
       },
       width: "40%",
@@ -151,7 +178,7 @@ export function useRole() {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
         function chores() {
-          message(`您${title}了客户为${curData.kehu}的这条数据`, {
+          message(`您${title}了客户为${curData.custom_name}的这条数据`, {
             type: "success"
           });
           done(); // 关闭弹框
@@ -174,6 +201,16 @@ export function useRole() {
     });
   }
 
+  // 双击行
+  async function handleRowDblclick(form) {
+    collectionContainerList({
+      form
+    }).then(data => {
+      containerList.value = data.data.list;
+      containerVisible.value = true;
+    });
+  }
+
   /** 菜单权限 */
   function handleMenu() {
     message("等菜单管理页面开发后完善");
@@ -189,8 +226,11 @@ export function useRole() {
   return {
     form,
     loading,
+    containerVisible,
     columns,
+    containerColumns,
     dataList,
+    containerList,
     pagination,
     // buttonClass,
     onSearch,
@@ -198,6 +238,7 @@ export function useRole() {
     openDialog,
     handleMenu,
     handleDelete,
+    handleRowDblclick,
     // handleDatabase,
     handleSizeChange,
     handleCurrentChange,

@@ -32,6 +32,10 @@ export function useRole() {
     tax_amount: "",
     apply_by: user.username,
     apply_department: "",
+    acc_company_id: "",
+    company_name: "",
+    bank: "",
+    account_no: "",
     create_time: "",
     reimburse_by: "",
     audit_by: "",
@@ -99,6 +103,18 @@ export function useRole() {
     {
       label: "申请单位",
       prop: "apply_department"
+    },
+    {
+      label: "结算单位",
+      prop: "company_name"
+    },
+    {
+      label: "开户行",
+      prop: "bank"
+    },
+    {
+      label: "银行账号",
+      prop: "account_no"
     },
     {
       label: "录入时间",
@@ -236,6 +252,7 @@ export function useRole() {
           tax_amount: row?.tax_amount ?? "",
           apply_by: row?.apply_by ?? user.username,
           apply_department: row?.apply_department ?? "",
+          acc_company_id: row?.acc_company_id ?? "",
           create_time: row?.create_time ?? "",
           reimburse_by: row?.reimburse_by ?? "",
           audit_by: row?.audit_by ?? "",

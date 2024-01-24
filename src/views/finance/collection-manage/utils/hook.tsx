@@ -1,14 +1,13 @@
-// import dayjs from "dayjs";
+import dayjs from "dayjs";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
-import { getRoleList } from "@/api/system";
 // import { ElMessageBox } from "element-plus";
-import { tableData } from "./data";
 // import { usePublicHooks } from "../../hooks";
 import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
-import { reactive, ref, onMounted, h, toRaw } from "vue";
+import { reactive, ref, onMounted, h } from "vue";
+import { collectionContainerList, financeCheckList } from "@/api/finance";
 
 export function useRole() {
   const form = reactive({
@@ -25,11 +24,14 @@ export function useRole() {
     total: "",
     f: "",
     t: "",
+    is_invoice: "",
     add_by: ""
   });
   const formRef = ref();
-  let dataList = tableData;
+  const dataList = ref([]);
+  const containerList = ref([]);
   const loading = ref(true);
+  const containerVisible = ref(false);
   // const switchLoadMap = ref({});
   // const { tagStyle } = usePublicHooks();
   const pagination = reactive<PaginationProps>({
@@ -41,11 +43,13 @@ export function useRole() {
   const columns: TableColumnList = [
     {
       label: "状态",
-      prop: "status"
+      prop: "is_invoice"
     },
     {
       label: "账期",
-      prop: "account_period"
+      prop: "account_period",
+      formatter: ({ account_period }) =>
+        dayjs(account_period).format("YYYY-MM-DD")
     },
     {
       label: "客户名称",
@@ -81,7 +85,6 @@ export function useRole() {
     },
     {
       label: "开票申请",
-      width: 140,
       slot: "operation"
     },
     {
@@ -99,6 +102,33 @@ export function useRole() {
     {
       label: "未收款金额",
       prop: "remain_amount"
+    }
+  ];
+
+  const containerColumns: TableColumnList = [
+    {
+      label: "箱号",
+      prop: "containner_no"
+    },
+    {
+      label: "封号",
+      prop: "seal_no"
+    },
+    {
+      label: "箱型",
+      prop: "container_type"
+    },
+    {
+      label: "提箱码头",
+      prop: "load_port"
+    },
+    {
+      label: "卸货门点",
+      prop: "door"
+    },
+    {
+      label: "费用",
+      prop: "amount"
     }
   ];
 
@@ -121,8 +151,11 @@ export function useRole() {
 
   async function onSearch() {
     loading.value = true;
-    const { data } = await getRoleList(toRaw(form));
-    dataList = data.list;
+    const { data } = await financeCheckList({
+      pagination,
+      form
+    });
+    dataList.value = data.list;
     pagination.total = data.total;
     pagination.pageSize = data.pageSize;
     pagination.currentPage = data.currentPage;
@@ -191,6 +224,16 @@ export function useRole() {
     });
   }
 
+  // 双击行
+  async function handleRowDblclick(form) {
+    collectionContainerList({
+      form
+    }).then(data => {
+      containerList.value = data.data.list;
+      containerVisible.value = true;
+    });
+  }
+
   /** 菜单权限 */
   function handleMenu() {
     message("等菜单管理页面开发后完善");
@@ -206,8 +249,11 @@ export function useRole() {
   return {
     form,
     loading,
+    containerVisible,
     columns,
+    containerColumns,
     dataList,
+    containerList,
     pagination,
     // buttonClass,
     onSearch,
@@ -215,6 +261,7 @@ export function useRole() {
     openDialog,
     handleMenu,
     handleDelete,
+    handleRowDblclick,
     // handleDatabase,
     handleSizeChange,
     handleCurrentChange,

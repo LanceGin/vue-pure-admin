@@ -6,8 +6,8 @@ import { useRenderIcon } from "../../../components/ReIcon/src/hooks";
 
 // import Database from "@iconify-icons/ri/database-2-line";
 // import More from "@iconify-icons/ep/more-filled";
-import Delete from "@iconify-icons/ep/delete";
-import EditPen from "@iconify-icons/ep/edit-pen";
+// import Delete from "@iconify-icons/ep/delete";
+// import EditPen from "@iconify-icons/ep/edit-pen";
 import Search from "@iconify-icons/ep/search";
 import Upload from "@iconify-icons/ep/upload";
 // import Download from "@iconify-icons/ep/download";
@@ -21,15 +21,19 @@ const formRef = ref();
 const {
   form,
   loading,
+  containerVisible,
   columns,
+  containerColumns,
   dataList,
+  containerList,
   pagination,
   // buttonClass,
   onSearch,
   resetForm,
-  openDialog,
-  handleDelete,
+  // openDialog,
+  // handleDelete,
   // handleDatabase,
+  handleRowDblclick,
   handleSizeChange,
   handleCurrentChange,
   handleSelectionChange
@@ -44,49 +48,51 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="客户名：" prop="kehu">
+      <el-form-item label="客户名：" prop="custom_name">
         <el-input
-          v-model="form.kehu"
+          v-model="form.custom_name"
           placeholder="请输入客户名"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="业务名：" prop="yewu">
+      <el-form-item label="业务名：" prop="project_name">
         <el-input
-          v-model="form.yewu"
+          v-model="form.project_name"
           placeholder="请输入业务名"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="门点：" prop="mendian">
+      <el-form-item label="门点：" prop="door">
         <el-input
-          v-model="form.mendian"
+          v-model="form.door"
           placeholder="请输入门点"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="账期：" prop="zhangqi">
-        <el-input
-          v-model="form.zhangqi"
-          placeholder="请输入门点"
-          clearable
-          class="!w-[200px]"
+      <el-form-item label="账期" prop="account_period">
+        <el-date-picker
+          v-model="form.account_period"
+          type="date"
+          placeholder="请输入账期"
+          format="YYYY/MM/DD"
+          value-format="YYYY-MM-DD"
         />
       </el-form-item>
-      <el-form-item label="做箱日期：" prop="zuoxiangriqi">
-        <el-input
-          v-model="form.zuoxiangriqi"
+      <el-form-item label="做箱日期" prop="account_period">
+        <el-date-picker
+          v-model="form.account_period"
+          type="date"
           placeholder="请输入做箱日期"
-          clearable
-          class="!w-[200px]"
+          format="YYYY/MM/DD"
+          value-format="YYYY-MM-DD"
         />
       </el-form-item>
-      <el-form-item label="费用名称：" prop="feiyongming">
+      <el-form-item label="费用名称：" prop="fee_name">
         <el-input
-          v-model="form.feiyongming"
+          v-model="form.fee_name"
           placeholder="请输入费用名称"
           clearable
           class="!w-[200px]"
@@ -114,16 +120,27 @@ const {
       </el-form-item>
     </el-form>
 
+    <el-dialog
+      v-model="containerVisible"
+      title="箱子列表"
+      width="80%"
+      custom-class="container-list"
+    >
+      <pure-table
+        border
+        align-whole="center"
+        showOverflowTooltip
+        highlight-current-row
+        :data="containerList"
+        :columns="containerColumns"
+        :header-cell-style="{
+          background: 'var(--el-table-row-hover-bg-color)',
+          color: 'var(--el-text-color-primary)'
+        }"
+      />
+    </el-dialog>
+
     <PureTableBar title="应收报表管理" :columns="columns" @refresh="onSearch">
-      <!-- <template #buttons>
-        <el-button
-          type="primary"
-          :icon="useRenderIcon(AddFill)"
-          @click="openDialog()"
-        >
-          添加车辆
-        </el-button>
-      </template> -->
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border
@@ -143,74 +160,9 @@ const {
           }"
           @selection-change="handleSelectionChange"
           @page-size-change="handleSizeChange"
+          @row-dblclick="handleRowDblclick"
           @page-current-change="handleCurrentChange"
-        >
-          <template #operation="{ row }">
-            <el-button
-              class="reset-margin"
-              link
-              type="primary"
-              :size="size"
-              :icon="useRenderIcon(EditPen)"
-              @click="openDialog('编辑', row)"
-            >
-              修改
-            </el-button>
-            <el-popconfirm
-              :title="`是否确认删除客户名称为${row.name}的这条数据`"
-              @confirm="handleDelete(row)"
-            >
-              <template #reference>
-                <el-button
-                  class="reset-margin"
-                  link
-                  type="primary"
-                  :size="size"
-                  :icon="useRenderIcon(Delete)"
-                >
-                  删除
-                </el-button>
-              </template>
-            </el-popconfirm>
-            <!-- <el-dropdown>
-              <el-button
-                class="ml-3 mt-[2px]"
-                link
-                type="primary"
-                :size="size"
-                :icon="useRenderIcon(More)"
-              />
-              <template #dropdown>
-                <el-dropdown-menu>
-                  <el-dropdown-item>
-                    <el-button
-                      :class="buttonClass"
-                      link
-                      type="primary"
-                      :size="size"
-                      :icon="useRenderIcon(Menu)"
-                      @click="handleMenu"
-                    >
-                      菜单权限
-                    </el-button>
-                  </el-dropdown-item>
-                  <el-dropdown-item>
-                    <el-button
-                      :class="buttonClass"
-                      link
-                      type="primary"
-                      :size="size"
-                      :icon="useRenderIcon(Database)"
-                      @click="handleDatabase"
-                    >
-                      数据权限
-                    </el-button>
-                  </el-dropdown-item>
-                </el-dropdown-menu>
-              </template>
-            </el-dropdown> -->
-          </template>
-        </pure-table>
+        />
       </template>
     </PureTableBar>
   </div>

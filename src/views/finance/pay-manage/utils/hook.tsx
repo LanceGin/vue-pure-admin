@@ -1,40 +1,44 @@
-// import dayjs from "dayjs";
+import dayjs from "dayjs";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
-import { getRoleList } from "@/api/system";
 // import { ElMessageBox } from "element-plus";
-import { tableData } from "./data";
 // import { usePublicHooks } from "../../hooks";
 import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
-import { reactive, ref, onMounted, h, toRaw } from "vue";
+import { reactive, ref, onMounted, h } from "vue";
+import { collectionContainerList, financeCheckList } from "@/api/finance";
 
 export function useRole() {
   const form = reactive({
-    zhuangtai: "",
-    zhangqi: "",
-    gongyingshang: "",
-    jiesuandanwei: "",
-    kaihuhang: "",
-    yinhangzhanghao: "",
-    fuwu: "",
+    id: "",
+    type: "应付",
+    status: "已审核",
+    account_period: "",
+    custom_name: "",
+    project_name: "",
+    flow_direction: "",
+    bank: "",
+    account_no: "",
+    content: "",
+    amount: "",
+    less_amount: "",
+    more_amount: "",
+    actual_amount: "",
+    total: "",
     f: "",
     t: "",
-    xiangliang: "",
-    jiesuanjine: "",
-    kouchu: "",
-    zengjia: "",
-    shifu: "",
-    haoma: "",
-    jizhangriqi: "",
-    beizhu: ""
+    invoice_no: "",
+    keep_time: "",
+    remark: ""
   });
   const formRef = ref();
   const currentRow = ref();
   const haveRow = ref(true);
-  let dataList = tableData;
+  const dataList = ref([]);
+  const containerList = ref([]);
   const loading = ref(true);
+  const containerVisible = ref(false);
   // const switchLoadMap = ref({});
   // const { tagStyle } = usePublicHooks();
   const pagination = reactive<PaginationProps>({
@@ -46,31 +50,33 @@ export function useRole() {
   const columns: TableColumnList = [
     {
       label: "状态",
-      prop: "zhuangtai"
+      prop: "status"
     },
     {
       label: "账期",
-      prop: "zhangqi"
+      prop: "account_period",
+      formatter: ({ account_period }) =>
+        dayjs(account_period).format("YYYY-MM-DD")
     },
     {
       label: "供应商名称",
-      prop: "gongyingshang"
+      prop: "custom_name"
     },
     {
       label: "结算单位",
-      prop: "jiesuandanwei"
+      prop: "project_name"
     },
     {
       label: "开户行",
-      prop: "kaihuhang"
+      prop: "bank"
     },
     {
       label: "银行账号",
-      prop: "yinhangzhanghao"
+      prop: "account_no"
     },
     {
       label: "服务内容",
-      prop: "fuwu"
+      prop: "content"
     },
     {
       label: "40",
@@ -82,35 +88,75 @@ export function useRole() {
     },
     {
       label: "箱量合计",
-      prop: "xiangliang"
+      prop: "total"
     },
     {
       label: "结算金额",
-      prop: "jiesuanjine"
+      prop: "amount"
     },
     {
       label: "扣除项目",
-      prop: "kouchu"
+      prop: "less_amount"
     },
     {
       label: "增加项目",
-      prop: "zengjia"
+      prop: "more_amount"
     },
     {
       label: "实付金额",
-      prop: "shifu"
+      prop: "actual_amount"
     },
     {
       label: "发票号码",
-      prop: "haoma"
+      prop: "invoice_no"
     },
     {
       label: "记账日期",
-      prop: "jizhangriqi"
+      prop: "keep_time",
+      formatter: ({ keep_time }) => dayjs(keep_time).format("YYYY-MM-DD")
     },
     {
       label: "备注",
-      prop: "beizhu"
+      prop: "remark"
+    }
+  ];
+
+  const containerColumns: TableColumnList = [
+    {
+      label: "箱号",
+      prop: "containner_no"
+    },
+    {
+      label: "封号",
+      prop: "seal_no"
+    },
+    {
+      label: "箱型",
+      prop: "container_type"
+    },
+    {
+      label: "提箱码头",
+      prop: "load_port"
+    },
+    {
+      label: "卸货门点",
+      prop: "door"
+    },
+    {
+      label: "结算费用",
+      prop: "amount"
+    },
+    {
+      label: "扣除费用",
+      prop: "less_amount"
+    },
+    {
+      label: "增加费用",
+      prop: "more_amount"
+    },
+    {
+      label: "实付费用",
+      prop: "actual_amount"
     }
   ];
 
@@ -136,8 +182,11 @@ export function useRole() {
 
   async function onSearch() {
     loading.value = true;
-    const { data } = await getRoleList(toRaw(form));
-    dataList = data.list;
+    const { data } = await financeCheckList({
+      pagination,
+      form
+    });
+    dataList.value = data.list;
     pagination.total = data.total;
     pagination.pageSize = data.pageSize;
     pagination.currentPage = data.currentPage;
@@ -158,23 +207,24 @@ export function useRole() {
       title: `${title}应付记录`,
       props: {
         formInline: {
-          zhuangtai: row?.zhuangtai ?? "",
-          zhangqi: row?.zhangqi ?? "",
-          gongyingshang: row?.gongyingshang ?? "",
-          jiesuandanwei: row?.jiesuandanwei ?? "",
-          kaihuhang: row?.kaihuhang ?? "",
-          yinhangzhanghao: row?.yinhangzhanghao ?? "",
-          fuwu: row?.fuwu ?? "",
+          id: row?.id ?? "",
+          type: row?.type ?? "",
+          status: row?.status ?? "",
+          account_period: row?.account_period ?? "",
+          custom_name: row?.custom_name ?? "",
+          project_name: row?.project_name ?? "",
+          bank: row?.bank ?? "",
+          account_no: row?.account_no ?? "",
+          content: row?.content ?? "",
+          amount: row?.amount ?? "",
+          less_amount: row?.less_amount ?? "",
+          more_amount: row?.more_amount ?? "",
+          actual_amount: row?.actual_amount ?? "",
+          total: row?.total ?? "",
           f: row?.f ?? "",
           t: row?.t ?? "",
-          xiangliang: row?.xiangliang ?? "",
-          jiesuanjine: row?.jiesuanjine ?? "",
-          kouchu: row?.kouchu ?? "",
-          zengjia: row?.zengjia ?? "",
-          shifu: row?.shifu ?? "",
-          haoma: row?.haoma ?? "",
-          jizhangriqi: row?.jizhangriqi ?? "",
-          beizhu: row?.beizhu ?? ""
+          invoice_no: row?.invoice_no ?? "",
+          remark: row?.remark ?? ""
         }
       },
       width: "40%",
@@ -186,7 +236,7 @@ export function useRole() {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
         function chores() {
-          message(`您${title}了供应商为${curData.gongyingshang}的这条数据`, {
+          message(`您${title}了供应商为${curData.custom_name}的这条数据`, {
             type: "success"
           });
           done(); // 关闭弹框
@@ -215,9 +265,13 @@ export function useRole() {
   }
 
   // 双击行
-  function handleRowDblclick(row) {
-    console.log(row);
-    openDialog("编辑", row);
+  async function handleRowDblclick(form) {
+    collectionContainerList({
+      form
+    }).then(data => {
+      containerList.value = data.data.list;
+      containerVisible.value = true;
+    });
   }
 
   /** 菜单权限 */
@@ -235,9 +289,12 @@ export function useRole() {
   return {
     form,
     loading,
+    containerVisible,
     haveRow,
     columns,
+    containerColumns,
     dataList,
+    containerList,
     pagination,
     // buttonClass,
     onSearch,

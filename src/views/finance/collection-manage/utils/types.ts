@@ -14,6 +14,7 @@ interface FormItemProps {
   total: string;
   f: string;
   t: string;
+  is_invoice: string;
   add_by: string;
 }
 interface FormProps {

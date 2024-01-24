@@ -82,6 +82,13 @@ export const financeCheckList = (data?: object) => {
   });
 };
 
+// 费用报表列表
+export const financeStatList = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("financeStatList"), {
+    data
+  });
+};
+
 // 发票列表
 export const invoicetList = (data?: object) => {
   return http.request<ListResult>("post", baseUrlApi("invoicetList"), {

@@ -21,8 +21,11 @@ const formRef = ref();
 const {
   form,
   loading,
+  containerVisible,
   columns,
+  containerColumns,
   dataList,
+  containerList,
   pagination,
   // buttonClass,
   onSearch,
@@ -30,6 +33,7 @@ const {
   // openDialog,
   // handleDelete,
   // handleDatabase,
+  handleRowDblclick,
   handleSizeChange,
   handleCurrentChange,
   handleSelectionChange
@@ -44,52 +48,37 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="应付单位：" prop="yingfudanwei">
+      <el-form-item label="应付单位：" prop="custom_name">
         <el-input
-          v-model="form.yingfudanwei"
+          v-model="form.custom_name"
           placeholder="请输入应付单位"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="业务名：" prop="yewu">
+      <el-form-item label="业务名：" prop="project_name">
         <el-input
-          v-model="form.yewu"
+          v-model="form.project_name"
           placeholder="请输入业务名"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="门点：" prop="mendian">
+      <el-form-item label="门点：" prop="door">
         <el-input
-          v-model="form.mendian"
+          v-model="form.door"
           placeholder="请输入门点"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="账期：" prop="zhangqi">
-        <el-input
-          v-model="form.zhangqi"
+      <el-form-item label="账期" prop="account_period">
+        <el-date-picker
+          v-model="form.account_period"
+          type="date"
           placeholder="请输入账期"
-          clearable
-          class="!w-[200px]"
-        />
-      </el-form-item>
-      <el-form-item label="做箱日期：" prop="zuoxiangriqi">
-        <el-input
-          v-model="form.zuoxiangriqi"
-          placeholder="请输入做箱日期"
-          clearable
-          class="!w-[200px]"
-        />
-      </el-form-item>
-      <el-form-item label="费用名称：" prop="feiyongming">
-        <el-input
-          v-model="form.feiyongming"
-          placeholder="请输入费用名称"
-          clearable
-          class="!w-[200px]"
+          format="YYYY/MM/DD"
+          value-format="YYYY-MM-DD"
         />
       </el-form-item>
     </el-form>
@@ -114,6 +103,26 @@ const {
       </el-form-item>
     </el-form>
 
+    <el-dialog
+      v-model="containerVisible"
+      title="箱子列表"
+      width="80%"
+      custom-class="container-list"
+    >
+      <pure-table
+        border
+        align-whole="center"
+        showOverflowTooltip
+        highlight-current-row
+        :data="containerList"
+        :columns="containerColumns"
+        :header-cell-style="{
+          background: 'var(--el-table-row-hover-bg-color)',
+          color: 'var(--el-text-color-primary)'
+        }"
+      />
+    </el-dialog>
+
     <PureTableBar title="应付报表管理" :columns="columns" @refresh="onSearch">
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
@@ -134,6 +143,7 @@ const {
           }"
           @selection-change="handleSelectionChange"
           @page-size-change="handleSizeChange"
+          @row-dblclick="handleRowDblclick"
           @page-current-change="handleCurrentChange"
         />
       </template>

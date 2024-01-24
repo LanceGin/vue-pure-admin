@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { reactive, ref } from "vue";
 import { formRules } from "./utils/rule";
 import { FormProps } from "./utils/types";
+import { accCompanyList } from "@/api/daily";
+import type { PaginationProps } from "@pureadmin/table";
 
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
@@ -16,6 +18,10 @@ const props = withDefaults(defineProps<FormProps>(), {
     tax_amount: "",
     apply_by: "",
     apply_department: "",
+    acc_company_id: "",
+    company_name: "",
+    bank: "",
+    account_no: "",
     create_time: "",
     reimburse_by: "",
     audit_by: "",
@@ -26,6 +32,63 @@ const props = withDefaults(defineProps<FormProps>(), {
     apply_time: ""
   })
 });
+
+const selectValue = ref("");
+const selectRef = ref();
+const columns: TableColumnList = [
+  {
+    label: "ID",
+    prop: "id"
+  },
+  {
+    label: "结算单位",
+    prop: "company_name"
+  },
+  {
+    label: "开户行",
+    prop: "bank"
+  },
+  {
+    label: "银行账号",
+    prop: "account_no"
+  }
+];
+
+/** 分页配置 */
+const pagination = reactive<PaginationProps>({
+  pageSize: 500,
+  currentPage: 1,
+  total: 0
+});
+const form = reactive({
+  id: "",
+  company_code: "",
+  company_name: "",
+  bank: "",
+  account_no: "",
+  remark: ""
+});
+const accData = ref([]);
+const data = accCompanyList({ pagination, form });
+data.then(v => {
+  accData.value = v.data.list;
+});
+
+/** 高亮当前选中行 */
+function rowStyle({ row: { name } }) {
+  return {
+    cursor: "pointer",
+    background: name === selectValue.value ? "#f5f7fa" : ""
+  };
+}
+
+/** 行点击 */
+function onRowClick(row) {
+  selectValue.value = row.name;
+  selectRef.value.blur();
+  console.log(1111, row);
+  newFormInline.value.acc_company_id = row.id;
+}
 
 const ruleFormRef = ref();
 const newFormInline = ref(props.formInline);
@@ -123,6 +186,31 @@ defineExpose({ getRef });
         clearable
         placeholder="请输入申请单位"
       />
+    </el-form-item>
+    <el-form-item label="结算单位" prop="acc_company_id">
+      <el-select
+        ref="selectRef"
+        v-model="newFormInline.acc_company_id"
+        placeholder="请选择"
+        clearable
+      >
+        <template #empty>
+          <div class="w-[600px] m-4">
+            <pure-table
+              height="355"
+              row-key="acc_company_id"
+              :header-cell-style="{
+                background: '#f5f7fa',
+                color: '#303133'
+              }"
+              :row-style="rowStyle"
+              :data="accData"
+              :columns="columns"
+              @row-click="onRowClick"
+            />
+          </div>
+        </template>
+      </el-select>
     </el-form-item>
     <el-form-item label="备注" prop="remark">
       <el-input

@@ -18,6 +18,7 @@ const props = withDefaults(defineProps<FormProps>(), {
     total: "",
     f: "",
     t: "",
+    is_invoice: "",
     add_by: ""
   })
 });

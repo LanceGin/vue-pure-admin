@@ -12,6 +12,10 @@ interface FormItemProps {
   tax_amount: string;
   apply_by: string;
   apply_department: string;
+  acc_company_id: string;
+  company_name: string;
+  bank: string;
+  account_no: string;
   create_time: string;
   reimburse_by: string;
   audit_by: string;
