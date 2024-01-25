@@ -53,25 +53,25 @@ export function useRole() {
   });
   const columns: TableColumnList = [
     {
-      label: "做箱时间",
-      prop: "make_time",
-      formatter: ({ make_time }) => dayjs(make_time).format("YYYY-MM-DD")
+      label: "船公司",
+      prop: "ship_company"
     },
     {
       label: "客户",
       prop: "customer"
     },
     {
+      label: "子项目",
+      prop: "subproject"
+    },
+    {
+      label: "做箱时间",
+      prop: "make_time",
+      formatter: ({ make_time }) => dayjs(make_time).format("YYYY-MM-DD")
+    },
+    {
       label: "提箱点",
       prop: "load_port"
-    },
-    {
-      label: "箱号",
-      prop: "containner_no"
-    },
-    {
-      label: "箱型",
-      prop: "container_type"
     },
     {
       label: "船名航次",
@@ -82,16 +82,56 @@ export function useRole() {
       prop: "track_no"
     },
     {
+      label: "箱号",
+      prop: "containner_no"
+    },
+    {
+      label: "箱型",
+      prop: "container_type"
+    },
+    {
+      label: "封号",
+      prop: "seal_no"
+    },
+    {
       label: "门点",
       prop: "door"
     },
     {
-      label: "流向",
-      prop: "target_port"
+      label: "还箱点",
+      prop: "unload_port"
     },
     {
       label: "车号",
       prop: "car_no"
+    },
+    {
+      label: "起始港",
+      prop: "start_port"
+    },
+    {
+      label: "目的港",
+      prop: "target_port"
+    },
+    {
+      label: "中转港",
+      prop: "transfer_port"
+    },
+    {
+      label: "件数",
+      prop: "package_count"
+    },
+    {
+      label: "毛重",
+      prop: "gross_weight"
+    },
+    {
+      label: "体积",
+      prop: "volume"
+    },
+    {
+      label: "箱皮重",
+      prop: "container_weight"
     }
   ];
 
