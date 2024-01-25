@@ -78,6 +78,25 @@ export const importExportContainer = data => {
   );
 };
 
+// 批量导入派车记录
+export const importDispatch = data => {
+  return http.request<ListResult>(
+    "post",
+    baseUrlApi("importDispatch"),
+    {
+      data
+    },
+    {
+      transformRequest: [
+        function (data, headers) {
+          delete headers["Content-Type"];
+          return data;
+        }
+      ]
+    }
+  );
+};
+
 // 获取临时出口派车列表
 export const exportTmpDispatchList = (data?: object) => {
   return http.request<ListResult>("post", baseUrlApi("exportTmpDispatchList"), {

@@ -65,10 +65,6 @@ export function useRole() {
       prop: "voyage"
     },
     {
-      label: "序号",
-      prop: "voyage_index"
-    },
-    {
       label: "提单号",
       prop: "bl_no"
     },

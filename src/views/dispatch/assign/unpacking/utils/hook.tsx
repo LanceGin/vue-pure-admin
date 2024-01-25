@@ -7,7 +7,7 @@ import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
-import { dispatchCar, getUnpackingList } from "@/api/dispatch";
+import { dispatchCar, getUnpackingList, importDispatch } from "@/api/dispatch";
 import { ElMessage, ElMessageBox } from "element-plus";
 
 export function useRole() {
@@ -246,6 +246,13 @@ export function useRole() {
     });
   }
 
+  // 上传文件批量导入
+  async function uploadExcelDetail(item) {
+    const form = new FormData();
+    form.append("file", item.file);
+    await importDispatch(form);
+  }
+
   /** 菜单权限 */
   function handleMenu() {
     message("等菜单管理页面开发后完善");
@@ -266,6 +273,7 @@ export function useRole() {
     dataList,
     pagination,
     // buttonClass,
+    uploadExcelDetail,
     onSearch,
     resetForm,
     openDialog,
