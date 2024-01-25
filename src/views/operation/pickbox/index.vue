@@ -94,7 +94,7 @@ const {
       <el-form-item label="箱号" prop="containner_no">
         <el-input
           v-model="form.containner_no"
-          placeholder="请输入箱号"
+          placeholder="多箱号换行输入"
           autosize
           type="textarea"
           clearable
