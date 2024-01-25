@@ -7,7 +7,11 @@ import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
-import { collectionContainerList, financeCheckList } from "@/api/finance";
+import {
+  collectionContainerList,
+  financeCheckList,
+  generateContainerFee
+} from "@/api/finance";
 
 export function useRole() {
   const form = reactive({
@@ -83,10 +87,10 @@ export function useRole() {
       label: "应收金额",
       prop: "amount"
     },
-    {
-      label: "开票申请",
-      slot: "operation"
-    },
+    // {
+    //   label: "开票申请",
+    //   slot: "operation"
+    // },
     {
       label: "发票号码",
       prop: "invoice_no"
@@ -213,6 +217,7 @@ export function useRole() {
             // 表单规则校验通过
             if (title === "新增") {
               // 实际开发先调用新增接口，再进行下面操作
+              generateContainerFee(curData);
               chores();
             } else {
               // 实际开发先调用编辑接口，再进行下面操作

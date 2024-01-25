@@ -40,6 +40,13 @@ export const cancelKeepAppliedFee = (data?: object) => {
   });
 };
 
+// 生成应收费
+export const generateContainerFee = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("generateContainerFee"), {
+    data
+  });
+};
+
 // 生成打单费
 export const generateOrderFee = (data?: object) => {
   return http.request<ListResult>("post", baseUrlApi("generateOrderFee"), {
