@@ -53,7 +53,7 @@ export function useRole() {
     },
     {
       label: "签到地点",
-      prop: "clockin_location"
+      slot: "clockin"
     },
     {
       label: "签到类型",
@@ -82,7 +82,7 @@ export function useRole() {
     },
     {
       label: "签退地点",
-      prop: "clockout_location"
+      slot: "clockout"
     },
     {
       label: "签退类型",
@@ -174,9 +174,9 @@ export function useRole() {
     onSearch();
   };
 
-  function openDialog(title = "考勤", row?: FormItemProps) {
+  function openDialog(title = "", row?: FormItemProps) {
     addDialog({
-      title: `${title}统计`,
+      title: "",
       props: {
         formInline: {
           userName: row?.userName ?? "",

@@ -33,9 +33,10 @@ const {
   dataList,
   pagination,
   // buttonClass,
+  exportExcel,
   uploadExcelDetail,
   onSearch,
-  resetForm,
+  // resetForm,
   // openDialog,
   // handleDelete,
   // handleDatabase,
@@ -88,13 +89,15 @@ const handleClose = () => {
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="日期" prop="make_time">
+      <el-form-item label="日期：" prop="make_time_range">
         <el-date-picker
-          v-model="form.make_time"
-          type="date"
-          placeholder="请输入日期"
-          format="YYYY/MM/DD"
-          value-format="YYYY-MM-DD"
+          v-model="form.make_time_range"
+          type="daterange"
+          start-placeholder="起始日期"
+          end-placeholder="截止日期"
+          format="YYYY-MM-DD HH:mm:ss"
+          date-format="YYYY/MM/DD ddd"
+          time-format="A hh:mm:ss"
         />
       </el-form-item>
       <el-form-item label="门点：" prop="door">
@@ -147,7 +150,7 @@ const handleClose = () => {
         >
           导入
         </el-button>
-        <el-button :icon="useRenderIcon(Upload)" @click="resetForm(formRef)">
+        <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
           导出
         </el-button>
       </el-form-item>

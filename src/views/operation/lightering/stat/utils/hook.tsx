@@ -42,7 +42,9 @@ export function useRole() {
     forwarder: "",
     transfer_type: "",
     remarks: "",
-    total: ""
+    total: "",
+    t: "",
+    f: ""
   });
   const formRef = ref();
   const dataList = ref([]);
@@ -70,12 +72,12 @@ export function useRole() {
       prop: "cargo_name"
     },
     {
-      label: "箱类型",
-      prop: "container_type"
+      label: "40'大柜数量",
+      prop: "f"
     },
     {
-      label: "数量",
-      prop: "total"
+      label: "20'小柜数量",
+      prop: "t"
     }
   ];
 

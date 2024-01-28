@@ -6,12 +6,12 @@ import { useRenderIcon } from "../../../components/ReIcon/src/hooks";
 
 // import Database from "@iconify-icons/ri/database-2-line";
 // import More from "@iconify-icons/ep/more-filled";
-import Delete from "@iconify-icons/ep/delete";
-import EditPen from "@iconify-icons/ep/edit-pen";
+// import Delete from "@iconify-icons/ep/delete";
+// import EditPen from "@iconify-icons/ep/edit-pen";
 import Search from "@iconify-icons/ep/search";
 import Upload from "@iconify-icons/ep/upload";
 // import Download from "@iconify-icons/ep/download";
-import AddFill from "@iconify-icons/ri/add-circle-line";
+// import AddFill from "@iconify-icons/ri/add-circle-line";
 
 defineOptions({
   name: "Role"
@@ -29,7 +29,7 @@ const {
   onSearch,
   // resetForm,
   openDialog,
-  handleDelete,
+  // handleDelete,
   // handleDatabase,
   handleSizeChange,
   handleCurrentChange,
@@ -109,13 +109,13 @@ const {
         <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
           导出
         </el-button>
-        <el-button
+        <!-- <el-button
           type="primary"
           :icon="useRenderIcon(AddFill)"
           @click="openDialog()"
         >
           考勤统计
-        </el-button>
+        </el-button> -->
       </el-form-item>
     </el-form>
 
@@ -141,33 +141,27 @@ const {
           @page-size-change="handleSizeChange"
           @page-current-change="handleCurrentChange"
         >
-          <template #operation="{ row }">
+          <template #clockin="{ row }">
             <el-button
               class="reset-margin"
               link
               type="primary"
               :size="size"
-              :icon="useRenderIcon(EditPen)"
-              @click="openDialog('编辑', row)"
+              @click="openDialog(row)"
             >
-              修改
+              {{ row.clockin_location }}
             </el-button>
-            <el-popconfirm
-              :title="`是否确认删除堆场名称为${row.name}的这条数据`"
-              @confirm="handleDelete(row)"
+          </template>
+          <template #clockout="{ row }">
+            <el-button
+              class="reset-margin"
+              link
+              type="primary"
+              :size="size"
+              @click="openDialog(row)"
             >
-              <template #reference>
-                <el-button
-                  class="reset-margin"
-                  link
-                  type="primary"
-                  :size="size"
-                  :icon="useRenderIcon(Delete)"
-                >
-                  删除
-                </el-button>
-              </template>
-            </el-popconfirm>
+              {{ row.clockout_location }}
+            </el-button>
           </template>
         </pure-table>
       </template>

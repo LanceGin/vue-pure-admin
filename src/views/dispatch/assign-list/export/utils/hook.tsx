@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import { utils, writeFile } from "xlsx";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
 // import { ElMessageBox } from "element-plus";
@@ -10,6 +11,9 @@ import { reactive, ref, onMounted, h } from "vue";
 import { getExportDispatchList, importExportContainer } from "@/api/dispatch";
 
 export function useRole() {
+  const end = new Date();
+  const start = new Date();
+  start.setTime(start.getTime() - 3600 * 1000 * 24 * 5);
   const form = reactive({
     id: "",
     order_status: "",
@@ -27,7 +31,8 @@ export function useRole() {
     track_no: "",
     unload_port: "",
     door: "",
-    make_time: dayjs().format("YYYY-MM-DD"),
+    make_time: "",
+    make_time_range: ref<[Date, Date]>([start, end]),
     load_port: "",
     count: "",
     transfer_port: "",
@@ -134,6 +139,28 @@ export function useRole() {
       prop: "container_weight"
     }
   ];
+
+  function exportExcel() {
+    const res = dataList.value.map(item => {
+      const arr = [];
+      columns.forEach(column => {
+        arr.push(item[column.prop as string]);
+      });
+      return arr;
+    });
+    const titleList = [];
+    columns.forEach(column => {
+      titleList.push(column.label);
+    });
+    res.unshift(titleList);
+    const workSheet = utils.aoa_to_sheet(res);
+    const workBook = utils.book_new();
+    utils.book_append_sheet(workBook, workSheet, "数据报表");
+    writeFile(workBook, "出口派车单.xlsx");
+    message("导出成功", {
+      type: "success"
+    });
+  }
 
   function handleDelete(row) {
     message(`您删除了角色名称为${row.name}的这条数据`, { type: "success" });
@@ -246,6 +273,7 @@ export function useRole() {
     dataList,
     pagination,
     // buttonClass,
+    exportExcel,
     uploadExcelDetail,
     onSearch,
     resetForm,
