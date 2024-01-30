@@ -250,7 +250,9 @@ export function useRole() {
   async function uploadExcelDetail(item) {
     const form = new FormData();
     form.append("file", item.file);
-    await importDispatch(form);
+    await importDispatch(form).then(() => {
+      onSearch();
+    });
   }
 
   /** 菜单权限 */

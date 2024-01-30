@@ -12,10 +12,11 @@ import {
   getPickBoxList,
   loadPort,
   makeTime,
-  pickBox,
+  // pickBox,
   tempDrop
 } from "@/api/operation";
 import { ElMessage, ElMessageBox } from "element-plus";
+import { generatePlanningFee } from "@/api/finance";
 
 export function useRole() {
   const form = reactive({
@@ -302,7 +303,10 @@ export function useRole() {
             throw new Error("所选箱未设置做箱时间");
           }
         });
-        pickBox(data);
+        generatePlanningFee(data).then(res => {
+          console.log(1111, res);
+        });
+        // pickBox(data);
         onSearch();
       })
       .catch(info => {
@@ -334,6 +338,7 @@ export function useRole() {
             throw new Error("所选箱未设置做箱时间");
           }
         });
+        generatePlanningFee(data);
         tempDrop(data);
         onSearch();
       })
