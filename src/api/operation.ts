@@ -197,6 +197,13 @@ export const getDocumentCheckList = (data?: object) => {
   });
 };
 
+// 获取单证查看记录
+export const containerWithFeeList = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("containerWithFeeList"), {
+    data
+  });
+};
+
 // 获取箱子记录
 export const getContainerList = (data?: object) => {
   return http.request<ListResult>("post", baseUrlApi("containerList"), {
@@ -204,9 +211,22 @@ export const getContainerList = (data?: object) => {
   });
 };
 
+// 获取箱子费用记录
+export const getContainerFeeList = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("getContainerFeeList"), {
+    data
+  });
+};
+
 // 新增箱子
 export const addContainer = (data?: object) => {
   return http.request<ChangeResult>("post", baseUrlApi("addContainer"), {
+    data
+  });
+};
+// 新增箱子费用
+export const addContainerFee = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("addContainerFee"), {
     data
   });
 };

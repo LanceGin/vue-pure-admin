@@ -7,6 +7,7 @@ import { useRenderIcon } from "../../../components/ReIcon/src/hooks";
 // import More from "@iconify-icons/ep/more-filled";
 import Search from "@iconify-icons/ep/search";
 import Upload from "@iconify-icons/ep/upload";
+import Edit from "@iconify-icons/ep/edit";
 
 defineOptions({
   name: "Role"
@@ -16,15 +17,18 @@ const formRef = ref();
 const {
   form,
   loading,
-  // haveRow,
+  containerVisible,
+  haveRow,
   columns,
+  containerFeeColumns,
   dataList,
+  containerFeeList,
   pagination,
   // buttonClass,
   exportExcel,
   onSearch,
   // resetForm,
-  // openDialog,
+  openDialog,
   // handleDelete,
   // handleDatabase,
   // handleSubmit,
@@ -32,8 +36,7 @@ const {
   handleRowDblclick,
   handleSizeChange,
   handlePageChange,
-  // handleCurrentChange,
-  handleSelectionChange
+  handleCurrentChange
 } = useRole();
 </script>
 
@@ -45,6 +48,18 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
+      <el-form-item label="单据类型" prop="order_type">
+        <el-select
+          v-model="form.order_type"
+          placeholder="请选择类型"
+          clearable
+          class="!w-[180px]"
+        >
+          <el-option label="全部" value="" />
+          <el-option label="进口" value="进口" />
+          <el-option label="出口" value="出口" />
+        </el-select>
+      </el-form-item>
       <el-form-item label="客户" prop="customer">
         <el-input
           v-model="form.customer"
@@ -81,7 +96,9 @@ const {
       <el-form-item label="箱号" prop="containner_no">
         <el-input
           v-model="form.containner_no"
-          placeholder="请输入箱号"
+          placeholder="多箱号换行输入"
+          autosize
+          type="textarea"
           clearable
           class="!w-[200px]"
         />
@@ -110,13 +127,45 @@ const {
         >
           搜索
         </el-button>
+        <el-button
+          type="primary"
+          :icon="useRenderIcon(Edit)"
+          @click="openDialog('新增')"
+          :disabled="haveRow"
+        >
+          添加异常费用
+        </el-button>
         <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
           导出
         </el-button>
       </el-form-item>
     </el-form>
 
-    <PureTableBar title="已完成箱" :columns="columns" @refresh="onSearch">
+    <el-dialog
+      v-model="containerVisible"
+      title="箱子费用列表"
+      width="80%"
+      custom-class="container-list"
+    >
+      <pure-table
+        border
+        align-whole="center"
+        showOverflowTooltip
+        highlight-current-row
+        :data="containerFeeList"
+        :columns="containerFeeColumns"
+        :header-cell-style="{
+          background: 'var(--el-table-row-hover-bg-color)',
+          color: 'var(--el-text-color-primary)'
+        }"
+      />
+    </el-dialog>
+
+    <PureTableBar
+      title="已完成箱（双击查看费用）"
+      :columns="columns"
+      @refresh="onSearch"
+    >
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border
@@ -136,9 +185,9 @@ const {
             color: 'var(--el-text-color-primary)'
           }"
           @row-dblclick="handleRowDblclick"
-          @selection-change="handleSelectionChange"
           @page-size-change="handleSizeChange"
           @page-current-change="handlePageChange"
+          @current-change="handleCurrentChange"
         />
       </template>
     </PureTableBar>

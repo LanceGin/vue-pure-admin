@@ -9,15 +9,17 @@ import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
 import {
-  addContainer,
-  getContainerList,
-  getDocumentCheckList,
+  containerWithFeeList,
   importDocumentCheck,
-  submitDocumentCheck
+  submitDocumentCheck,
+  getContainerFeeList,
+  addContainerFee
 } from "@/api/operation";
 import { ElMessage, ElMessageBox } from "element-plus";
+import { useUserStore } from "@/store/modules/user";
 
 export function useRole() {
+  const user = useUserStore();
   const form = reactive({
     id: "",
     order_status: "",
@@ -52,7 +54,7 @@ export function useRole() {
   const selectRows = ref([]);
   const haveRow = ref(true);
   const dataList = ref([]);
-  const containerList = ref([]);
+  const containerFeeList = ref([]);
   const loading = ref(true);
   const containerVisible = ref(false);
   // const switchLoadMap = ref({});
@@ -67,6 +69,10 @@ export function useRole() {
     {
       label: "状态",
       prop: "container_status"
+    },
+    {
+      label: "类型",
+      prop: "order_type"
     },
     {
       label: "客户",
@@ -85,6 +91,10 @@ export function useRole() {
       prop: "containner_no"
     },
     {
+      label: "封号",
+      prop: "seal_no"
+    },
+    {
       label: "车号",
       prop: "car_no"
     },
@@ -97,20 +107,35 @@ export function useRole() {
       prop: "target_port"
     },
     {
-      label: "异常费",
-      prop: "abnormal_fee"
-    },
-    {
-      label: "高速费",
-      prop: "toll_fee"
-    },
-    {
-      label: "还箱费",
-      prop: "send_back_fee"
-    },
-    {
       label: "备注",
       prop: "remark"
+    }
+  ];
+
+  const containerFeeColumns: TableColumnList = [
+    {
+      label: "类型",
+      prop: "type"
+    },
+    {
+      label: "状态",
+      prop: "status"
+    },
+    {
+      label: "费用名",
+      prop: "fee_name"
+    },
+    {
+      label: "金额",
+      prop: "amount"
+    },
+    {
+      label: "扣除金额",
+      prop: "less_amount"
+    },
+    {
+      label: "增加金额",
+      prop: "more_amount"
     }
   ];
 
@@ -130,7 +155,7 @@ export function useRole() {
     const workSheet = utils.aoa_to_sheet(res);
     const workBook = utils.book_new();
     utils.book_append_sheet(workBook, workSheet, "数据报表");
-    writeFile(workBook, "单证列表.xlsx");
+    writeFile(workBook, "已完成列表.xlsx");
     message("导出成功", {
       type: "success"
     });
@@ -160,19 +185,19 @@ export function useRole() {
     haveRow.value = false;
   }
 
-  function handleSelectionChange(val) {
-    console.log("handleSelectionChange", val);
-    selectRows.value = val;
-    if (selectRows.value.length > 0) {
-      haveRow.value = false;
-    } else {
-      haveRow.value = true;
-    }
-  }
+  // function handleSelectionChange(val) {
+  //   console.log("handleSelectionChange", val);
+  //   selectRows.value = val;
+  //   if (selectRows.value.length > 0) {
+  //     haveRow.value = false;
+  //   } else {
+  //     haveRow.value = true;
+  //   }
+  // }
 
   async function onSearch() {
     loading.value = true;
-    const { data } = await getDocumentCheckList({
+    const { data } = await containerWithFeeList({
       pagination,
       form
     });
@@ -192,43 +217,23 @@ export function useRole() {
     onSearch();
   };
 
-  async function handleAddContainer(container) {
-    console.log(1111, container);
-    await addContainer(container);
+  async function handleAddContainerFee(container) {
+    await addContainerFee(container);
   }
 
-  function openDialog(title = "添加", row?: FormItemProps) {
+  function openDialog(title = "添加") {
     addDialog({
-      title: `${title}单证`,
+      title: `${title}费用`,
       props: {
         formInline: {
-          id: row?.id ?? "",
-          order_status: row?.order_status ?? "",
-          order_type: row?.order_type ?? "",
-          ship_company: row?.ship_company ?? "",
-          customer: row?.customer ?? "",
-          subproject: row?.subproject ?? "",
-          arrive_time: row?.arrive_time ?? "",
-          start_port: row?.start_port ?? "",
-          target_port: row?.target_port ?? "",
-          containner_no: row?.containner_no ?? "",
-          seal_no: row?.seal_no ?? "",
-          container_type: row?.container_type ?? "",
-          ship_name: row?.ship_name ?? "",
-          track_no: row?.track_no ?? "",
-          unload_port: row?.unload_port ?? "",
-          door: row?.door ?? "",
-          make_time: row?.make_time ?? "",
-          load_port: row?.load_port ?? "",
-          count: row?.count ?? "",
-          transfer_port: row?.transfer_port ?? "",
-          package_count: row?.package_count ?? "",
-          gross_weight: row?.gross_weight ?? "",
-          volume: row?.volume ?? "",
-          container_weight: row?.container_weight ?? "",
-          container_status: row?.container_status ?? "",
-          order_time: row?.order_time ?? "",
-          order_fee: row?.order_fee ?? ""
+          id: currentRow.value.id,
+          track_no: currentRow.value.track_no,
+          containner_no: currentRow.value.containner_no,
+          type: "",
+          status: "",
+          fee_name: "",
+          amount: "",
+          add_by: user.username
         }
       },
       width: "40%",
@@ -240,9 +245,12 @@ export function useRole() {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
         function chores() {
-          message(`您${title}了订单号为${curData.track_no}的这条数据`, {
-            type: "success"
-          });
+          message(
+            `您为订单号为${curData.track_no}的这条数据${title}了异常费用`,
+            {
+              type: "success"
+            }
+          );
           done(); // 关闭弹框
           onSearch(); // 刷新表格数据
         }
@@ -252,7 +260,7 @@ export function useRole() {
             // 表单规则校验通过
             if (title === "新增") {
               // 实际开发先调用新增接口，再进行下面操作
-              handleAddContainer(curData);
+              handleAddContainerFee(curData);
               chores();
             } else {
               // 实际开发先调用编辑接口，再进行下面操作
@@ -297,15 +305,15 @@ export function useRole() {
 
   // 编辑按钮
   function handleEdit() {
-    openDialog("编辑", currentRow.value);
+    openDialog("编辑");
   }
 
   // 双击行
   async function handleRowDblclick(form) {
-    getContainerList({
+    getContainerFeeList({
       form
     }).then(data => {
-      containerList.value = data.data.list;
+      containerFeeList.value = data.data.list;
       containerVisible.value = true;
     });
   }
@@ -328,8 +336,9 @@ export function useRole() {
     haveRow,
     containerVisible,
     columns,
+    containerFeeColumns,
     dataList,
-    containerList,
+    containerFeeList,
     pagination,
     // buttonClass,
     exportExcel,
@@ -345,7 +354,7 @@ export function useRole() {
     handleEdit,
     handleSizeChange,
     handlePageChange,
-    handleCurrentChange,
-    handleSelectionChange
+    handleCurrentChange
+    // handleSelectionChange
   };
 }
