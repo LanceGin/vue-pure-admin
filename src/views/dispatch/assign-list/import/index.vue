@@ -20,6 +20,7 @@ defineOptions({
 const formRef = ref();
 const {
   form,
+  haveRow,
   loading,
   columns,
   dataList,
@@ -27,7 +28,7 @@ const {
   // buttonClass,
   exportExcel,
   onSearch,
-  resetForm,
+  // resetForm,
   // openDialog,
   // handleDelete,
   // handleDatabase,
@@ -35,7 +36,9 @@ const {
   handleSizeChange,
   handlePageChange,
   handleCurrentChange,
-  handleSelectionChange
+  handleSelectionChange,
+  handleRevoke,
+  handleFinish
 } = useRole();
 </script>
 
@@ -114,16 +117,16 @@ const {
         <el-button
           type="danger"
           :icon="useRenderIcon(EditPen)"
-          @click="resetForm(formRef)"
-          :disabled="true"
+          @click="handleRevoke()"
+          :disabled="haveRow"
         >
           一键撤回
         </el-button>
         <el-button
           type="success"
           :icon="useRenderIcon(EditPen)"
-          @click="resetForm(formRef)"
-          :disabled="true"
+          @click="handleFinish()"
+          :disabled="haveRow"
         >
           一键完成
         </el-button>

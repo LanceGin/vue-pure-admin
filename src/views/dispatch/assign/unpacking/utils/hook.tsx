@@ -72,7 +72,7 @@ export function useRole() {
     },
     {
       label: "提箱点",
-      prop: "unload_port"
+      prop: "load_port"
     },
     {
       label: "做箱时间",
@@ -80,8 +80,8 @@ export function useRole() {
       formatter: ({ make_time }) => dayjs(make_time).format("YYYY-MM-DD")
     },
     {
-      label: "暂落",
-      prop: "temp_time"
+      label: "暂落点",
+      prop: "temp_port"
     },
     {
       label: "运单号",

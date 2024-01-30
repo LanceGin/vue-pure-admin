@@ -291,15 +291,18 @@ export function useRole() {
       cancelButtonText: "取消",
       type: "warning"
     })
-      .then(() => {
-        const select_container_no = [];
+      .then(actual_amount => {
+        const data = {
+          select_container_no: [],
+          actual_amount: actual_amount
+        };
         selectRows.value.forEach(v => {
-          select_container_no.push(v.containner_no);
+          data.select_container_no.push(v.containner_no);
           if (v.make_time === null) {
             throw new Error("所选箱未设置做箱时间");
           }
         });
-        pickBox(select_container_no);
+        pickBox(data);
         onSearch();
       })
       .catch(info => {
@@ -315,20 +318,23 @@ export function useRole() {
 
   // 暂落
   async function handleTempDrop() {
-    ElMessageBox.confirm("确认暂落后箱子将进入派车流程？", "暂落确认", {
+    ElMessageBox.prompt("请输入暂落点", "暂落确认", {
       confirmButtonText: "确认",
       cancelButtonText: "取消",
       type: "warning"
     })
-      .then(() => {
-        const select_container_no = [];
+      .then(temp_port => {
+        const data = {
+          select_container_no: [],
+          temp_port: temp_port
+        };
         selectRows.value.forEach(v => {
-          select_container_no.push(v.containner_no);
+          data.select_container_no.push(v.containner_no);
           if (v.make_time === null) {
             throw new Error("所选箱未设置做箱时间");
           }
         });
-        tempDrop(select_container_no);
+        tempDrop(data);
         onSearch();
       })
       .catch(info => {

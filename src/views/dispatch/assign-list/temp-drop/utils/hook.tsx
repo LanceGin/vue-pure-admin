@@ -7,7 +7,13 @@ import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
-import { editContainerInfo, tempDropDispatchList } from "@/api/dispatch";
+import {
+  editContainerInfo,
+  oneStepFinish,
+  oneStepRevoke,
+  tempDropDispatchList
+} from "@/api/dispatch";
+import { ElMessage, ElMessageBox } from "element-plus";
 
 export function useRole() {
   const form = reactive({
@@ -45,6 +51,8 @@ export function useRole() {
     temp_time: ""
   });
   const formRef = ref();
+  const selectRows = ref([]);
+  const haveRow = ref(true);
   const dataList = ref([]);
   const loading = ref(true);
   // const switchLoadMap = ref({});
@@ -56,6 +64,10 @@ export function useRole() {
     background: true
   });
   const columns: TableColumnList = [
+    {
+      type: "selection",
+      align: "left"
+    },
     {
       type: "expand",
       slot: "expand"
@@ -145,6 +157,12 @@ export function useRole() {
 
   function handleSelectionChange(val) {
     console.log("handleSelectionChange", val);
+    selectRows.value = val;
+    if (selectRows.value.length > 0) {
+      haveRow.value = false;
+    } else {
+      haveRow.value = true;
+    }
   }
 
   async function onSearch() {
@@ -171,7 +189,7 @@ export function useRole() {
 
   function openDialog(title = "添加", row?: FormItemProps) {
     addDialog({
-      title: `${title}装箱`,
+      title: `${title}箱信息`,
       props: {
         formInline: {
           id: row?.id ?? "",
@@ -238,6 +256,50 @@ export function useRole() {
     });
   }
 
+  // 一键撤回
+  async function handleRevoke() {
+    ElMessageBox.confirm("撤回后箱子将撤回至派车阶段", "一键撤回", {
+      confirmButtonText: "确认",
+      cancelButtonText: "取消"
+    })
+      .then(() => {
+        const select_container_no = [];
+        selectRows.value.forEach(v => {
+          select_container_no.push(v.containner_no);
+        });
+        oneStepRevoke(select_container_no);
+        onSearch();
+      })
+      .catch(() => {
+        ElMessage({
+          type: "info",
+          message: "取消修改提箱点"
+        });
+      });
+  }
+
+  // 一键完成
+  async function handleFinish() {
+    ElMessageBox.confirm("完成后箱子将完成所有点灯流程", "一键完成", {
+      confirmButtonText: "确认",
+      cancelButtonText: "取消"
+    })
+      .then(() => {
+        const select_container_no = [];
+        selectRows.value.forEach(v => {
+          select_container_no.push(v.containner_no);
+        });
+        oneStepFinish(select_container_no);
+        onSearch();
+      })
+      .catch(() => {
+        ElMessage({
+          type: "info",
+          message: "取消修改提箱点"
+        });
+      });
+  }
+
   // 双击行
   function handleRowDblclick(row) {
     console.log(row);
@@ -262,6 +324,7 @@ export function useRole() {
 
   return {
     form,
+    haveRow,
     loading,
     columns,
     dataList,
@@ -277,6 +340,8 @@ export function useRole() {
     handleSizeChange,
     handlePageChange,
     handleCurrentChange,
-    handleSelectionChange
+    handleSelectionChange,
+    handleRevoke,
+    handleFinish
   };
 }

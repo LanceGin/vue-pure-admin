@@ -128,7 +128,7 @@ const handleClose = () => {
           @click="handleDispatch()"
           :disabled="haveRow"
         >
-          拆箱派车
+          派车
         </el-button>
       </el-form-item>
     </el-form>

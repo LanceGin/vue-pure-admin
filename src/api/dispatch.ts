@@ -117,3 +117,17 @@ export const tempDropDispatchList = (data?: object) => {
     data
   });
 };
+
+// 编辑进口派车单箱子信息
+export const oneStepFinish = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("oneStepFinish"), {
+    data
+  });
+};
+
+// 编辑进口派车单箱子信息
+export const oneStepRevoke = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("oneStepRevoke"), {
+    data
+  });
+};

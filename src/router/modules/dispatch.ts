@@ -24,7 +24,7 @@ export default {
           component: () =>
             import("@/views/dispatch/assign/unpacking/index.vue"),
           meta: {
-            title: "拆箱列表"
+            title: "拆箱暂落列表"
           }
         },
         {
