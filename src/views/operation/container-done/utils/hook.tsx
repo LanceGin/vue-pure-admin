@@ -1,4 +1,4 @@
-// import dayjs from "dayjs";
+import dayjs from "dayjs";
 import { utils, writeFile } from "xlsx";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
@@ -20,6 +20,9 @@ import { useUserStore } from "@/store/modules/user";
 
 export function useRole() {
   const user = useUserStore();
+  const end = new Date();
+  const start = new Date();
+  start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
   const form = reactive({
     id: "",
     order_status: "",
@@ -47,6 +50,7 @@ export function useRole() {
     container_weight: "",
     container_status: "已完成",
     order_time: "",
+    order_time_range: ref<[Date, Date]>([start, end]),
     order_fee: ""
   });
   const formRef = ref();
@@ -83,6 +87,14 @@ export function useRole() {
       prop: "subproject"
     },
     {
+      label: "门点",
+      prop: "door"
+    },
+    {
+      label: "船名",
+      prop: "ship_name"
+    },
+    {
       label: "运单号",
       prop: "track_no"
     },
@@ -105,6 +117,11 @@ export function useRole() {
     {
       label: "目的港",
       prop: "target_port"
+    },
+    {
+      label: "打单时间",
+      prop: "order_time",
+      formatter: ({ order_time }) => dayjs(order_time).format("YYYY-MM-DD")
     },
     {
       label: "备注",
@@ -184,16 +201,6 @@ export function useRole() {
     currentRow.value = val;
     haveRow.value = false;
   }
-
-  // function handleSelectionChange(val) {
-  //   console.log("handleSelectionChange", val);
-  //   selectRows.value = val;
-  //   if (selectRows.value.length > 0) {
-  //     haveRow.value = false;
-  //   } else {
-  //     haveRow.value = true;
-  //   }
-  // }
 
   async function onSearch() {
     loading.value = true;

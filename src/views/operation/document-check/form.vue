@@ -162,11 +162,11 @@ defineExpose({ getRef });
       />
     </el-form-item>
 
-    <el-form-item label="卸箱地点" prop="door">
+    <el-form-item label="门点" prop="door">
       <el-input
         v-model="newFormInline.door"
         clearable
-        placeholder="请输入卸箱地点"
+        placeholder="请输入门点"
       />
     </el-form-item>
   </el-form>

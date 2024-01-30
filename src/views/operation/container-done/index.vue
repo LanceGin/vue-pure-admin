@@ -68,21 +68,23 @@ const {
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="子项目" prop="subproject">
+      <el-form-item label="门点" prop="door">
         <el-input
-          v-model="form.subproject"
-          placeholder="请输入子项目名称"
+          v-model="form.door"
+          placeholder="请输入门点"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="打单日期" prop="order_time">
+      <el-form-item label="日期：" prop="order_time_range">
         <el-date-picker
-          v-model="form.order_time"
-          type="date"
-          placeholder="请输入打单日期"
-          format="YYYY/MM/DD"
-          value-format="YYYY-MM-DD"
+          v-model="form.order_time_range"
+          type="daterange"
+          start-placeholder="起始日期"
+          end-placeholder="截止日期"
+          format="YYYY-MM-DD"
+          date-format="YYYY/MM/DD ddd"
+          time-format="A hh:mm:ss"
         />
       </el-form-item>
       <el-form-item label="运单号" prop="track_no">
