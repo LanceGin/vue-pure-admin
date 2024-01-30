@@ -61,6 +61,13 @@ export const getYardList = (data?: object) => {
   });
 };
 
+// 获取堆场价格列表
+export const getYardPriceList = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("yardPriceList"), {
+    data
+  });
+};
+
 // 新增堆场
 export const addYard = (data?: object) => {
   return http.request<ChangeResult>("post", baseUrlApi("addYard"), {

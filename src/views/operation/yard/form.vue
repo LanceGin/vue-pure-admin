@@ -3,6 +3,7 @@ import { ref } from "vue";
 import { formRules } from "./utils/rule";
 import { FormProps } from "./utils/types";
 import type { TabsPaneContext } from "element-plus";
+import { getYardPriceList } from "@/api/operation";
 
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
@@ -22,9 +23,33 @@ const props = withDefaults(defineProps<FormProps>(), {
   })
 });
 
+const columns: TableColumnList = [
+  {
+    label: "Min",
+    prop: "day_min"
+  },
+  {
+    label: "Max",
+    prop: "day_max"
+  },
+  {
+    label: "20",
+    prop: "price_20"
+  },
+  {
+    label: "40",
+    prop: "price_40"
+  }
+];
+
+const tableData = ref([]);
 const ruleFormRef = ref();
 const newFormInline = ref(props.formInline);
 const activeName = ref("first");
+const data = getYardPriceList(newFormInline.value);
+data.then(v => {
+  tableData.value = v.data.list;
+});
 
 const handleClick = (tab: TabsPaneContext, event: Event) => {
   console.log(tab, event);
@@ -137,7 +162,7 @@ defineExpose({ getRef });
 
     <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
       <el-tab-pane label="堆存天数对应金额" name="first">
-        堆存天数对应金额
+        <pure-table :data="tableData" :columns="columns" />
       </el-tab-pane>
     </el-tabs>
   </el-form>
