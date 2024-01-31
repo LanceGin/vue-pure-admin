@@ -59,7 +59,7 @@ export const getExportDispatchList = (data?: object) => {
   });
 };
 
-// 批量导入单证记录
+// 批量导入出口派车单记录
 export const importExportContainer = data => {
   return http.request<ListResult>(
     "post",

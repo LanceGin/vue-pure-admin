@@ -9,6 +9,7 @@ import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
 import { dispatchCar, getUnpackingList, importDispatch } from "@/api/dispatch";
 import { ElMessage, ElMessageBox } from "element-plus";
+import { generateDispatchFee } from "@/api/finance";
 
 export function useRole() {
   const form = reactive({
@@ -164,13 +165,17 @@ export function useRole() {
         console.log(car_no);
         const data = {
           select_container_no: [],
+          select_container: [],
           car_no: car_no
         };
         selectRows.value.forEach(v => {
           data.select_container_no.push(v.containner_no);
+          data.select_container.push(v);
         });
-        dispatchCar(data);
-        onSearch();
+        generateDispatchFee(data).then(() => {
+          dispatchCar(data);
+          onSearch();
+        });
       })
       .catch(() => {
         ElMessage({
