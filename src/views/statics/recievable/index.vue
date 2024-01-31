@@ -37,6 +37,7 @@ const {
   // handleDelete,
   // handleDatabase,
   handleSizeChange,
+  handlePageChange,
   handleCurrentChange,
   handleSelectionChange,
   // handleSetInvoiceNo,
@@ -230,7 +231,8 @@ const handleClose = () => {
           }"
           @selection-change="handleSelectionChange"
           @page-size-change="handleSizeChange"
-          @page-current-change="handleCurrentChange"
+          @current-change="handleCurrentChange"
+          @page-current-change="handlePageChange"
         />
       </template>
     </PureTableBar>

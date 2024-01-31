@@ -12,7 +12,7 @@ import {
   getPickBoxList,
   loadPort,
   makeTime,
-  // pickBox,
+  pickBox,
   tempDrop
 } from "@/api/operation";
 import { ElMessage, ElMessageBox } from "element-plus";
@@ -295,19 +295,22 @@ export function useRole() {
       .then(actual_amount => {
         const data = {
           select_container_no: [],
+          select_container: [],
           actual_amount: actual_amount
         };
         selectRows.value.forEach(v => {
           data.select_container_no.push(v.containner_no);
+          data.select_container.push(v);
           if (v.make_time === null) {
             throw new Error("所选箱未设置做箱时间");
+          } else if (v.load_port === null) {
+            throw new Error("所选箱未设置提箱点");
           }
         });
-        generatePlanningFee(data).then(res => {
-          console.log(1111, res);
+        generatePlanningFee(data).then(() => {
+          pickBox(data);
+          onSearch();
         });
-        // pickBox(data);
-        onSearch();
       })
       .catch(info => {
         if (info == "cancel") {
@@ -330,17 +333,22 @@ export function useRole() {
       .then(temp_port => {
         const data = {
           select_container_no: [],
+          select_container: [],
           temp_port: temp_port
         };
         selectRows.value.forEach(v => {
           data.select_container_no.push(v.containner_no);
+          data.select_container.push(v);
           if (v.make_time === null) {
             throw new Error("所选箱未设置做箱时间");
+          } else if (v.load_port === null) {
+            throw new Error("所选箱未设置提箱点");
           }
         });
-        generatePlanningFee(data);
-        tempDrop(data);
-        onSearch();
+        generatePlanningFee(data).then(() => {
+          tempDrop(data);
+          onSearch();
+        });
       })
       .catch(info => {
         if (info == "cancel") {

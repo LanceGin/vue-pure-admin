@@ -192,6 +192,14 @@ export function useRole() {
 
   function handleSizeChange(val: number) {
     console.log(`${val} items per page`);
+    pagination.pageSize = val;
+    onSearch();
+  }
+
+  function handlePageChange(val: number) {
+    console.log(`current page: ${val}`);
+    pagination.currentPage = val;
+    onSearch();
   }
 
   function handleCurrentChange(val: number) {
@@ -448,6 +456,7 @@ export function useRole() {
     uploadExcelDetail,
     // handleDatabase,
     handleSizeChange,
+    handlePageChange,
     handleCurrentChange,
     handleSelectionChange,
     handleSetInvoiceNo,
