@@ -334,7 +334,10 @@ export function useRole() {
         const data = {
           select_container_no: [],
           select_container: [],
-          temp_port: temp_port
+          temp_port: temp_port,
+          actual_amount: {
+            value: null
+          }
         };
         selectRows.value.forEach(v => {
           data.select_container_no.push(v.containner_no);
