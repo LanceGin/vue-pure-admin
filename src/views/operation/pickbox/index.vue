@@ -77,15 +77,29 @@ const {
         />
       </el-form-item>
 
-      <el-form-item label="状态" prop="container_status">
+      <el-form-item label="箱状态" prop="container_status">
         <el-select
           v-model="form.container_status"
           placeholder="请选择状态"
           clearable
           class="!w-[180px]"
         >
+          <el-option label="全部" value="" />
           <el-option label="待挑箱" value="待挑箱" />
           <el-option label="已挑箱" value="已挑箱" />
+          <el-option label="运输中" value="运输中" />
+          <el-option label="已完成" value="已完成" />
+        </el-select>
+      </el-form-item>
+
+      <el-form-item label="暂落状态" prop="temp_status">
+        <el-select
+          v-model="form.temp_status"
+          placeholder="请选择状态"
+          clearable
+          class="!w-[180px]"
+        >
+          <el-option label="全部" value="" />
           <el-option label="已暂落" value="已暂落" />
           <el-option label="未暂落" value="未暂落" />
         </el-select>

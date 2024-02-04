@@ -46,7 +46,8 @@ export function useRole() {
     container_weight: "",
     container_status: "待挑箱",
     order_time: "",
-    order_fee: ""
+    order_fee: "",
+    temp_status: ""
   });
   const formRef = ref();
   const selectRows = ref([]);

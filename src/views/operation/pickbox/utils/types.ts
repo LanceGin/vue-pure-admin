@@ -28,6 +28,7 @@ interface FormItemProps {
   container_status: string;
   order_time: string;
   order_fee: string;
+  temp_status: string;
 }
 interface FormProps {
   formInline: FormItemProps;
