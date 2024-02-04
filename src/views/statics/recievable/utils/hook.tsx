@@ -21,7 +21,7 @@ import { ElMessage, ElMessageBox } from "element-plus";
 export function useRole() {
   const form = reactive({
     id: "",
-    status: "",
+    status: "未提交",
     type: "应收",
     account_period: "",
     fee_name: "",

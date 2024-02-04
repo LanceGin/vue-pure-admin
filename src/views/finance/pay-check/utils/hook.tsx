@@ -14,8 +14,10 @@ import {
   financeCheckList,
   rejectPay
 } from "@/api/finance";
+import { useUserStore } from "@/store/modules/user";
 
 export function useRole() {
+  const user = useUserStore();
   const form = reactive({
     id: "",
     type: "应付",
@@ -31,7 +33,8 @@ export function useRole() {
     actual_amount: "",
     total: "",
     f: "",
-    t: ""
+    t: "",
+    apply_by: ""
   });
   const formRef = ref();
   const dataList = ref([]);
@@ -264,6 +267,7 @@ export function useRole() {
 
   // 审核通过
   function handleApprove(row) {
+    row.add_by = user.username;
     console.log(row);
     approvePay(row);
     onSearch();
