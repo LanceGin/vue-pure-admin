@@ -9,6 +9,7 @@ import { useRenderIcon } from "../../../components/ReIcon/src/hooks";
 // import Delete from "@iconify-icons/ep/delete";
 import EditPen from "@iconify-icons/ep/edit-pen";
 import Search from "@iconify-icons/ep/search";
+import Upload from "@iconify-icons/ep/upload";
 import {
   ElMessageBox,
   UploadInstance,
@@ -31,6 +32,7 @@ const {
   dataList,
   pagination,
   // buttonClass,
+  exportExcel,
   onSearch,
   openDialog,
   uploadExcelDetail,
@@ -174,6 +176,9 @@ const handleClose = () => {
           :disabled="haveRow"
         >
           批量调整金额
+        </el-button>
+        <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
+          导出
         </el-button>
         <!-- <el-button
           :icon="useRenderIcon(EditPen)"
