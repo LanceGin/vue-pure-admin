@@ -119,6 +119,13 @@ export const tempDropDispatchList = (data?: object) => {
 };
 
 // 编辑进口派车单箱子信息
+export const tempDropFinish = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("tempDropFinish"), {
+    data
+  });
+};
+
+// 编辑进口派车单箱子信息
 export const oneStepFinish = (data?: object) => {
   return http.request<ChangeResult>("post", baseUrlApi("oneStepFinish"), {
     data

@@ -9,9 +9,9 @@ import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
 import {
   editContainerInfo,
-  oneStepFinish,
   oneStepRevoke,
-  tempDropDispatchList
+  tempDropDispatchList,
+  tempDropFinish
 } from "@/api/dispatch";
 import { ElMessage, ElMessageBox } from "element-plus";
 
@@ -285,7 +285,7 @@ export function useRole() {
         selectRows.value.forEach(v => {
           select_container_no.push(v.containner_no);
         });
-        oneStepFinish(select_container_no);
+        tempDropFinish(select_container_no);
         onSearch();
       })
       .catch(() => {
