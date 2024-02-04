@@ -271,12 +271,12 @@ export function useRole() {
 
   // 记账
   async function handleKeep() {
-    ElMessageBox.confirm("确认记账？", "记账确认", {
+    ElMessageBox.prompt("请输入记账时间", "记账确认", {
       confirmButtonText: "确认",
       cancelButtonText: "取消",
-      type: "warning"
+      inputType: "date"
     })
-      .then(() => {
+      .then(keep_time => {
         const select_id = [];
         selectRows.value.forEach(v => {
           select_id.push(v.id);
@@ -286,7 +286,8 @@ export function useRole() {
         });
         const data = {
           select_id: select_id,
-          username: user.username
+          username: user.username,
+          keep_time: keep_time
         };
         keepAppliedFee(data);
         onSearch();
