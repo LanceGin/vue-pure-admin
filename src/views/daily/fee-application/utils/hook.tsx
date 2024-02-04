@@ -13,6 +13,7 @@ import {
   appliedFeeList,
   deleteAppliedFee,
   editAppliedFee,
+  revokeAppliedFee,
   submitAppliedFee
 } from "@/api/daily";
 import { useUserStore } from "@/store/modules/user";
@@ -314,7 +315,6 @@ export function useRole() {
       type: "warning"
     })
       .then(() => {
-        console.log("submit", selectRows.value);
         const select_id = [];
         selectRows.value.forEach(v => {
           select_id.push(v.id);
@@ -326,6 +326,28 @@ export function useRole() {
         ElMessage({
           type: "info",
           message: "取消提交"
+        });
+      });
+  }
+
+  // 撤销费用
+  async function handleRevoke() {
+    ElMessageBox.confirm("撤销提交费用", "一键撤回", {
+      confirmButtonText: "确认",
+      cancelButtonText: "取消"
+    })
+      .then(() => {
+        const select_id = [];
+        selectRows.value.forEach(v => {
+          select_id.push(v.id);
+        });
+        revokeAppliedFee(select_id);
+        onSearch();
+      })
+      .catch(() => {
+        ElMessage({
+          type: "info",
+          message: "取消撤回"
         });
       });
   }
@@ -364,6 +386,7 @@ export function useRole() {
     handleDelete,
     // handleDatabase,
     handleSubmit,
+    handleRevoke,
     handleRowDblclick,
     handleEdit,
     handleSizeChange,

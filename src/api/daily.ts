@@ -117,3 +117,10 @@ export const submitAppliedFee = (data?: object) => {
     data
   });
 };
+
+// 编辑进口派车单箱子信息
+export const revokeAppliedFee = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("revokeAppliedFee"), {
+    data
+  });
+};

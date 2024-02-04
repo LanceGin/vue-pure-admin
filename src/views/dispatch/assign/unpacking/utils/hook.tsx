@@ -273,7 +273,7 @@ export function useRole() {
       .catch(() => {
         ElMessage({
           type: "info",
-          message: "取消修改提箱点"
+          message: "取消撤回"
         });
       });
   }

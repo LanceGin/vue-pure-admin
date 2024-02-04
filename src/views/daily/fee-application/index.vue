@@ -33,6 +33,7 @@ const {
   handleDelete,
   // handleDatabase,
   handleSubmit,
+  handleRevoke,
   handleRowDblclick,
   handleEdit,
   handleSizeChange,
@@ -154,7 +155,7 @@ const {
         <el-button
           type="danger"
           :icon="useRenderIcon(EditPen)"
-          @click="resetForm(formRef)"
+          @click="handleRevoke()"
           :disabled="haveRow"
         >
           撤销
