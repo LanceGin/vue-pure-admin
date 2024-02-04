@@ -148,8 +148,6 @@ const {
               <el-steps :active="Number(row.transport_status)">
                 <el-step title="已执行" />
                 <el-step title="已提箱" />
-                <el-step title="进拆箱门点" />
-                <el-step title="出拆箱门点" />
                 <el-step title="已还箱" />
                 <el-step title="已完成" />
               </el-steps>

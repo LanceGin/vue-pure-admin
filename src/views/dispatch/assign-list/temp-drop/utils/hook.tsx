@@ -122,12 +122,8 @@ export function useRole() {
         } else if (transport_status == 1) {
           return "已提箱";
         } else if (transport_status == 2) {
-          return "进拆箱门点";
-        } else if (transport_status == 3) {
-          return "出拆箱门点";
-        } else if (transport_status == 4) {
           return "已还箱";
-        } else if (transport_status == 5) {
+        } else if (transport_status == 3) {
           return "已完成";
         }
       }

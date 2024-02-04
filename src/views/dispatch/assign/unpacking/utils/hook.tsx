@@ -7,7 +7,12 @@ import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
-import { dispatchCar, getUnpackingList, importDispatch } from "@/api/dispatch";
+import {
+  dispatchCar,
+  dispatchRevoke,
+  getUnpackingList,
+  importDispatch
+} from "@/api/dispatch";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { generateDispatchFee } from "@/api/finance";
 
@@ -251,6 +256,28 @@ export function useRole() {
     });
   }
 
+  // 一键撤回
+  async function handleRevoke() {
+    ElMessageBox.confirm("撤回后箱子将撤回至挑箱阶段", "一键撤回", {
+      confirmButtonText: "确认",
+      cancelButtonText: "取消"
+    })
+      .then(() => {
+        const select_container_no = [];
+        selectRows.value.forEach(v => {
+          select_container_no.push(v.containner_no);
+        });
+        dispatchRevoke(select_container_no);
+        onSearch();
+      })
+      .catch(() => {
+        ElMessage({
+          type: "info",
+          message: "取消修改提箱点"
+        });
+      });
+  }
+
   // 上传文件批量导入
   async function uploadExcelDetail(item) {
     const form = new FormData();
@@ -291,6 +318,7 @@ export function useRole() {
     handlePageChange,
     handleCurrentChange,
     handleSelectionChange,
-    handleDispatch
+    handleDispatch,
+    handleRevoke
   };
 }

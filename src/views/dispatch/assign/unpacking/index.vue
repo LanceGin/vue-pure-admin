@@ -44,7 +44,8 @@ const {
   handlePageChange,
   handleCurrentChange,
   handleSelectionChange,
-  handleDispatch
+  handleDispatch,
+  handleRevoke
 } = useRole();
 
 const upload = ref<UploadInstance>();
@@ -129,6 +130,14 @@ const handleClose = () => {
           :disabled="haveRow"
         >
           派车
+        </el-button>
+        <el-button
+          type="danger"
+          :icon="useRenderIcon(EditPen)"
+          @click="handleRevoke()"
+          :disabled="haveRow"
+        >
+          一键撤回
         </el-button>
       </el-form-item>
     </el-form>

@@ -131,3 +131,10 @@ export const oneStepRevoke = (data?: object) => {
     data
   });
 };
+
+// 编辑进口派车单箱子信息
+export const dispatchRevoke = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("dispatchRevoke"), {
+    data
+  });
+};
