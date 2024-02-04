@@ -18,8 +18,10 @@ import {
 } from "@/api/operation";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { generateOrderFee } from "@/api/finance";
+import { useUserStore } from "@/store/modules/user";
 
 export function useRole() {
+  const user = useUserStore();
   const form = reactive({
     id: "",
     order_status: "未审核",
@@ -299,6 +301,7 @@ export function useRole() {
   async function uploadExcelDetail(item) {
     const form = new FormData();
     form.append("file", item.file);
+    form.append("add_by", user.username);
     await importDocumentCheck(form);
   }
 
