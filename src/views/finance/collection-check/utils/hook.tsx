@@ -1,3 +1,4 @@
+import { utils, writeFile } from "xlsx";
 import dayjs from "dayjs";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
@@ -116,6 +117,28 @@ export function useRole() {
       prop: "amount"
     }
   ];
+
+  function exportExcel() {
+    const res = containerList.value.map(item => {
+      const arr = [];
+      containerColumns.forEach(column => {
+        arr.push(item[column.prop as string]);
+      });
+      return arr;
+    });
+    const titleList = [];
+    containerColumns.forEach(column => {
+      titleList.push(column.label);
+    });
+    res.unshift(titleList);
+    const workSheet = utils.aoa_to_sheet(res);
+    const workBook = utils.book_new();
+    utils.book_append_sheet(workBook, workSheet, "数据报表");
+    writeFile(workBook, "应收费用明细.xlsx");
+    message("导出成功", {
+      type: "success"
+    });
+  }
 
   function handleDelete(row) {
     message(`您删除了角色名称为${row.name}的这条数据`, { type: "success" });
@@ -254,6 +277,7 @@ export function useRole() {
     containerList,
     pagination,
     // buttonClass,
+    exportExcel,
     onSearch,
     resetForm,
     openDialog,

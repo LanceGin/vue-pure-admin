@@ -28,6 +28,7 @@ const {
   containerList,
   pagination,
   // buttonClass,
+  exportExcel,
   onSearch,
   resetForm,
   // openDialog,
@@ -108,6 +109,13 @@ const {
           color: 'var(--el-text-color-primary)'
         }"
       />
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
+            导出
+          </el-button>
+        </div>
+      </template>
     </el-dialog>
 
     <PureTableBar title="应付费用列表" :columns="columns" @refresh="onSearch">
@@ -182,5 +190,12 @@ const {
   :deep(.el-form-item) {
     margin-bottom: 12px;
   }
+}
+
+.my-header {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  justify-content: space-between;
 }
 </style>

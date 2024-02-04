@@ -28,8 +28,8 @@ const {
   containerList,
   pagination,
   // buttonClass,
+  exportExcel,
   onSearch,
-  resetForm,
   // openDialog,
   // handleDelete,
   // handleDatabase,
@@ -99,9 +99,6 @@ const {
         >
           搜索
         </el-button>
-        <el-button :icon="useRenderIcon(Upload)" @click="resetForm(formRef)">
-          导出
-        </el-button>
       </el-form-item>
     </el-form>
 
@@ -123,6 +120,13 @@ const {
           color: 'var(--el-text-color-primary)'
         }"
       />
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
+            导出
+          </el-button>
+        </div>
+      </template>
     </el-dialog>
 
     <PureTableBar title="应收费用列表" :columns="columns" @refresh="onSearch">
@@ -197,5 +201,12 @@ const {
   :deep(.el-form-item) {
     margin-bottom: 12px;
   }
+}
+
+.my-header {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  justify-content: space-between;
 }
 </style>
