@@ -271,7 +271,7 @@ export function useRole() {
 
   // 记账
   async function handleKeep() {
-    ElMessageBox.prompt("请输入记账时间", "记账确认", {
+    ElMessageBox.prompt("请输入记账时间（直接确认默认当天）", "记账确认", {
       confirmButtonText: "确认",
       cancelButtonText: "取消",
       inputType: "date"
