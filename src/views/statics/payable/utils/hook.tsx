@@ -121,6 +121,10 @@ export function useRole() {
       formatter: ({ make_time }) => dayjs(make_time).format("YYYY-MM-DD")
     },
     {
+      label: "单据类型",
+      prop: "order_type"
+    },
+    {
       label: "客户简称",
       prop: "customer"
     },
