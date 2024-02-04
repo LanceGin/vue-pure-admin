@@ -44,6 +44,7 @@ export function useRole() {
     unload_port: "",
     door: "",
     make_time: "",
+    make_time_range: "",
     load_port: "",
     count: "",
     transfer_port: "",
@@ -118,7 +119,8 @@ export function useRole() {
     },
     {
       label: "做箱时间",
-      prop: "make_time"
+      prop: "make_time",
+      formatter: ({ make_time }) => dayjs(make_time).format("YYYY-MM-DD")
     },
     {
       label: "客户简称",

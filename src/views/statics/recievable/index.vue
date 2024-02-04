@@ -95,13 +95,15 @@ const handleClose = () => {
           <el-option label="已驳回" value="已驳回" />
         </el-select>
       </el-form-item>
-      <el-form-item label="做箱时间" prop="make_time">
+      <el-form-item label="做箱时间：" prop="make_time_range">
         <el-date-picker
-          v-model="form.make_time"
-          type="date"
-          placeholder="请输入做箱时间"
-          format="YYYY/MM/DD"
-          value-format="YYYY-MM-DD"
+          v-model="form.make_time_range"
+          type="daterange"
+          start-placeholder="起始日期"
+          end-placeholder="截止日期"
+          format="YYYY-MM-DD"
+          date-format="YYYY/MM/DD ddd"
+          time-format="A hh:mm:ss"
         />
       </el-form-item>
       <el-form-item label="运单号：" prop="track_no">
@@ -112,10 +114,12 @@ const handleClose = () => {
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="箱号：" prop="containner_no">
+      <el-form-item label="箱号" prop="containner_no">
         <el-input
           v-model="form.containner_no"
-          placeholder="请输入箱号"
+          placeholder="多箱号换行输入"
+          autosize
+          type="textarea"
           clearable
           class="!w-[200px]"
         />

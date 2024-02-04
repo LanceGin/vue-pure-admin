@@ -9,6 +9,7 @@ import { useRenderIcon } from "../../../components/ReIcon/src/hooks";
 // import Delete from "@iconify-icons/ep/delete";
 import EditPen from "@iconify-icons/ep/edit-pen";
 import Search from "@iconify-icons/ep/search";
+import Upload from "@iconify-icons/ep/upload";
 import {
   UploadInstance,
   UploadProps,
@@ -31,6 +32,7 @@ const {
   dataList,
   pagination,
   // buttonClass,
+  exportExcel,
   onSearch,
   openDialog,
   uploadExcelDetail,
@@ -110,10 +112,12 @@ const handleClose = () => {
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="箱号：" prop="containner_no">
+      <el-form-item label="箱号" prop="containner_no">
         <el-input
           v-model="form.containner_no"
-          placeholder="请输入箱号"
+          placeholder="多箱号换行输入"
+          autosize
+          type="textarea"
           clearable
           class="!w-[200px]"
         />
@@ -138,6 +142,14 @@ const handleClose = () => {
         <el-input
           v-model="form.customer"
           placeholder="请输入客户简称"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
+      <el-form-item label="供应商：" prop="custom_name">
+        <el-input
+          v-model="form.custom_name"
+          placeholder="请输入供应商"
           clearable
           class="!w-[200px]"
         />
@@ -181,6 +193,9 @@ const handleClose = () => {
           :disabled="haveRow"
         >
           批量调整金额
+        </el-button>
+        <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
+          导出
         </el-button>
         <!-- <el-button
           :icon="useRenderIcon(EditPen)"
