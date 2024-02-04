@@ -123,11 +123,11 @@ defineExpose({ getRef });
         value-format="YYYY-MM-DD"
       />
     </el-form-item>
-    <el-form-item label="签订日期" prop="end_time">
+    <el-form-item label="终止日期" prop="end_time">
       <el-date-picker
         v-model="newFormInline.end_time"
         type="date"
-        placeholder="请输入签订日期"
+        placeholder="请输入终止日期"
         format="YYYY/MM/DD"
         value-format="YYYY-MM-DD"
       />

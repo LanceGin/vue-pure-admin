@@ -137,7 +137,7 @@ const handleClose = () => {
           @click="handleRevoke()"
           :disabled="haveRow"
         >
-          一键撤回
+          撤回
         </el-button>
       </el-form-item>
     </el-form>
