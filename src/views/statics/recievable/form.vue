@@ -72,10 +72,10 @@ defineExpose({ getRef });
     <el-form-item label="账期" prop="account_period">
       <el-date-picker
         v-model="newFormInline.account_period"
-        type="date"
+        type="month"
         placeholder="请输入账期"
-        format="YYYY/MM/DD"
-        value-format="YYYY-MM-DD"
+        format="YYYY/MM"
+        value-format="YYYY-MM"
       />
     </el-form-item>
     <el-form-item label="客户名称" prop="custom_name">

@@ -90,8 +90,7 @@ export function useRole() {
     {
       label: "账期",
       prop: "account_period",
-      formatter: ({ account_period }) =>
-        dayjs(account_period).format("YYYY-MM-DD")
+      formatter: ({ account_period }) => dayjs(account_period).format("YYYY-MM")
     },
     {
       label: "费用名称",
