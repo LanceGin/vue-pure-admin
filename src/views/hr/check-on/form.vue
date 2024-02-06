@@ -36,6 +36,7 @@ defineExpose({ getRef });
     :rules="formRules"
     label-width="82px"
   >
+    key error
     <!-- <el-form-item label="堆场名称" prop="name">
       <el-input
         v-model="newFormInline.name"
