@@ -114,7 +114,6 @@ const {
           <el-option label="全部" value="" />
           <el-option label="未提交" value="未提交" />
           <el-option label="已提交" value="已提交" />
-          <el-option label="已撤销" value="已撤销" />
           <el-option label="通过审核" value="通过审核" />
           <el-option label="未通过审核" value="未通过审核" />
           <el-option label="通过审批" value="通过审批" />
