@@ -31,6 +31,7 @@ export function useRole() {
     less_amount: "",
     more_amount: "",
     actual_amount: "",
+    remark: "",
     total: "",
     f: "",
     t: "",
@@ -95,6 +96,10 @@ export function useRole() {
     {
       label: "实付金额",
       prop: "actual_amount"
+    },
+    {
+      label: "备注",
+      prop: "remark"
     },
     {
       label: "审核",
