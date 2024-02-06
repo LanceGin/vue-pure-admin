@@ -93,6 +93,10 @@ export function useRole() {
 
   const containerColumns: TableColumnList = [
     {
+      label: "运单号",
+      prop: "track_no"
+    },
+    {
       label: "箱号",
       prop: "containner_no"
     },
