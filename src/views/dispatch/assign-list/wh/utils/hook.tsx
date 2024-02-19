@@ -1,5 +1,4 @@
 import dayjs from "dayjs";
-import { utils, writeFile } from "xlsx";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
 // import { ElMessageBox } from "element-plus";
@@ -9,14 +8,12 @@ import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
 import {
-  getPickBoxList,
-  loadPort,
-  makeTime,
-  pickBox,
-  tempDrop
-} from "@/api/operation";
+  editContainerInfo,
+  oneStepRevoke,
+  tempDropFinish,
+  whDispatchList
+} from "@/api/dispatch";
 import { ElMessage, ElMessageBox } from "element-plus";
-import { generatePlanningFee } from "@/api/finance";
 
 export function useRole() {
   const form = reactive({
@@ -44,10 +41,14 @@ export function useRole() {
     gross_weight: "",
     volume: "",
     container_weight: "",
-    container_status: "待挑箱",
+    container_status: "",
     order_time: "",
     order_fee: "",
-    temp_status: ""
+    car_no: "",
+    transport_status: "",
+    temp_port: "",
+    temp_status: "",
+    temp_time: ""
   });
   const formRef = ref();
   const selectRows = ref([]);
@@ -63,31 +64,15 @@ export function useRole() {
     currentPage: 1,
     background: true
   });
+  const tableRowClassName = ({ row }) => {
+    if (row.load_port === "金口码头") {
+      return "pure-warning-row";
+    } else if (row.load_port === "阳逻码头") {
+      return "pure-success-row";
+    }
+    return "";
+  };
   const columns: TableColumnList = [
-    {
-      type: "selection",
-      align: "left"
-    },
-    {
-      label: "状态",
-      prop: "container_status"
-    },
-    {
-      label: "客户",
-      prop: "customer"
-    },
-    {
-      label: "子项目",
-      prop: "subproject"
-    },
-    {
-      label: "运单号",
-      prop: "track_no"
-    },
-    {
-      label: "箱型",
-      prop: "container_type"
-    },
     {
       label: "箱号",
       prop: "containner_no"
@@ -97,39 +82,17 @@ export function useRole() {
       prop: "seal_no"
     },
     {
-      label: "计划做箱时间",
+      label: "箱型",
+      prop: "container_type"
+    },
+    {
+      label: "送货地点",
+      prop: "door"
+    },
+    {
+      label: "做箱时间",
       prop: "make_time",
       formatter: ({ make_time }) => dayjs(make_time).format("YYYY-MM-DD")
-    },
-    {
-      label: "船名/航次",
-      prop: "ship_name"
-    },
-    {
-      label: "船期",
-      prop: "arrive_time",
-      formatter: ({ arrive_time }) => dayjs(arrive_time).format("YYYY-MM-DD")
-    },
-    {
-      label: "堆存天数",
-      prop: "arrive_time",
-      formatter: ({ arrive_time }) => {
-        const a_time = dayjs(arrive_time).format("YYYY-MM-DD");
-        const now_time = dayjs().format("YYYY-MM-DD");
-        return dayjs(now_time).diff(a_time, "day").toString();
-      }
-    },
-    {
-      label: "船公司",
-      prop: "ship_company"
-    },
-    {
-      label: "流向",
-      prop: "liuxiang"
-    },
-    {
-      label: "门点",
-      prop: "door"
     },
     {
       label: "提箱点",
@@ -140,40 +103,21 @@ export function useRole() {
       prop: "unload_port"
     },
     {
-      label: "暂落状态",
-      prop: "temp_status"
+      label: "车号",
+      prop: "car_no"
     },
     {
-      label: "打包暂落日期",
-      prop: "temp_time",
-      formatter: ({ temp_time }) => dayjs(temp_time).format("YYYY-MM-DD")
+      label: "状态",
+      prop: "container_status"
+    },
+    {
+      label: "备注",
+      prop: "remark"
     }
   ];
 
-  function exportExcel() {
-    const res = dataList.value.map(item => {
-      const arr = [];
-      columns.forEach(column => {
-        arr.push(item[column.prop as string]);
-      });
-      return arr;
-    });
-    const titleList = [];
-    columns.forEach(column => {
-      titleList.push(column.label);
-    });
-    res.unshift(titleList);
-    const workSheet = utils.aoa_to_sheet(res);
-    const workBook = utils.book_new();
-    utils.book_append_sheet(workBook, workSheet, "数据报表");
-    writeFile(workBook, "挑箱列表.xlsx");
-    message("导出成功", {
-      type: "success"
-    });
-  }
-
   function handleDelete(row) {
-    message(`您删除了订单号为${row.order_no}的这条数据`, { type: "success" });
+    message(`您删除了运单号为${row.yundanhao}的这条数据`, { type: "success" });
     onSearch();
   }
 
@@ -205,7 +149,7 @@ export function useRole() {
 
   async function onSearch() {
     loading.value = true;
-    const { data } = await getPickBoxList({
+    const { data } = await whDispatchList({
       pagination,
       form
     });
@@ -227,7 +171,7 @@ export function useRole() {
 
   function openDialog(title = "添加", row?: FormItemProps) {
     addDialog({
-      title: `${title}单证`,
+      title: `${title}箱信息`,
       props: {
         formInline: {
           id: row?.id ?? "",
@@ -256,7 +200,9 @@ export function useRole() {
           container_weight: row?.container_weight ?? "",
           container_status: row?.container_status ?? "",
           order_time: row?.order_time ?? "",
-          order_fee: row?.order_fee ?? ""
+          order_fee: row?.order_fee ?? "",
+          car_no: row?.car_no ?? "",
+          transport_status: row?.transport_status ?? ""
         }
       },
       width: "40%",
@@ -283,6 +229,7 @@ export function useRole() {
               chores();
             } else {
               // 实际开发先调用编辑接口，再进行下面操作
+              asyncEdit(curData);
               chores();
             }
           }
@@ -291,126 +238,18 @@ export function useRole() {
     });
   }
 
-  // 挑箱
-  async function handlePickBox() {
-    ElMessageBox.prompt("请输入实付金额", "挑箱确认", {
-      confirmButtonText: "确认",
-      cancelButtonText: "取消",
-      type: "warning"
-    })
-      .then(actual_amount => {
-        const data = {
-          select_container_no: [],
-          select_container: [],
-          actual_amount: actual_amount
-        };
-        selectRows.value.forEach(v => {
-          data.select_container_no.push(v.containner_no);
-          data.select_container.push(v);
-          if (v.make_time === null) {
-            throw new Error("所选箱未设置做箱时间");
-          } else if (v.load_port === null) {
-            throw new Error("所选箱未设置提箱点");
-          }
-        });
-        generatePlanningFee(data).then(() => {
-          pickBox(data);
-          onSearch();
-        });
-      })
-      .catch(info => {
-        if (info == "cancel") {
-          info = "取消挑箱";
-        }
-        ElMessage({
-          type: "info",
-          message: info
-        });
-      });
-  }
-
-  // 暂落
-  async function handleTempDrop() {
-    ElMessageBox.prompt("请输入暂落点", "暂落确认", {
-      confirmButtonText: "确认",
-      cancelButtonText: "取消",
-      type: "warning"
-    })
-      .then(temp_port => {
-        const data = {
-          select_container_no: [],
-          select_container: [],
-          temp_port: temp_port,
-          actual_amount: {
-            value: null
-          }
-        };
-        selectRows.value.forEach(v => {
-          data.select_container_no.push(v.containner_no);
-          data.select_container.push(v);
-          if (v.make_time === null) {
-            throw new Error("所选箱未设置做箱时间");
-          } else if (v.load_port === null) {
-            throw new Error("所选箱未设置提箱点");
-          }
-        });
-        generatePlanningFee(data).then(() => {
-          tempDrop(data);
-          onSearch();
-        });
-      })
-      .catch(info => {
-        if (info == "cancel") {
-          info = "取消暂落";
-        }
-        ElMessage({
-          type: "info",
-          message: info
-        });
-      });
-  }
-
-  // 批量设置做箱时间
-  async function handleMakeTime() {
-    ElMessageBox.prompt("请输入新的做箱时间", "批量设置做箱时间", {
-      confirmButtonText: "确认",
-      cancelButtonText: "取消",
-      inputType: "date"
-    })
-      .then(make_time => {
-        const data = {
-          select_container_no: [],
-          make_time: make_time
-        };
-        selectRows.value.forEach(v => {
-          data.select_container_no.push(v.containner_no);
-        });
-        makeTime(data);
-        onSearch();
-      })
-      .catch(() => {
-        ElMessage({
-          type: "info",
-          message: "取消修改提箱点"
-        });
-      });
-  }
-
-  // 批量修改提箱地点
-  async function handleLoadPort() {
-    ElMessageBox.prompt("请输入新的提箱点", "批量修改提箱点", {
+  // 一键撤回
+  async function handleRevoke() {
+    ElMessageBox.confirm("撤回后箱子将撤回至派车阶段", "一键撤回", {
       confirmButtonText: "确认",
       cancelButtonText: "取消"
     })
-      .then(port => {
-        const data = {
-          select_container_no: [],
-          port: port
-        };
+      .then(() => {
+        const select_container_no = [];
         selectRows.value.forEach(v => {
-          data.select_container_no.push(v.containner_no);
+          select_container_no.push(v.containner_no);
         });
-        loadPort(data);
+        oneStepRevoke(select_container_no);
         onSearch();
       })
       .catch(() => {
@@ -419,6 +258,38 @@ export function useRole() {
           message: "取消修改提箱点"
         });
       });
+  }
+
+  // 一键完成
+  async function handleFinish() {
+    ElMessageBox.confirm("完成后箱子将完成所有点灯流程", "一键完成", {
+      confirmButtonText: "确认",
+      cancelButtonText: "取消"
+    })
+      .then(() => {
+        const select_container_no = [];
+        selectRows.value.forEach(v => {
+          select_container_no.push(v.containner_no);
+        });
+        tempDropFinish(select_container_no);
+        onSearch();
+      })
+      .catch(() => {
+        ElMessage({
+          type: "info",
+          message: "取消修改提箱点"
+        });
+      });
+  }
+
+  // 双击行
+  function handleRowDblclick(row) {
+    console.log(row);
+    openDialog("编辑", row);
+  }
+
+  async function asyncEdit(fee) {
+    await editContainerInfo(fee);
   }
 
   /** 菜单权限 */
@@ -435,26 +306,25 @@ export function useRole() {
 
   return {
     form,
-    loading,
     haveRow,
+    loading,
     columns,
     dataList,
+    tableRowClassName,
     pagination,
     // buttonClass,
-    exportExcel,
     onSearch,
     resetForm,
     openDialog,
     handleMenu,
     handleDelete,
     // handleDatabase,
+    handleRowDblclick,
     handleSizeChange,
     handlePageChange,
     handleCurrentChange,
     handleSelectionChange,
-    handlePickBox,
-    handleTempDrop,
-    handleMakeTime,
-    handleLoadPort
+    handleRevoke,
+    handleFinish
   };
 }

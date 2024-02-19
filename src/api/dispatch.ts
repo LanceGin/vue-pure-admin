@@ -118,6 +118,13 @@ export const tempDropDispatchList = (data?: object) => {
   });
 };
 
+// 获取武汉派车列表
+export const whDispatchList = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("whDispatchList"), {
+    data
+  });
+};
+
 // 编辑进口派车单箱子信息
 export const tempDropFinish = (data?: object) => {
   return http.request<ChangeResult>("post", baseUrlApi("tempDropFinish"), {

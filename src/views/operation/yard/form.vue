@@ -68,6 +68,7 @@ defineExpose({ getRef });
     :model="newFormInline"
     :rules="formRules"
     label-width="82px"
+    :inline="true"
   >
     <el-form-item label="类型" prop="is_dock">
       <el-select

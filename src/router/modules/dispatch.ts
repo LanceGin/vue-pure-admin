@@ -79,6 +79,14 @@ export default {
           meta: {
             title: "暂落"
           }
+        },
+        {
+          path: "/dispatch/car_assignation_list/wh",
+          name: "WH",
+          component: () => import("@/views/dispatch/assign-list/wh/index.vue"),
+          meta: {
+            title: "武汉派车单"
+          }
         }
       ]
     }
