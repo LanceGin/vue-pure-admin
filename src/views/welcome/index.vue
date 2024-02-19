@@ -180,7 +180,7 @@ getReleases().then(({ data }) => {
           <template #header>
             <TypeIt
               :className="'type-it4'"
-              :values="['数据折线图']"
+              :values="['业务量对比图']"
               :cursor="false"
               :speed="120"
             />
@@ -218,7 +218,7 @@ getReleases().then(({ data }) => {
           <template #header>
             <TypeIt
               :className="'type-it3'"
-              :values="['数据饼图']"
+              :values="['月度饼图']"
               :cursor="false"
               :speed="120"
             />
@@ -256,7 +256,7 @@ getReleases().then(({ data }) => {
           <template #header>
             <TypeIt
               :className="'type-it5'"
-              :values="['数据柱状图']"
+              :values="['成本利润比']"
               :cursor="false"
               :speed="120"
             />
