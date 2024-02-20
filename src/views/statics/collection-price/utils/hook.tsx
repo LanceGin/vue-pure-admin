@@ -12,7 +12,8 @@ import {
   addDoorPrice,
   deleteDoorPrice,
   editDoorPrice,
-  getDoorPriceList
+  getDoorPriceList,
+  importDoorPrice
 } from "@/api/statics";
 
 export function useRole() {
@@ -256,6 +257,14 @@ export function useRole() {
     });
   }
 
+  // 上传文件批量导入
+  async function uploadExcelDetail(item) {
+    const form = new FormData();
+    form.append("file", item.file);
+    form.append("is_pay", "0");
+    await importDoorPrice(form);
+  }
+
   // 编辑按钮
   function handleEdit() {
     openDialog("编辑", currentRow.value);
@@ -298,6 +307,7 @@ export function useRole() {
     handleMenu,
     handleDelete,
     // handleDatabase,
+    uploadExcelDetail,
     handleRowDblclick,
     handleEdit,
     handleSizeChange,

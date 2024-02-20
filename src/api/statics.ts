@@ -38,6 +38,25 @@ export const addDoorPrice = (data?: object) => {
   });
 };
 
+// 批量导入门点价格
+export const importDoorPrice = data => {
+  return http.request<ListResult>(
+    "post",
+    baseUrlApi("importDoorPrice"),
+    {
+      data
+    },
+    {
+      transformRequest: [
+        function (data, headers) {
+          delete headers["Content-Type"];
+          return data;
+        }
+      ]
+    }
+  );
+};
+
 // 删除门点价格
 export const deleteDoorPrice = (data?: object) => {
   return http.request<ChangeResult>("post", baseUrlApi("deleteDoorPrice"), {
