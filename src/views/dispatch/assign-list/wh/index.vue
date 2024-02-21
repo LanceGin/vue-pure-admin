@@ -145,10 +145,10 @@ const {
 }
 
 :deep(.pure-warning-row) {
-  --el-table-tr-bg-color: var(--el-color-warning-light-9);
+  --el-table-tr-bg-color: var(--el-color-warning-light-7);
 }
 
 :deep(.pure-success-row) {
-  --el-table-tr-bg-color: var(--el-color-success-light-9);
+  --el-table-tr-bg-color: var(--el-color-success-light-7);
 }
 </style>

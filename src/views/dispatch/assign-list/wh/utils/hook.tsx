@@ -65,9 +65,9 @@ export function useRole() {
     background: true
   });
   const tableRowClassName = ({ row }) => {
-    if (row.load_port === "金口码头") {
+    if (row.load_port === "武汉金口") {
       return "pure-warning-row";
-    } else if (row.load_port === "阳逻码头") {
+    } else if (row.load_port === "武汉阳逻") {
       return "pure-success-row";
     }
     return "";
