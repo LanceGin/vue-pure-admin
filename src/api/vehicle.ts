@@ -41,6 +41,25 @@ export const addVehicleInfo = (data?: object) => {
   });
 };
 
+// 批量导入车辆
+export const importVehicleInfo = data => {
+  return http.request<ListResult>(
+    "post",
+    baseUrlApi("importVehicleInfo"),
+    {
+      data
+    },
+    {
+      transformRequest: [
+        function (data, headers) {
+          delete headers["Content-Type"];
+          return data;
+        }
+      ]
+    }
+  );
+};
+
 // 删除车辆
 export const deleteVehicleInfo = (data?: object) => {
   return http.request<ChangeResult>("post", baseUrlApi("deleteVehicleInfo"), {
@@ -67,6 +86,25 @@ export const addDriverInfo = (data?: object) => {
   return http.request<ChangeResult>("post", baseUrlApi("addDriverInfo"), {
     data
   });
+};
+
+// 批量导入司机
+export const importDriverInfo = data => {
+  return http.request<ListResult>(
+    "post",
+    baseUrlApi("importDriverInfo"),
+    {
+      data
+    },
+    {
+      transformRequest: [
+        function (data, headers) {
+          delete headers["Content-Type"];
+          return data;
+        }
+      ]
+    }
+  );
 };
 
 // 删除司机

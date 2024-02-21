@@ -12,7 +12,8 @@ import {
   addDriverInfo,
   deleteDriverInfo,
   driverInfoList,
-  editDriverInfo
+  editDriverInfo,
+  importDriverInfo
 } from "@/api/vehicle";
 
 export function useRole() {
@@ -208,6 +209,14 @@ export function useRole() {
     });
   }
 
+  // 上传文件批量导入
+  async function uploadExcelDetail(item) {
+    const form = new FormData();
+    form.append("file", item.file);
+    form.append("is_pay", "1");
+    await importDriverInfo(form);
+  }
+
   // 编辑按钮
   function handleEdit() {
     openDialog("编辑", currentRow.value);
@@ -250,6 +259,7 @@ export function useRole() {
     handleMenu,
     handleDelete,
     // handleDatabase,
+    uploadExcelDetail,
     handleRowDblclick,
     handleEdit,
     handleSizeChange,

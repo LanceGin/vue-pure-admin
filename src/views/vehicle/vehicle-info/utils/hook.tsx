@@ -12,6 +12,7 @@ import {
   addVehicleInfo,
   deleteVehicleInfo,
   editVehicleInfo,
+  importVehicleInfo,
   vehicleInfoList
 } from "@/api/vehicle";
 
@@ -238,6 +239,14 @@ export function useRole() {
     });
   }
 
+  // 上传文件批量导入
+  async function uploadExcelDetail(item) {
+    const form = new FormData();
+    form.append("file", item.file);
+    form.append("is_pay", "1");
+    await importVehicleInfo(form);
+  }
+
   // 编辑按钮
   function handleEdit() {
     openDialog("编辑", currentRow.value);
@@ -281,6 +290,7 @@ export function useRole() {
     handleDelete,
     handleEdit,
     handleRowDblclick,
+    uploadExcelDetail,
     // handleDatabase,
     handleSizeChange,
     handlePageChange,
