@@ -9,11 +9,13 @@ import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
 import { getExportDispatchList, importExportContainer } from "@/api/dispatch";
+import { useUserStore } from "@/store/modules/user";
 
 export function useRole() {
   const end = new Date();
   const start = new Date();
   start.setTime(start.getTime() - 3600 * 1000 * 24 * 5);
+  const user = useUserStore();
   const form = reactive({
     id: "",
     order_status: "",
@@ -252,6 +254,7 @@ export function useRole() {
   async function uploadExcelDetail(item) {
     const form = new FormData();
     form.append("file", item.file);
+    form.append("add_by", user.username);
     await importExportContainer(form);
   }
 
