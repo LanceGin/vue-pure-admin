@@ -50,11 +50,15 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="做箱时间：" prop="make_time">
+      <el-form-item label="做箱日期：" prop="make_time_range">
         <el-date-picker
-          v-model="form.make_time"
-          type="date"
-          placeholder="请输入做箱时间"
+          v-model="form.make_time_range"
+          type="daterange"
+          start-placeholder="起始日期"
+          end-placeholder="截止日期"
+          format="YYYY-MM-DD HH:mm:ss"
+          date-format="YYYY/MM/DD ddd"
+          time-format="A hh:mm:ss"
         />
       </el-form-item>
       <el-form-item label="门点：" prop="door">
@@ -104,7 +108,7 @@ const {
       </el-form-item>
     </el-form>
 
-    <PureTableBar title="暂落派车单列表" :columns="columns" @refresh="onSearch">
+    <PureTableBar title="武汉派车单列表" :columns="columns" @refresh="onSearch">
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border

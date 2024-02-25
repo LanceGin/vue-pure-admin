@@ -41,6 +41,7 @@ export function useRole() {
     unload_port: "",
     door: "",
     make_time: "",
+    make_time_range: ref<[Date, Date]>([start, end]),
     load_port: "",
     count: "",
     transfer_port: "",
@@ -50,7 +51,6 @@ export function useRole() {
     container_weight: "",
     container_status: "已完成",
     order_time: "",
-    order_time_range: ref<[Date, Date]>([start, end]),
     order_fee: ""
   });
   const formRef = ref();

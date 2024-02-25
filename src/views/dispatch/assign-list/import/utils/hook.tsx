@@ -17,6 +17,9 @@ import {
 import { ElMessage, ElMessageBox } from "element-plus";
 
 export function useRole() {
+  const end = new Date();
+  const start = new Date();
+  start.setTime(start.getTime() - 3600 * 1000 * 24 * 5);
   const form = reactive({
     id: "",
     order_status: "",
@@ -35,6 +38,7 @@ export function useRole() {
     unload_port: "",
     door: "",
     make_time: "",
+    make_time_range: ref<[Date, Date]>([start, end]),
     load_port: "",
     count: "",
     transfer_port: "",
@@ -298,7 +302,7 @@ export function useRole() {
       .catch(() => {
         ElMessage({
           type: "info",
-          message: "取消修改提箱点"
+          message: "取消一键撤回"
         });
       });
   }
@@ -320,7 +324,7 @@ export function useRole() {
       .catch(() => {
         ElMessage({
           type: "info",
-          message: "取消修改提箱点"
+          message: "取消一键完成"
         });
       });
   }

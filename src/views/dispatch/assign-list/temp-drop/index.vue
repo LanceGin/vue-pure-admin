@@ -57,11 +57,15 @@ const {
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="做箱时间：" prop="make_time">
+      <el-form-item label="做箱日期：" prop="make_time_range">
         <el-date-picker
-          v-model="form.make_time"
-          type="date"
-          placeholder="请输入做箱时间"
+          v-model="form.make_time_range"
+          type="daterange"
+          start-placeholder="起始日期"
+          end-placeholder="截止日期"
+          format="YYYY-MM-DD HH:mm:ss"
+          date-format="YYYY/MM/DD ddd"
+          time-format="A hh:mm:ss"
         />
       </el-form-item>
       <el-form-item label="暂落点：" prop="temp_port">
@@ -87,6 +91,18 @@ const {
           clearable
           class="!w-[200px]"
         />
+      </el-form-item>
+      <el-form-item label="完成情况：" prop="container_status">
+        <el-select
+          v-model="form.container_status"
+          placeholder="请选择完成情况"
+          clearable
+          class="!w-[180px]"
+        >
+          <el-option label="全部" value="" />
+          <el-option label="运输中" value="运输中" />
+          <el-option label="已完成" value="已完成" />
+        </el-select>
       </el-form-item>
       <el-form-item>
         <el-button
