@@ -10,6 +10,7 @@ import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
 import {
   containerFeeList,
+  dataCheck,
   // dataCheck,
   setAmount,
   setInvoiceNo,
@@ -361,10 +362,14 @@ export function useRole() {
   async function uploadExcelDetail(item) {
     const form = new FormData();
     form.append("file", item.file);
-    // await dataCheck(form);
-    ElMessage({
-      type: "error",
-      message: "缺少比对逻辑"
+    const { data } = await dataCheck(form);
+    data.forEach(element => {
+      if (element.length === 0) {
+        ElMessage({
+          type: "error",
+          message: "数据有误"
+        });
+      }
     });
   }
 

@@ -5,6 +5,7 @@ import { baseUrlApi } from "./utils";
 export type ListResult = {
   success: boolean;
   data?: {
+    forEach(arg0: (element: any) => void): unknown;
     /** 列表数据 */
     list: Array<any>;
     /** 总条目数 */
@@ -86,10 +87,22 @@ export const submitContainerFee = (data?: object) => {
 };
 
 // 数据比对
-export const dataCheck = (data?: object) => {
-  return http.request<ChangeResult>("post", baseUrlApi("dataCheck"), {
-    data
-  });
+export const dataCheck = data => {
+  return http.request<ListResult>(
+    "post",
+    baseUrlApi("dataCheck"),
+    {
+      data
+    },
+    {
+      transformRequest: [
+        function (data, headers) {
+          delete headers["Content-Type"];
+          return data;
+        }
+      ]
+    }
+  );
 };
 
 // 设置发票号
