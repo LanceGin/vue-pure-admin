@@ -10,6 +10,7 @@ import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
 import { getExportDispatchList, importExportContainer } from "@/api/dispatch";
 import { useUserStore } from "@/store/modules/user";
+import { generateDispatchFee, generateOrderFee } from "@/api/finance";
 
 export function useRole() {
   const end = new Date();
@@ -255,7 +256,20 @@ export function useRole() {
     const form = new FormData();
     form.append("file", item.file);
     form.append("add_by", user.username);
-    await importExportContainer(form);
+    const { data } = await importExportContainer(form);
+    const select_track_no = [];
+    const select_container = {
+      select_container: data.list
+    };
+    data.list.forEach(item => {
+      if (select_track_no.includes(item.track_no)) {
+        console.log("运单号已存在");
+      } else {
+        select_track_no.push(item.track_no);
+      }
+    });
+    generateOrderFee(select_track_no);
+    generateDispatchFee(select_container);
   }
 
   /** 菜单权限 */

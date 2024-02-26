@@ -227,7 +227,6 @@ export function useRole() {
   };
 
   async function handleAddContainer(container) {
-    console.log(1111, container);
     await addContainer(container);
   }
 
