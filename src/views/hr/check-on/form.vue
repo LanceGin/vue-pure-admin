@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import { formRules } from "./utils/rule";
 import { FormProps } from "./utils/types";
+import { Amap } from "@/components/ReMap";
 
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
@@ -36,7 +37,7 @@ defineExpose({ getRef });
     :rules="formRules"
     label-width="82px"
   >
-    key error
+    <Amap />
     <!-- <el-form-item label="堆场名称" prop="name">
       <el-input
         v-model="newFormInline.name"
