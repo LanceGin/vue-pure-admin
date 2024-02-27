@@ -51,7 +51,8 @@ export function useRole() {
     container_weight: "",
     container_status: "已完成",
     order_time: "",
-    order_fee: ""
+    order_fee: "",
+    temp_status: "未暂落"
   });
   const formRef = ref();
   const currentRow = ref();

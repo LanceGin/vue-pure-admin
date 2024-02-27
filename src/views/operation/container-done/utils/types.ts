@@ -30,6 +30,7 @@ interface FormItemProps {
   order_fee: string;
   type: string;
   status: string;
+  temp_status: string;
   fee_name: string;
   amount: string;
   add_by: string;

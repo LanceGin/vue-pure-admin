@@ -34,6 +34,7 @@ const props = withDefaults(defineProps<FormProps>(), {
     order_fee: "",
     type: "",
     status: "",
+    temp_status: "",
     fee_name: "",
     amount: "",
     add_by: ""
