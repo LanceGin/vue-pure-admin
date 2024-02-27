@@ -2,8 +2,8 @@
 import { ref } from "vue";
 import { formRules } from "./utils/rule";
 import { FormProps } from "./utils/types";
-import type { TabsPaneContext } from "element-plus";
-import { tableData } from "./utils/data";
+// import type { TabsPaneContext } from "element-plus";
+// import { tableData } from "./utils/data";
 
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
@@ -20,32 +20,32 @@ const props = withDefaults(defineProps<FormProps>(), {
   })
 });
 
-const projectColumns: TableColumnList = [
-  {
-    label: "项目简称",
-    prop: "projectShortName"
-  },
-  {
-    label: "项目全称",
-    prop: "projectName"
-  },
-  {
-    label: "项目状态",
-    prop: "projectStatus"
-  },
-  {
-    label: "项目备注",
-    prop: "projectRemark"
-  }
-];
+// const projectColumns: TableColumnList = [
+//   {
+//     label: "项目简称",
+//     prop: "projectShortName"
+//   },
+//   {
+//     label: "项目全称",
+//     prop: "projectName"
+//   },
+//   {
+//     label: "项目状态",
+//     prop: "projectStatus"
+//   },
+//   {
+//     label: "项目备注",
+//     prop: "projectRemark"
+//   }
+// ];
 
 const ruleFormRef = ref();
 const newFormInline = ref(props.formInline);
-const activeName = ref("project");
+// const activeName = ref("project");
 
-const handleClick = (tab: TabsPaneContext, event: Event) => {
-  console.log(tab, event);
-};
+// const handleClick = (tab: TabsPaneContext, event: Event) => {
+//   console.log(tab, event);
+// };
 
 function getRef() {
   return ruleFormRef.value;
@@ -60,7 +60,6 @@ defineExpose({ getRef });
     :model="newFormInline"
     :rules="formRules"
     label-width="82px"
-    :inline="true"
   >
     <el-form-item label="客户简称" prop="companyShortName">
       <el-input
@@ -104,7 +103,7 @@ defineExpose({ getRef });
       </el-select>
     </el-form-item>
 
-    <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
+    <!-- <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
       <el-tab-pane label="项目管理" name="project">
         <el-form :inline="true">
           <el-form-item>
@@ -135,6 +134,6 @@ defineExpose({ getRef });
         </el-form>
         <pure-table :data="tableData" :columns="projectColumns" />
       </el-tab-pane>
-    </el-tabs>
+    </el-tabs> -->
   </el-form>
 </template>
