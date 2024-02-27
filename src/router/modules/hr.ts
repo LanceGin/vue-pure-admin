@@ -19,6 +19,14 @@ export default {
       }
     },
     {
+      path: "/hr/check_point",
+      name: "CheckPoint",
+      component: () => import("@/views/hr/check-point/index.vue"),
+      meta: {
+        title: "打卡点管理"
+      }
+    },
+    {
       path: "/hr/staff",
       name: "Staff",
       component: () => import("@/views/hr/staff/index.vue"),
