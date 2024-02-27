@@ -13,6 +13,7 @@ interface FormItemProps {
   latitude: string;
   base_price_20: string;
   base_price_40: string;
+  price_rule: string;
   create_time: any;
 }
 interface FormProps {

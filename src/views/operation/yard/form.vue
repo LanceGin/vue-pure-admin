@@ -2,8 +2,13 @@
 import { ref } from "vue";
 import { formRules } from "./utils/rule";
 import { FormProps } from "./utils/types";
-import type { TabsPaneContext } from "element-plus";
-import { getYardPriceList } from "@/api/operation";
+import { ElMessage, ElMessageBox, type TabsPaneContext } from "element-plus";
+import {
+  getYardPriceList,
+  addYardPrice,
+  editYardPrice,
+  deleteYardPrice
+} from "@/api/operation";
 
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
@@ -19,6 +24,7 @@ const props = withDefaults(defineProps<FormProps>(), {
     latitude: "",
     base_price_20: "",
     base_price_40: "",
+    price_rule: "",
     create_time: ""
   })
 });
@@ -42,6 +48,8 @@ const columns: TableColumnList = [
   }
 ];
 
+const haveRow = ref(true);
+const selectRow = ref();
 const tableData = ref([]);
 const ruleFormRef = ref();
 const newFormInline = ref(props.formInline);
@@ -53,6 +61,88 @@ data.then(v => {
 
 const handleClick = (tab: TabsPaneContext, event: Event) => {
   console.log(tab, event);
+};
+
+const handleCurrentChange = item => {
+  haveRow.value = false;
+  selectRow.value = item;
+};
+
+const handleAdd = () => {
+  ElMessageBox.prompt("min,max,20,40分别用/隔开", "输入时间区间以及价格", {
+    confirmButtonText: "确认",
+    cancelButtonText: "取消",
+    type: "warning"
+  })
+    .then(yard_price => {
+      const data = {
+        yard_id: newFormInline.value.id,
+        yard_price: yard_price.value
+      };
+      addYardPrice(data);
+      const tmp = getYardPriceList(newFormInline.value);
+      tmp.then(v => {
+        tableData.value = v.data.list;
+      });
+    })
+    .catch(info => {
+      if (info == "cancel") {
+        info = "取消增加价格";
+      }
+      ElMessage({
+        type: "info",
+        message: info
+      });
+    });
+};
+
+const handleEdit = () => {
+  console.log(3333, selectRow.value);
+  const input_value =
+    selectRow.value.day_min +
+    "/" +
+    selectRow.value.day_max +
+    "/" +
+    selectRow.value.price_20 +
+    "/" +
+    selectRow.value.price_40;
+  ElMessageBox.prompt("min,max,20,40分别用/隔开", "输入时间区间以及价格", {
+    confirmButtonText: "确认",
+    cancelButtonText: "取消",
+    inputValue: input_value,
+    type: "warning"
+  })
+    .then(yard_price => {
+      const data = {
+        id: selectRow.value.id,
+        yard_price: yard_price.value
+      };
+      editYardPrice(data);
+      const tmp = getYardPriceList(newFormInline.value);
+      tmp.then(v => {
+        tableData.value = v.data.list;
+      });
+    })
+    .catch(info => {
+      if (info == "cancel") {
+        info = "取消编辑价格";
+      }
+      ElMessage({
+        type: "info",
+        message: info
+      });
+    });
+};
+
+const handleDelete = () => {
+  const data = {
+    id: selectRow.value.id
+  };
+  deleteYardPrice(data);
+  const tmp = getYardPriceList(newFormInline.value);
+  tmp.then(v => {
+    tableData.value = v.data.list;
+  });
 };
 
 function getRef() {
@@ -71,11 +161,7 @@ defineExpose({ getRef });
     :inline="true"
   >
     <el-form-item label="类型" prop="is_dock">
-      <el-select
-        v-model="newFormInline.is_dock"
-        placeholder="请选择堆场类型"
-        clearable
-      >
+      <el-select v-model="newFormInline.is_dock" placeholder="请选择堆场类型">
         <el-option label="堆场" value="0" />
         <el-option label="码头" value="1" />
       </el-select>
@@ -84,7 +170,6 @@ defineExpose({ getRef });
     <el-form-item label="堆场名称" prop="yard_name">
       <el-input
         v-model="newFormInline.yard_name"
-        clearable
         placeholder="请输入堆场名称"
       />
     </el-form-item>
@@ -92,7 +177,6 @@ defineExpose({ getRef });
     <el-form-item label="堆场地址" prop="yard_adress">
       <el-input
         v-model="newFormInline.yard_adress"
-        clearable
         placeholder="请输入堆场地址"
       />
     </el-form-item>
@@ -100,7 +184,6 @@ defineExpose({ getRef });
     <el-form-item label="所属港口" prop="port_name">
       <el-input
         v-model="newFormInline.port_name"
-        clearable
         placeholder="请输入所属港口"
       />
     </el-form-item>
@@ -108,47 +191,29 @@ defineExpose({ getRef });
     <el-form-item label="联系人" prop="contacts_name">
       <el-input
         v-model="newFormInline.contacts_name"
-        clearable
         placeholder="请输入联系人"
       />
     </el-form-item>
 
     <el-form-item label="联系电话" prop="mobile">
-      <el-input
-        v-model="newFormInline.mobile"
-        clearable
-        placeholder="请输入联系电话"
-      />
+      <el-input v-model="newFormInline.mobile" placeholder="请输入联系电话" />
     </el-form-item>
 
     <el-form-item label="备注" prop="remarks">
-      <el-input
-        v-model="newFormInline.remarks"
-        clearable
-        placeholder="请输入备注"
-      />
+      <el-input v-model="newFormInline.remarks" placeholder="请输入备注" />
     </el-form-item>
 
     <el-form-item label="经度" prop="longitude">
-      <el-input
-        v-model="newFormInline.longitude"
-        clearable
-        placeholder="请输入经度"
-      />
+      <el-input v-model="newFormInline.longitude" placeholder="请输入经度" />
     </el-form-item>
 
     <el-form-item label="纬度" prop="latitude">
-      <el-input
-        v-model="newFormInline.latitude"
-        clearable
-        placeholder="请输入纬度"
-      />
+      <el-input v-model="newFormInline.latitude" placeholder="请输入纬度" />
     </el-form-item>
 
     <el-form-item label="进场价20" prop="base_price_20">
       <el-input
         v-model="newFormInline.base_price_20"
-        clearable
         placeholder="请输入进场价格20"
       />
     </el-form-item>
@@ -156,14 +221,50 @@ defineExpose({ getRef });
     <el-form-item label="进场价40" prop="base_price_40">
       <el-input
         v-model="newFormInline.base_price_40"
-        clearable
         placeholder="请输入进场价格40"
       />
+    </el-form-item>
+    <el-form-item label="计价规则" prop="price_rule">
+      <el-select
+        v-model="newFormInline.price_rule"
+        placeholder="请选择计价规则"
+      >
+        <el-option label="单价异步" value="单价异步" />
+        <el-option label="单价同步" value="单价同步" />
+      </el-select>
     </el-form-item>
 
     <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
       <el-tab-pane label="堆存天数对应金额" name="first">
-        <pure-table :data="tableData" :columns="columns" />
+        <el-form :inline="true">
+          <el-form-item>
+            <el-button link type="primary" @click="handleAdd()">增加</el-button>
+            <el-button
+              link
+              type="primary"
+              :disabled="haveRow"
+              @click="handleEdit()"
+              >编辑</el-button
+            >
+            <el-button
+              link
+              type="danger"
+              :disabled="haveRow"
+              @click="handleDelete()"
+              >删除</el-button
+            >
+          </el-form-item>
+        </el-form>
+        <pure-table
+          border
+          align-whole="center"
+          showOverflowTooltip
+          highlight-current-row
+          size="small"
+          :data="tableData"
+          :columns="columns"
+          @current-change="handleCurrentChange"
+        />
       </el-tab-pane>
     </el-tabs>
   </el-form>

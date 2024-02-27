@@ -75,6 +75,13 @@ export const addYard = (data?: object) => {
   });
 };
 
+// 新增堆场价格
+export const addYardPrice = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("addYardPrice"), {
+    data
+  });
+};
+
 // 删除堆场
 export const deleteYard = (data?: object) => {
   return http.request<ChangeResult>("post", baseUrlApi("deleteYard"), {
@@ -82,9 +89,23 @@ export const deleteYard = (data?: object) => {
   });
 };
 
+// 删除堆场价格
+export const deleteYardPrice = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("deleteYardPrice"), {
+    data
+  });
+};
+
 // 编辑堆场
 export const editYard = (data?: object) => {
   return http.request<ChangeResult>("post", baseUrlApi("editYard"), {
+    data
+  });
+};
+
+// 编辑堆场价格
+export const editYardPrice = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("editYardPrice"), {
     data
   });
 };

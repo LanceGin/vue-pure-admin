@@ -25,6 +25,7 @@ export function useRole() {
     latitude: "",
     base_price_20: "",
     base_price_40: "",
+    price_rule: "",
     create_time: ""
   });
   const formRef = ref();
@@ -78,20 +79,16 @@ export function useRole() {
       prop: "remarks"
     },
     {
-      label: "经度",
-      prop: "longitude"
-    },
-    {
-      label: "纬度",
-      prop: "latitude"
-    },
-    {
       label: "进场价格20",
       prop: "base_price_20"
     },
     {
       label: "进场价格40",
       prop: "base_price_40"
+    },
+    {
+      label: "计价规则",
+      prop: "price_rule"
     },
     {
       label: "创建时间",
@@ -194,10 +191,11 @@ export function useRole() {
           longitude: row?.longitude ?? "",
           latitude: row?.latitude ?? "",
           base_price_20: row?.base_price_20 ?? "",
-          base_price_40: row?.base_price_40 ?? ""
+          base_price_40: row?.base_price_40 ?? "",
+          price_rule: row?.price_rule ?? ""
         }
       },
-      width: "40%",
+      width: "50%",
       draggable: true,
       fullscreenIcon: true,
       closeOnClickModal: false,
