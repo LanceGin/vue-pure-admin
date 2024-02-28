@@ -110,7 +110,7 @@ const {
         <el-input
           v-model="form.containner_no"
           placeholder="多箱号换行输入"
-          autosize
+          :autosize="{ minRows: 2, maxRows: 5 }"
           type="textarea"
           clearable
           class="!w-[200px]"
