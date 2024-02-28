@@ -132,6 +132,14 @@ const handleClose = () => {
           class="!w-[200px]"
         />
       </el-form-item>
+      <el-form-item label="费用名称：" prop="fee_name">
+        <el-input
+          v-model="form.fee_name"
+          placeholder="请输入费用名称"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
       <el-form-item label="车辆：" prop="car_no">
         <el-input
           v-model="form.car_no"
