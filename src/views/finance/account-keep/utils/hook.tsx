@@ -36,7 +36,8 @@ export function useRole() {
     remark: "",
     apply_time: "",
     keep_by: "",
-    keep_time: ""
+    keep_time: "",
+    company_name: ""
   });
   const formRef = ref();
   const haveRow = ref(true);
@@ -96,6 +97,10 @@ export function useRole() {
     {
       label: "申请单位",
       prop: "apply_department"
+    },
+    {
+      label: "收款单位全称",
+      prop: "company_name"
     },
     {
       label: "录入时间",
