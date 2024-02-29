@@ -55,16 +55,14 @@ defineExpose({ getRef });
     :rules="formRules"
     label-width="82px"
   >
-    <el-form-item label="是否已收票" prop="is_invoice">
-      <el-select
+    <el-form-item label="入账月份" prop="is_invoice">
+      <el-date-picker
         v-model="newFormInline.is_invoice"
-        placeholder="请选择是否已收票"
-        clearable
-        class="!w-[180px]"
-      >
-        <el-option label="是" value="是" />
-        <el-option label="否" value="否" />
-      </el-select>
+        type="month"
+        placeholder="请输入入账月份"
+        format="YYYY/MM"
+        value-format="YYYY-MM"
+      />
     </el-form-item>
     <el-form-item label="付款日期" prop="paid_time">
       <el-date-picker

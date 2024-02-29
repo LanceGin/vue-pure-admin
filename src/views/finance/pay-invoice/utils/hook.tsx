@@ -116,7 +116,7 @@ export function useRole() {
       prop: "invoice_type"
     },
     {
-      label: "是否已收票",
+      label: "入账月份",
       prop: "is_invoice"
     },
     {
