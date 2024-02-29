@@ -283,7 +283,11 @@ export function useRole() {
   async function uploadExcelDetail(item) {
     const form = new FormData();
     form.append("file", item.file);
-    await importDispatch(form).then(() => {
+    const { data } = await importDispatch(form);
+    const select_container = {
+      select_container: data.list
+    };
+    await generateDispatchFee(select_container).then(() => {
       onSearch();
     });
   }
