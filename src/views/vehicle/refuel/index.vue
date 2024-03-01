@@ -77,6 +77,7 @@ const {
           <el-option label="全部" value="" />
           <el-option label="分配" value="分配" />
           <el-option label="买入" value="买入" />
+          <el-option label="注销" value="注销" />
         </el-select>
       </el-form-item>
       <el-form-item label="现库存：">
