@@ -67,11 +67,11 @@ export function useRole() {
       prop: "project"
     },
     {
-      label: "门点",
+      label: "作业点",
       prop: "door"
     },
     {
-      label: "码头",
+      label: "提箱点",
       prop: "port"
     },
     {
