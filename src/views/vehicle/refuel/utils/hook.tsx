@@ -164,7 +164,7 @@ export function useRole() {
           id: row?.id ?? "",
           car_no: row?.car_no ?? "",
           driver: row?.driver ?? "",
-          addtime: row?.addtime ?? "",
+          addtime: dayjs(row?.addtime).format("YYYY-MM-DD") ?? "",
           volume: row?.volume ?? "",
           unit_price: row?.unit_price ?? "",
           type: row?.type ?? "",
