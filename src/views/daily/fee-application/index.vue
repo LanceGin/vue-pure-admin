@@ -51,12 +51,13 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="申请日期" prop="apply_time">
+      <el-form-item label="申请日期：" prop="apply_time_range">
         <el-date-picker
-          v-model="form.apply_time"
-          type="date"
-          placeholder="请输入申请日期"
-          format="YYYY/MM/DD"
+          v-model="form.apply_time_range"
+          type="daterange"
+          start-placeholder="开始时间"
+          end-placeholder="结束时间"
+          format="YYYY-MM-DD"
           value-format="YYYY-MM-DD"
         />
       </el-form-item>

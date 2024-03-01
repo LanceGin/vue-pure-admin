@@ -44,7 +44,8 @@ export function useRole() {
     approve_by: "",
     fee_no: "",
     remark: "",
-    apply_time: ""
+    apply_time: "",
+    apply_time_range: ""
   });
   const formRef = ref();
   const currentRow = ref();
