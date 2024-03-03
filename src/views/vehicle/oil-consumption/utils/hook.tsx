@@ -19,16 +19,16 @@ export function useRole() {
   const form = reactive({
     id: "",
     car_no: "",
-    mileage_6m: "",
+    month: "",
+    mileage: "",
     oil_standard: "",
     mileage_fix: "",
     volume: "",
-    unit_price: "",
-    amount: "",
     actual_volume: "",
     total_amount: "",
     delta_volume: "",
-    reward_amount: ""
+    reward_amount: "",
+    remark: ""
   });
   const formRef = ref();
   const currentRow = ref();
@@ -53,11 +53,15 @@ export function useRole() {
       prop: "car_no"
     },
     {
+      label: "月份",
+      prop: "month"
+    },
+    {
       label: "实际里程",
       children: [
         {
-          label: "6月里程数（KM）",
-          prop: "mileage_6m"
+          label: "月里程数（KM）",
+          prop: "mileage"
         },
         {
           label: "油耗标准（L/100KM）",
@@ -75,14 +79,6 @@ export function useRole() {
         {
           label: "升数（L）",
           prop: "volume"
-        },
-        {
-          label: "平均单价",
-          prop: "unit_price"
-        },
-        {
-          label: "金额（元）",
-          prop: "amount"
         }
       ]
     },
@@ -116,6 +112,10 @@ export function useRole() {
           prop: "reward_amount"
         }
       ]
+    },
+    {
+      label: "备注",
+      prop: "remark"
     }
   ];
 
@@ -203,16 +203,16 @@ export function useRole() {
         formInline: {
           id: row?.id ?? "",
           car_no: row?.car_no ?? "",
-          mileage_6m: row?.mileage_6m ?? "",
+          month: row?.month ?? "",
+          mileage: row?.mileage ?? "",
           oil_standard: row?.oil_standard ?? "",
           mileage_fix: row?.mileage_fix ?? "",
           volume: row?.volume ?? "",
-          unit_price: row?.unit_price ?? "",
-          amount: row?.amount ?? "",
           actual_volume: row?.actual_volume ?? "",
           total_amount: row?.total_amount ?? "",
           delta_volume: row?.delta_volume ?? "",
-          reward_amount: row?.reward_amount ?? ""
+          reward_amount: row?.reward_amount ?? "",
+          remark: row?.remark ?? ""
         }
       },
       width: "40%",

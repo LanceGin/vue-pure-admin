@@ -57,6 +57,15 @@ const {
           class="!w-[180px]"
         />
       </el-form-item>
+      <el-form-item label="月份" prop="month">
+        <el-date-picker
+          v-model="form.month"
+          type="month"
+          placeholder="请输入月份"
+          format="YYYY/MM"
+          value-format="YYYY-MM"
+        />
+      </el-form-item>
     </el-form>
     <el-form
       ref="formRef"

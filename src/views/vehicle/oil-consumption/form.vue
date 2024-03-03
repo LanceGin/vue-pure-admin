@@ -7,16 +7,16 @@ const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
     id: "",
     car_no: "",
-    mileage_6m: "",
+    month: "",
+    mileage: "",
     oil_standard: "",
     mileage_fix: "",
     volume: "",
-    unit_price: "",
-    amount: "",
     actual_volume: "",
     total_amount: "",
     delta_volume: "",
-    reward_amount: ""
+    reward_amount: "",
+    remark: ""
   })
 });
 
@@ -44,11 +44,20 @@ defineExpose({ getRef });
         placeholder="请输入车牌号"
       />
     </el-form-item>
-    <el-form-item label="6月里程数" prop="mileage_6m">
+    <el-form-item label="月份" prop="month">
+      <el-date-picker
+        v-model="newFormInline.month"
+        type="month"
+        placeholder="请输入月份"
+        format="YYYY/MM"
+        value-format="YYYY-MM"
+      />
+    </el-form-item>
+    <el-form-item label="月里程数" prop="mileage">
       <el-input
-        v-model="newFormInline.mileage_6m"
+        v-model="newFormInline.mileage"
         clearable
-        placeholder="请输入6月里程数"
+        placeholder="请输入月里程数"
       />
     </el-form-item>
     <el-form-item label="油耗标准" prop="oil_standard">
@@ -65,27 +74,6 @@ defineExpose({ getRef });
         placeholder="请输入里程修正"
       />
     </el-form-item>
-    <el-form-item label="核定升数" prop="volume">
-      <el-input
-        v-model="newFormInline.volume"
-        clearable
-        placeholder="请输入核定升数"
-      />
-    </el-form-item>
-    <el-form-item label="平均单价" prop="unit_price">
-      <el-input
-        v-model="newFormInline.unit_price"
-        clearable
-        placeholder="请输入平均单价"
-      />
-    </el-form-item>
-    <el-form-item label="核定金额" prop="amount">
-      <el-input
-        v-model="newFormInline.amount"
-        clearable
-        placeholder="请输入核定金额"
-      />
-    </el-form-item>
     <el-form-item label="实际升数" prop="actual_volume">
       <el-input
         v-model="newFormInline.actual_volume"
@@ -100,18 +88,11 @@ defineExpose({ getRef });
         placeholder="请输入实际金额"
       />
     </el-form-item>
-    <el-form-item label="油差升数" prop="delta_volume">
+    <el-form-item label="备注" prop="remark">
       <el-input
-        v-model="newFormInline.delta_volume"
+        v-model="newFormInline.remark"
         clearable
-        placeholder="请输入油差升数"
-      />
-    </el-form-item>
-    <el-form-item label="油耗奖励" prop="reward_amount">
-      <el-input
-        v-model="newFormInline.reward_amount"
-        clearable
-        placeholder="请输入油耗奖励"
+        placeholder="请输入备注"
       />
     </el-form-item>
   </el-form>

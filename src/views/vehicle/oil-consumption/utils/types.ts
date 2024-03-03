@@ -3,16 +3,16 @@
 interface FormItemProps {
   id: string;
   car_no: string;
-  mileage_6m: string;
+  month: string;
+  mileage: string;
   oil_standard: string;
   mileage_fix: string;
   volume: string;
-  unit_price: string;
-  amount: string;
   actual_volume: string;
   total_amount: string;
   delta_volume: string;
   reward_amount: string;
+  remark: string;
 }
 interface FormProps {
   formInline: FormItemProps;
