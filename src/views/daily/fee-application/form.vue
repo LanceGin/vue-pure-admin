@@ -171,6 +171,13 @@ defineExpose({ getRef });
         disabled
       />
     </el-form-item>
+    <el-form-item label="报销人" prop="reimburse_by">
+      <el-input
+        v-model="newFormInline.reimburse_by"
+        clearable
+        placeholder="请输入报销人"
+      />
+    </el-form-item>
     <el-form-item label="申请单位" prop="apply_department">
       <el-input
         v-model="newFormInline.apply_department"
