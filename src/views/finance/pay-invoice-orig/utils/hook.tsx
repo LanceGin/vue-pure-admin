@@ -13,7 +13,7 @@ import {
   deletePayInvoice,
   editPayInvoice,
   importPayInvoice,
-  payInvoicetList
+  payInvoicetOrigList
 } from "@/api/finance";
 import { useUserStore } from "@/store/modules/user";
 
@@ -240,7 +240,7 @@ export function useRole() {
 
   async function onSearch() {
     loading.value = true;
-    const { data } = await payInvoicetList({
+    const { data } = await payInvoicetOrigList({
       pagination,
       form
     });

@@ -157,6 +157,13 @@ export const payInvoicetList = (data?: object) => {
   });
 };
 
+// 原始应付发票列表
+export const payInvoicetOrigList = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("payInvoicetOrigList"), {
+    data
+  });
+};
+
 // 新增应付发票
 export const addPayInvoice = (data?: object) => {
   return http.request<ChangeResult>("post", baseUrlApi("addPayInvoice"), {
