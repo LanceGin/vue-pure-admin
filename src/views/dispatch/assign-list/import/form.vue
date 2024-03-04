@@ -73,6 +73,7 @@ defineExpose({ getRef });
         v-model="newFormInline.make_time"
         type="date"
         placeholder="请输入做箱时间"
+        format="YYYY/MM/DD"
         value-format="YYYY-MM-DD"
       />
     </el-form-item>
