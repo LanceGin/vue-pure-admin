@@ -54,15 +54,6 @@ defineExpose({ getRef });
     :rules="formRules"
     label-width="82px"
   >
-    <el-form-item label="做箱时间" prop="make_time">
-      <el-date-picker
-        v-model="newFormInline.make_time"
-        type="date"
-        placeholder="请输入做箱时间"
-        format="YYYY/MM/DD"
-        value-format="YYYY-MM-DD"
-      />
-    </el-form-item>
     <el-form-item label="提箱点" prop="load_port">
       <el-input
         v-model="newFormInline.load_port"

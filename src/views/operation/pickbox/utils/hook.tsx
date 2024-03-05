@@ -224,7 +224,7 @@ export function useRole() {
 
   function openDialog(title = "修改", row?: FormItemProps) {
     addDialog({
-      title: `${title}箱信息`,
+      title: `${title}提箱点`,
       props: {
         formInline: {
           id: row?.id ?? "",
@@ -258,7 +258,6 @@ export function useRole() {
             } else {
               const data = {
                 select_container_no: [],
-                make_time: curData.make_time,
                 load_port: curData.load_port,
                 remark: curData.remark
               };
