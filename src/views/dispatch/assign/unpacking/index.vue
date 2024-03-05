@@ -6,7 +6,6 @@ import { useRenderIcon } from "../../../../components/ReIcon/src/hooks";
 
 // import Database from "@iconify-icons/ri/database-2-line";
 // import More from "@iconify-icons/ep/more-filled";
-import Delete from "@iconify-icons/ep/delete";
 import EditPen from "@iconify-icons/ep/edit-pen";
 import Search from "@iconify-icons/ep/search";
 // import Upload from "@iconify-icons/ep/upload";
@@ -38,13 +37,12 @@ const {
   onSearch,
   // resetForm,
   openDialog,
-  handleDelete,
   // handleDatabase,
   handleSizeChange,
   handlePageChange,
   handleCurrentChange,
   handleSelectionChange,
-  handleDispatch,
+  // handleDispatch,
   handleRevoke
 } = useRole();
 
@@ -126,7 +124,7 @@ const handleClose = () => {
         </el-button>
         <el-button
           :icon="useRenderIcon(EditPen)"
-          @click="handleDispatch()"
+          @click="openDialog('派车')"
           :disabled="haveRow"
         >
           派车
@@ -168,7 +166,7 @@ const handleClose = () => {
       </template>
     </el-dialog>
 
-    <PureTableBar title="拆箱列表" :columns="columns" @refresh="onSearch">
+    <PureTableBar title="拆箱暂落列表" :columns="columns" @refresh="onSearch">
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border
@@ -190,36 +188,7 @@ const handleClose = () => {
           @page-size-change="handleSizeChange"
           @page-current-change="handlePageChange"
           @current-change="handleCurrentChange"
-        >
-          <template #operation="{ row }">
-            <el-button
-              class="reset-margin"
-              link
-              type="primary"
-              :size="size"
-              :icon="useRenderIcon(EditPen)"
-              @click="openDialog('编辑', row)"
-            >
-              修改
-            </el-button>
-            <el-popconfirm
-              :title="`是否确认删除客户名称为${row.name}的这条数据`"
-              @confirm="handleDelete(row)"
-            >
-              <template #reference>
-                <el-button
-                  class="reset-margin"
-                  link
-                  type="primary"
-                  :size="size"
-                  :icon="useRenderIcon(Delete)"
-                >
-                  删除
-                </el-button>
-              </template>
-            </el-popconfirm>
-          </template>
-        </pure-table>
+        />
       </template>
     </PureTableBar>
   </div>

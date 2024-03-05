@@ -44,7 +44,8 @@ export function useRole() {
     container_weight: "",
     container_status: "",
     order_time: "",
-    order_fee: ""
+    order_fee: "",
+    car_no: ""
   });
   const formRef = ref();
   const selectRows = ref([]);
@@ -102,10 +103,6 @@ export function useRole() {
       label: "到港时间",
       prop: "arrive_time",
       formatter: ({ arrive_time }) => dayjs(arrive_time).format("YYYY-MM-DD")
-    },
-    {
-      label: "流向",
-      prop: "liuxiang"
     }
   ];
 
@@ -193,7 +190,7 @@ export function useRole() {
 
   function openDialog(title = "添加", row?: FormItemProps) {
     addDialog({
-      title: `${title}驾驶员`,
+      title: `${title}`,
       props: {
         formInline: {
           id: row?.id ?? "",
@@ -222,7 +219,8 @@ export function useRole() {
           container_weight: row?.container_weight ?? "",
           container_status: row?.container_status ?? "",
           order_time: row?.order_time ?? "",
-          order_fee: row?.order_fee ?? ""
+          order_fee: row?.order_fee ?? "",
+          car_no: row?.car_no ?? ""
         }
       },
       width: "40%",
@@ -248,6 +246,21 @@ export function useRole() {
               // 实际开发先调用新增接口，再进行下面操作
               chores();
             } else {
+              const data = {
+                select_container_id: [],
+                select_dispatch_id: [],
+                select_container: [],
+                car_no: curData.car_no
+              };
+              selectRows.value.forEach(v => {
+                data.select_container_id.push(v.id);
+                data.select_dispatch_id.push(v.dispatch_id);
+                data.select_container.push(v);
+              });
+              generateDispatchFee(data).then(() => {
+                dispatchCar(data);
+                onSearch();
+              });
               // 实际开发先调用编辑接口，再进行下面操作
               chores();
             }
