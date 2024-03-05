@@ -6,7 +6,6 @@ import { useRenderIcon } from "../../../components/ReIcon/src/hooks";
 
 // import Database from "@iconify-icons/ri/database-2-line";
 // import More from "@iconify-icons/ep/more-filled";
-import Delete from "@iconify-icons/ep/delete";
 import EditPen from "@iconify-icons/ep/edit-pen";
 import Search from "@iconify-icons/ep/search";
 import Upload from "@iconify-icons/ep/upload";
@@ -25,13 +24,8 @@ const {
   columns,
   dataList,
   pagination,
-  // buttonClass,
   exportExcel,
   onSearch,
-  // resetForm,
-  openDialog,
-  handleDelete,
-  // handleDatabase,
   handleSizeChange,
   handlePageChange,
   handleCurrentChange,
@@ -39,7 +33,8 @@ const {
   handlePickBox,
   handleTempDrop,
   handleMakeTime,
-  handleLoadPort
+  handleLoadPort,
+  handleSetting
 } = useRole();
 </script>
 
@@ -171,6 +166,14 @@ const {
         >
           批量修改提箱点
         </el-button>
+        <el-button
+          type="primary"
+          :icon="useRenderIcon(EditPen)"
+          @click="handleSetting()"
+          :disabled="haveRow"
+        >
+          批量修改
+        </el-button>
         <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
           导出
         </el-button>
@@ -199,36 +202,7 @@ const {
           @page-size-change="handleSizeChange"
           @page-current-change="handlePageChange"
           @current-change="handleCurrentChange"
-        >
-          <template #operation="{ row }">
-            <el-button
-              class="reset-margin"
-              link
-              type="primary"
-              :size="size"
-              :icon="useRenderIcon(EditPen)"
-              @click="openDialog('编辑', row)"
-            >
-              修改
-            </el-button>
-            <el-popconfirm
-              :title="`是否确认删除客户名称为${row.name}的这条数据`"
-              @confirm="handleDelete(row)"
-            >
-              <template #reference>
-                <el-button
-                  class="reset-margin"
-                  link
-                  type="primary"
-                  :size="size"
-                  :icon="useRenderIcon(Delete)"
-                >
-                  删除
-                </el-button>
-              </template>
-            </el-popconfirm>
-          </template>
-        </pure-table>
+        />
       </template>
     </PureTableBar>
   </div>

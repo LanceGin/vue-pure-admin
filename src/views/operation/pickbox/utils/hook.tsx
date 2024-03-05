@@ -13,6 +13,7 @@ import {
   loadPort,
   makeTime,
   pickBox,
+  settingContainer,
   tempDrop
 } from "@/api/operation";
 import { ElMessage, ElMessageBox } from "element-plus";
@@ -47,7 +48,8 @@ export function useRole() {
     container_status: "待挑箱",
     order_time: "",
     order_fee: "",
-    temp_status: ""
+    temp_status: "",
+    remark: ""
   });
   const formRef = ref();
   const selectRows = ref([]);
@@ -124,8 +126,8 @@ export function useRole() {
       prop: "ship_company"
     },
     {
-      label: "流向",
-      prop: "liuxiang"
+      label: "备注",
+      prop: "remark"
     },
     {
       label: "门点",
@@ -142,11 +144,6 @@ export function useRole() {
     {
       label: "暂落状态",
       prop: "temp_status"
-    },
-    {
-      label: "打包暂落日期",
-      prop: "temp_time",
-      formatter: ({ temp_time }) => dayjs(temp_time).format("YYYY-MM-DD")
     }
   ];
 
@@ -225,38 +222,15 @@ export function useRole() {
     onSearch();
   };
 
-  function openDialog(title = "添加", row?: FormItemProps) {
+  function openDialog(title = "修改", row?: FormItemProps) {
     addDialog({
-      title: `${title}单证`,
+      title: `${title}箱信息`,
       props: {
         formInline: {
           id: row?.id ?? "",
-          order_status: row?.order_status ?? "",
-          order_type: row?.order_type ?? "",
-          ship_company: row?.ship_company ?? "",
-          customer: row?.customer ?? "",
-          subproject: row?.subproject ?? "",
-          arrive_time: row?.arrive_time ?? "",
-          start_port: row?.start_port ?? "",
-          target_port: row?.target_port ?? "",
-          containner_no: row?.containner_no ?? "",
-          seal_no: row?.seal_no ?? "",
-          container_type: row?.container_type ?? "",
-          ship_name: row?.ship_name ?? "",
-          track_no: row?.track_no ?? "",
-          unload_port: row?.unload_port ?? "",
-          door: row?.door ?? "",
-          make_time: row?.make_time ?? "",
+          make_time: dayjs(row?.make_time).format("YYYY-MM-DD") ?? "",
           load_port: row?.load_port ?? "",
-          count: row?.count ?? "",
-          transfer_port: row?.transfer_port ?? "",
-          package_count: row?.package_count ?? "",
-          gross_weight: row?.gross_weight ?? "",
-          volume: row?.volume ?? "",
-          container_weight: row?.container_weight ?? "",
-          container_status: row?.container_status ?? "",
-          order_time: row?.order_time ?? "",
-          order_fee: row?.order_fee ?? ""
+          remark: row?.remark ?? ""
         }
       },
       width: "40%",
@@ -282,6 +256,16 @@ export function useRole() {
               // 实际开发先调用新增接口，再进行下面操作
               chores();
             } else {
+              const data = {
+                select_container_no: [],
+                make_time: curData.make_time,
+                load_port: curData.load_port,
+                remark: curData.remark
+              };
+              selectRows.value.forEach(v => {
+                data.select_container_no.push(v.containner_no);
+              });
+              settingContainer(data);
               // 实际开发先调用编辑接口，再进行下面操作
               chores();
             }
@@ -421,6 +405,11 @@ export function useRole() {
       });
   }
 
+  // 批量设置信息
+  async function handleSetting() {
+    openDialog("修改", selectRows.value[0]);
+  }
+
   /** 菜单权限 */
   function handleMenu() {
     message("等菜单管理页面开发后完善");
@@ -455,6 +444,7 @@ export function useRole() {
     handlePickBox,
     handleTempDrop,
     handleMakeTime,
-    handleLoadPort
+    handleLoadPort,
+    handleSetting
   };
 }

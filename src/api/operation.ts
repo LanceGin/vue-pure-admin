@@ -354,3 +354,10 @@ export const makeTime = (data?: object) => {
     data
   });
 };
+
+// 批量设置箱信息
+export const settingContainer = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("settingContainer"), {
+    data
+  });
+};
