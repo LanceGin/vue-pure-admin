@@ -6,6 +6,7 @@ import { FormProps } from "./utils/types";
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
     id: "",
+    dispatch_id: "",
     order_status: "",
     order_type: "",
     ship_company: "",
@@ -36,7 +37,11 @@ const props = withDefaults(defineProps<FormProps>(), {
     transport_status: "",
     temp_port: "",
     temp_status: "",
-    temp_time: ""
+    temp_time: "",
+    export_seal_no: "",
+    export_port: "",
+    dispatch_car_no: "",
+    trans_status: ""
   })
 });
 
@@ -57,26 +62,18 @@ defineExpose({ getRef });
     :rules="formRules"
     label-width="82px"
   >
-    <el-form-item label="车牌号：" prop="car_no">
+    <el-form-item label="装箱封号：" prop="export_seal_no">
       <el-input
-        v-model="newFormInline.car_no"
+        v-model="newFormInline.export_seal_no"
         clearable
-        placeholder="请输入车牌号"
+        placeholder="请输入装箱封号"
       />
     </el-form-item>
-    <el-form-item label="暂落点：" prop="temp_port">
+    <el-form-item label="装箱点：" prop="export_port">
       <el-input
-        v-model="newFormInline.temp_port"
+        v-model="newFormInline.export_port"
         clearable
-        placeholder="请输入暂落点"
-      />
-    </el-form-item>
-    <el-form-item label="做箱时间：" prop="make_time">
-      <el-date-picker
-        v-model="newFormInline.make_time"
-        type="date"
-        placeholder="请输入做箱时间"
-        value-format="YYYY-MM-DD"
+        placeholder="请输入装箱点"
       />
     </el-form-item>
   </el-form>

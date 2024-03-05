@@ -8,7 +8,7 @@ import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
 import {
-  editContainerInfo,
+  editWhExport,
   oneStepRevoke,
   tempDropFinish,
   whDispatchList
@@ -21,6 +21,7 @@ export function useRole() {
   start.setTime(start.getTime() - 3600 * 1000 * 24 * 5);
   const form = reactive({
     id: "",
+    dispatch_id: "",
     order_status: "",
     order_type: "",
     ship_company: "",
@@ -52,7 +53,11 @@ export function useRole() {
     transport_status: "",
     temp_port: "",
     temp_status: "",
-    temp_time: ""
+    temp_time: "",
+    export_seal_no: "",
+    export_port: "",
+    dispatch_car_no: "",
+    trans_status: ""
   });
   const formRef = ref();
   const selectRows = ref([]);
@@ -107,12 +112,20 @@ export function useRole() {
       prop: "unload_port"
     },
     {
+      label: "装箱封号",
+      prop: "export_seal_no"
+    },
+    {
+      label: "装箱点",
+      prop: "export_port"
+    },
+    {
       label: "车号",
-      prop: "car_no"
+      prop: "dispatch_car_no"
     },
     {
       label: "状态",
-      prop: "container_status"
+      prop: "trans_status"
     },
     {
       label: "备注",
@@ -179,6 +192,7 @@ export function useRole() {
       props: {
         formInline: {
           id: row?.id ?? "",
+          dispatch_id: row?.dispatch_id ?? "",
           order_status: row?.order_status ?? "",
           order_type: row?.order_type ?? "",
           ship_company: row?.ship_company ?? "",
@@ -293,7 +307,7 @@ export function useRole() {
   }
 
   async function asyncEdit(fee) {
-    await editContainerInfo(fee);
+    await editWhExport(fee);
   }
 
   /** 菜单权限 */

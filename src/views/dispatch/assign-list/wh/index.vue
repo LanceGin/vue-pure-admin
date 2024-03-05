@@ -32,7 +32,7 @@ const {
   // openDialog,
   // handleDelete,
   // handleDatabase,
-  // handleRowDblclick,
+  handleRowDblclick,
   handleSizeChange,
   handlePageChange,
   handleCurrentChange,
@@ -128,6 +128,7 @@ const {
             color: 'var(--el-text-color-primary)'
           }"
           @selection-change="handleSelectionChange"
+          @row-dblclick="handleRowDblclick"
           @page-size-change="handleSizeChange"
           @page-current-change="handlePageChange"
           @current-change="handleCurrentChange"

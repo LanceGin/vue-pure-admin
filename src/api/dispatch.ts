@@ -52,6 +52,13 @@ export const editContainerInfo = (data?: object) => {
   });
 };
 
+// 编辑武汉派车单箱子信息
+export const editWhExport = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("editWhExport"), {
+    data
+  });
+};
+
 // 获取出口派车列表
 export const getExportDispatchList = (data?: object) => {
   return http.request<ListResult>("post", baseUrlApi("exportDispatchList"), {

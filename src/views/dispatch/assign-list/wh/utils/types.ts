@@ -2,6 +2,7 @@
 
 interface FormItemProps {
   id: string;
+  dispatch_id: string;
   order_status: string;
   order_type: string;
   ship_company: string;
@@ -33,6 +34,10 @@ interface FormItemProps {
   temp_port: string;
   temp_status: string;
   temp_time: string;
+  export_seal_no: string;
+  export_port: string;
+  dispatch_car_no: string;
+  trans_status: string;
 }
 interface FormProps {
   formInline: FormItemProps;
