@@ -32,8 +32,8 @@ const {
   handleSelectionChange,
   handlePickBox,
   handleTempDrop,
-  handleMakeTime,
-  handleLoadPort,
+  // handleMakeTime,
+  // handleLoadPort,
   handleSetting
 } = useRole();
 </script>
@@ -149,22 +149,6 @@ const {
           :disabled="haveRow"
         >
           挑箱
-        </el-button>
-        <el-button
-          type="primary"
-          :icon="useRenderIcon(EditPen)"
-          @click="handleMakeTime()"
-          :disabled="haveRow"
-        >
-          批量设置做箱时间
-        </el-button>
-        <el-button
-          type="primary"
-          :icon="useRenderIcon(EditPen)"
-          @click="handleLoadPort()"
-          :disabled="haveRow"
-        >
-          批量修改提箱点
         </el-button>
         <el-button
           type="primary"
