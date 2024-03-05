@@ -10,8 +10,7 @@ import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
 import {
   containerFeeList,
-  dataCheck,
-  // dataCheck,
+  dataCheckPay,
   setAmount,
   setInvoiceNo,
   setRemark,
@@ -362,17 +361,25 @@ export function useRole() {
 
   // 上传文件批量导入
   async function uploadExcelDetail(item) {
+    let flag = true;
     const form = new FormData();
     form.append("file", item.file);
-    const { data } = await dataCheck(form);
-    data.forEach(element => {
+    const { data } = await dataCheckPay(form);
+    data.list.forEach((element, index) => {
       if (element.length === 0) {
+        flag = false;
         ElMessage({
           type: "error",
-          message: "数据有误"
+          message: `第${index + 2}行数据有误`
         });
       }
     });
+    if (flag) {
+      ElMessage({
+        type: "success",
+        message: `比对通过`
+      });
+    }
   }
 
   // 提交统计费用

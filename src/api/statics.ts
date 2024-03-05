@@ -86,11 +86,30 @@ export const submitContainerFee = (data?: object) => {
   });
 };
 
-// 数据比对
-export const dataCheck = data => {
+// 应收数据比对
+export const dataCheckCollection = data => {
   return http.request<ListResult>(
     "post",
-    baseUrlApi("dataCheck"),
+    baseUrlApi("dataCheckCollection"),
+    {
+      data
+    },
+    {
+      transformRequest: [
+        function (data, headers) {
+          delete headers["Content-Type"];
+          return data;
+        }
+      ]
+    }
+  );
+};
+
+// 应付数据比对
+export const dataCheckPay = data => {
+  return http.request<ListResult>(
+    "post",
+    baseUrlApi("dataCheckPay"),
     {
       data
     },

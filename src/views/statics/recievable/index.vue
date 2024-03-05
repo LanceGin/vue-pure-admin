@@ -191,17 +191,14 @@ const handleClose = () => {
         <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
           导出
         </el-button>
-        <!-- <el-button
-          :icon="useRenderIcon(EditPen)"
-          @click="handleSetRemark()"
-          :disabled="haveRow"
-        >
-          批量备注
-        </el-button> -->
       </el-form-item>
     </el-form>
 
-    <el-dialog v-model="dialogVisible" title="数据比对" width="30%">
+    <el-dialog
+      v-model="dialogVisible"
+      title="数据比对（封号-箱号-箱型-门点）"
+      width="30%"
+    >
       <el-upload
         ref="upload"
         accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
