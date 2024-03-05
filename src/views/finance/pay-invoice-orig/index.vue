@@ -39,7 +39,6 @@ const {
   openDialog,
   handleDelete,
   handleRowDblclick,
-  handleEdit,
   handleSizeChange,
   handlePageChange,
   handleCurrentChange,
@@ -162,14 +161,6 @@ const handleClose = () => {
           导出
         </el-button>
         <el-button
-          type="primary"
-          :icon="useRenderIcon(EditPen)"
-          @click="handleEdit()"
-          :disabled="haveRow"
-        >
-          修改
-        </el-button>
-        <el-button
           type="danger"
           :icon="useRenderIcon(Delete)"
           @click="handleDelete()"
@@ -207,7 +198,7 @@ const handleClose = () => {
     </el-dialog>
 
     <PureTableBar
-      title="应付发票原始数据管理"
+      title="应付发票原始数据管理(双击修改)"
       :columns="columns"
       @refresh="onSearch"
     >

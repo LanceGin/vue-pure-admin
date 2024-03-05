@@ -68,6 +68,10 @@ export function useRole() {
   });
   const columns: TableColumnList = [
     {
+      type: "selection",
+      align: "left"
+    },
+    {
       label: "序号",
       type: "index"
     },
@@ -197,17 +201,25 @@ export function useRole() {
     const workSheet = utils.aoa_to_sheet(res);
     const workBook = utils.book_new();
     utils.book_append_sheet(workBook, workSheet, "数据报表");
-    writeFile(workBook, "挑箱列表.xlsx");
+    writeFile(workBook, "原始发票列表.xlsx");
     message("导出成功", {
       type: "success"
     });
   }
 
   async function handleDelete() {
-    message(`您删除了发票代码为${currentRow.value.code}的这条数据`, {
+    const data = {
+      select_id: [],
+      select_code: []
+    };
+    selectRows.value.forEach(v => {
+      data.select_id.push(v.id);
+      data.select_code.push(v.code);
+    });
+    message(`您删除了发票代码为${data.select_code}的数据`, {
       type: "success"
     });
-    await deletePayInvoice(currentRow.value);
+    await deletePayInvoice(data);
     onSearch();
   }
 

@@ -175,10 +175,18 @@ export function useRole() {
   }
 
   async function handleDelete() {
-    message(`您删除了发票代码为${currentRow.value.code}的这条数据`, {
+    const data = {
+      select_id: [],
+      select_code: []
+    };
+    selectRows.value.forEach(v => {
+      data.select_id.push(v.id);
+      data.select_code.push(v.code);
+    });
+    message(`您删除了发票代码为${data.select_code}的数据`, {
       type: "success"
     });
-    await deleteInvoice(currentRow.value);
+    await deleteInvoice(data);
     onSearch();
   }
 

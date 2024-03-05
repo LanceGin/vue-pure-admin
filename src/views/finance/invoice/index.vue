@@ -42,10 +42,8 @@ const {
   handleDelete,
   // handleDatabase,
   handleRowDblclick,
-  handleEdit,
   handleSizeChange,
   handlePageChange,
-  handleCurrentChange,
   handleSelectionChange,
   handleReceiptTime
 } = useRole();
@@ -183,14 +181,6 @@ const handleClose = () => {
           批量设置收款日期
         </el-button>
         <el-button
-          type="primary"
-          :icon="useRenderIcon(EditPen)"
-          @click="handleEdit()"
-          :disabled="haveRow"
-        >
-          修改
-        </el-button>
-        <el-button
           type="danger"
           :icon="useRenderIcon(Delete)"
           @click="handleDelete()"
@@ -227,13 +217,16 @@ const handleClose = () => {
       </template>
     </el-dialog>
 
-    <PureTableBar title="开票信息管理" :columns="columns" @refresh="onSearch">
+    <PureTableBar
+      title="开票信息管理(双击修改)"
+      :columns="columns"
+      @refresh="onSearch"
+    >
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border
           align-whole="center"
           showOverflowTooltip
-          highlight-current-row
           table-layout="auto"
           :loading="loading"
           :size="size"
@@ -250,7 +243,6 @@ const handleClose = () => {
           @row-dblclick="handleRowDblclick"
           @page-size-change="handleSizeChange"
           @page-current-change="handlePageChange"
-          @current-change="handleCurrentChange"
         />
       </template>
     </PureTableBar>
