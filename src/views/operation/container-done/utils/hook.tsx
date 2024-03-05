@@ -1,4 +1,4 @@
-import dayjs from "dayjs";
+// import dayjs from "dayjs";
 import { utils, writeFile } from "xlsx";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
@@ -49,10 +49,14 @@ export function useRole() {
     gross_weight: "",
     volume: "",
     container_weight: "",
-    container_status: "已完成",
+    container_status: "",
     order_time: "",
     order_fee: "",
-    temp_status: "未暂落"
+    temp_status: "",
+    trans_status: "",
+    abnormal_fee: "",
+    dispatch_remark: "",
+    dispatch_car_no: ""
   });
   const formRef = ref();
   const currentRow = ref();
@@ -74,11 +78,11 @@ export function useRole() {
   const columns: TableColumnList = [
     {
       label: "状态",
-      prop: "container_status"
+      prop: "trans_status"
     },
     {
       label: "类型",
-      prop: "order_type"
+      prop: "type"
     },
     {
       label: "客户",
@@ -110,7 +114,7 @@ export function useRole() {
     },
     {
       label: "车号",
-      prop: "car_no"
+      prop: "dispatch_car_no"
     },
     {
       label: "起始港",
@@ -121,13 +125,12 @@ export function useRole() {
       prop: "target_port"
     },
     {
-      label: "打单时间",
-      prop: "order_time",
-      formatter: ({ order_time }) => dayjs(order_time).format("YYYY-MM-DD")
+      label: "异常费用",
+      prop: "abnormal_fee"
     },
     {
       label: "备注",
-      prop: "remark"
+      prop: "dispatch_remark"
     }
   ];
 
@@ -235,6 +238,7 @@ export function useRole() {
       title: `${title}费用`,
       props: {
         formInline: {
+          dispatch_id: currentRow.value.dispatch_id,
           id: currentRow.value.id,
           track_no: currentRow.value.track_no,
           containner_no: currentRow.value.containner_no,
@@ -242,6 +246,8 @@ export function useRole() {
           status: "",
           fee_name: "",
           amount: "",
+          abnormal_fee: currentRow.value.abnormal_fee,
+          dispatch_remark: currentRow.value.dispatch_remark,
           add_by: user.username
         }
       },
@@ -267,7 +273,7 @@ export function useRole() {
           if (valid) {
             console.log("curData", curData);
             // 表单规则校验通过
-            if (title === "新增") {
+            if (title === "编辑") {
               // 实际开发先调用新增接口，再进行下面操作
               handleAddContainerFee(curData);
               chores();

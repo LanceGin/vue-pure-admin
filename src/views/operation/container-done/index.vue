@@ -33,7 +33,7 @@ const {
   // handleDatabase,
   // handleSubmit,
   // handleEdit,
-  handleRowDblclick,
+  // handleRowDblclick,
   handleSizeChange,
   handlePageChange,
   handleCurrentChange
@@ -48,7 +48,7 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="箱子类型" prop="order_type">
+      <el-form-item label="派车单类型" prop="order_type">
         <el-select
           v-model="form.order_type"
           placeholder="请选择类型"
@@ -56,19 +56,9 @@ const {
           class="!w-[180px]"
         >
           <el-option label="全部" value="" />
-          <el-option label="进口" value="进口" />
-          <el-option label="出口" value="出口" />
-        </el-select>
-      </el-form-item>
-      <el-form-item label="暂落状态" prop="temp_status">
-        <el-select
-          v-model="form.temp_status"
-          placeholder="请选择状态"
-          clearable
-          class="!w-[180px]"
-        >
-          <el-option label="未暂落" value="未暂落" />
-          <el-option label="已暂落" value="已暂落" />
+          <el-option label="拆箱" value="拆箱" />
+          <el-option label="暂落" value="暂落" />
+          <el-option label="装箱" value="装箱" />
         </el-select>
       </el-form-item>
       <el-form-item label="客户" prop="customer">
@@ -143,7 +133,7 @@ const {
         <el-button
           type="primary"
           :icon="useRenderIcon(Edit)"
-          @click="openDialog('新增')"
+          @click="openDialog('编辑')"
           :disabled="haveRow"
         >
           添加异常费用
@@ -174,11 +164,7 @@ const {
       />
     </el-dialog>
 
-    <PureTableBar
-      title="已完成箱（双击查看费用）"
-      :columns="columns"
-      @refresh="onSearch"
-    >
+    <PureTableBar title="已完成派车单" :columns="columns" @refresh="onSearch">
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border
@@ -197,7 +183,6 @@ const {
             background: 'var(--el-table-row-hover-bg-color)',
             color: 'var(--el-text-color-primary)'
           }"
-          @row-dblclick="handleRowDblclick"
           @page-size-change="handleSizeChange"
           @page-current-change="handlePageChange"
           @current-change="handleCurrentChange"

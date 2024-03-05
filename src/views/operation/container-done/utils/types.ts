@@ -34,6 +34,8 @@ interface FormItemProps {
   fee_name: string;
   amount: string;
   add_by: string;
+  abnormal_fee: string;
+  dispatch_remark: string;
 }
 interface FormProps {
   formInline: FormItemProps;

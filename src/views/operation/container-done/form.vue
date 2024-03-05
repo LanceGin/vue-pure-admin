@@ -37,7 +37,9 @@ const props = withDefaults(defineProps<FormProps>(), {
     temp_status: "",
     fee_name: "",
     amount: "",
-    add_by: ""
+    add_by: "",
+    abnormal_fee: "",
+    dispatch_remark: ""
   })
 });
 
@@ -62,6 +64,7 @@ defineExpose({ getRef });
       <el-input
         v-model="newFormInline.track_no"
         clearable
+        disabled
         placeholder="请输入运单号"
       />
     </el-form-item>
@@ -69,33 +72,23 @@ defineExpose({ getRef });
       <el-input
         v-model="newFormInline.containner_no"
         clearable
+        disabled
         placeholder="请输入箱号"
       />
     </el-form-item>
-    <!-- <el-form-item label="类型" prop="type">
-      <el-select
-        v-model="newFormInline.type"
-        placeholder="请选择类型"
-        clearable
-        class="!w-[180px]"
-      >
-        <el-option label="应收" value="应收" />
-        <el-option label="应付" value="应付" />
-      </el-select>
-    </el-form-item> -->
-    <el-form-item label="费用名" prop="fee_name">
+    <el-form-item label="异常费用" prop="abnormal_fee">
       <el-input
-        v-model="newFormInline.fee_name"
+        v-model="newFormInline.abnormal_fee"
         clearable
-        placeholder="请输入费用名"
+        placeholder="请输入异常费用"
       />
     </el-form-item>
 
-    <el-form-item label="金额" prop="amount">
+    <el-form-item label="备注" prop="dispatch_remark">
       <el-input
-        v-model="newFormInline.amount"
+        v-model="newFormInline.dispatch_remark"
         clearable
-        placeholder="请输入金额"
+        placeholder="请输入备注"
       />
     </el-form-item>
   </el-form>
