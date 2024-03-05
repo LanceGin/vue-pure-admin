@@ -59,9 +59,9 @@ const {
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="结算单位：" prop="project_name">
+      <el-form-item label="结算单位：" prop="company_name">
         <el-input
-          v-model="form.project_name"
+          v-model="form.company_name"
           placeholder="请输入结算单位"
           clearable
           class="!w-[200px]"

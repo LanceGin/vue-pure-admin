@@ -23,6 +23,7 @@ export function useRole() {
     custom_name: "",
     project_name: "",
     flow_direction: "",
+    company_name: "",
     content: "",
     amount: "",
     total: "",

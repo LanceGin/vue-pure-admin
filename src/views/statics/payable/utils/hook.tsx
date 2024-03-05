@@ -64,6 +64,7 @@ export function useRole() {
     project_name: "",
     custom_name: "",
     flow_direction: "",
+    acc_company: "",
     content: "",
     invoice_no: ""
   });
@@ -110,7 +111,7 @@ export function useRole() {
     },
     {
       label: "结算单位",
-      prop: "project_name"
+      prop: "acc_company"
     },
     {
       label: "服务内容",
@@ -322,6 +323,7 @@ export function useRole() {
           project_name: row?.project_name ?? "",
           custom_name: row?.custom_name ?? "",
           flow_direction: row?.flow_direction ?? "",
+          acc_company: row?.acc_company ?? "",
           content: row?.content ?? ""
         }
       },

@@ -18,6 +18,7 @@ export function useRole() {
     custom_name: "",
     project_name: "",
     flow_direction: "",
+    company_name: "",
     bank: "",
     account_no: "",
     content: "",
@@ -65,7 +66,7 @@ export function useRole() {
     },
     {
       label: "结算单位",
-      prop: "project_name"
+      prop: "company_name"
     },
     {
       label: "开户行",

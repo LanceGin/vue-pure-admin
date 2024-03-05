@@ -26,6 +26,8 @@ export function useRole() {
     custom_name: "",
     project_name: "",
     flow_direction: "",
+    acc_company: "",
+    company_name: "",
     content: "",
     amount: "",
     less_amount: "",
@@ -63,7 +65,7 @@ export function useRole() {
     },
     {
       label: "结算单位",
-      prop: "project_name"
+      prop: "company_name"
     },
     {
       label: "服务内容",

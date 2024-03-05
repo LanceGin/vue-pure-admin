@@ -44,6 +44,7 @@ interface FormItemProps {
   project_name: string;
   custom_name: string;
   flow_direction: string;
+  acc_company: string;
   content: string;
   invoice_no: string;
 }
