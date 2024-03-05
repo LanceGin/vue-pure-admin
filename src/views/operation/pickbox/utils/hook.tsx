@@ -283,12 +283,12 @@ export function useRole() {
     })
       .then(actual_amount => {
         const data = {
-          select_container_no: [],
+          select_container_id: [],
           select_container: [],
           actual_amount: actual_amount
         };
         selectRows.value.forEach(v => {
-          data.select_container_no.push(v.containner_no);
+          data.select_container_id.push(v.id);
           data.select_container.push(v);
           if (v.make_time === null) {
             throw new Error("所选箱未设置做箱时间");
@@ -321,7 +321,7 @@ export function useRole() {
     })
       .then(temp_port => {
         const data = {
-          select_container_no: [],
+          select_container_id: [],
           select_container: [],
           temp_port: temp_port,
           actual_amount: {
@@ -329,7 +329,7 @@ export function useRole() {
           }
         };
         selectRows.value.forEach(v => {
-          data.select_container_no.push(v.containner_no);
+          data.select_container_id.push(v.id);
           data.select_container.push(v);
           if (v.make_time === null) {
             throw new Error("所选箱未设置做箱时间");
