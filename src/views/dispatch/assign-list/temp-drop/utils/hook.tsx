@@ -255,11 +255,11 @@ export function useRole() {
       cancelButtonText: "取消"
     })
       .then(() => {
-        const select_container_no = [];
+        const select_container_id = [];
         selectRows.value.forEach(v => {
-          select_container_no.push(v.containner_no);
+          select_container_id.push(v.id);
         });
-        oneStepRevoke(select_container_no);
+        oneStepRevoke(select_container_id);
         onSearch();
       })
       .catch(() => {
@@ -277,11 +277,11 @@ export function useRole() {
       cancelButtonText: "取消"
     })
       .then(() => {
-        const select_container_no = [];
+        const select_container_id = [];
         selectRows.value.forEach(v => {
-          select_container_no.push(v.containner_no);
+          select_container_id.push(v.id);
         });
-        tempDropFinish(select_container_no);
+        tempDropFinish(select_container_id);
         onSearch();
       })
       .catch(() => {
