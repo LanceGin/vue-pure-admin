@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRole } from "./utils/hook";
-import { PureTableBar } from "@/components/RePureTableBar";
-import { useRenderIcon } from "@/components/ReIcon/src/hooks";
+import { PureTableBar } from "../../../components/RePureTableBar";
+import { useRenderIcon } from "../../../components/ReIcon/src/hooks";
 
 // import Database from "@iconify-icons/ri/database-2-line";
 // import More from "@iconify-icons/ep/more-filled";
@@ -113,7 +113,7 @@ const {
       </el-form-item>
     </el-form>
 
-    <PureTableBar title="车队客户列表" :columns="columns" @refresh="onSearch">
+    <PureTableBar title="船公司列表" :columns="columns" @refresh="onSearch">
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border
