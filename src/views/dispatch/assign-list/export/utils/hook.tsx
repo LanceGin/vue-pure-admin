@@ -8,7 +8,11 @@ import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
-import { getExportDispatchList, importExportContainer } from "@/api/dispatch";
+import {
+  generateExportDispatch,
+  getExportDispatchList,
+  importExportContainer
+} from "@/api/dispatch";
 import { useUserStore } from "@/store/modules/user";
 import { generateDispatchFee, generateOrderFee } from "@/api/finance";
 
@@ -268,6 +272,7 @@ export function useRole() {
         select_track_no.push(item.track_no);
       }
     });
+    generateExportDispatch(select_container);
     generateOrderFee(select_track_no);
     generateDispatchFee(select_container);
   }

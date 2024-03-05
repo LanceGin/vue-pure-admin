@@ -78,6 +78,17 @@ export const importExportContainer = data => {
   );
 };
 
+// 生成出口派车订单
+export const generateExportDispatch = (data?: object) => {
+  return http.request<ListResult>(
+    "post",
+    baseUrlApi("generateExportDispatch"),
+    {
+      data
+    }
+  );
+};
+
 // 批量导入派车记录
 export const importDispatch = data => {
   return http.request<ListResult>(
