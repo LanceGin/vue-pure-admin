@@ -50,7 +50,9 @@ export function useRole() {
     order_time: "",
     order_fee: "",
     car_no: "",
-    transport_status: ""
+    dispatch_car_no: "",
+    transport_status: "",
+    trans_status: ""
   });
   const formRef = ref();
   const selectRows = ref([]);
@@ -118,26 +120,11 @@ export function useRole() {
     },
     {
       label: "车号",
-      prop: "car_no"
+      prop: "dispatch_car_no"
     },
     {
       label: "运输状态",
-      prop: "transport_status",
-      formatter: ({ transport_status }) => {
-        if (transport_status == 0) {
-          return "已执行";
-        } else if (transport_status == 1) {
-          return "已提箱";
-        } else if (transport_status == 2) {
-          return "进拆箱门点";
-        } else if (transport_status == 3) {
-          return "出拆箱门点";
-        } else if (transport_status == 4) {
-          return "已还箱";
-        } else {
-          return "已完成";
-        }
-      }
+      prop: "trans_status"
     }
   ];
 
