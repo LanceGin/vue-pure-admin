@@ -54,6 +54,34 @@ export const editMotorcade = (data?: object) => {
   });
 };
 
+// 获取船公司列表
+export const shipCompanyList = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("shipCompanyList"), {
+    data
+  });
+};
+
+// 新增船公司
+export const addShipCompany = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("addShipCompany"), {
+    data
+  });
+};
+
+// 删除船公司
+export const deleteShipCompany = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("deleteShipCompany"), {
+    data
+  });
+};
+
+// 编辑船公司
+export const editShipCompany = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("editShipCompany"), {
+    data
+  });
+};
+
 // 获取堆场列表
 export const getYardList = (data?: object) => {
   return http.request<ListResult>("post", baseUrlApi("yardList"), {

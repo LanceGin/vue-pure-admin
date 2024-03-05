@@ -11,6 +11,14 @@ export default {
   },
   children: [
     {
+      path: "/operation/ship_company",
+      name: "ShipCompany",
+      component: () => import("@/views/operation/ship-company/index.vue"),
+      meta: {
+        title: "船公司管理"
+      }
+    },
+    {
       path: "/operation/motorcade",
       name: "Motorcade",
       component: () => import("@/views/operation/motorcade/index.vue"),
