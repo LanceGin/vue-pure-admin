@@ -111,10 +111,16 @@ const handleClose = () => {
       <el-form-item label="箱号：" prop="containner_no">
         <el-input
           v-model="form.containner_no"
-          placeholder="请输入箱号"
+          placeholder="多箱号换行输入"
+          :autosize="{ minRows: 2, maxRows: 5 }"
+          type="textarea"
+          ref="textarea"
           clearable
           class="!w-[200px]"
         />
+        <el-button link type="primary" @click="this.$refs.textarea.clear()"
+          >清空</el-button
+        >
       </el-form-item>
       <el-form-item label="车号：" prop="car_no">
         <el-input

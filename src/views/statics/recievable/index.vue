@@ -119,9 +119,13 @@ const handleClose = () => {
           placeholder="多箱号换行输入"
           :autosize="{ minRows: 2, maxRows: 5 }"
           type="textarea"
+          ref="textarea"
           clearable
           class="!w-[200px]"
         />
+        <el-button link type="primary" @click="this.$refs.textarea.clear()"
+          >清空</el-button
+        >
       </el-form-item>
       <el-form-item label="码头堆场：" prop="load_port">
         <el-input

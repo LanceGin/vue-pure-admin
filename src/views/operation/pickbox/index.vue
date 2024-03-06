@@ -106,9 +106,13 @@ const {
           placeholder="多箱号换行输入"
           :autosize="{ minRows: 2, maxRows: 5 }"
           type="textarea"
+          ref="textarea"
           clearable
           class="!w-[200px]"
         />
+        <el-button link type="primary" @click="this.$refs.textarea.clear()"
+          >清空</el-button
+        >
       </el-form-item>
       <el-form-item label="门点" prop="door">
         <el-input
