@@ -20,6 +20,7 @@ export function useRole() {
   const user = useUserStore();
   const form = reactive({
     id: "",
+    is_submit: "",
     add_time: "",
     driver: "",
     company: "",
@@ -39,7 +40,8 @@ export function useRole() {
     add_by: user.username
   });
   const formRef = ref();
-  const currentRow = ref();
+  const selectRows = ref([]);
+  const multipleSelection = ref([]);
   const haveRow = ref(true);
   const dataList = ref([]);
   const loading = ref(true);
@@ -52,6 +54,14 @@ export function useRole() {
     background: true
   });
   const columns: TableColumnList = [
+    {
+      type: "selection",
+      align: "left"
+    },
+    {
+      label: "是否已提交",
+      prop: "is_submit"
+    },
     {
       label: "日期",
       prop: "add_time",
@@ -130,10 +140,16 @@ export function useRole() {
   }
 
   async function handleDelete() {
-    message(`您删除了车号为${currentRow.value.car_no}的这条数据`, {
+    const data = {
+      select_id: []
+    };
+    selectRows.value.forEach(v => {
+      data.select_id.push(v.id);
+    });
+    message(`您删除了id为${data.select_id}的数据`, {
       type: "success"
     });
-    await deleteVehicleFee(currentRow.value);
+    await deleteVehicleFee(data);
     onSearch();
   }
 
@@ -150,12 +166,17 @@ export function useRole() {
   }
 
   function handleCurrentChange(val) {
-    currentRow.value = val;
-    haveRow.value = false;
+    console.log(`current page: ${val}`);
   }
 
   function handleSelectionChange(val) {
-    console.log("handleSelectionChange", val);
+    multipleSelection.value = val;
+    selectRows.value = val;
+    if (selectRows.value.length > 0) {
+      haveRow.value = false;
+    } else {
+      haveRow.value = true;
+    }
   }
 
   async function onSearch() {
@@ -190,6 +211,7 @@ export function useRole() {
       props: {
         formInline: {
           id: row?.id ?? "",
+          is_submit: row?.is_submit ?? "未提交",
           add_time: row?.add_time ?? "",
           driver: row?.driver ?? "",
           company: row?.company ?? "",
@@ -245,7 +267,8 @@ export function useRole() {
 
   // 编辑按钮
   function handleEdit() {
-    openDialog("编辑", currentRow.value);
+    console.log("edit");
+    // openDialog("编辑", currentRow.value);
   }
 
   async function asyncEdit(data) {

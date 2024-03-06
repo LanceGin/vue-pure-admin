@@ -33,7 +33,6 @@ const {
   handleDelete,
   // handleDatabase,
   handleRowDblclick,
-  handleEdit,
   handleSizeChange,
   handlePageChange,
   handleCurrentChange,
@@ -121,6 +120,9 @@ const {
         >
           添加费用
         </el-button>
+        <el-button :icon="useRenderIcon(EditPen)" :disabled="haveRow">
+          提交
+        </el-button>
         <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
           导入
         </el-button>
@@ -136,14 +138,6 @@ const {
           上传附件
         </el-button>
         <el-button
-          type="primary"
-          :icon="useRenderIcon(EditPen)"
-          @click="handleEdit()"
-          :disabled="haveRow"
-        >
-          修改
-        </el-button>
-        <el-button
           type="danger"
           :icon="useRenderIcon(Delete)"
           @click="handleDelete()"
@@ -154,13 +148,16 @@ const {
       </el-form-item>
     </el-form>
 
-    <PureTableBar title="车辆费用管理" :columns="columns" @refresh="onSearch">
+    <PureTableBar
+      title="车辆费用管理（双击修改）"
+      :columns="columns"
+      @refresh="onSearch"
+    >
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border
           align-whole="center"
           showOverflowTooltip
-          highlight-current-row
           table-layout="auto"
           :loading="loading"
           :size="size"
