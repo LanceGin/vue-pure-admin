@@ -62,7 +62,7 @@ data.then(v => {
   list.value = accData.map(item => {
     return {
       id: `${item.id}`,
-      company_name: `${item.company_name}-${item.account_no}`
+      company_name: `${item.company_name}——${item.account_no}——${item.bank}`
     };
   });
 });
