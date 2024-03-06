@@ -231,6 +231,13 @@ export const addVehicleFee = (data?: object) => {
   });
 };
 
+// 提交车辆费用
+export const submitVehicleFee = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("submitVehicleFee"), {
+    data
+  });
+};
+
 // 删除车辆费用
 export const deleteVehicleFee = (data?: object) => {
   return http.request<ChangeResult>("post", baseUrlApi("deleteVehicleFee"), {

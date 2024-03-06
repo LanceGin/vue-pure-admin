@@ -30,6 +30,7 @@ const {
   onSearch,
   resetForm,
   openDialog,
+  submitDialog,
   handleDelete,
   // handleDatabase,
   handleRowDblclick,
@@ -120,7 +121,11 @@ const {
         >
           添加费用
         </el-button>
-        <el-button :icon="useRenderIcon(EditPen)" :disabled="haveRow">
+        <el-button
+          :icon="useRenderIcon(EditPen)"
+          :disabled="haveRow"
+          @click="submitDialog('提交')"
+        >
           提交
         </el-button>
         <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">

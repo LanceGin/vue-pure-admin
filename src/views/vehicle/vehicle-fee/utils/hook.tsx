@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import { utils, writeFile } from "xlsx";
 import editForm from "../form.vue";
+import submitForm from "../submit.vue";
 import { message } from "@/utils/message";
 // import { ElMessageBox } from "element-plus";
 // import { usePublicHooks } from "../../hooks";
@@ -12,6 +13,7 @@ import {
   addVehicleFee,
   deleteVehicleFee,
   editVehicleFee,
+  submitVehicleFee,
   vehicleFeeList
 } from "@/api/vehicle";
 import { useUserStore } from "@/store/modules/user";
@@ -149,6 +151,7 @@ export function useRole() {
     message(`您删除了id为${data.select_id}的数据`, {
       type: "success"
     });
+    console.log(11111, data);
     await deleteVehicleFee(data);
     onSearch();
   }
@@ -265,6 +268,67 @@ export function useRole() {
     });
   }
 
+  async function handleSubmitData(data) {
+    await submitVehicleFee(data);
+  }
+
+  function submitDialog(title = "提交", row?: FormItemProps) {
+    let c = 0;
+    let d = 0;
+    let e = 0;
+    const id = [];
+    selectRows.value.forEach(v => {
+      c += Number(v.amount);
+      d += Number(v.actual_amount);
+      e += Number(v.tax_amount);
+      id.push(v.id);
+    });
+    addDialog({
+      title: `${title}费用`,
+      props: {
+        formInline: {
+          id: row?.id ?? id,
+          amount: row?.amount ?? c,
+          actual_amount: row?.actual_amount ?? d,
+          tax_amount: row?.tax_amount ?? e,
+          add_by: row?.add_by ?? user.username,
+          fee_name: row?.fee_name ?? ""
+        }
+      },
+      width: "40%",
+      draggable: true,
+      fullscreenIcon: true,
+      closeOnClickModal: false,
+      contentRenderer: () => h(submitForm, { ref: formRef }),
+      beforeSure: (done, { options }) => {
+        const FormRef = formRef.value.getRef();
+        const curData = options.props.formInline as FormItemProps;
+        function chores() {
+          message(`您${title}了车牌号为${curData.car_no}的这条数据`, {
+            type: "success"
+          });
+          done(); // 关闭弹框
+          onSearch(); // 刷新表格数据
+        }
+        FormRef.validate(valid => {
+          if (valid) {
+            console.log("curData", curData);
+            // 表单规则校验通过
+            if (title === "提交") {
+              // 实际开发先调用新增接口，再进行下面操作
+              handleSubmitData(curData);
+              chores();
+            } else {
+              // 实际开发先调用编辑接口，再进行下面操作
+              asyncEdit(curData);
+              chores();
+            }
+          }
+        });
+      }
+    });
+  }
+
   // 编辑按钮
   function handleEdit() {
     console.log("edit");
@@ -305,6 +369,7 @@ export function useRole() {
     onSearch,
     resetForm,
     openDialog,
+    submitDialog,
     handleMenu,
     handleDelete,
     // handleDatabase,
