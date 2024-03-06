@@ -104,9 +104,8 @@ const handleClose = () => {
           type="daterange"
           start-placeholder="起始日期"
           end-placeholder="截止日期"
-          format="YYYY-MM-DD HH:mm:ss"
-          date-format="YYYY/MM/DD ddd"
-          time-format="A hh:mm:ss"
+          format="YYYY-MM-DD"
+          value-format="YYYY/MM/DD"
         />
       </el-form-item>
       <el-form-item label="门点：" prop="door">
