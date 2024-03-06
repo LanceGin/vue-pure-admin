@@ -4,10 +4,6 @@ import { useRole } from "./utils/hook";
 import { PureTableBar } from "../../../../components/RePureTableBar";
 import { useRenderIcon } from "../../../../components/ReIcon/src/hooks";
 
-// import Database from "@iconify-icons/ri/database-2-line";
-// import More from "@iconify-icons/ep/more-filled";
-// import Delete from "@iconify-icons/ep/delete";
-// import EditPen from "@iconify-icons/ep/edit-pen";
 import Search from "@iconify-icons/ep/search";
 import Upload from "@iconify-icons/ep/upload";
 import Download from "@iconify-icons/ep/download";
@@ -16,6 +12,7 @@ import {
   UploadProps,
   UploadRawFile,
   genFileId,
+  ElMessage,
   ElMessageBox
 } from "element-plus";
 // import AddFill from "@iconify-icons/ri/add-circle-line";
@@ -57,6 +54,14 @@ const handleExceed: UploadProps["onExceed"] = files => {
 const submitUpload = () => {
   upload.value!.submit();
   dialogVisible.value = false;
+  onSearch();
+};
+
+const handleSuccess = () => {
+  ElMessage({
+    type: "success",
+    message: "导入成功"
+  });
   onSearch();
 };
 
@@ -167,6 +172,7 @@ const handleClose = () => {
         accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
         :limit="1"
         :on-exceed="handleExceed"
+        :on-success="handleSuccess"
         :auto-upload="false"
         :http-request="uploadExcelDetail"
       >

@@ -16,6 +16,7 @@ import {
   UploadProps,
   UploadRawFile,
   genFileId,
+  ElMessage,
   ElMessageBox
 } from "element-plus";
 // import AddFill from "@iconify-icons/ri/add-circle-line";
@@ -56,6 +57,14 @@ const handleExceed: UploadProps["onExceed"] = files => {
 const submitUpload = () => {
   upload.value!.submit();
   dialogVisible.value = false;
+  onSearch();
+};
+
+const handleSuccess = () => {
+  ElMessage({
+    type: "success",
+    message: "导入成功"
+  });
   onSearch();
 };
 
@@ -158,6 +167,7 @@ const handleClose = () => {
         accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
         :limit="1"
         :on-exceed="handleExceed"
+        :on-success="handleSuccess"
         :auto-upload="false"
         :http-request="uploadExcelDetail"
       >

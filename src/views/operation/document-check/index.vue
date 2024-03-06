@@ -4,7 +4,7 @@ import { useRole } from "./utils/hook";
 import { PureTableBar } from "@/components/RePureTableBar";
 import { useRenderIcon } from "@/components/ReIcon/src/hooks";
 
-import { ElMessageBox } from "element-plus";
+import { ElMessage, ElMessageBox } from "element-plus";
 import { genFileId } from "element-plus";
 import type { UploadInstance, UploadProps, UploadRawFile } from "element-plus";
 // import Database from "@iconify-icons/ri/database-2-line";
@@ -61,6 +61,14 @@ const handleExceed: UploadProps["onExceed"] = files => {
 const submitUpload = () => {
   upload.value!.submit();
   dialogVisible.value = false;
+  onSearch();
+};
+
+const handleSuccess = () => {
+  ElMessage({
+    type: "success",
+    message: "导入成功"
+  });
   onSearch();
 };
 
@@ -218,6 +226,7 @@ const handleClose = () => {
         accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
         :limit="1"
         :on-exceed="handleExceed"
+        :on-success="handleSuccess"
         :auto-upload="false"
         :http-request="uploadExcelDetail"
       >
