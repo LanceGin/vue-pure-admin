@@ -92,10 +92,6 @@ export function useRole() {
       prop: "amount"
     },
     {
-      label: "税率",
-      prop: "tax_rate"
-    },
-    {
       label: "税额",
       prop: "tax"
     },

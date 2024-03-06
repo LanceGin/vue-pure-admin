@@ -82,14 +82,6 @@ const {
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="税率：" prop="tax_rate">
-        <el-input
-          v-model="form.tax_rate"
-          placeholder="请输入税率"
-          clearable
-          class="!w-[200px]"
-        />
-      </el-form-item>
     </el-form>
     <el-form
       ref="formRef"

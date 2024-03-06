@@ -128,6 +128,44 @@ const handleClose = () => {
           class="!w-[200px]"
         />
       </el-form-item>
+      <el-form-item label="发票状态：" prop="status">
+        <el-input
+          v-model="form.status"
+          placeholder="请输入发票状态"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
+      <el-form-item label="认证期" prop="certification_period">
+        <el-date-picker
+          v-model="form.certification_period"
+          type="date"
+          placeholder="请输入认证期"
+          format="YYYY/MM/DD"
+          value-format="YYYY-MM-DD"
+        />
+      </el-form-item>
+      <el-form-item label="支付类型：" prop="invoice_type">
+        <el-select
+          v-model="form.invoice_type"
+          placeholder="请选择类型"
+          clearable
+          class="!w-[180px]"
+        >
+          <el-option label="全部" value="" />
+          <el-option label="增值税专用发票" value="增值税专用发票" />
+          <el-option label="增值税普通发票" value="增值税普通发票" />
+          <el-option label="增值税电子普通发票" value="增值税电子普通发票" />
+          <el-option
+            label="电子发票（增值税专用发票）"
+            value="电子发票（增值税专用发票）"
+          />
+          <el-option
+            label="电子发票（普通发票）"
+            value="电子发票（普通发票）"
+          />
+        </el-select>
+      </el-form-item>
     </el-form>
     <el-form
       ref="formRef"
