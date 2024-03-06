@@ -115,6 +115,17 @@ export const importDispatch = data => {
   );
 };
 
+// 根据导入的箱子更新派车单
+export const generateDispatchWithContainer = (data?: object) => {
+  return http.request<ChangeResult>(
+    "post",
+    baseUrlApi("generateDispatchWithContainer"),
+    {
+      data
+    }
+  );
+};
+
 // 获取临时出口派车列表
 export const exportTmpDispatchList = (data?: object) => {
   return http.request<ListResult>("post", baseUrlApi("exportTmpDispatchList"), {

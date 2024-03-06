@@ -10,6 +10,7 @@ import { reactive, ref, onMounted, h } from "vue";
 import {
   dispatchCar,
   dispatchRevoke,
+  generateDispatchWithContainer,
   getUnpackingList,
   importDispatch
 } from "@/api/dispatch";
@@ -301,6 +302,7 @@ export function useRole() {
       select_container: data.list
     };
     await generateDispatchFee(select_container).then(() => {
+      generateDispatchWithContainer(select_container);
       onSearch();
     });
   }
