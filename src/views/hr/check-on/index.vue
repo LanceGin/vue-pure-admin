@@ -48,12 +48,11 @@ const {
       <el-form-item label="考勤时间：" prop="clock_date">
         <el-date-picker
           v-model="form.clock_date"
-          type="daterange"
+          type="datetimerange"
           start-placeholder="开始时间"
           end-placeholder="结束时间"
           format="YYYY-MM-DD HH:mm:ss"
-          date-format="YYYY/MM/DD ddd"
-          time-format="A hh:mm:ss"
+          value-format="YYYY-MM-DD HH:mm:ss"
         />
       </el-form-item>
       <el-form-item label="员工姓名：" prop="userName">
