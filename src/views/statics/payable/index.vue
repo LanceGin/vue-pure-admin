@@ -212,11 +212,7 @@ const handleClose = () => {
       </el-form-item>
     </el-form>
 
-    <el-dialog
-      v-model="dialogVisible"
-      title="数据比对（箱号-箱型-门点）"
-      width="30%"
-    >
+    <el-dialog v-model="dialogVisible" title="数据比对" width="30%">
       <el-upload
         ref="upload"
         accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
@@ -230,7 +226,7 @@ const handleClose = () => {
         </template>
         <template #tip>
           <div class="el-upload__tip text-red">
-            仅限上传1份文件，多次上传覆盖之前文件
+            导入文件字段格式为 箱号-运单号(非必填)-箱型-门点
           </div>
         </template>
       </el-upload>

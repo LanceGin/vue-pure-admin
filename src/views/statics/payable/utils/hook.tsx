@@ -365,19 +365,22 @@ export function useRole() {
     const form = new FormData();
     form.append("file", item.file);
     const { data } = await dataCheckPay(form);
+    const errorList = [];
     data.list.forEach((element, index) => {
       if (element.length === 0) {
         flag = false;
-        ElMessage({
-          type: "error",
-          message: `第${index + 2}行数据有误`
-        });
+        errorList.push(index + 2);
       }
     });
     if (flag) {
       ElMessage({
         type: "success",
         message: `比对通过`
+      });
+    } else {
+      ElMessage({
+        type: "error",
+        message: `第${errorList}行数据有误`
       });
     }
   }
