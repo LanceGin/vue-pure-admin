@@ -43,6 +43,7 @@ export function useRole() {
     audit_time: "",
     approve_by: "",
     fee_no: "",
+    invoice_no: "",
     remark: "",
     apply_time: "",
     apply_time_range: ""
@@ -144,6 +145,10 @@ export function useRole() {
     {
       label: "费用编号",
       prop: "fee_no"
+    },
+    {
+      label: "发票号",
+      prop: "invoice_no"
     },
     {
       label: "备注",
@@ -272,6 +277,7 @@ export function useRole() {
           audit_time: row?.audit_time ?? "",
           approve_by: row?.approve_by ?? "",
           fee_no: row?.fee_no ?? "",
+          invoice_no: row?.invoice_no ?? "",
           remark: row?.remark ?? "",
           apply_time: row?.apply_time ?? ""
         }

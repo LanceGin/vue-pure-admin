@@ -156,6 +156,12 @@ export const payInvoicetList = (data?: object) => {
     data
   });
 };
+// 应付发票列表 仅供选项使用
+export const selectPayInvoicetList = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("selectPayInvoicetList"), {
+    data
+  });
+};
 
 // 原始应付发票列表
 export const payInvoicetOrigList = (data?: object) => {

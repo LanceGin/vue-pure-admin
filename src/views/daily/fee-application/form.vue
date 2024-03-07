@@ -4,7 +4,7 @@ import { formRules } from "./utils/rule";
 import { FormProps } from "./utils/types";
 import { accCompanyList } from "@/api/daily";
 import type { PaginationProps } from "@pureadmin/table";
-import { feeNameList } from "@/api/finance";
+import { feeNameList, selectPayInvoicetList } from "@/api/finance";
 
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
@@ -29,6 +29,7 @@ const props = withDefaults(defineProps<FormProps>(), {
     audit_time: "",
     approve_by: "",
     fee_no: "",
+    invoice_no: "",
     remark: "",
     apply_time: ""
   })
@@ -62,15 +63,23 @@ interface FeeItem {
   id: string;
   fee_name: string;
 }
+interface InvoiceItem {
+  id: string;
+  invoice_no: string;
+}
 const loading = ref(false);
 const list = ref<CompanyItem[]>([]);
 const options = ref<CompanyItem[]>([]);
 const fee_list = ref<FeeItem[]>([]);
 const fee_options = ref<FeeItem[]>([]);
+const invoice_list = ref<InvoiceItem[]>([]);
+const invoice_options = ref<InvoiceItem[]>([]);
 let accData = [];
 let feeData = [];
+let invoiceData = [];
 const data = accCompanyList({ pagination, form });
 const fee_data = feeNameList({ pagination, form: fee_form });
+const invoice_data = selectPayInvoicetList();
 data.then(v => {
   accData = v.data.list;
   list.value = accData.map(item => {
@@ -86,6 +95,15 @@ fee_data.then(v => {
     return {
       id: `${item.id}`,
       fee_name: `${item.name}`
+    };
+  });
+});
+invoice_data.then(v => {
+  invoiceData = v.data.list;
+  invoice_list.value = invoiceData.map(item => {
+    return {
+      id: `${item.id}`,
+      invoice_no: `${item.invoice_no}`
     };
   });
 });
@@ -115,6 +133,20 @@ const feeRemoteMethod = (query: string) => {
     }, 200);
   } else {
     fee_options.value = [];
+  }
+};
+
+const invoiceRemoteMethod = (query: string) => {
+  if (query) {
+    loading.value = true;
+    setTimeout(() => {
+      loading.value = false;
+      invoice_options.value = invoice_list.value.filter(item => {
+        return item.invoice_no.toLowerCase().includes(query.toLowerCase());
+      });
+    }, 200);
+  } else {
+    invoice_options.value = [];
   }
 };
 
@@ -250,6 +282,25 @@ defineExpose({ getRef });
           :key="item.id"
           :label="item.company_name"
           :value="item.id"
+        />
+      </el-select>
+    </el-form-item>
+    <el-form-item label="发票号码" prop="invoice_no">
+      <el-select
+        v-model="newFormInline.invoice_no"
+        filterable
+        remote
+        reserve-keyword
+        placeholder="输入发票号码关键字"
+        :remote-method="invoiceRemoteMethod"
+        :loading="loading"
+        style="width: 240px"
+      >
+        <el-option
+          v-for="item in invoice_options"
+          :key="item.id"
+          :label="item.invoice_no"
+          :value="item.invoice_no"
         />
       </el-select>
     </el-form-item>

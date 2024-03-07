@@ -22,6 +22,7 @@ interface FormItemProps {
   audit_time: string;
   approve_by: string;
   fee_no: string;
+  invoice_no: string;
   remark: string;
   apply_time: string;
 }
