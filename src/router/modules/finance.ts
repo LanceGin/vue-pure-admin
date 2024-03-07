@@ -19,6 +19,14 @@ export default {
       }
     },
     {
+      path: "/finance/fee_name",
+      name: "FeeName",
+      component: () => import("@/views/finance/fee-name/index.vue"),
+      meta: {
+        title: "费用名维护"
+      }
+    },
+    {
       path: "/finance/collection_check",
       name: "CollectionCheck",
       component: () => import("@/views/finance/collection-check/index.vue"),

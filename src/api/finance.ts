@@ -249,3 +249,31 @@ export const rejectPay = (data?: object) => {
     data
   });
 };
+
+// 费用名列表
+export const feeNameList = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("feeNameList"), {
+    data
+  });
+};
+
+// 新增费用名
+export const addFeeName = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("addFeeName"), {
+    data
+  });
+};
+
+// 编辑费用名
+export const editFeeName = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("editFeeName"), {
+    data
+  });
+};
+
+// 删除费用名
+export const deleteFeeName = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("deleteFeeName"), {
+    data
+  });
+};
