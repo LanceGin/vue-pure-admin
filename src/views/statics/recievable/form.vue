@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { reactive, ref } from "vue";
 import { formRules } from "./utils/rule";
 import { FormProps } from "./utils/types";
+import { feeNameList } from "@/api/finance";
+import type { PaginationProps } from "@pureadmin/table";
 
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
@@ -52,6 +54,50 @@ const props = withDefaults(defineProps<FormProps>(), {
   })
 });
 
+/** 分页配置 */
+const pagination = reactive<PaginationProps>({
+  pageSize: 500,
+  currentPage: 1,
+  total: 0
+});
+const fee_form = reactive({
+  id: "",
+  code: "",
+  name: ""
+});
+interface FeeItem {
+  id: string;
+  fee_name: string;
+}
+
+const loading = ref(false);
+const fee_list = ref<FeeItem[]>([]);
+const fee_options = ref<FeeItem[]>([]);
+let feeData = [];
+const fee_data = feeNameList({ pagination, form: fee_form });
+fee_data.then(v => {
+  feeData = v.data.list;
+  fee_list.value = feeData.map(item => {
+    return {
+      id: `${item.id}`,
+      fee_name: `${item.name}`
+    };
+  });
+});
+const feeRemoteMethod = (query: string) => {
+  if (query) {
+    loading.value = true;
+    setTimeout(() => {
+      loading.value = false;
+      fee_options.value = fee_list.value.filter(item => {
+        return item.fee_name.toLowerCase().includes(query.toLowerCase());
+      });
+    }, 200);
+  } else {
+    fee_options.value = [];
+  }
+};
+
 const ruleFormRef = ref();
 const newFormInline = ref(props.formInline);
 
@@ -100,11 +146,23 @@ defineExpose({ getRef });
       />
     </el-form-item>
     <el-form-item label="服务内容" prop="content">
-      <el-input
+      <el-select
         v-model="newFormInline.content"
-        clearable
-        placeholder="请输入服务内容"
-      />
+        filterable
+        remote
+        reserve-keyword
+        placeholder="输入服务内容关键字"
+        :remote-method="feeRemoteMethod"
+        :loading="loading"
+        style="width: 240px"
+      >
+        <el-option
+          v-for="item in fee_options"
+          :key="item.id"
+          :label="item.fee_name"
+          :value="item.fee_name"
+        />
+      </el-select>
     </el-form-item>
     <el-form-item label="备注" prop="remark">
       <el-input

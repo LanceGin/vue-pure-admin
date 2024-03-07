@@ -4,6 +4,7 @@ import { formRules } from "./utils/rule";
 import { FormProps } from "./utils/types";
 import { accCompanyList } from "@/api/daily";
 import type { PaginationProps } from "@pureadmin/table";
+import { feeNameList } from "@/api/finance";
 
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
@@ -70,22 +71,44 @@ const form = reactive({
   account_no: "",
   remark: ""
 });
+const fee_form = reactive({
+  id: "",
+  code: "",
+  name: ""
+});
 
 interface CompanyItem {
   id: string;
   company_name: string;
 }
+interface FeeItem {
+  id: string;
+  fee_name: string;
+}
 const loading = ref(false);
 const list = ref<CompanyItem[]>([]);
 const options = ref<CompanyItem[]>([]);
+const fee_list = ref<FeeItem[]>([]);
+const fee_options = ref<FeeItem[]>([]);
 let accData = [];
+let feeData = [];
 const data = accCompanyList({ pagination, form });
+const fee_data = feeNameList({ pagination, form: fee_form });
 data.then(v => {
   accData = v.data.list;
   list.value = accData.map(item => {
     return {
       id: `${item.id}`,
       company_name: `${item.company_name}-${item.account_no}`
+    };
+  });
+});
+fee_data.then(v => {
+  feeData = v.data.list;
+  fee_list.value = feeData.map(item => {
+    return {
+      id: `${item.id}`,
+      fee_name: `${item.name}`
     };
   });
 });
@@ -101,6 +124,20 @@ const remoteMethod = (query: string) => {
     }, 200);
   } else {
     options.value = [];
+  }
+};
+
+const feeRemoteMethod = (query: string) => {
+  if (query) {
+    loading.value = true;
+    setTimeout(() => {
+      loading.value = false;
+      fee_options.value = fee_list.value.filter(item => {
+        return item.fee_name.toLowerCase().includes(query.toLowerCase());
+      });
+    }, 200);
+  } else {
+    fee_options.value = [];
   }
 };
 
@@ -157,11 +194,23 @@ defineExpose({ getRef });
       </el-select>
     </el-form-item>
     <el-form-item label="服务内容" prop="content">
-      <el-input
+      <el-select
         v-model="newFormInline.content"
-        clearable
-        placeholder="请输入服务内容"
-      />
+        filterable
+        remote
+        reserve-keyword
+        placeholder="输入服务内容关键字"
+        :remote-method="feeRemoteMethod"
+        :loading="loading"
+        style="width: 240px"
+      >
+        <el-option
+          v-for="item in fee_options"
+          :key="item.id"
+          :label="item.fee_name"
+          :value="item.fee_name"
+        />
+      </el-select>
     </el-form-item>
     <el-form-item label="金额" prop="container_fee">
       <el-input
