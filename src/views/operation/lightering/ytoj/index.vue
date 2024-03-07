@@ -85,50 +85,23 @@ const handleClose = () => {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="提单号：" prop="seal_no">
-        <el-input
-          v-model="form.seal_no"
-          placeholder="请输入提单号"
-          clearable
-          class="!w-[200px]"
-        />
-      </el-form-item>
       <el-form-item label="箱号：" prop="container_no">
         <el-input
           v-model="form.container_no"
-          placeholder="请输入箱号"
+          placeholder="多箱号换行输入"
+          :autosize="{ minRows: 2, maxRows: 5 }"
+          type="textarea"
           clearable
           class="!w-[200px]"
         />
+        <el-button link type="primary" @click="form.container_no = ''"
+          >清空</el-button
+        >
       </el-form-item>
-      <el-form-item label="船公司箱型：" prop="container_type">
+      <el-form-item label="船名航次：" prop="voyage">
         <el-input
-          v-model="form.container_type"
-          placeholder="请输入船公司箱型"
-          clearable
-          class="!w-[200px]"
-        />
-      </el-form-item>
-      <el-form-item label="持箱人：" prop="container_holder">
-        <el-input
-          v-model="form.container_holder"
-          placeholder="请输入持箱人"
-          clearable
-          class="!w-[200px]"
-        />
-      </el-form-item>
-      <el-form-item label="附加操作：" prop="extra_operation">
-        <el-input
-          v-model="form.extra_operation"
-          placeholder="请输入附加操作"
-          clearable
-          class="!w-[200px]"
-        />
-      </el-form-item>
-      <el-form-item label="铅封号：" prop="bl_no">
-        <el-input
-          v-model="form.bl_no"
-          placeholder="请输入铅封号"
+          v-model="form.voyage"
+          placeholder="请输入船名航次"
           clearable
           class="!w-[200px]"
         />
@@ -139,6 +112,16 @@ const handleClose = () => {
           placeholder="请输入货名"
           clearable
           class="!w-[200px]"
+        />
+      </el-form-item>
+      <el-form-item label="日期：" prop="add_time">
+        <el-date-picker
+          v-model="form.add_time"
+          type="daterange"
+          start-placeholder="起始日期"
+          end-placeholder="截止日期"
+          format="YYYY-MM-DD"
+          value-format="YYYY/MM/DD"
         />
       </el-form-item>
       <el-form-item>
