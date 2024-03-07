@@ -57,7 +57,8 @@ export function useRole() {
     export_seal_no: "",
     export_port: "",
     dispatch_car_no: "",
-    trans_status: ""
+    trans_status: "",
+    dispatch_remark: ""
   });
   const formRef = ref();
   const selectRows = ref([]);
@@ -133,7 +134,7 @@ export function useRole() {
     },
     {
       label: "备注",
-      prop: "remark"
+      prop: "dispatch_remark"
     }
   ];
 
@@ -224,7 +225,10 @@ export function useRole() {
           order_time: row?.order_time ?? "",
           order_fee: row?.order_fee ?? "",
           car_no: row?.car_no ?? "",
-          transport_status: row?.transport_status ?? ""
+          transport_status: row?.transport_status ?? "",
+          dispatch_remark: row?.dispatch_remark ?? "",
+          export_port: row?.export_port ?? "",
+          export_seal_no: row?.export_seal_no ?? ""
         }
       },
       width: "40%",

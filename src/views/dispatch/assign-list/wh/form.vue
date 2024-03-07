@@ -41,7 +41,8 @@ const props = withDefaults(defineProps<FormProps>(), {
     export_seal_no: "",
     export_port: "",
     dispatch_car_no: "",
-    trans_status: ""
+    trans_status: "",
+    dispatch_remark: ""
   })
 });
 
@@ -74,6 +75,13 @@ defineExpose({ getRef });
         v-model="newFormInline.export_port"
         clearable
         placeholder="请输入装箱点"
+      />
+    </el-form-item>
+    <el-form-item label="备注：" prop="dispatch_remark">
+      <el-input
+        v-model="newFormInline.dispatch_remark"
+        clearable
+        placeholder="请输入备注"
       />
     </el-form-item>
   </el-form>

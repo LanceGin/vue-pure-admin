@@ -38,6 +38,7 @@ interface FormItemProps {
   export_port: string;
   dispatch_car_no: string;
   trans_status: string;
+  dispatch_remark: string;
 }
 interface FormProps {
   formInline: FormItemProps;
