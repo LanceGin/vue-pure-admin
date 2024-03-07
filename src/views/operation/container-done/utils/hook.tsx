@@ -1,4 +1,4 @@
-// import dayjs from "dayjs";
+import dayjs from "dayjs";
 import { utils, writeFile } from "xlsx";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
@@ -56,7 +56,8 @@ export function useRole() {
     trans_status: "",
     abnormal_fee: "",
     dispatch_remark: "",
-    dispatch_car_no: ""
+    dispatch_car_no: "",
+    amount: ""
   });
   const formRef = ref();
   const currentRow = ref();
@@ -79,6 +80,11 @@ export function useRole() {
     {
       label: "状态",
       prop: "trans_status"
+    },
+    {
+      label: "做箱时间",
+      prop: "make_time",
+      formatter: ({ make_time }) => dayjs(make_time).format("YYYY-MM-DD")
     },
     {
       label: "类型",
@@ -109,6 +115,10 @@ export function useRole() {
       prop: "containner_no"
     },
     {
+      label: "箱型",
+      prop: "container_type"
+    },
+    {
       label: "封号",
       prop: "seal_no"
     },
@@ -123,6 +133,10 @@ export function useRole() {
     {
       label: "目的港",
       prop: "target_port"
+    },
+    {
+      label: "拖车费",
+      prop: "amount"
     },
     {
       label: "异常费用",

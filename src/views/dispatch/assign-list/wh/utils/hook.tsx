@@ -83,6 +83,10 @@ export function useRole() {
   };
   const columns: TableColumnList = [
     {
+      label: "序号",
+      type: "index"
+    },
+    {
       label: "箱号",
       prop: "containner_no"
     },

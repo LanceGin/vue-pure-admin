@@ -200,7 +200,7 @@ export function useRole() {
           track_no: row?.track_no ?? "",
           unload_port: row?.unload_port ?? "",
           door: row?.door ?? "",
-          make_time: row?.make_time ?? "",
+          make_time: dayjs(row?.make_time).format("YYYY-MM-DD") ?? "",
           load_port: row?.load_port ?? "",
           count: row?.count ?? "",
           transfer_port: row?.transfer_port ?? "",
@@ -212,7 +212,8 @@ export function useRole() {
           order_time: row?.order_time ?? "",
           order_fee: row?.order_fee ?? "",
           car_no: row?.car_no ?? "",
-          transport_status: row?.transport_status ?? ""
+          transport_status: row?.transport_status ?? "",
+          temp_port: row?.temp_port ?? ""
         }
       },
       width: "40%",

@@ -278,11 +278,11 @@ export function useRole() {
       cancelButtonText: "取消"
     })
       .then(() => {
-        const select_container_no = [];
+        const select_container_id = [];
         selectRows.value.forEach(v => {
-          select_container_no.push(v.containner_no);
+          select_container_id.push(v.id);
         });
-        dispatchRevoke(select_container_no);
+        dispatchRevoke(select_container_id);
         onSearch();
       })
       .catch(() => {
