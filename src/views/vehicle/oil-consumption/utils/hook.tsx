@@ -119,8 +119,18 @@ export function useRole() {
     }
   ];
 
-  function exportExcel() {
-    const res = dataList.value.map(item => {
+  async function exportExcel() {
+    const export_pagination = reactive<PaginationProps>({
+      total: 0,
+      pageSize: 10000,
+      currentPage: 1,
+      background: true
+    });
+    const { data } = await oilConsumptionList({
+      pagination: export_pagination,
+      form
+    });
+    const res = data.list.map(item => {
       const arr = [];
       columns.forEach(column => {
         arr.push(item[column.prop as string]);
@@ -135,7 +145,7 @@ export function useRole() {
     const workSheet = utils.aoa_to_sheet(res);
     const workBook = utils.book_new();
     utils.book_append_sheet(workBook, workSheet, "数据报表");
-    writeFile(workBook, "车辆信息.xlsx");
+    writeFile(workBook, "油耗核算信息.xlsx");
     message("导出成功", {
       type: "success"
     });

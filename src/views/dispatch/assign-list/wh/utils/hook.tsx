@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import { utils, writeFile } from "xlsx";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
 // import { ElMessageBox } from "element-plus";
@@ -137,6 +138,38 @@ export function useRole() {
       prop: "dispatch_remark"
     }
   ];
+
+  async function exportExcel() {
+    const export_pagination = reactive<PaginationProps>({
+      total: 0,
+      pageSize: 10000,
+      currentPage: 1,
+      background: true
+    });
+    const { data } = await whDispatchList({
+      pagination: export_pagination,
+      form
+    });
+    const res = data.list.map(item => {
+      const arr = [];
+      columns.forEach(column => {
+        arr.push(item[column.prop as string]);
+      });
+      return arr;
+    });
+    const titleList = [];
+    columns.forEach(column => {
+      titleList.push(column.label);
+    });
+    res.unshift(titleList);
+    const workSheet = utils.aoa_to_sheet(res);
+    const workBook = utils.book_new();
+    utils.book_append_sheet(workBook, workSheet, "数据报表");
+    writeFile(workBook, "武汉派车单.xlsx");
+    message("导出成功", {
+      type: "success"
+    });
+  }
 
   function handleDelete(row) {
     message(`您删除了运单号为${row.yundanhao}的这条数据`, { type: "success" });
@@ -339,6 +372,7 @@ export function useRole() {
     tableRowClassName,
     pagination,
     // buttonClass,
+    exportExcel,
     onSearch,
     resetForm,
     openDialog,

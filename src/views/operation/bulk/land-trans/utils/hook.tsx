@@ -105,8 +105,18 @@ export function useRole() {
     }
   ];
 
-  function exportExcel() {
-    const res = dataList.value.map(item => {
+  async function exportExcel() {
+    const export_pagination = reactive<PaginationProps>({
+      total: 0,
+      pageSize: 10000,
+      currentPage: 1,
+      background: true
+    });
+    const { data } = await getBulkCargoList({
+      pagination: export_pagination,
+      form
+    });
+    const res = data.list.map(item => {
       const arr = [];
       columns.forEach(column => {
         arr.push(item[column.prop as string]);

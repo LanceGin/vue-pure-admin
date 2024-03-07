@@ -30,7 +30,6 @@ const {
   // buttonClass,
   exportExcel,
   onSearch,
-  resetForm,
   // openDialog,
   // handleDelete,
   // handleDatabase,
@@ -84,9 +83,6 @@ const {
           @click="onSearch"
         >
           搜索
-        </el-button>
-        <el-button :icon="useRenderIcon(Upload)" @click="resetForm(formRef)">
-          导出
         </el-button>
       </el-form-item>
     </el-form>

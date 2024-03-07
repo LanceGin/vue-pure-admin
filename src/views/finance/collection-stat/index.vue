@@ -28,8 +28,8 @@ const {
   containerList,
   pagination,
   // buttonClass,
+  exportExcel,
   onSearch,
-  resetForm,
   // openDialog,
   // handleDelete,
   // handleDatabase,
@@ -114,7 +114,7 @@ const {
         >
           搜索
         </el-button>
-        <el-button :icon="useRenderIcon(Upload)" @click="resetForm(formRef)">
+        <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
           导出
         </el-button>
       </el-form-item>
