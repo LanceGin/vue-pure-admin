@@ -43,15 +43,14 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="日期：" prop="add_time">
+      <el-form-item label="日期：" prop="add_time_range">
         <el-date-picker
-          v-model="form.add_time"
+          v-model="form.add_time_range"
           type="daterange"
           start-placeholder="开始时间"
           end-placeholder="结束时间"
-          format="YYYY-MM-DD HH:mm:ss"
-          date-format="YYYY/MM/DD ddd"
-          time-format="A hh:mm:ss"
+          format="YYYY-MM-DD"
+          value-format="YYYY/MM/DD"
         />
       </el-form-item>
       <el-form-item label="货物名：" prop="cargo_name">

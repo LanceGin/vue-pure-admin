@@ -11,10 +11,13 @@ import { reactive, ref, onMounted, h } from "vue";
 import { getLighteringStatList } from "@/api/operation";
 
 export function useRole() {
+  const end = new Date();
+  const start = new Date(end.getFullYear(), end.getMonth(), 1);
   const form = reactive({
     id: "",
     type: "0",
     add_time: "",
+    add_time_range: ref<[Date, Date]>([start, end]),
     voyage: "",
     voyage_index: "",
     container_no: "",

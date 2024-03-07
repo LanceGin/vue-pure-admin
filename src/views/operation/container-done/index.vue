@@ -84,8 +84,7 @@ const {
           start-placeholder="起始日期"
           end-placeholder="截止日期"
           format="YYYY-MM-DD"
-          date-format="YYYY/MM/DD ddd"
-          time-format="A hh:mm:ss"
+          value-format="YYYY/MM/DD"
         />
       </el-form-item>
       <el-form-item label="运单号" prop="track_no">
