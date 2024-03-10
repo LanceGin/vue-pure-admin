@@ -137,7 +137,7 @@ const handleClose = () => {
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="完成情况：" prop="container_status">
+      <!-- <el-form-item label="完成情况：" prop="container_status">
         <el-select
           v-model="form.container_status"
           placeholder="请选择完成情况"
@@ -147,7 +147,7 @@ const handleClose = () => {
           <el-option label="未完成" value="未完成" />
           <el-option label="已完成" value="已完成" />
         </el-select>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item>
         <el-button
           type="primary"

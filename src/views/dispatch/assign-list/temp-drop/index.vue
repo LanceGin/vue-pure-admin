@@ -96,15 +96,17 @@ const {
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="完成情况：" prop="container_status">
+      <el-form-item label="运输状态：" prop="trans_status">
         <el-select
-          v-model="form.container_status"
-          placeholder="请选择完成情况"
+          v-model="form.trans_status"
+          placeholder="请选择运输状态"
           clearable
           class="!w-[180px]"
         >
           <el-option label="全部" value="" />
-          <el-option label="未完成" value="未完成" />
+          <el-option label="已执行" value="已执行" />
+          <el-option label="已提箱" value="已提箱" />
+          <el-option label="已还箱" value="已还箱" />
           <el-option label="已完成" value="已完成" />
         </el-select>
       </el-form-item>
