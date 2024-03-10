@@ -12,6 +12,7 @@ interface FormItemProps {
   container_no: string;
   container_type: string;
   seal_no: string;
+  start_point: string;
   flow_direction: string;
   voyage: string;
   address: string;

@@ -28,6 +28,7 @@ export function useRole() {
     container_no: "",
     container_type: "",
     seal_no: "",
+    start_point: "",
     flow_direction: "",
     voyage: "",
     address: "",
@@ -80,7 +81,11 @@ export function useRole() {
       prop: "bl_no"
     },
     {
-      label: "流向",
+      label: "始发地",
+      prop: "start_point"
+    },
+    {
+      label: "目的地",
       prop: "flow_direction"
     },
     {
@@ -208,6 +213,7 @@ export function useRole() {
           container_no: row?.container_no ?? "",
           container_type: row?.container_type ?? "",
           seal_no: row?.seal_no ?? "",
+          start_point: row?.start_point ?? "",
           flow_direction: row?.flow_direction ?? "",
           voyage: row?.voyage ?? "",
           address: row?.address ?? "",

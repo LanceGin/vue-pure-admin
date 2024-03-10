@@ -16,6 +16,7 @@ const props = withDefaults(defineProps<FormProps>(), {
     container_no: "",
     container_type: "",
     seal_no: "",
+    start_point: "",
     flow_direction: "",
     voyage: "",
     address: "",
@@ -90,11 +91,18 @@ defineExpose({ getRef });
         placeholder="请输入封号"
       />
     </el-form-item>
-    <el-form-item label="流向" prop="flow_direction">
+    <el-form-item label="始发地" prop="start_point">
+      <el-input
+        v-model="newFormInline.start_point"
+        clearable
+        placeholder="请输入始发地"
+      />
+    </el-form-item>
+    <el-form-item label="目的地" prop="flow_direction">
       <el-input
         v-model="newFormInline.flow_direction"
         clearable
-        placeholder="请输入流向"
+        placeholder="请输入目的地"
       />
     </el-form-item>
     <el-form-item label="地址" prop="address">
