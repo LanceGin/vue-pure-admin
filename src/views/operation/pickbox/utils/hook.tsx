@@ -80,11 +80,13 @@ export function useRole() {
     },
     {
       label: "子项目",
-      prop: "subproject"
+      prop: "subproject",
+      minWidth: 100
     },
     {
       label: "运单号",
-      prop: "track_no"
+      prop: "track_no",
+      minWidth: 120
     },
     {
       label: "箱型",
@@ -92,7 +94,8 @@ export function useRole() {
     },
     {
       label: "箱号",
-      prop: "containner_no"
+      prop: "containner_no",
+      minWidth: 120
     },
     {
       label: "封号",
@@ -101,16 +104,19 @@ export function useRole() {
     {
       label: "计划做箱时间",
       prop: "make_time",
-      formatter: ({ make_time }) => dayjs(make_time).format("YYYY-MM-DD")
+      formatter: ({ make_time }) => dayjs(make_time).format("YYYY-MM-DD"),
+      minWidth: 120
     },
     {
       label: "船名/航次",
-      prop: "ship_name"
+      prop: "ship_name",
+      minWidth: 100
     },
     {
       label: "船期",
       prop: "arrive_time",
-      formatter: ({ arrive_time }) => dayjs(arrive_time).format("YYYY-MM-DD")
+      formatter: ({ arrive_time }) => dayjs(arrive_time).format("YYYY-MM-DD"),
+      minWidth: 120
     },
     {
       label: "堆存天数",

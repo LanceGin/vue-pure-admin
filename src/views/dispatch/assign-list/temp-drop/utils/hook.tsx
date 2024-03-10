@@ -83,7 +83,8 @@ export function useRole() {
     {
       label: "做箱时间",
       prop: "make_time",
-      formatter: ({ make_time }) => dayjs(make_time).format("YYYY-MM-DD")
+      formatter: ({ make_time }) => dayjs(make_time).format("YYYY-MM-DD"),
+      minWidth: 100
     },
     {
       label: "客户/项目",
@@ -95,7 +96,8 @@ export function useRole() {
     },
     {
       label: "运单号",
-      prop: "track_no"
+      prop: "track_no",
+      minWidth: 120
     },
     {
       label: "船名航次",
@@ -103,7 +105,8 @@ export function useRole() {
     },
     {
       label: "箱号",
-      prop: "containner_no"
+      prop: "containner_no",
+      minWidth: 120
     },
     {
       label: "箱型",

@@ -57,7 +57,8 @@ export function useRole() {
     {
       label: "日期",
       prop: "add_time",
-      formatter: ({ add_time }) => dayjs(add_time).format("YYYY-MM-DD")
+      formatter: ({ add_time }) => dayjs(add_time).format("YYYY-MM-DD"),
+      minWidth: 100
     },
     {
       label: "船名航次",
@@ -65,11 +66,13 @@ export function useRole() {
     },
     {
       label: "箱号",
-      prop: "container_no"
+      prop: "container_no",
+      minWidth: 120
     },
     {
       label: "提单号",
-      prop: "bl_no"
+      prop: "bl_no",
+      minWidth: 120
     },
     {
       label: "海关箱类型",

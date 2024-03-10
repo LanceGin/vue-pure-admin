@@ -90,7 +90,8 @@ export function useRole() {
     },
     {
       label: "箱号",
-      prop: "containner_no"
+      prop: "containner_no",
+      minWidth: 120
     },
     {
       label: "封号",
@@ -107,7 +108,8 @@ export function useRole() {
     {
       label: "做箱时间",
       prop: "make_time",
-      formatter: ({ make_time }) => dayjs(make_time).format("YYYY-MM-DD HH:mm")
+      formatter: ({ make_time }) => dayjs(make_time).format("YYYY-MM-DD HH:mm"),
+      minWidth: 120
     },
     {
       label: "提箱点",
