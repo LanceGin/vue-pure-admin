@@ -118,7 +118,7 @@ export function useRole() {
       formatter: ({ arrive_time }) => {
         const a_time = dayjs(arrive_time).format("YYYY-MM-DD");
         const now_time = dayjs().format("YYYY-MM-DD");
-        return dayjs(now_time).diff(a_time, "day").toString();
+        return (dayjs(now_time).diff(a_time, "day") + 1).toString();
       }
     },
     {
