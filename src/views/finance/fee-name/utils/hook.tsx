@@ -23,6 +23,7 @@ export function useRole() {
   });
   const formRef = ref();
   const currentRow = ref();
+  const selectRows = ref([]);
   const haveRow = ref(true);
   const dataList = ref([]);
   const loading = ref(true);
@@ -35,6 +36,10 @@ export function useRole() {
     background: true
   });
   const columns: TableColumnList = [
+    {
+      type: "selection",
+      align: "left"
+    },
     {
       label: "费用代码",
       prop: "code"
@@ -78,10 +83,18 @@ export function useRole() {
   }
 
   async function handleDelete() {
-    message(`您删除了费用名称为${currentRow.value.name}的这条数据`, {
+    const data = {
+      select_id: [],
+      select_name: []
+    };
+    selectRows.value.forEach(v => {
+      data.select_id.push(v.id);
+      data.select_name.push(v.name);
+    });
+    message(`您删除了名称为为${data.select_name}的数据`, {
       type: "success"
     });
-    await deleteFeeName(currentRow.value);
+    await deleteFeeName(data);
     onSearch();
   }
 
@@ -104,6 +117,12 @@ export function useRole() {
 
   function handleSelectionChange(val) {
     console.log("handleSelectionChange", val);
+    selectRows.value = val;
+    if (selectRows.value.length > 0) {
+      haveRow.value = false;
+    } else {
+      haveRow.value = true;
+    }
   }
 
   async function onSearch() {

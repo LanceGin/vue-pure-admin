@@ -7,7 +7,6 @@ import { useRenderIcon } from "../../../components/ReIcon/src/hooks";
 // import Database from "@iconify-icons/ri/database-2-line";
 // import More from "@iconify-icons/ep/more-filled";
 import Delete from "@iconify-icons/ep/delete";
-import EditPen from "@iconify-icons/ep/edit-pen";
 import Search from "@iconify-icons/ep/search";
 import Upload from "@iconify-icons/ep/upload";
 import Download from "@iconify-icons/ep/download";
@@ -33,7 +32,6 @@ const {
   handleDelete,
   // handleDatabase,
   handleRowDblclick,
-  handleEdit,
   handleSizeChange,
   handlePageChange,
   handleCurrentChange,
@@ -95,14 +93,6 @@ const {
           导出
         </el-button>
         <el-button
-          type="primary"
-          :icon="useRenderIcon(EditPen)"
-          @click="handleEdit()"
-          :disabled="haveRow"
-        >
-          修改
-        </el-button>
-        <el-button
           type="danger"
           :icon="useRenderIcon(Delete)"
           @click="handleDelete()"
@@ -113,7 +103,11 @@ const {
       </el-form-item>
     </el-form>
 
-    <PureTableBar title="费用名列表" :columns="columns" @refresh="onSearch">
+    <PureTableBar
+      title="费用名列表（双击修改）"
+      :columns="columns"
+      @refresh="onSearch"
+    >
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border
