@@ -75,7 +75,7 @@ export function useRole() {
       prop: "port"
     },
     {
-      label: "装箱",
+      label: "拆箱",
       children: [
         {
           label: "20GP",
@@ -96,7 +96,7 @@ export function useRole() {
       ]
     },
     {
-      label: "拆箱",
+      label: "装箱",
       children: [
         {
           label: "20GP",
