@@ -22,6 +22,8 @@ export function useRole() {
     customer: "",
     ship_company: "",
     fleet: "",
+    load_area: "",
+    unload_area: "",
     load_address: "",
     unload_address: "",
     bl_no: "",
@@ -68,8 +70,16 @@ export function useRole() {
       prop: "fleet"
     },
     {
+      label: "装货地区",
+      prop: "load_area"
+    },
+    {
       label: "装货地址",
       prop: "load_address"
+    },
+    {
+      label: "卸货地区",
+      prop: "unload_area"
     },
     {
       label: "卸货地址",
@@ -194,6 +204,8 @@ export function useRole() {
           customer: row?.customer ?? "",
           ship_company: row?.ship_company ?? "",
           fleet: row?.fleet ?? "",
+          load_area: row?.load_area ?? "",
+          unload_area: row?.unload_area ?? "",
           load_address: row?.load_address ?? "",
           unload_address: row?.unload_address ?? "",
           bl_no: row?.bl_no ?? "",
@@ -239,6 +251,7 @@ export function useRole() {
               chores();
             } else {
               // 实际开发先调用编辑接口，再进行下面操作
+              console.log(1111, curData);
               asyncEdit(curData);
               chores();
             }

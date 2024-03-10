@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import { formRules } from "./utils/rule";
 import { FormProps } from "./utils/types";
+import { convertTextToCode, regionData, CodeToText } from "@/utils/chinaArea";
 
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
@@ -10,6 +11,8 @@ const props = withDefaults(defineProps<FormProps>(), {
     customer: "",
     ship_company: "",
     fleet: "",
+    load_area: "",
+    unload_area: "",
     load_address: "",
     unload_address: "",
     bl_no: "",
@@ -33,6 +36,30 @@ const props = withDefaults(defineProps<FormProps>(), {
 
 const ruleFormRef = ref();
 const newFormInline = ref(props.formInline);
+const load_area = newFormInline.value.load_area.split("-");
+const unload_area = newFormInline.value.unload_area.split("-");
+const a = convertTextToCode(load_area[0], load_area[1], load_area[2]).split(
+  ", "
+);
+const b = convertTextToCode(
+  unload_area[0],
+  unload_area[1],
+  unload_area[2]
+).split(", ");
+const selectedOptions = ref(a);
+const selectedOptions2 = ref(b);
+
+const handleChange = value => {
+  newFormInline.value.load_area = `${CodeToText[value[0]]}-${
+    CodeToText[value[1]]
+  }-${CodeToText[value[2]]}`;
+};
+
+const handleChange2 = value => {
+  newFormInline.value.unload_area = `${CodeToText[value[0]]}-${
+    CodeToText[value[1]]
+  }-${CodeToText[value[2]]}`;
+};
 
 function getRef() {
   return ruleFormRef.value;
@@ -69,11 +96,25 @@ defineExpose({ getRef });
         placeholder="请输入承运车队"
       />
     </el-form-item>
+    <el-form-item label="装货地区" prop="load_area">
+      <el-cascader
+        :options="regionData"
+        v-model="selectedOptions"
+        @change="handleChange"
+      />
+    </el-form-item>
     <el-form-item label="装货地址" prop="load_address">
       <el-input
         v-model="newFormInline.load_address"
         clearable
         placeholder="请输入装货地址"
+      />
+    </el-form-item>
+    <el-form-item label="卸货地区" prop="unload_area">
+      <el-cascader
+        :options="regionData"
+        v-model="selectedOptions2"
+        @change="handleChange2"
       />
     </el-form-item>
     <el-form-item label="卸货地址" prop="unload_address">
