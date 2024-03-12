@@ -221,6 +221,7 @@ defineExpose({ getRef });
         <el-option label="结算卡" value="结算卡" />
         <el-option label="银行" value="银行" />
         <el-option label="汇票" value="汇票" />
+        <el-option label="三方协议扣缴" value="三方协议扣缴" />
       </el-select>
     </el-form-item>
     <el-form-item label="申请金额" prop="apply_amount">
@@ -260,11 +261,26 @@ defineExpose({ getRef });
       />
     </el-form-item>
     <el-form-item label="申请单位" prop="apply_department">
-      <el-input
+      <el-select
         v-model="newFormInline.apply_department"
+        placeholder="请选择申请单位"
         clearable
-        placeholder="请输入申请单位"
-      />
+        allow-create
+        filterable
+        class="!w-[180px]"
+      >
+        <el-option label="富安上海" value="富安上海" />
+        <el-option label="富安太仓" value="富安太仓" />
+        <el-option label="港鸣实业" value="港鸣实业" />
+        <el-option label="濠瀚科技" value="濠瀚科技" />
+        <el-option label="富安国际" value="富安国际" />
+        <el-option label="鲜友网销" value="鲜友网销" />
+        <el-option label="鲜友书局" value="鲜友书局" />
+        <el-option label="武汉江通源" value="武汉江通源" />
+        <el-option label="长沙沪源" value="长沙沪源" />
+        <el-option label="众源润达" value="众源润达" />
+        <el-option label="众源仁合" value="众源仁合" />
+      </el-select>
     </el-form-item>
     <el-form-item label="结算单位" prop="acc_company_id">
       <el-select
@@ -288,6 +304,7 @@ defineExpose({ getRef });
     <el-form-item label="发票号码" prop="invoice_no">
       <el-select
         v-model="newFormInline.invoice_no"
+        multiple
         filterable
         remote
         reserve-keyword

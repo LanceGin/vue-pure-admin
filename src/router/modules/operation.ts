@@ -26,41 +26,41 @@ export default {
         title: $t("menus.motorcade")
       }
     },
-    {
-      path: "/operation/motorcade_info",
-      meta: {
-        title: "客户内容维护"
-      },
-      children: [
-        {
-          path: "/operation/motorcade_info/project",
-          name: "Project",
-          component: () =>
-            import("@/views/operation/motorcade-info/project/index.vue"),
-          meta: {
-            title: "项目管理"
-          }
-        },
-        {
-          path: "/operation/motorcade_info/door",
-          name: "Door",
-          component: () =>
-            import("@/views/operation/motorcade-info/door/index.vue"),
-          meta: {
-            title: "门点管理"
-          }
-        },
-        {
-          path: "/operation/motorcade_info/subproject",
-          name: "Subproject",
-          component: () =>
-            import("@/views/operation/motorcade-info/subproject/index.vue"),
-          meta: {
-            title: "子项目管理"
-          }
-        }
-      ]
-    },
+    // {
+    //   path: "/operation/motorcade_info",
+    //   meta: {
+    //     title: "客户内容维护"
+    //   },
+    //   children: [
+    //     {
+    //       path: "/operation/motorcade_info/project",
+    //       name: "Project",
+    //       component: () =>
+    //         import("@/views/operation/motorcade-info/project/index.vue"),
+    //       meta: {
+    //         title: "项目管理"
+    //       }
+    //     },
+    //     {
+    //       path: "/operation/motorcade_info/door",
+    //       name: "Door",
+    //       component: () =>
+    //         import("@/views/operation/motorcade-info/door/index.vue"),
+    //       meta: {
+    //         title: "门点管理"
+    //       }
+    //     },
+    //     {
+    //       path: "/operation/motorcade_info/subproject",
+    //       name: "Subproject",
+    //       component: () =>
+    //         import("@/views/operation/motorcade-info/subproject/index.vue"),
+    //       meta: {
+    //         title: "子项目管理"
+    //       }
+    //     }
+    //   ]
+    // },
     {
       path: "/operation/yard",
       name: "Yard",
@@ -69,14 +69,14 @@ export default {
         title: $t("menus.yard")
       }
     },
-    {
-      path: "/operation/fee_collection",
-      name: "FeeCollection",
-      component: () => import("@/views/operation/fee-collection/index.vue"),
-      meta: {
-        title: $t("menus.feeCollection")
-      }
-    },
+    // {
+    //   path: "/operation/fee_collection",
+    //   name: "FeeCollection",
+    //   component: () => import("@/views/operation/fee-collection/index.vue"),
+    //   meta: {
+    //     title: $t("menus.feeCollection")
+    //   }
+    // },
     {
       path: "/operation/bulk",
       meta: {

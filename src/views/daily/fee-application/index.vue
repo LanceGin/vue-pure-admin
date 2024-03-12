@@ -103,6 +103,7 @@ const {
           <el-option label="结算卡" value="结算卡" />
           <el-option label="银行" value="银行" />
           <el-option label="汇票" value="汇票" />
+          <el-option label="三方协议扣缴" value="三方协议扣缴" />
         </el-select>
       </el-form-item>
       <el-form-item label="状态：" prop="status">

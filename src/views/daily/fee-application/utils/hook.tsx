@@ -277,7 +277,8 @@ export function useRole() {
           audit_time: row?.audit_time ?? "",
           approve_by: row?.approve_by ?? "",
           fee_no: row?.fee_no ?? "",
-          invoice_no: row?.invoice_no ?? "",
+          invoice_no:
+            row.invoice_no.length > 3 ? row.invoice_no.split(",") : [],
           remark: row?.remark ?? "",
           apply_time: row?.apply_time ?? ""
         }

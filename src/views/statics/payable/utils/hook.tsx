@@ -95,7 +95,7 @@ export function useRole() {
       label: "账期",
       prop: "account_period",
       formatter: ({ account_period }) =>
-        dayjs(account_period).format("YYYY-MM"),
+        account_period === null ? "" : dayjs(account_period).format("YYYY-MM"),
       minWidth: 100
     },
     {
@@ -107,21 +107,10 @@ export function useRole() {
       prop: "amount"
     },
     {
-      label: "供应商",
-      prop: "custom_name"
-    },
-    {
-      label: "结算单位",
-      prop: "acc_company"
-    },
-    {
-      label: "服务内容",
-      prop: "content"
-    },
-    {
       label: "做箱时间",
       prop: "make_time",
-      formatter: ({ make_time }) => dayjs(make_time).format("YYYY-MM-DD"),
+      formatter: ({ make_time }) =>
+        make_time === null ? "" : dayjs(make_time).format("YYYY-MM"),
       minWidth: 100
     },
     {
@@ -197,6 +186,18 @@ export function useRole() {
     {
       label: "费用类型",
       prop: "fee_type"
+    },
+    {
+      label: "供应商",
+      prop: "custom_name"
+    },
+    {
+      label: "结算单位",
+      prop: "acc_company"
+    },
+    {
+      label: "服务内容",
+      prop: "content"
     }
   ];
 
