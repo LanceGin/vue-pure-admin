@@ -108,10 +108,6 @@ export function useRole() {
       prop: "exchange_fee"
     },
     {
-      label: "运费",
-      prop: "freight"
-    },
-    {
       label: "备注",
       prop: "remarks"
     }

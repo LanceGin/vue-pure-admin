@@ -6,7 +6,9 @@ interface FormItemProps {
   customer: string;
   ship_company: string;
   fleet: string;
+  load_area: string;
   load_address: string;
+  unload_area: string;
   unload_address: string;
   bl_no: string;
   container_no: string;

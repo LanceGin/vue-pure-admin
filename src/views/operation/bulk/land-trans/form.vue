@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import { formRules } from "./utils/rule";
 import { FormProps } from "./utils/types";
+import { convertTextToCode, regionData, CodeToText } from "@/utils/chinaArea";
 
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
@@ -10,6 +11,8 @@ const props = withDefaults(defineProps<FormProps>(), {
     customer: "",
     ship_company: "",
     fleet: "",
+    load_area: "",
+    unload_area: "",
     load_address: "",
     unload_address: "",
     bl_no: "",
@@ -34,6 +37,30 @@ const props = withDefaults(defineProps<FormProps>(), {
 
 const ruleFormRef = ref();
 const newFormInline = ref(props.formInline);
+const load_area = newFormInline.value.load_area.split("-");
+const unload_area = newFormInline.value.unload_area.split("-");
+const a = convertTextToCode(load_area[0], load_area[1], load_area[2]).split(
+  ", "
+);
+const b = convertTextToCode(
+  unload_area[0],
+  unload_area[1],
+  unload_area[2]
+).split(", ");
+const selectedOptions = ref(a);
+const selectedOptions2 = ref(b);
+
+const handleChange = value => {
+  newFormInline.value.load_area = `${CodeToText[value[0]]}-${
+    CodeToText[value[1]]
+  }-${CodeToText[value[2]]}`;
+};
+
+const handleChange2 = value => {
+  newFormInline.value.unload_area = `${CodeToText[value[0]]}-${
+    CodeToText[value[1]]
+  }-${CodeToText[value[2]]}`;
+};
 
 function getRef() {
   return ruleFormRef.value;
@@ -91,25 +118,32 @@ defineExpose({ getRef });
         placeholder="请输入封号"
       />
     </el-form-item>
-    <el-form-item label="始发地" prop="start_point">
-      <el-input
-        v-model="newFormInline.start_point"
-        clearable
-        placeholder="请输入始发地"
+    <el-form-item label="始发地区" prop="load_area">
+      <el-cascader
+        :options="regionData"
+        v-model="selectedOptions"
+        @change="handleChange"
       />
     </el-form-item>
-    <el-form-item label="目的地" prop="flow_direction">
+    <el-form-item label="始发地址" prop="load_address">
       <el-input
-        v-model="newFormInline.flow_direction"
+        v-model="newFormInline.load_address"
         clearable
-        placeholder="请输入目的地"
+        placeholder="请输入始发地址"
       />
     </el-form-item>
-    <el-form-item label="地址" prop="address">
+    <el-form-item label="目的地区" prop="unload_area">
+      <el-cascader
+        :options="regionData"
+        v-model="selectedOptions2"
+        @change="handleChange2"
+      />
+    </el-form-item>
+    <el-form-item label="目的地址" prop="unload_address">
       <el-input
-        v-model="newFormInline.address"
+        v-model="newFormInline.unload_address"
         clearable
-        placeholder="请输入地址"
+        placeholder="请输入目的地址"
       />
     </el-form-item>
     <el-form-item label="车号" prop="car_no">

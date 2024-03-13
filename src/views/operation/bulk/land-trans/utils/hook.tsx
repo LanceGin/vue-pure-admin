@@ -22,6 +22,8 @@ export function useRole() {
     customer: "",
     ship_company: "",
     fleet: "",
+    load_area: "",
+    unload_area: "",
     load_address: "",
     unload_address: "",
     bl_no: "",
@@ -81,16 +83,20 @@ export function useRole() {
       prop: "bl_no"
     },
     {
-      label: "始发地",
-      prop: "start_point"
+      label: "始发地区",
+      prop: "load_area"
     },
     {
-      label: "目的地",
-      prop: "flow_direction"
+      label: "始发地址",
+      prop: "load_address"
     },
     {
-      label: "地址",
-      prop: "address"
+      label: "目的地区",
+      prop: "unload_area"
+    },
+    {
+      label: "目的地址",
+      prop: "unload_address"
     },
     {
       label: "车号",
@@ -207,6 +213,8 @@ export function useRole() {
           customer: row?.customer ?? "",
           ship_company: row?.ship_company ?? "",
           fleet: row?.fleet ?? "",
+          load_area: row?.load_area ?? "",
+          unload_area: row?.unload_area ?? "",
           load_address: row?.load_address ?? "",
           unload_address: row?.unload_address ?? "",
           bl_no: row?.bl_no ?? "",
