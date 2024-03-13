@@ -15,7 +15,7 @@ export function useRole() {
   const start = new Date(end.getFullYear(), end.getMonth(), 1);
   const form = reactive({
     id: "",
-    type: "0",
+    type: "",
     add_time: "",
     add_time_range: ref<[Date, Date]>([start, end]),
     voyage: "",

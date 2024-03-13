@@ -35,7 +35,6 @@ const {
   handleSubmit,
   handleRevoke,
   handleRowDblclick,
-  handleEdit,
   handleSizeChange,
   handlePageChange,
   handleCurrentChange,
@@ -174,14 +173,6 @@ const {
           导出列表
         </el-button>
         <el-button
-          type="primary"
-          :icon="useRenderIcon(EditPen)"
-          @click="handleEdit()"
-          :disabled="haveRow"
-        >
-          修改
-        </el-button>
-        <el-button
           type="danger"
           :icon="useRenderIcon(Delete)"
           @click="handleDelete()"
@@ -192,7 +183,11 @@ const {
       </el-form-item>
     </el-form>
 
-    <PureTableBar title="费用申请管理" :columns="columns" @refresh="onSearch">
+    <PureTableBar
+      title="费用申请管理（双击修改）"
+      :columns="columns"
+      @refresh="onSearch"
+    >
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border

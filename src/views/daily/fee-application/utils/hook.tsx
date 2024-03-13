@@ -194,11 +194,31 @@ export function useRole() {
   }
 
   async function handleDelete() {
-    message(`您删除了费用名称为${currentRow.value.fee_name}的这条数据`, {
-      type: "success"
-    });
-    await deleteAppliedFee(currentRow.value);
-    onSearch();
+    ElMessageBox.confirm("删除费用后需重新填写", "确认删除?", {
+      confirmButtonText: "确认",
+      cancelButtonText: "取消",
+      type: "warning"
+    })
+      .then(() => {
+        const select_id = [];
+        selectRows.value.forEach(v => {
+          select_id.push(v.id);
+          if (v.status !== "未提交") {
+            throw new Error("所选费用包含已提交费用");
+          }
+        });
+        deleteAppliedFee(select_id);
+        onSearch();
+      })
+      .catch(info => {
+        if (info == "cancel") {
+          info = "取消删除";
+        }
+        ElMessage({
+          type: "error",
+          message: info
+        });
+      });
   }
 
   function handleSizeChange(val: number) {
@@ -337,14 +357,20 @@ export function useRole() {
         const select_id = [];
         selectRows.value.forEach(v => {
           select_id.push(v.id);
+          if (v.status !== "未提交") {
+            throw new Error("费用申请不允许重复提交");
+          }
         });
         submitAppliedFee(select_id);
         onSearch();
       })
-      .catch(() => {
+      .catch(info => {
+        if (info == "cancel") {
+          info = "取消提交";
+        }
         ElMessage({
-          type: "info",
-          message: "取消提交"
+          type: "error",
+          message: info
         });
       });
   }
@@ -359,14 +385,20 @@ export function useRole() {
         const select_id = [];
         selectRows.value.forEach(v => {
           select_id.push(v.id);
+          if (v.status !== "已提交") {
+            throw new Error("未提交或已审核费用无法撤销");
+          }
         });
         revokeAppliedFee(select_id);
         onSearch();
       })
-      .catch(() => {
+      .catch(info => {
+        if (info == "cancel") {
+          info = "取消撤销";
+        }
         ElMessage({
-          type: "info",
-          message: "取消撤回"
+          type: "error",
+          message: info
         });
       });
   }

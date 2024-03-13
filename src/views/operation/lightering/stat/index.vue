@@ -53,6 +53,14 @@ const {
           value-format="YYYY/MM/DD"
         />
       </el-form-item>
+      <el-form-item label="船名航次：" prop="voyage">
+        <el-input
+          v-model="form.voyage"
+          placeholder="请输入船名航次"
+          clearable
+          class="!w-[180px]"
+        />
+      </el-form-item>
       <el-form-item label="货物名：" prop="cargo_name">
         <el-input
           v-model="form.cargo_name"
@@ -68,6 +76,7 @@ const {
           clearable
           class="!w-[180px]"
         >
+          <el-option label="全部" value="" />
           <el-option label="阳逻-金口" value="0" />
           <el-option label="金口-阳逻" value="1" />
         </el-select>
