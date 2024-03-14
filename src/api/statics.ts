@@ -144,3 +144,10 @@ export const setRemark = (data?: object) => {
     data
   });
 };
+
+// 获取车辆费用统计列表
+export const vehicleFeeStatList = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("vehicleFeeStatList"), {
+    data
+  });
+};

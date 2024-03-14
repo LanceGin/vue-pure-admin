@@ -13,10 +13,10 @@ import {
   addVehicleFee,
   deleteVehicleFee,
   editVehicleFee,
-  submitVehicleFee,
-  vehicleFeeList
+  submitVehicleFee
 } from "@/api/vehicle";
 import { useUserStore } from "@/store/modules/user";
+import { vehicleFeeStatList } from "@/api/statics";
 
 export function useRole() {
   const user = useUserStore();
@@ -40,7 +40,9 @@ export function useRole() {
     settlement_confirm: "",
     annex_url: "",
     remark: "",
-    add_by: user.username
+    add_by: user.username,
+    allocation_amount: "",
+    account_period: ""
   });
   const formRef = ref();
   const selectRows = ref([]);
@@ -58,17 +60,9 @@ export function useRole() {
   });
   const columns: TableColumnList = [
     {
-      type: "selection",
-      align: "left"
-    },
-    {
-      label: "是否已提交",
-      prop: "is_submit"
-    },
-    {
-      label: "日期",
-      prop: "add_time",
-      formatter: ({ add_time }) => dayjs(add_time).format("YYYY-MM-DD")
+      label: "账期",
+      prop: "account_period",
+      formatter: ({ account_period }) => dayjs(account_period).format("YYYY-MM")
     },
     {
       label: "司机",
@@ -96,31 +90,11 @@ export function useRole() {
     },
     {
       label: "申请金额（元）",
-      prop: "amount"
-    },
-    {
-      label: "报销金额",
-      prop: "actual_amount"
-    },
-    {
-      label: "税额",
-      prop: "tax_amount"
-    },
-    {
-      label: "附件",
-      prop: "annex_url"
+      prop: "allocation_amount"
     },
     {
       label: "备注",
       prop: "remark"
-    },
-    {
-      label: "分摊月份",
-      prop: "allocation_month"
-    },
-    {
-      label: "分摊起始月",
-      prop: "allocation_start"
     }
   ];
 
@@ -131,7 +105,7 @@ export function useRole() {
       currentPage: 1,
       background: true
     });
-    const { data } = await vehicleFeeList({
+    const { data } = await vehicleFeeStatList({
       pagination: export_pagination,
       form
     });
@@ -150,7 +124,7 @@ export function useRole() {
     const workSheet = utils.aoa_to_sheet(res);
     const workBook = utils.book_new();
     utils.book_append_sheet(workBook, workSheet, "数据报表");
-    writeFile(workBook, "车辆费用信息.xlsx");
+    writeFile(workBook, "车辆费用统计信息.xlsx");
     message("导出成功", {
       type: "success"
     });
@@ -199,7 +173,7 @@ export function useRole() {
 
   async function onSearch() {
     loading.value = true;
-    const { data } = await vehicleFeeList({
+    const { data } = await vehicleFeeStatList({
       pagination,
       form
     });

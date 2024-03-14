@@ -2,7 +2,7 @@
 import { reactive, ref } from "vue";
 import { formRules } from "./utils/rule";
 import { FormProps } from "./utils/types";
-import { vehicleInfoList } from "@/api/vehicle";
+import { accCompanyList } from "@/api/daily";
 import type { PaginationProps } from "@pureadmin/table";
 
 const props = withDefaults(defineProps<FormProps>(), {
@@ -20,7 +20,6 @@ const props = withDefaults(defineProps<FormProps>(), {
     quantity: "",
     amount: "",
     allocation_month: "",
-    allocation_start: "",
     actual_amount: "",
     tax_amount: "",
     settlement_confirm: "",
@@ -39,28 +38,28 @@ const pagination = reactive<PaginationProps>({
 });
 const form = reactive({
   id: "",
-  car_no: "",
-  driver: "",
-  mobile: ""
+  company_code: "",
+  company_name: "",
+  bank: "",
+  account_no: "",
+  remark: ""
 });
 
 interface CompanyItem {
   id: string;
-  car_no: string;
-  car: string;
+  company_name: string;
 }
 const loading = ref(false);
 const list = ref<CompanyItem[]>([]);
 const options = ref<CompanyItem[]>([]);
 let accData = [];
-const data = vehicleInfoList({ pagination, form });
+const data = accCompanyList({ pagination, form });
 data.then(v => {
   accData = v.data.list;
   list.value = accData.map(item => {
     return {
       id: `${item.id}`,
-      car_no: `${item.car_no}`,
-      car: `${item.car_no}-${item.driver}-${item.territory}`
+      company_name: `${item.company_name}——${item.account_no}——${item.bank}`
     };
   });
 });
@@ -71,7 +70,7 @@ const remoteMethod = (query: string) => {
     setTimeout(() => {
       loading.value = false;
       options.value = list.value.filter(item => {
-        return item.car_no.toLowerCase().includes(query.toLowerCase());
+        return item.company_name.toLowerCase().includes(query.toLowerCase());
       });
     }, 200);
   } else {
@@ -96,38 +95,20 @@ defineExpose({ getRef });
     :rules="formRules"
     label-width="82px"
   >
-    <el-form-item label="是否已提交" prop="is_submit">
-      <el-select
-        v-model="newFormInline.is_submit"
-        placeholder="请选择是否已提交"
-        clearable
-        class="!w-[180px]"
-      >
-        <el-option label="未提交" value="未提交" />
-        <el-option label="已提交" value="已提交" />
-      </el-select>
-    </el-form-item>
-    <el-form-item label="司机" prop="driver">
+    <el-form-item label="费用名" prop="fee_name">
       <el-input
-        v-model="newFormInline.driver"
+        v-model="newFormInline.fee_name"
         clearable
-        placeholder="请输入司机"
+        placeholder="请输入费用名"
       />
     </el-form-item>
-    <el-form-item label="申请单位" prop="company">
-      <el-input
+    <el-form-item label="结算单位" prop="company">
+      <el-select
         v-model="newFormInline.company"
-        clearable
-        placeholder="请输入申请单位"
-      />
-    </el-form-item>
-    <el-form-item label="车号" prop="car_no">
-      <el-select
-        v-model="newFormInline.car_no"
         filterable
         remote
         reserve-keyword
-        placeholder="输入车号关键字"
+        placeholder="输入结算单位关键字"
         :remote-method="remoteMethod"
         :loading="loading"
         style="width: 240px"
@@ -135,17 +116,10 @@ defineExpose({ getRef });
         <el-option
           v-for="item in options"
           :key="item.id"
-          :label="item.car_no"
-          :value="item.car_no"
+          :label="item.company_name"
+          :value="item.id"
         />
       </el-select>
-    </el-form-item>
-    <el-form-item label="车挂号" prop="hang_board_no">
-      <el-input
-        v-model="newFormInline.hang_board_no"
-        clearable
-        placeholder="请输入车挂号"
-      />
     </el-form-item>
     <el-form-item label="支付类型" prop="type">
       <el-select
@@ -162,17 +136,11 @@ defineExpose({ getRef });
         <el-option label="汇票" value="汇票" />
       </el-select>
     </el-form-item>
-    <el-form-item label="费用名称" prop="car_fees">
-      <el-input
-        v-model="newFormInline.car_fees"
-        clearable
-        placeholder="请输入费用名称"
-      />
-    </el-form-item>
     <el-form-item label="申请金额" prop="amount">
       <el-input
         v-model="newFormInline.amount"
         clearable
+        disabled
         placeholder="请输入申请金额"
       />
     </el-form-item>
@@ -180,6 +148,7 @@ defineExpose({ getRef });
       <el-input
         v-model="newFormInline.actual_amount"
         clearable
+        disabled
         placeholder="请输入报销金额"
       />
     </el-form-item>
@@ -187,30 +156,8 @@ defineExpose({ getRef });
       <el-input
         v-model="newFormInline.tax_amount"
         clearable
+        disabled
         placeholder="请输入税额"
-      />
-    </el-form-item>
-    <el-form-item label="备注" prop="remark">
-      <el-input
-        v-model="newFormInline.remark"
-        clearable
-        placeholder="请输入备注"
-      />
-    </el-form-item>
-    <el-form-item label="分摊月份" prop="allocation_month">
-      <el-input
-        v-model="newFormInline.allocation_month"
-        clearable
-        placeholder="请输入分摊月份"
-      />
-    </el-form-item>
-    <el-form-item label="分摊起始月" prop="allocation_start">
-      <el-date-picker
-        v-model="newFormInline.allocation_start"
-        type="month"
-        placeholder="请输入分摊起始月"
-        format="YYYY/MM"
-        value-format="YYYY-MM"
       />
     </el-form-item>
   </el-form>

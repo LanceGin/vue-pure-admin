@@ -41,6 +41,14 @@ export default {
       meta: {
         title: $t("menus.payable")
       }
+    },
+    {
+      path: "/statics/vehicle_fee_stat",
+      name: "VehicleFeeStat",
+      component: () => import("@/views/statics/vehicle-fee-stat/index.vue"),
+      meta: {
+        title: "车辆费用统计"
+      }
     }
   ]
 } as RouteConfigsTable;
