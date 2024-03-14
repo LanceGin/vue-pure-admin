@@ -296,7 +296,7 @@ export function useRole() {
         const select_id = [];
         selectRows.value.forEach(v => {
           select_id.push(v.id);
-          if (v.status !== "通过审批") {
+          if (v.status !== "已通过审批") {
             throw new Error("所选费用未全部通过审批");
           }
         });
