@@ -55,6 +55,34 @@ export const editAccCompany = (data?: object) => {
   });
 };
 
+// 获取往来单位列表
+export const reportList = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("reportList"), {
+    data
+  });
+};
+
+// 新增往来单位
+export const addReport = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("addReport"), {
+    data
+  });
+};
+
+// 删除往来单位
+export const deleteReport = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("deleteReport"), {
+    data
+  });
+};
+
+// 编辑往来单位
+export const editReport = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("editReport"), {
+    data
+  });
+};
+
 // 获取合同列表
 export const contractList = (data?: object) => {
   return http.request<ListResult>("post", baseUrlApi("contractList"), {

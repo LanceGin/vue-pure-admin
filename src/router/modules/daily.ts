@@ -19,6 +19,14 @@ export default {
       }
     },
     {
+      path: "/daily/report",
+      name: "Report",
+      component: () => import("@/views/daily/report/index.vue"),
+      meta: {
+        title: "工作报告"
+      }
+    },
+    {
       path: "/daily/fee_application",
       name: "FeeApplication",
       component: () => import("@/views/daily/fee-application/index.vue"),
