@@ -1,6 +1,8 @@
 import dayjs from "dayjs";
 import { utils, writeFile } from "xlsx";
 import editForm from "../form.vue";
+import applyPrint from "../apply-print.vue";
+import reimPrint from "../reim-print.vue";
 import { message } from "@/utils/message";
 // import { ElMessageBox } from "element-plus";
 // import { usePublicHooks } from "../../hooks";
@@ -337,6 +339,72 @@ export function useRole() {
     });
   }
 
+  function applyDialog(title = "打印", selectRows) {
+    addDialog({
+      title: `申请单打印`,
+      props: {
+        selectRows: selectRows
+      },
+      width: "40%",
+      draggable: true,
+      fullscreenIcon: true,
+      closeOnClickModal: false,
+      contentRenderer: () => h(applyPrint, { ref: formRef }),
+      beforeSure: (done, { options }) => {
+        const FormRef = formRef.value.getRef();
+        const curData = options.props.formInline as FormItemProps;
+        FormRef.validate(valid => {
+          if (valid) {
+            console.log("curData", curData);
+            // 表单规则校验通过
+            if (title === "新增") {
+              // 实际开发先调用新增接口，再进行下面操作
+              // handleAddData(curData);
+              console.log("打印");
+            } else {
+              // 实际开发先调用编辑接口，再进行下面操作
+              // asyncEdit(curData);
+              console.log("取消");
+            }
+          }
+        });
+      }
+    });
+  }
+
+  function reimDialog(title = "打印", selectRows) {
+    addDialog({
+      title: `报销单打印`,
+      props: {
+        selectRows: selectRows
+      },
+      width: "40%",
+      draggable: true,
+      fullscreenIcon: true,
+      closeOnClickModal: false,
+      contentRenderer: () => h(reimPrint, { ref: formRef }),
+      beforeSure: (done, { options }) => {
+        const FormRef = formRef.value.getRef();
+        const curData = options.props.formInline as FormItemProps;
+        FormRef.validate(valid => {
+          if (valid) {
+            console.log("curData", curData);
+            // 表单规则校验通过
+            if (title === "新增") {
+              // 实际开发先调用新增接口，再进行下面操作
+              // handleAddData(curData);
+              console.log("打印");
+            } else {
+              // 实际开发先调用编辑接口，再进行下面操作
+              // asyncEdit(curData);
+              console.log("取消");
+            }
+          }
+        });
+      }
+    });
+  }
+
   // 编辑按钮
   function handleEdit() {
     openDialog("编辑", currentRow.value);
@@ -409,6 +477,17 @@ export function useRole() {
     openDialog("编辑", row);
   }
 
+  // 打印申请单
+  function handleApplyPrint() {
+    console.log(242131432, selectRows.value);
+    applyDialog("打印申请单", selectRows.value);
+  }
+
+  // 打印报销单
+  function handleReimPrint() {
+    reimDialog("打印报销单", selectRows.value);
+  }
+
   /** 菜单权限 */
   function handleMenu() {
     message("等菜单管理页面开发后完善");
@@ -439,6 +518,8 @@ export function useRole() {
     handleSubmit,
     handleRevoke,
     handleRowDblclick,
+    handleApplyPrint,
+    handleReimPrint,
     handleEdit,
     handleSizeChange,
     handlePageChange,

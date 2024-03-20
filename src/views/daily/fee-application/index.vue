@@ -28,11 +28,12 @@ const {
   // buttonClass,
   exportExcel,
   onSearch,
-  resetForm,
   openDialog,
   handleDelete,
   // handleDatabase,
   handleSubmit,
+  handleApplyPrint,
+  handleReimPrint,
   handleRevoke,
   handleRowDblclick,
   handleSizeChange,
@@ -160,10 +161,18 @@ const {
         >
           撤销
         </el-button>
-        <el-button :icon="useRenderIcon(EditPen)" @click="resetForm(formRef)">
+        <el-button
+          :icon="useRenderIcon(EditPen)"
+          :disabled="haveRow"
+          @click="handleApplyPrint()"
+        >
           打印申请单
         </el-button>
-        <el-button :icon="useRenderIcon(EditPen)" @click="resetForm(formRef)">
+        <el-button
+          :icon="useRenderIcon(EditPen)"
+          :disabled="haveRow"
+          @click="handleReimPrint()"
+        >
           打印报销单
         </el-button>
         <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
