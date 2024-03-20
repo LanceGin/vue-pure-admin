@@ -36,8 +36,8 @@ defineExpose({ getRef });
       <el-input v-model="newFormInline.name" placeholder="请输入船公司名" />
     </el-form-item>
 
-    <el-form-item label="地区" prop="area">
-      <el-input v-model="newFormInline.area" placeholder="请输入地区" />
+    <el-form-item label="码头" prop="area">
+      <el-input v-model="newFormInline.area" placeholder="请输入码头" />
     </el-form-item>
 
     <el-form-item label="打单费" prop="order_fee">

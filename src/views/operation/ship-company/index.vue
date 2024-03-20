@@ -57,10 +57,10 @@ const {
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="区域：" prop="area">
+      <el-form-item label="码头：" prop="area">
         <el-input
           v-model="form.area"
-          placeholder="请输入区域"
+          placeholder="请输入码头"
           clearable
           class="!w-[180px]"
         />
