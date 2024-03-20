@@ -53,7 +53,8 @@ const props = withDefaults(defineProps<FormProps>(), {
     flow_direction: "",
     acc_company: "",
     content: "",
-    invoice_no: ""
+    invoice_no: "",
+    car_owner: ""
   })
 });
 
@@ -167,9 +168,9 @@ defineExpose({ getRef });
         value-format="YYYY-MM"
       />
     </el-form-item>
-    <el-form-item label="供应商" prop="custom_name">
+    <el-form-item label="供应商" prop="car_owner">
       <el-input
-        v-model="newFormInline.custom_name"
+        v-model="newFormInline.car_owner"
         clearable
         placeholder="请输入供应商"
       />

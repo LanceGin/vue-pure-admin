@@ -47,6 +47,7 @@ interface FormItemProps {
   acc_company: string;
   content: string;
   invoice_no: string;
+  car_owner: string;
 }
 interface FormProps {
   formInline: FormItemProps;

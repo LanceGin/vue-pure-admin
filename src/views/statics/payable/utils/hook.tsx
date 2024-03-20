@@ -65,7 +65,8 @@ export function useRole() {
     flow_direction: "",
     acc_company: "",
     content: "",
-    invoice_no: ""
+    invoice_no: "",
+    car_owner: ""
   });
   const formRef = ref();
   const selectRows = ref([]);
@@ -189,7 +190,7 @@ export function useRole() {
     },
     {
       label: "供应商",
-      prop: "custom_name"
+      prop: "car_owner"
     },
     {
       label: "结算单位",
@@ -288,8 +289,10 @@ export function useRole() {
 
   function openDialog(title = "应付", row?: FormItemProps) {
     let c = 0;
+    let c_o = "";
     selectRows.value.forEach(v => {
       c += Number(v.amount);
+      c_o = v.car_owner;
     });
     addDialog({
       title: `${title}费用`,
@@ -339,7 +342,8 @@ export function useRole() {
           custom_name: row?.custom_name ?? "",
           flow_direction: row?.flow_direction ?? "",
           acc_company: row?.acc_company ?? "",
-          content: row?.content ?? ""
+          content: row?.content ?? "",
+          car_owner: row?.car_owner ?? c_o
         }
       },
       width: "40%",
