@@ -84,6 +84,28 @@ export type WxClockListResult = {
   };
 };
 
+export type ListResult = {
+  success: boolean;
+  data?: {
+    /** 列表数据 */
+    list: Array<any>;
+    /** 总条目数 */
+    total?: number;
+    /** 每页显示条目个数 */
+    pageSize?: number;
+    /** 当前页数 */
+    currentPage?: number;
+  };
+};
+
+export type ChangeResult = {
+  success: boolean;
+  data?: {
+    // 后台返回消息
+    message: string;
+  };
+};
+
 /** 登录 */
 export const getLogin = (data?: object) => {
   return http.request<UserResult>("post", baseUrlApi("login"), { data });
@@ -127,6 +149,34 @@ export const editUser = (data?: object) => {
 // 员工打卡记录
 export const getWxClockList = (data?: object) => {
   return http.request<WxClockListResult>("post", baseUrlApi("wxClockList"), {
+    data
+  });
+};
+
+// 获取打卡点列表
+export const clockPointList = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("clockPointList"), {
+    data
+  });
+};
+
+// 新增打卡点
+export const addClockPoint = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("addClockPoint"), {
+    data
+  });
+};
+
+// 删除打卡点
+export const deleteClockPoint = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("deleteClockPoint"), {
+    data
+  });
+};
+
+// 编辑打卡点
+export const editClockPoint = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("editClockPoint"), {
     data
   });
 };

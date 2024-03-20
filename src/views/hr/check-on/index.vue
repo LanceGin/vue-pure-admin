@@ -146,7 +146,7 @@ const {
               link
               type="primary"
               :size="size"
-              @click="openDialog(row)"
+              @click="openDialog('地图', row)"
             >
               {{ row.clockin_location }}
             </el-button>
@@ -157,7 +157,7 @@ const {
               link
               type="primary"
               :size="size"
-              @click="openDialog(row)"
+              @click="openDialog('地图', row)"
             >
               {{ row.clockout_location }}
             </el-button>

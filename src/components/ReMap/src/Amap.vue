@@ -38,6 +38,7 @@ onBeforeMount(() => {
   if (!instance) return;
   const { MapConfigure } = instance.appContext.config.globalProperties.$config;
   const { options } = MapConfigure;
+  console.log(1111, options);
 
   AMapLoader.load({
     key: MapConfigure.amapKey,

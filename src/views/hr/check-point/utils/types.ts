@@ -3,9 +3,7 @@
 interface FormItemProps {
   id: string;
   name: string;
-  address: string;
-  lnlt: string;
-  remark: string;
+  location: string;
 }
 interface FormProps {
   formInline: FormItemProps;

@@ -9,8 +9,6 @@ import { useRenderIcon } from "../../../components/ReIcon/src/hooks";
 import Delete from "@iconify-icons/ep/delete";
 import EditPen from "@iconify-icons/ep/edit-pen";
 import Search from "@iconify-icons/ep/search";
-import Upload from "@iconify-icons/ep/upload";
-import Download from "@iconify-icons/ep/download";
 import AddFill from "@iconify-icons/ri/add-circle-line";
 
 defineOptions({
@@ -26,9 +24,7 @@ const {
   dataList,
   pagination,
   // buttonClass,
-  exportExcel,
   onSearch,
-  resetForm,
   openDialog,
   handleDelete,
   // handleDatabase,
@@ -79,12 +75,6 @@ const {
           @click="openDialog('新增')"
         >
           添加打卡点
-        </el-button>
-        <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
-          导入
-        </el-button>
-        <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
-          导出
         </el-button>
         <el-button
           type="primary"

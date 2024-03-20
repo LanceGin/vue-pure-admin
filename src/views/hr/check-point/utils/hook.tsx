@@ -2,22 +2,22 @@
 import { utils, writeFile } from "xlsx";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
-import { addUser, deleteUser, editUser } from "@/api/user";
-// import { ElMessageBox } from "element-plus";
-// import { tableData } from "./data";
-// import { usePublicHooks } from "../../hooks";
 import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
+import {
+  addClockPoint,
+  clockPointList,
+  deleteClockPoint,
+  editClockPoint
+} from "@/api/user";
 
 export function useRole() {
   const form = reactive({
     id: "",
     name: "",
-    address: "",
-    lnlt: "",
-    remark: ""
+    location: ""
   });
   const formRef = ref();
   const currentRow = ref();
@@ -39,16 +39,8 @@ export function useRole() {
       prop: "name"
     },
     {
-      label: "地址",
-      prop: "address"
-    },
-    {
       label: "经纬度",
-      prop: "lnlt"
-    },
-    {
-      label: "备注",
-      prop: "remark"
+      prop: "location"
     }
   ];
 
@@ -68,17 +60,17 @@ export function useRole() {
     const workSheet = utils.aoa_to_sheet(res);
     const workBook = utils.book_new();
     utils.book_append_sheet(workBook, workSheet, "数据报表");
-    writeFile(workBook, "员工列表.xlsx");
+    writeFile(workBook, "打卡点列表.xlsx");
     message("导出成功", {
       type: "success"
     });
   }
 
   async function handleDelete() {
-    message(`您删除了用户名为${currentRow.value.name}的这条数据`, {
+    message(`您删除了打卡点为${currentRow.value.name}的这条数据`, {
       type: "success"
     });
-    await deleteUser(currentRow.value);
+    await deleteClockPoint(currentRow.value);
     onSearch();
   }
 
@@ -103,14 +95,14 @@ export function useRole() {
 
   async function onSearch() {
     loading.value = true;
-    // const { data } = await getUserList({
-    //   pagination,
-    //   form
-    // });
-    // dataList.value = data.list;
-    // pagination.total = data.total;
-    // pagination.pageSize = data.pageSize;
-    // pagination.currentPage = data.currentPage;
+    const { data } = await clockPointList({
+      pagination,
+      form
+    });
+    dataList.value = data.list;
+    pagination.total = data.total;
+    pagination.pageSize = data.pageSize;
+    pagination.currentPage = data.currentPage;
     setTimeout(() => {
       loading.value = false;
     }, 500);
@@ -123,7 +115,7 @@ export function useRole() {
   };
 
   async function handleAddUser(user) {
-    await addUser(user);
+    await addClockPoint(user);
   }
 
   function openDialog(title = "添加", row?: FormItemProps) {
@@ -133,9 +125,7 @@ export function useRole() {
         formInline: {
           id: row?.id ?? "",
           name: row?.name ?? "",
-          address: row?.address ?? "",
-          lnlt: row?.lnlt ?? "",
-          remark: row?.remark ?? ""
+          location: row?.location ?? ""
         }
       },
       width: "40%",
@@ -178,7 +168,7 @@ export function useRole() {
   }
 
   async function asyncEdit(user) {
-    await editUser(user);
+    await editClockPoint(user);
   }
 
   // 双击行
