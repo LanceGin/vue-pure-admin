@@ -72,6 +72,38 @@ export const editDoorPrice = (data?: object) => {
   });
 };
 
+// 获取驳运价格列表
+export const lighteringPriceList = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("lighteringPriceList"), {
+    data
+  });
+};
+
+// 新增驳运价格
+export const addLighteringPrice = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("addLighteringPrice"), {
+    data
+  });
+};
+
+// 删除驳运价格
+export const deleteLighteringPrice = (data?: object) => {
+  return http.request<ChangeResult>(
+    "post",
+    baseUrlApi("deleteLighteringPrice"),
+    {
+      data
+    }
+  );
+};
+
+// 编辑驳运价格
+export const editLighteringPrice = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("editLighteringPrice"), {
+    data
+  });
+};
+
 // 获取统计费用列表
 export const containerFeeList = (data?: object) => {
   return http.request<ListResult>("post", baseUrlApi("containerFeeList"), {

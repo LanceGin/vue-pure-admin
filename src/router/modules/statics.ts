@@ -11,6 +11,14 @@ export default {
   },
   children: [
     {
+      path: "/statics/lightering_price",
+      name: "LighteringPrice",
+      component: () => import("@/views/statics/lightering-price/index.vue"),
+      meta: {
+        title: "驳运价格"
+      }
+    },
+    {
       path: "/statics/collection_price",
       name: "CollectionPrice",
       component: () => import("@/views/statics/collection-price/index.vue"),
