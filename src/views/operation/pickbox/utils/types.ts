@@ -30,6 +30,7 @@ interface FormItemProps {
   order_fee: string;
   temp_status: string;
   remark: string;
+  crossing: string;
 }
 interface FormProps {
   formInline: FormItemProps;

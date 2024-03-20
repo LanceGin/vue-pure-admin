@@ -57,7 +57,8 @@ export function useRole() {
     abnormal_fee: "",
     dispatch_remark: "",
     dispatch_car_no: "",
-    amount: ""
+    amount: "",
+    remark: ""
   });
   const formRef = ref();
   const currentRow = ref();
@@ -138,6 +139,10 @@ export function useRole() {
       prop: "target_port"
     },
     {
+      label: "箱子备注",
+      prop: "remark"
+    },
+    {
       label: "拖车费",
       prop: "amount"
     },
@@ -146,7 +151,7 @@ export function useRole() {
       prop: "abnormal_fee"
     },
     {
-      label: "备注",
+      label: "派车单备注",
       prop: "dispatch_remark"
     }
   ];

@@ -84,11 +84,11 @@ defineExpose({ getRef });
       />
     </el-form-item>
 
-    <el-form-item label="备注" prop="dispatch_remark">
+    <el-form-item label="派车单备注" prop="dispatch_remark">
       <el-input
         v-model="newFormInline.dispatch_remark"
         clearable
-        placeholder="请输入备注"
+        placeholder="请输入派车单备注"
       />
     </el-form-item>
   </el-form>

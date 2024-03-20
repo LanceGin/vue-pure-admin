@@ -104,7 +104,8 @@ export function useRole() {
     {
       label: "计划做箱时间",
       prop: "make_time",
-      formatter: ({ make_time }) => dayjs(make_time).format("YYYY-MM-DD"),
+      formatter: ({ make_time }) =>
+        dayjs(make_time).format("YYYY-MM-DD HH:mm:ss"),
       minWidth: 120
     },
     {
@@ -142,6 +143,10 @@ export function useRole() {
     {
       label: "提箱点",
       prop: "load_port"
+    },
+    {
+      label: "道口",
+      prop: "crossing"
     },
     {
       label: "还箱点",
@@ -246,6 +251,7 @@ export function useRole() {
           id: row?.id ?? "",
           make_time: dayjs(row?.make_time).format("YYYY-MM-DD") ?? "",
           load_port: row?.load_port ?? "",
+          crossing: row?.crossing ?? "",
           remark: row?.remark ?? ""
         }
       },
@@ -275,6 +281,7 @@ export function useRole() {
               const data = {
                 select_container_no: [],
                 load_port: curData.load_port,
+                crossing: curData.crossing,
                 remark: curData.remark
               };
               selectRows.value.forEach(v => {
@@ -374,7 +381,7 @@ export function useRole() {
     ElMessageBox.prompt("请输入新的做箱时间", "批量设置做箱时间", {
       confirmButtonText: "确认",
       cancelButtonText: "取消",
-      inputType: "date"
+      inputType: "datetime-local"
     })
       .then(make_time => {
         const data = {

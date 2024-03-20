@@ -33,7 +33,8 @@ const props = withDefaults(defineProps<FormProps>(), {
     order_time: "",
     order_fee: "",
     temp_status: "",
-    remark: ""
+    remark: "",
+    crossing: ""
   })
 });
 
@@ -59,6 +60,13 @@ defineExpose({ getRef });
         v-model="newFormInline.load_port"
         clearable
         placeholder="请输入提箱点"
+      />
+    </el-form-item>
+    <el-form-item label="道口" prop="crossing">
+      <el-input
+        v-model="newFormInline.crossing"
+        clearable
+        placeholder="请输入道口"
       />
     </el-form-item>
     <el-form-item label="备注" prop="remark">

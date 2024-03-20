@@ -167,7 +167,7 @@ const {
           @click="handleSetting()"
           :disabled="haveRow"
         >
-          批量修改提箱点
+          批量修改提箱点 道口 备注
         </el-button>
         <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
           导出

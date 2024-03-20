@@ -19,7 +19,7 @@ import { ElMessage, ElMessageBox } from "element-plus";
 export function useRole() {
   const end = new Date();
   const start = new Date();
-  start.setTime(start.getTime() - 3600 * 1000 * 24 * 5);
+  // start.setTime(start.getTime() - 3600 * 1000 * 24 * 5);
   const form = reactive({
     id: "",
     dispatch_id: "",
@@ -37,6 +37,7 @@ export function useRole() {
     ship_name: "",
     track_no: "",
     unload_port: "",
+    crossing: "",
     door: "",
     make_time: "",
     make_time_range: ref<[Date, Date]>([start, end]),
@@ -59,7 +60,8 @@ export function useRole() {
     export_port: "",
     dispatch_car_no: "",
     trans_status: "",
-    dispatch_remark: ""
+    dispatch_remark: "",
+    remark: ""
   });
   const formRef = ref();
   const selectRows = ref([]);
@@ -76,9 +78,7 @@ export function useRole() {
     background: true
   });
   const tableRowClassName = ({ row }) => {
-    if (row.load_port === "武汉金口") {
-      return "pure-warning-row";
-    } else if (row.load_port === "武汉阳逻") {
+    if (row.load_port === "武汉阳逻") {
       return "pure-success-row";
     }
     return "";
@@ -112,6 +112,10 @@ export function useRole() {
       minWidth: 120
     },
     {
+      label: "道口",
+      prop: "crossing"
+    },
+    {
       label: "提箱点",
       prop: "load_port"
     },
@@ -136,7 +140,11 @@ export function useRole() {
       prop: "trans_status"
     },
     {
-      label: "备注",
+      label: "箱子备注",
+      prop: "remark"
+    },
+    {
+      label: "派车单备注",
       prop: "dispatch_remark"
     }
   ];
