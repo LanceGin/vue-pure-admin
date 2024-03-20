@@ -274,6 +274,13 @@ export const getContainerFeeList = (data?: object) => {
   });
 };
 
+// 获取派车单费用记录
+export const getDispatchFeeList = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("getDispatchFeeList"), {
+    data
+  });
+};
+
 // 新增箱子
 export const addContainer = (data?: object) => {
   return http.request<ChangeResult>("post", baseUrlApi("addContainer"), {
@@ -283,6 +290,12 @@ export const addContainer = (data?: object) => {
 // 新增箱子费用
 export const addContainerFee = (data?: object) => {
   return http.request<ChangeResult>("post", baseUrlApi("addContainerFee"), {
+    data
+  });
+};
+// 修正箱子信息
+export const fixContainerInfo = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("fixContainerInfo"), {
     data
   });
 };

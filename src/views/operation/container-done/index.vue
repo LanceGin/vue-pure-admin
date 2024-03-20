@@ -29,11 +29,12 @@ const {
   onSearch,
   // resetForm,
   openDialog,
+  fixDialog,
   // handleDelete,
   // handleDatabase,
   // handleSubmit,
   // handleEdit,
-  // handleRowDblclick,
+  handleRowDblclick,
   handleSizeChange,
   handlePageChange,
   handleCurrentChange
@@ -135,10 +136,18 @@ const {
         <el-button
           type="primary"
           :icon="useRenderIcon(Edit)"
-          @click="openDialog('编辑')"
+          @click="openDialog('添加')"
           :disabled="haveRow"
         >
           添加异常费用
+        </el-button>
+        <el-button
+          type="primary"
+          :icon="useRenderIcon(Edit)"
+          @click="fixDialog('添加')"
+          :disabled="haveRow"
+        >
+          修正箱信息
         </el-button>
         <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
           导出
@@ -148,7 +157,7 @@ const {
 
     <el-dialog
       v-model="containerVisible"
-      title="箱子费用列表"
+      title="异常费用列表"
       width="80%"
       custom-class="container-list"
     >
@@ -166,7 +175,11 @@ const {
       />
     </el-dialog>
 
-    <PureTableBar title="已完成派车单" :columns="columns" @refresh="onSearch">
+    <PureTableBar
+      title="已完成派车单（双击查看异常费用）"
+      :columns="columns"
+      @refresh="onSearch"
+    >
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border
@@ -185,6 +198,7 @@ const {
             background: 'var(--el-table-row-hover-bg-color)',
             color: 'var(--el-text-color-primary)'
           }"
+          @row-dblclick="handleRowDblclick"
           @page-size-change="handleSizeChange"
           @page-current-change="handlePageChange"
           @current-change="handleCurrentChange"

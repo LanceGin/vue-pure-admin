@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import { utils, writeFile } from "xlsx";
 import editForm from "../form.vue";
+import fixForm from "../fix-form.vue";
 import { message } from "@/utils/message";
 // import { ElMessageBox } from "element-plus";
 // import { usePublicHooks } from "../../hooks";
@@ -12,8 +13,9 @@ import {
   containerWithFeeList,
   importDocumentCheck,
   submitDocumentCheck,
-  getContainerFeeList,
-  addContainerFee
+  addContainerFee,
+  getDispatchFeeList,
+  fixContainerInfo
 } from "@/api/operation";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { useUserStore } from "@/store/modules/user";
@@ -145,41 +147,21 @@ export function useRole() {
     {
       label: "拖车费",
       prop: "amount"
-    },
-    {
-      label: "异常费用",
-      prop: "abnormal_fee"
-    },
-    {
-      label: "派车单备注",
-      prop: "dispatch_remark"
     }
   ];
 
   const containerFeeColumns: TableColumnList = [
-    {
-      label: "类型",
-      prop: "type"
-    },
-    {
-      label: "状态",
-      prop: "status"
-    },
     {
       label: "费用名",
       prop: "fee_name"
     },
     {
       label: "金额",
-      prop: "amount"
+      prop: "fee"
     },
     {
-      label: "扣除金额",
-      prop: "less_amount"
-    },
-    {
-      label: "增加金额",
-      prop: "more_amount"
+      label: "备注",
+      prop: "remark"
     }
   ];
 
@@ -265,6 +247,10 @@ export function useRole() {
     await addContainerFee(container);
   }
 
+  async function handleEditContainer(container) {
+    await fixContainerInfo(container);
+  }
+
   function openDialog(title = "添加") {
     addDialog({
       title: `${title}费用`,
@@ -305,9 +291,60 @@ export function useRole() {
           if (valid) {
             console.log("curData", curData);
             // 表单规则校验通过
-            if (title === "编辑") {
+            if (title === "添加") {
               // 实际开发先调用新增接口，再进行下面操作
               handleAddContainerFee(curData);
+              chores();
+            } else {
+              // 实际开发先调用编辑接口，再进行下面操作
+              chores();
+            }
+          }
+        });
+      }
+    });
+  }
+
+  function fixDialog(title = "修改") {
+    addDialog({
+      title: `${title}箱信息`,
+      props: {
+        formInline: {
+          dispatch_id: currentRow.value.dispatch_id,
+          id: currentRow.value.id,
+          track_no: currentRow.value.track_no,
+          containner_no: currentRow.value.containner_no,
+          seal_no: currentRow.value.seal_no,
+          container_type: currentRow.value.container_type,
+          door: currentRow.value.door,
+          add_by: user.username
+        }
+      },
+      width: "40%",
+      draggable: true,
+      fullscreenIcon: true,
+      closeOnClickModal: false,
+      contentRenderer: () => h(fixForm, { ref: formRef }),
+      beforeSure: (done, { options }) => {
+        const FormRef = formRef.value.getRef();
+        const curData = options.props.formInline as FormItemProps;
+        function chores() {
+          message(
+            `您为订单号为${curData.track_no}的这条数据${title}了异常费用`,
+            {
+              type: "success"
+            }
+          );
+          done(); // 关闭弹框
+          onSearch(); // 刷新表格数据
+        }
+        FormRef.validate(valid => {
+          if (valid) {
+            console.log("curData", curData);
+            // 表单规则校验通过
+            if (title === "添加") {
+              // 实际开发先调用新增接口，再进行下面操作
+              handleEditContainer(curData);
               chores();
             } else {
               // 实际开发先调用编辑接口，再进行下面操作
@@ -357,7 +394,7 @@ export function useRole() {
 
   // 双击行
   async function handleRowDblclick(form) {
-    getContainerFeeList({
+    getDispatchFeeList({
       form
     }).then(data => {
       containerFeeList.value = data.data.list;
@@ -392,6 +429,7 @@ export function useRole() {
     onSearch,
     resetForm,
     openDialog,
+    fixDialog,
     handleMenu,
     handleDelete,
     // handleDatabase,

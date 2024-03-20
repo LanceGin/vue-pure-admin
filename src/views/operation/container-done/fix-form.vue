@@ -65,7 +65,6 @@ defineExpose({ getRef });
       <el-input
         v-model="newFormInline.track_no"
         clearable
-        disabled
         placeholder="请输入运单号"
       />
     </el-form-item>
@@ -73,29 +72,28 @@ defineExpose({ getRef });
       <el-input
         v-model="newFormInline.containner_no"
         clearable
-        disabled
         placeholder="请输入箱号"
       />
     </el-form-item>
-    <el-form-item label="费用名" prop="fee_name">
+    <el-form-item label="封号" prop="seal_no">
       <el-input
-        v-model="newFormInline.fee_name"
+        v-model="newFormInline.seal_no"
         clearable
-        placeholder="请输入费用名"
+        placeholder="请输入封号"
       />
     </el-form-item>
-    <el-form-item label="金额" prop="fee">
+    <el-form-item label="箱型" prop="container_type">
       <el-input
-        v-model="newFormInline.fee"
+        v-model="newFormInline.container_type"
         clearable
-        placeholder="请输入金额"
+        placeholder="请输入箱型"
       />
     </el-form-item>
-    <el-form-item label="备注" prop="remark">
+    <el-form-item label="门点" prop="door">
       <el-input
-        v-model="newFormInline.remark"
+        v-model="newFormInline.door"
         clearable
-        placeholder="请输入备注"
+        placeholder="请输入门点"
       />
     </el-form-item>
   </el-form>
