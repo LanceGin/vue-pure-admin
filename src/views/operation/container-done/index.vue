@@ -144,7 +144,7 @@ const {
         <el-button
           type="primary"
           :icon="useRenderIcon(Edit)"
-          @click="fixDialog('添加')"
+          @click="fixDialog('修正')"
           :disabled="haveRow"
         >
           修正箱信息

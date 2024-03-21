@@ -61,6 +61,13 @@ defineExpose({ getRef });
     :rules="formRules"
     label-width="82px"
   >
+    <el-form-item label="船名航次" prop="ship_name">
+      <el-input
+        v-model="newFormInline.ship_name"
+        clearable
+        placeholder="请输入船名航次"
+      />
+    </el-form-item>
     <el-form-item label="运单号" prop="track_no">
       <el-input
         v-model="newFormInline.track_no"
@@ -94,6 +101,15 @@ defineExpose({ getRef });
         v-model="newFormInline.door"
         clearable
         placeholder="请输入门点"
+      />
+    </el-form-item>
+    <el-form-item label="做箱时间" prop="make_time">
+      <el-date-picker
+        v-model="newFormInline.make_time"
+        type="datetime"
+        placeholder="请输入做箱时间"
+        format="YYYY/MM/DD HH:mm:ss"
+        value-format="YYYY-MM-DD HH:mm:ss"
       />
     </el-form-item>
   </el-form>

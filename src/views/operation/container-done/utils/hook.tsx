@@ -305,18 +305,20 @@ export function useRole() {
     });
   }
 
-  function fixDialog(title = "修改") {
+  function fixDialog(title = "修正") {
     addDialog({
       title: `${title}箱信息`,
       props: {
         formInline: {
           dispatch_id: currentRow.value.dispatch_id,
           id: currentRow.value.id,
+          ship_name: currentRow.value.ship_name,
           track_no: currentRow.value.track_no,
           containner_no: currentRow.value.containner_no,
           seal_no: currentRow.value.seal_no,
           container_type: currentRow.value.container_type,
           door: currentRow.value.door,
+          make_time: currentRow.value.make_time,
           add_by: user.username
         }
       },
@@ -342,7 +344,7 @@ export function useRole() {
           if (valid) {
             console.log("curData", curData);
             // 表单规则校验通过
-            if (title === "添加") {
+            if (title === "修正") {
               // 实际开发先调用新增接口，再进行下面操作
               handleEditContainer(curData);
               chores();
