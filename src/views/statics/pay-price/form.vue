@@ -79,60 +79,60 @@ defineExpose({ getRef });
         placeholder="请输入码头"
       />
     </el-form-item>
-    <el-form-item label="装20GP" prop="i20gp">
+    <el-form-item label="拆20GP" prop="i20gp">
       <el-input
         v-model="newFormInline.i20gp"
-        clearable
-        placeholder="请输入装20GP"
-      />
-    </el-form-item>
-    <el-form-item label="装40GP" prop="i40gp">
-      <el-input
-        v-model="newFormInline.i40gp"
-        clearable
-        placeholder="请输入装40GP"
-      />
-    </el-form-item>
-    <el-form-item label="装20TK" prop="i20tk">
-      <el-input
-        v-model="newFormInline.i20tk"
-        clearable
-        placeholder="请输入装20TK"
-      />
-    </el-form-item>
-    <el-form-item label="装40HC" prop="i40hc">
-      <el-input
-        v-model="newFormInline.i40hc"
-        clearable
-        placeholder="请输入装40HC"
-      />
-    </el-form-item>
-    <el-form-item label="拆20GP" prop="o20gp">
-      <el-input
-        v-model="newFormInline.o20gp"
         clearable
         placeholder="请输入拆20GP"
       />
     </el-form-item>
-    <el-form-item label="拆40GP" prop="o40gp">
+    <el-form-item label="拆40GP" prop="i40gp">
       <el-input
-        v-model="newFormInline.o40gp"
+        v-model="newFormInline.i40gp"
         clearable
         placeholder="请输入拆40GP"
       />
     </el-form-item>
-    <el-form-item label="拆20TK" prop="o20tk">
+    <el-form-item label="拆20TK" prop="i20tk">
       <el-input
-        v-model="newFormInline.o20tk"
+        v-model="newFormInline.i20tk"
         clearable
         placeholder="请输入拆20TK"
       />
     </el-form-item>
-    <el-form-item label="拆40HC" prop="o40hc">
+    <el-form-item label="拆40HC" prop="i40hc">
+      <el-input
+        v-model="newFormInline.i40hc"
+        clearable
+        placeholder="请输入拆40HC"
+      />
+    </el-form-item>
+    <el-form-item label="装20GP" prop="o20gp">
+      <el-input
+        v-model="newFormInline.o20gp"
+        clearable
+        placeholder="请输入装20GP"
+      />
+    </el-form-item>
+    <el-form-item label="装40GP" prop="o40gp">
+      <el-input
+        v-model="newFormInline.o40gp"
+        clearable
+        placeholder="请输入装40GP"
+      />
+    </el-form-item>
+    <el-form-item label="装20TK" prop="o20tk">
+      <el-input
+        v-model="newFormInline.o20tk"
+        clearable
+        placeholder="请输入装20TK"
+      />
+    </el-form-item>
+    <el-form-item label="装40HC" prop="o40hc">
       <el-input
         v-model="newFormInline.o40hc"
         clearable
-        placeholder="请输入拆40HC"
+        placeholder="请输入装40HC"
       />
     </el-form-item>
   </el-form>
