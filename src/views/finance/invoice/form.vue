@@ -112,11 +112,11 @@ defineExpose({ getRef });
         placeholder="请输入开票金额"
       />
     </el-form-item>
-    <el-form-item label="税率" prop="tax_rate">
+    <el-form-item label="税额" prop="tax">
       <el-input
-        v-model="newFormInline.tax_rate"
+        v-model="newFormInline.tax"
         clearable
-        placeholder="请输入税率"
+        placeholder="请输入税额"
       />
     </el-form-item>
     <el-form-item label="发票来源" prop="invoice_from">
