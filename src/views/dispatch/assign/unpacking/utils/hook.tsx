@@ -86,7 +86,8 @@ export function useRole() {
     {
       label: "做箱时间",
       prop: "make_time",
-      formatter: ({ make_time }) => dayjs(make_time).format("YYYY-MM-DD")
+      formatter: ({ make_time }) =>
+        dayjs(make_time).format("YYYY-MM-DD HH:mm:ss")
     },
     {
       label: "暂落点",
