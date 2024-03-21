@@ -32,6 +32,31 @@ const {
   handleCurrentChange,
   handleSelectionChange
 } = useRole();
+
+//指定列求和
+const getSummaries = param => {
+  const { columns, data } = param;
+  const sums = [];
+  columns.forEach((column, index) => {
+    if (index === 0) {
+      sums[index] = "合计";
+      return;
+    }
+    const values = data.map(item => Number(item[column.property]));
+    if (["amount", "tax", "total_amount"].includes(column.property)) {
+      sums[index] = values.reduce((prev, curr) => {
+        const value = Number(curr);
+        if (!isNaN(value)) {
+          return Number(Number(prev + curr).toFixed(2));
+        } else {
+          return Number(Number(prev).toFixed(2));
+        }
+      }, 0);
+      sums[index];
+    }
+  });
+  return sums;
+};
 </script>
 
 <template>
@@ -129,6 +154,8 @@ const {
             background: 'var(--el-table-row-hover-bg-color)',
             color: 'var(--el-text-color-primary)'
           }"
+          show-summary
+          :summary-method="getSummaries"
           @selection-change="handleSelectionChange"
           @page-size-change="handleSizeChange"
           @page-current-change="handlePageChange"
