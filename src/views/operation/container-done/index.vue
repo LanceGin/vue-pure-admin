@@ -117,6 +117,14 @@ const {
           class="!w-[200px]"
         />
       </el-form-item>
+      <el-form-item label="车号" prop="dispatch_car_no">
+        <el-input
+          v-model="form.dispatch_car_no"
+          placeholder="请输入车号"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
     </el-form>
     <el-form
       ref="formRef"
