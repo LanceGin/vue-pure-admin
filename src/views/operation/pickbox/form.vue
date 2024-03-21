@@ -55,11 +55,13 @@ defineExpose({ getRef });
     :rules="formRules"
     label-width="82px"
   >
-    <el-form-item label="提箱点" prop="load_port">
-      <el-input
-        v-model="newFormInline.load_port"
-        clearable
-        placeholder="请输入提箱点"
+    <el-form-item label="做箱时间" prop="make_time">
+      <el-date-picker
+        v-model="newFormInline.make_time"
+        type="datetime"
+        placeholder="请输入做箱时间"
+        format="YYYY/MM/DD HH:mm:ss"
+        value-format="YYYY-MM-DD HH:mm:ss"
       />
     </el-form-item>
     <el-form-item label="道口" prop="crossing">
@@ -67,6 +69,13 @@ defineExpose({ getRef });
         v-model="newFormInline.crossing"
         clearable
         placeholder="请输入道口"
+      />
+    </el-form-item>
+    <el-form-item label="提箱点" prop="load_port">
+      <el-input
+        v-model="newFormInline.load_port"
+        clearable
+        placeholder="请输入提箱点"
       />
     </el-form-item>
     <el-form-item label="备注" prop="remark">

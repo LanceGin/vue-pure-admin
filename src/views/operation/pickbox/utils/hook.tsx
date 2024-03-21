@@ -249,7 +249,7 @@ export function useRole() {
       props: {
         formInline: {
           id: row?.id ?? "",
-          make_time: dayjs(row?.make_time).format("YYYY-MM-DD") ?? "",
+          make_time: dayjs(row?.make_time).format("YYYY-MM-DD HH:mm:ss") ?? "",
           load_port: row?.load_port ?? "",
           crossing: row?.crossing ?? "",
           remark: row?.remark ?? ""
@@ -280,6 +280,7 @@ export function useRole() {
             } else {
               const data = {
                 select_container_no: [],
+                make_time: curData.make_time,
                 load_port: curData.load_port,
                 crossing: curData.crossing,
                 remark: curData.remark
