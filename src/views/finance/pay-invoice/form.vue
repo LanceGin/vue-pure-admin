@@ -76,10 +76,10 @@ defineExpose({ getRef });
     <el-form-item label="认证期" prop="certification_period">
       <el-date-picker
         v-model="newFormInline.certification_period"
-        type="date"
+        type="month"
         placeholder="请输入认证期"
-        format="YYYY/MM/DD"
-        value-format="YYYY-MM-DD"
+        format="YYYY/MM"
+        value-format="YYYY-MM"
       />
     </el-form-item>
   </el-form>

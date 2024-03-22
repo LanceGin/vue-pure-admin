@@ -8,6 +8,7 @@ import { useRenderIcon } from "../../../components/ReIcon/src/hooks";
 // import More from "@iconify-icons/ep/more-filled";n";
 import Search from "@iconify-icons/ep/search";
 // import AddFill from "@iconify-icons/ri/add-circle-line";
+import Upload from "@iconify-icons/ep/upload";
 import Edit from "@iconify-icons/ep/edit";
 
 defineOptions({
@@ -25,6 +26,7 @@ const {
   // buttonClass,
   onSearch,
   openDialog,
+  exportExcel,
   // handleDatabase,
   // handleRowDblclick,
   handleSizeChange,
@@ -107,6 +109,24 @@ const getSummaries = param => {
           class="!w-[200px]"
         />
       </el-form-item>
+      <el-form-item label="入账月份" prop="is_invoice">
+        <el-date-picker
+          v-model="form.is_invoice"
+          type="month"
+          placeholder="请输入入账月份"
+          format="YYYY/MM"
+          value-format="YYYY-MM"
+        />
+      </el-form-item>
+      <el-form-item label="认证期" prop="certification_period">
+        <el-date-picker
+          v-model="form.certification_period"
+          type="month"
+          placeholder="请输入认证期"
+          format="YYYY/MM"
+          value-format="YYYY-MM"
+        />
+      </el-form-item>
     </el-form>
     <el-form
       ref="formRef"
@@ -131,6 +151,9 @@ const getSummaries = param => {
           :disabled="haveRow"
         >
           批量登记
+        </el-button>
+        <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
+          导出
         </el-button>
       </el-form-item>
     </el-form>

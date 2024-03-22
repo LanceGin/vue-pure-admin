@@ -118,18 +118,28 @@ export function useRole() {
     {
       label: "付款日期",
       prop: "paid_time",
-      formatter: ({ paid_time }) => dayjs(paid_time).format("YYYY-MM-DD")
+      formatter: ({ paid_time }) => dayjs(paid_time).format("YYYY-MM")
     },
     {
       label: "认证期",
       prop: "certification_period",
       formatter: ({ certification_period }) =>
-        dayjs(certification_period).format("YYYY-MM-DD")
+        dayjs(certification_period).format("YYYY-MM")
     }
   ];
 
-  function exportExcel() {
-    const res = dataList.value.map(item => {
+  async function exportExcel() {
+    const export_pagination = reactive<PaginationProps>({
+      total: 0,
+      pageSize: 10000,
+      currentPage: 1,
+      background: true
+    });
+    const { data } = await payInvoicetList({
+      pagination: export_pagination,
+      form
+    });
+    const res = data.list.map(item => {
       const arr = [];
       columns.forEach(column => {
         arr.push(item[column.prop as string]);
@@ -144,7 +154,7 @@ export function useRole() {
     const workSheet = utils.aoa_to_sheet(res);
     const workBook = utils.book_new();
     utils.book_append_sheet(workBook, workSheet, "数据报表");
-    writeFile(workBook, "挑箱列表.xlsx");
+    writeFile(workBook, "开票列表.xlsx");
     message("导出成功", {
       type: "success"
     });
