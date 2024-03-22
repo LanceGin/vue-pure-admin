@@ -96,7 +96,9 @@ export function useRole() {
       label: "账期",
       prop: "account_period",
       formatter: ({ account_period }) =>
-        account_period === null ? "" : dayjs(account_period).format("YYYY-MM"),
+        account_period === null
+          ? ""
+          : dayjs(account_period).format("YYYY-MM-DD"),
       minWidth: 100
     },
     {
@@ -111,7 +113,7 @@ export function useRole() {
       label: "做箱时间",
       prop: "make_time",
       formatter: ({ make_time }) =>
-        make_time === null ? "" : dayjs(make_time).format("YYYY-MM"),
+        make_time === null ? "" : dayjs(make_time).format("YYYY-MM-DD"),
       minWidth: 100
     },
     {
