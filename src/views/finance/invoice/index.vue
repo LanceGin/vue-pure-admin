@@ -135,18 +135,18 @@ const getSummaries = param => {
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="销方识别号：" prop="seller_identification_no">
+      <el-form-item label="销方名称：" prop="seller_name">
         <el-input
-          v-model="form.seller_identification_no"
-          placeholder="请输入销方识别号"
+          v-model="form.seller_name"
+          placeholder="请输入销方名称"
           clearable
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="购方识别号：" prop="buyer_identification_no">
+      <el-form-item label="购方名称：" prop="buyer_name">
         <el-input
-          v-model="form.buyer_identification_no"
-          placeholder="请输入购方识别号"
+          v-model="form.buyer_name"
+          placeholder="请输入购方名称"
           clearable
           class="!w-[200px]"
         />
@@ -154,9 +154,20 @@ const getSummaries = param => {
       <el-form-item label="开票日期" prop="invoice_time">
         <el-date-picker
           v-model="form.invoice_time"
-          type="date"
-          placeholder="请输入开票日期"
-          format="YYYY/MM/DD"
+          type="daterange"
+          start-placeholder="起始日期"
+          end-placeholder="截止日期"
+          format="YYYY-MM-DD"
+          value-format="YYYY-MM-DD"
+        />
+      </el-form-item>
+      <el-form-item label="收款日期" prop="receipt_time">
+        <el-date-picker
+          v-model="form.receipt_time"
+          type="daterange"
+          start-placeholder="起始日期"
+          end-placeholder="截止日期"
+          format="YYYY-MM-DD"
           value-format="YYYY-MM-DD"
         />
       </el-form-item>
