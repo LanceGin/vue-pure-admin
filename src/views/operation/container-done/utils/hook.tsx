@@ -133,6 +133,22 @@ export function useRole() {
       prop: "dispatch_car_no"
     },
     {
+      label: "拖车费",
+      prop: "amount"
+    },
+    {
+      label: "提箱点",
+      prop: "load_port"
+    },
+    {
+      label: "还箱点",
+      prop: "unload_port"
+    },
+    {
+      label: "中转港",
+      prop: "transfer_port"
+    },
+    {
       label: "起始港",
       prop: "start_port"
     },
@@ -143,10 +159,6 @@ export function useRole() {
     {
       label: "箱子备注",
       prop: "remark"
-    },
-    {
-      label: "拖车费",
-      prop: "amount"
     }
   ];
 
