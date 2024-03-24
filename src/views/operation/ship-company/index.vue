@@ -86,7 +86,7 @@ const {
           :icon="useRenderIcon(AddFill)"
           @click="openDialog('新增')"
         >
-          添加客户
+          添加船公司
         </el-button>
         <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
           导入
