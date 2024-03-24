@@ -243,16 +243,21 @@ export function useRole() {
     onSearch();
   };
 
-  function openDialog(title = "修改", row?: FormItemProps) {
+  function openDialog(title = "修改", _row?: FormItemProps) {
     addDialog({
-      title: `${title}提箱点`,
+      title: `${title}箱信息`,
       props: {
         formInline: {
-          id: row?.id ?? "",
-          make_time: dayjs(row?.make_time).format("YYYY-MM-DD HH:mm:ss") ?? "",
-          load_port: row?.load_port ?? "",
-          crossing: row?.crossing ?? "",
-          remark: row?.remark ?? ""
+          // id: row?.id ?? "",
+          // make_time: dayjs(row?.make_time).format("YYYY-MM-DD HH:mm:ss") ?? "",
+          // load_port: row?.load_port ?? "",
+          // crossing: row?.crossing ?? "",
+          // remark: row?.remark ?? ""
+          id: "",
+          make_time: "",
+          load_port: "",
+          crossing: "",
+          remark: ""
         }
       },
       width: "40%",
