@@ -60,8 +60,8 @@ export function useRole() {
   // const { tagStyle } = usePublicHooks();
   const pagination = reactive<PaginationProps>({
     total: 0,
-    pageSize: 10,
-    pageSizes: [10, 20, 50, 100, 200, 500],
+    pageSize: 20,
+    pageSizes: [20, 50, 100, 200, 500],
     currentPage: 1,
     background: true
   });

@@ -80,14 +80,14 @@ const handleClose = () => {
       ref="formRef"
       :inline="true"
       :model="form"
-      class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
+      class="search-form bg-bg_color w-[99/100] pl-2 pt-[6px]"
     >
       <el-form-item label="状态：" prop="status">
         <el-select
           v-model="form.status"
           placeholder="请选择状态"
           clearable
-          class="!w-[180px]"
+          class="!w-[120px]"
         >
           <el-option label="未提交" value="未提交" />
           <el-option label="未审核" value="未审核" />
@@ -103,6 +103,7 @@ const handleClose = () => {
           end-placeholder="截止日期"
           format="YYYY-MM-DD"
           value-format="YYYY-MM-DD"
+          class="!w-[200px]"
         />
       </el-form-item>
       <el-form-item label="运单号：" prop="track_no">
@@ -110,7 +111,47 @@ const handleClose = () => {
           v-model="form.track_no"
           placeholder="请输入运单号"
           clearable
-          class="!w-[200px]"
+          class="!w-[120px]"
+        />
+      </el-form-item>
+      <el-form-item label="码头堆场：" prop="load_port">
+        <el-input
+          v-model="form.load_port"
+          placeholder="请输入码头堆场"
+          clearable
+          class="!w-[120px]"
+        />
+      </el-form-item>
+      <el-form-item label="费用名称：" prop="fee_name">
+        <el-input
+          v-model="form.fee_name"
+          placeholder="请输入费用名称"
+          clearable
+          class="!w-[120px]"
+        />
+      </el-form-item>
+      <el-form-item label="车辆：" prop="car_no">
+        <el-input
+          v-model="form.car_no"
+          placeholder="请输入车辆"
+          clearable
+          class="!w-[120px]"
+        />
+      </el-form-item>
+      <el-form-item label="客户简称：" prop="customer">
+        <el-input
+          v-model="form.customer"
+          placeholder="请输入客户简称"
+          clearable
+          class="!w-[120px]"
+        />
+      </el-form-item>
+      <el-form-item label="供应商：" prop="custom_name">
+        <el-input
+          v-model="form.custom_name"
+          placeholder="请输入供应商"
+          clearable
+          class="!w-[120px]"
         />
       </el-form-item>
       <el-form-item label="箱号" prop="containner_no">
@@ -120,58 +161,18 @@ const handleClose = () => {
           :autosize="{ minRows: 2, maxRows: 5 }"
           type="textarea"
           clearable
-          class="!w-[200px]"
+          class="!w-[120px]"
         />
         <el-button link type="primary" @click="form.containner_no = ''"
           >清空</el-button
         >
-      </el-form-item>
-      <el-form-item label="码头堆场：" prop="load_port">
-        <el-input
-          v-model="form.load_port"
-          placeholder="请输入码头堆场"
-          clearable
-          class="!w-[200px]"
-        />
-      </el-form-item>
-      <el-form-item label="费用名称：" prop="fee_name">
-        <el-input
-          v-model="form.fee_name"
-          placeholder="请输入费用名称"
-          clearable
-          class="!w-[200px]"
-        />
-      </el-form-item>
-      <el-form-item label="车辆：" prop="car_no">
-        <el-input
-          v-model="form.car_no"
-          placeholder="请输入车辆"
-          clearable
-          class="!w-[200px]"
-        />
-      </el-form-item>
-      <el-form-item label="客户简称：" prop="customer">
-        <el-input
-          v-model="form.customer"
-          placeholder="请输入客户简称"
-          clearable
-          class="!w-[200px]"
-        />
-      </el-form-item>
-      <el-form-item label="供应商：" prop="custom_name">
-        <el-input
-          v-model="form.custom_name"
-          placeholder="请输入供应商"
-          clearable
-          class="!w-[200px]"
-        />
       </el-form-item>
     </el-form>
     <el-form
       ref="formRef"
       :inline="true"
       :model="form"
-      class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
+      class="search-form bg-bg_color w-[99/100] pl-2 pt-[6px]"
     >
       <el-form-item>
         <el-button
@@ -274,6 +275,12 @@ const handleClose = () => {
 .search-form {
   :deep(.el-form-item) {
     margin-bottom: 12px;
+  }
+}
+
+.el-form--inline {
+  .el-form-item {
+    margin-right: 10px;
   }
 }
 </style>
