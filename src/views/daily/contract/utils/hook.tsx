@@ -51,6 +51,15 @@ export function useRole() {
     currentPage: 1,
     background: true
   });
+  const tableRowClassName = ({ row }) => {
+    const a_time = dayjs(row.end_time).format("YYYY-MM-DD");
+    const now_time = dayjs().format("YYYY-MM-DD");
+    const delta_time = dayjs(a_time).diff(now_time, "day") + 1;
+    if (delta_time < 30) {
+      return "pure-success-row";
+    }
+    return "";
+  };
   const columns: TableColumnList = [
     {
       type: "selection",
@@ -130,8 +139,18 @@ export function useRole() {
     }
   ];
 
-  function exportExcel() {
-    const res = dataList.value.map(item => {
+  async function exportExcel() {
+    const export_pagination = reactive<PaginationProps>({
+      total: 0,
+      pageSize: 10000,
+      currentPage: 1,
+      background: true
+    });
+    const { data } = await contractList({
+      pagination: export_pagination,
+      form
+    });
+    const res = data.list.map(item => {
       const arr = [];
       columns.forEach(column => {
         arr.push(item[column.prop as string]);
@@ -146,7 +165,7 @@ export function useRole() {
     const workSheet = utils.aoa_to_sheet(res);
     const workBook = utils.book_new();
     utils.book_append_sheet(workBook, workSheet, "数据报表");
-    writeFile(workBook, "挑箱列表.xlsx");
+    writeFile(workBook, "合同列表.xlsx");
     message("导出成功", {
       type: "success"
     });
@@ -307,6 +326,7 @@ export function useRole() {
     dataList,
     pagination,
     // buttonClass,
+    tableRowClassName,
     exportExcel,
     onSearch,
     resetForm,

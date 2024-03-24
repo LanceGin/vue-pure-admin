@@ -200,6 +200,10 @@ export function useRole() {
       titleList.push(column.label);
     });
     res.unshift(titleList);
+    for (let i = 1; i < res.length; i++) {
+      const element = res[i];
+      element[1] = dayjs(element[1]).format("YYYY-MM-DD");
+    }
     const workSheet = utils.aoa_to_sheet(res);
     const workBook = utils.book_new();
     utils.book_append_sheet(workBook, workSheet, "数据报表");

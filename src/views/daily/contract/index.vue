@@ -24,8 +24,10 @@ const {
   haveRow,
   columns,
   dataList,
+  tableRowClassName,
   pagination,
   // buttonClass,
+  exportExcel,
   onSearch,
   resetForm,
   openDialog,
@@ -118,6 +120,20 @@ const {
           <el-option label="异常-违约" value="异常-违约" />
         </el-select>
       </el-form-item>
+      <el-form-item label="我方单位：" prop="we_company">
+        <el-input
+          v-model="form.we_company"
+          placeholder="请输入我方单位"
+          clearable
+        />
+      </el-form-item>
+      <el-form-item label="对方企业或个人：" prop="oppo_company">
+        <el-input
+          v-model="form.oppo_company"
+          placeholder="请输入对方企业或个人"
+          clearable
+        />
+      </el-form-item>
     </el-form>
     <el-form
       ref="formRef"
@@ -140,6 +156,9 @@ const {
           @click="openDialog('新增')"
         >
           添加合同
+        </el-button>
+        <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
+          导出合同列表
         </el-button>
         <el-button :icon="useRenderIcon(EditPen)" @click="resetForm(formRef)">
           调整已支付金额
@@ -184,6 +203,7 @@ const {
           :size="size"
           adaptive
           :data="dataList"
+          :row-class-name="tableRowClassName"
           :columns="dynamicColumns"
           :pagination="pagination"
           :paginationSmall="size === 'small' ? true : false"
@@ -211,5 +231,9 @@ const {
   :deep(.el-form-item) {
     margin-bottom: 12px;
   }
+}
+
+:deep(.pure-success-row) {
+  --el-table-tr-bg-color: var(--el-color-danger-light-3);
 }
 </style>
