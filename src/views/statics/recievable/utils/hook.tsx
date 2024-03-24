@@ -383,13 +383,23 @@ export function useRole() {
     form.append("file", item.file);
     const { data } = await dataCheckCollection(form);
     const errorList = [];
+    const tmpList = [];
     data.list.forEach((element, index) => {
+      tmpList.push(element[0]);
       if (element.length === 0) {
         flag = false;
         errorList.push(index + 2);
       }
     });
     if (flag) {
+      dataList.value = tmpList;
+      pagination.total = tmpList.length;
+      pagination.pageSize = 500;
+      pagination.currentPage = 1;
+
+      setTimeout(() => {
+        loading.value = false;
+      }, 500);
       ElMessage({
         type: "success",
         message: `比对通过`
