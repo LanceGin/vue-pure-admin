@@ -248,11 +248,62 @@ export function useRole() {
       title: `${title}箱信息`,
       props: {
         formInline: {
-          // id: row?.id ?? "",
-          // make_time: dayjs(row?.make_time).format("YYYY-MM-DD HH:mm:ss") ?? "",
-          // load_port: row?.load_port ?? "",
-          // crossing: row?.crossing ?? "",
-          // remark: row?.remark ?? ""
+          id: "",
+          make_time: "",
+          load_port: "",
+          crossing: "",
+          remark: ""
+        }
+      },
+      width: "40%",
+      draggable: true,
+      fullscreenIcon: true,
+      closeOnClickModal: false,
+      contentRenderer: () => h(editForm, { ref: formRef }),
+      beforeSure: (done, { options }) => {
+        const FormRef = formRef.value.getRef();
+        const curData = options.props.formInline as FormItemProps;
+        function chores() {
+          message(`您${title}了运单号为${curData.track_no}的这条数据`, {
+            type: "success"
+          });
+          done(); // 关闭弹框
+          onSearch(); // 刷新表格数据
+        }
+        FormRef.validate(valid => {
+          if (valid) {
+            console.log("curData", curData);
+            // 表单规则校验通过
+            if (title === "新增") {
+              // 实际开发先调用新增接口，再进行下面操作
+              chores();
+            } else {
+              const data = {
+                select_container_no: [],
+                make_time: curData.make_time,
+                load_port: curData.load_port,
+                crossing: curData.crossing,
+                remark: curData.remark
+              };
+              selectRows.value.forEach(v => {
+                data.select_container_no.push(v.containner_no);
+              });
+              settingContainer(data);
+              // 实际开发先调用编辑接口，再进行下面操作
+              chores();
+            }
+          }
+        });
+      }
+    });
+  }
+
+  // 暂落
+  function pickDialog(title = "挑箱", _row?: FormItemProps) {
+    addDialog({
+      title: `${title}`,
+      props: {
+        formInline: {
           id: "",
           make_time: "",
           load_port: "",
@@ -343,18 +394,24 @@ export function useRole() {
 
   // 暂落
   async function handleTempDrop() {
-    ElMessageBox.prompt("请输入暂落点", "暂落确认", {
+    ElMessageBox.prompt("请输入暂落点 实付金额（空格隔开）", "暂落确认", {
       confirmButtonText: "确认",
       cancelButtonText: "取消",
       type: "warning"
     })
-      .then(temp_port => {
+      .then(port_amount => {
+        const a = port_amount.value.split(" ");
+        const temp_port = a[0];
+        let actual_amount = null;
+        if (a.length == 2) {
+          actual_amount = a[1];
+        }
         const data = {
           select_container_id: [],
           select_container: [],
           temp_port: temp_port,
           actual_amount: {
-            value: null
+            value: actual_amount
           }
         };
         selectRows.value.forEach(v => {
@@ -462,6 +519,7 @@ export function useRole() {
     onSearch,
     resetForm,
     openDialog,
+    pickDialog,
     handleMenu,
     handleDelete,
     // handleDatabase,

@@ -100,12 +100,12 @@ export function useRole() {
       prop: "car_no"
     },
     {
-      label: "订舱费",
-      prop: "booking_fee"
-    },
-    {
       label: "换单费",
       prop: "exchange_fee"
+    },
+    {
+      label: "水运费",
+      prop: "freight"
     },
     {
       label: "备注",
