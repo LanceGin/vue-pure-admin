@@ -80,6 +80,8 @@ defineExpose({ getRef });
         v-model="newFormInline.add_time"
         type="date"
         placeholder="请输入日期"
+        format="YYYY/MM/DD"
+        value-format="YYYY-MM-DD"
       />
     </el-form-item>
     <el-form-item label="客户" prop="customer">
