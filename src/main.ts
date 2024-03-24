@@ -53,7 +53,7 @@ getServerConfig(app).then(async config => {
   app
     .use(MotionPlugin)
     .use(useI18n)
-    .use(ElementPlus)
+    .use(ElementPlus, { size: "small" })
     .use(Table)
     .use(PureDescriptions)
     .use(useEcharts);

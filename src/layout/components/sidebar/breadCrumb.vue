@@ -89,7 +89,7 @@ watch(
 </script>
 
 <template>
-  <el-breadcrumb class="!leading-[50px] select-none" separator="/">
+  <el-breadcrumb class="!leading-[30px] select-none" separator="/">
     <transition-group name="breadcrumb">
       <el-breadcrumb-item
         class="!inline !items-stretch"

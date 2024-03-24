@@ -60,8 +60,9 @@ defineExpose({ getRef });
         v-model="newFormInline.make_time"
         type="datetime"
         placeholder="请输入做箱时间"
-        format="YYYY/MM/DD HH:mm:ss"
-        value-format="YYYY-MM-DD HH:mm:ss"
+        time-format="HH:mm"
+        format="YYYY/MM/DD HH:mm"
+        value-format="YYYY-MM-DD HH:mm"
       />
     </el-form-item>
     <el-form-item label="道口" prop="crossing">

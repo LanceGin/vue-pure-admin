@@ -31,9 +31,9 @@ const layout = computed(() => {
 const getSectionStyle = computed(() => {
   return [
     hideTabs.value && layout ? "padding-top: 48px;" : "",
-    !hideTabs.value && layout ? "padding-top: 85px;" : "",
+    !hideTabs.value && layout ? "padding-top: 60px;" : "",
     hideTabs.value && !layout.value ? "padding-top: 48px" : "",
-    !hideTabs.value && !layout.value ? "padding-top: 85px;" : "",
+    !hideTabs.value && !layout.value ? "padding-top: 60px;" : "",
     props.fixedHeader ? "" : "padding-top: 0;"
   ];
 });
@@ -133,6 +133,7 @@ const transitionMain = defineComponent({
   position: relative;
   width: 100%;
   height: 100vh;
+  padding-top: 60px;
   overflow-x: hidden;
 }
 
@@ -143,6 +144,6 @@ const transitionMain = defineComponent({
 }
 
 .main-content {
-  margin: 24px;
+  margin: 6px;
 }
 </style>

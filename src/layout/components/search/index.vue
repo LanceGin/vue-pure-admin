@@ -11,7 +11,7 @@ function handleSearch() {
 
 <template>
   <div
-    class="search-container w-[40px] h-[48px] flex-c cursor-pointer navbar-bg-hover"
+    class="search-container w-[40px] h-[30px] flex-c cursor-pointer navbar-bg-hover"
     @click="handleSearch"
   >
     <IconifyIconOffline :icon="Search" />

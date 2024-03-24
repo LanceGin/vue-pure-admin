@@ -43,7 +43,7 @@
   display: flex;
   align-items: center;
   width: 100%;
-  font-size: 14px;
+  font-size: 10px;
   color: var(--el-text-color-primary);
   background: #fff;
   box-shadow: 0 0 1px #888;
@@ -51,10 +51,10 @@
   .scroll-item {
     position: relative;
     display: inline-block;
-    height: 28px;
+    height: 20px;
     padding: 0 6px;
     margin-right: 4px;
-    line-height: 28px;
+    line-height: 20px;
     cursor: pointer;
     border-radius: 3px 3px 0 0;
     box-shadow: 0 0 1px #888;
@@ -214,14 +214,14 @@
 .arrow-down {
   position: relative;
   width: 40px;
-  height: 38px;
+  height: 30px;
   color: var(--el-text-color-primary);
 
   svg {
     position: absolute;
     left: 50%;
     width: 20px;
-    height: 20px;
+    height: 15px;
     transform: translate(-50%, 50%);
   }
 }

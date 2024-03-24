@@ -44,7 +44,7 @@ const {
       ref="formRef"
       :inline="true"
       :model="form"
-      class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
+      class="search-form bg-bg_color w-[99/100] pl-2 pt-[6px]"
     >
       <el-form-item label="船期" prop="arrive_time">
         <el-date-picker
@@ -53,6 +53,7 @@ const {
           placeholder="请输入船期"
           format="YYYY/MM/DD"
           value-format="YYYY-MM-DD"
+          class="!w-[120px]"
         />
       </el-form-item>
       <el-form-item label="船名/航次" prop="ship_name">
@@ -60,7 +61,7 @@ const {
           v-model="form.ship_name"
           placeholder="请输入船名/航次"
           clearable
-          class="!w-[200px]"
+          class="!w-[120px]"
         />
       </el-form-item>
       <el-form-item label="运单号" prop="track_no">
@@ -68,7 +69,7 @@ const {
           v-model="form.track_no"
           placeholder="请输入运单号"
           clearable
-          class="!w-[200px]"
+          class="!w-[120px]"
         />
       </el-form-item>
 
@@ -77,7 +78,7 @@ const {
           v-model="form.container_status"
           placeholder="请选择状态"
           clearable
-          class="!w-[180px]"
+          class="!w-[120px]"
         >
           <el-option label="全部" value="" />
           <el-option label="待挑箱" value="待挑箱" />
@@ -92,7 +93,7 @@ const {
           v-model="form.temp_status"
           placeholder="请选择状态"
           clearable
-          class="!w-[180px]"
+          class="!w-[120px]"
         >
           <el-option label="全部" value="" />
           <el-option label="已暂落" value="已暂落" />
@@ -107,7 +108,7 @@ const {
           :autosize="{ minRows: 2, maxRows: 5 }"
           type="textarea"
           clearable
-          class="!w-[200px]"
+          class="!w-[120px]"
         />
         <el-button link type="primary" @click="form.containner_no = ''"
           >清空</el-button
@@ -118,7 +119,7 @@ const {
           v-model="form.door"
           placeholder="请输入门点"
           clearable
-          class="!w-[200px]"
+          class="!w-[120px]"
         />
       </el-form-item>
     </el-form>
@@ -126,7 +127,7 @@ const {
       ref="formRef"
       :inline="true"
       :model="form"
-      class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
+      class="search-form bg-bg_color w-[99/100] pl-2 pt-[6px]"
     >
       <el-form-item>
         <el-button
@@ -210,7 +211,13 @@ const {
 
 .search-form {
   :deep(.el-form-item) {
-    margin-bottom: 12px;
+    margin-bottom: 4px;
+  }
+}
+
+.el-form--inline {
+  .el-form-item {
+    margin-right: 10px;
   }
 }
 </style>

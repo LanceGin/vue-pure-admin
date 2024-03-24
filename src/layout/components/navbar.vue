@@ -116,13 +116,17 @@ const { t } = useTranslationLang();
 <style lang="scss" scoped>
 .navbar {
   width: 100%;
-  height: 48px;
+  height: 30px;
   overflow: hidden;
+
+  .el-breadcrumb {
+    font-size: 10px;
+  }
 
   .hamburger-container {
     float: left;
     height: 100%;
-    line-height: 48px;
+    line-height: 30px;
     cursor: pointer;
   }
 
@@ -131,25 +135,25 @@ const { t } = useTranslationLang();
     align-items: center;
     justify-content: flex-end;
     min-width: 280px;
-    height: 48px;
+    height: 30px;
     color: #000000d9;
 
     .el-dropdown-link {
       display: flex;
       align-items: center;
       justify-content: space-around;
-      height: 48px;
+      height: 30px;
       padding: 10px;
       color: #000000d9;
       cursor: pointer;
 
       p {
-        font-size: 14px;
+        font-size: 10px;
       }
 
       img {
-        width: 22px;
-        height: 22px;
+        width: 16px;
+        height: 16px;
         border-radius: 50%;
       }
     }
