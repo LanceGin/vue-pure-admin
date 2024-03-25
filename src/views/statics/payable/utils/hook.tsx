@@ -1,4 +1,4 @@
-import { utils, writeFile } from "xlsx";
+import { utils, read, writeFile } from "xlsx";
 import dayjs from "dayjs";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
@@ -384,37 +384,50 @@ export function useRole() {
   // 上传文件批量导入
   async function uploadExcelDetail(item) {
     let flag = true;
-    const form = new FormData();
-    form.append("file", item.file);
-    const { data } = await dataCheckPay(form);
+    const form_data = new FormData();
+    form_data.append("file", item.file);
+    const { data } = await dataCheckPay(form_data);
     const errorList = [];
-    const tmpList = [];
+    let tmpList = [];
     data.list.forEach((element, index) => {
-      tmpList.push(element[0]);
+      tmpList = tmpList.concat(element);
       if (element.length === 0) {
         flag = false;
         errorList.push(index + 2);
       }
     });
-    if (flag) {
-      dataList.value = tmpList;
-      pagination.total = tmpList.length;
-      pagination.pageSize = 500;
-      pagination.currentPage = 1;
 
-      setTimeout(() => {
-        loading.value = false;
-      }, 500);
-      ElMessage({
-        type: "success",
-        message: `比对通过`
-      });
-    } else {
-      ElMessage({
-        type: "error",
-        message: `第${errorList}行数据有误`
-      });
-    }
+    const noList = [];
+    const reader = new FileReader();
+    reader.onload = e => {
+      const data = e.target.result;
+      const workbook = read(data, { type: "binary" });
+      const sheetName = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[sheetName];
+      const jsonData = utils.sheet_to_json(worksheet, { header: 1 });
+      for (let index = 1; index < jsonData.length; index++) {
+        noList.push(jsonData[index][0]);
+      }
+      form.containner_no = noList.join("\n");
+
+      if (flag) {
+        ElMessage({
+          type: "success",
+          message: `比对通过`
+        });
+      } else {
+        const errorNo = [];
+        errorList.forEach(index => {
+          errorNo.push(jsonData[index - 1][0]);
+        });
+        ElMessage({
+          type: "error",
+          message: `箱号为${errorNo}数据有误`
+        });
+        onSearch();
+      }
+    };
+    reader.readAsBinaryString(item.file);
   }
 
   // 提交统计费用
