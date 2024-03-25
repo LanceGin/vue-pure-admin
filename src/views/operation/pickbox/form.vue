@@ -66,11 +66,22 @@ defineExpose({ getRef });
       />
     </el-form-item>
     <el-form-item label="道口" prop="crossing">
-      <el-input
-        v-model="newFormInline.crossing"
-        clearable
-        placeholder="请输入道口"
-      />
+      <el-select v-model="newFormInline.crossing" placeholder="请选择道口">
+        <el-option label="GA" value="GA" />
+        <el-option label="BS" value="BS" />
+        <el-option label="PT" value="PT" />
+        <el-option label="SGE" value="SGE" />
+        <el-option label="SGE-LCM" value="LCM" />
+        <el-option label="CVG" value="CVG" />
+        <el-option label="CVG-LCM" value="CVG-LCM" />
+        <el-option label="NGC" value="NGC" />
+        <el-option label="CSS4" value="CSS4" />
+        <el-option label="CSS" value="CSS" />
+        <el-option label="CSS-LCM" value="CSS-LCM" />
+        <el-option label="NGADK01" value="NGADK01" />
+        <el-option label="NPGA" value="NPGA" />
+        <el-option label="NPBS" value="NPBS" />
+      </el-select>
     </el-form-item>
     <el-form-item label="提箱点" prop="load_port">
       <el-input
