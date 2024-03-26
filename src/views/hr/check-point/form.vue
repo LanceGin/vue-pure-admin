@@ -47,13 +47,6 @@ function initMap() {
         resizeEnable: true
       });
 
-      // const pos = newFormInline.value.location.split(",");
-      // const marker1 = new AMap.Marker({
-      //   position: pos
-      // });
-      // marker1.setMap(map.value);
-      // markers.value.push(marker1);
-
       map.value.on("click", e => {
         newFormInline.value.location = e.pos.toString();
         map.value.remove(markers.value);
@@ -63,18 +56,6 @@ function initMap() {
         marker.setMap(map.value);
         markers.value.push(marker);
       });
-
-      // auto.value = new AMap.AutoComplete({
-      //   input: "tipinput" // 使用联想输入的input的id
-      // });
-
-      // placeSearch.value = new AMap.PlaceSearch({
-      //   map: map.value
-      // });
-
-      // auto.value.on("select", e => {
-      //   console.log(11111, e);
-      // });
     })
     .catch(e => {
       console.log(e);
