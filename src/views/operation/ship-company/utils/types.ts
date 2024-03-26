@@ -4,7 +4,8 @@ interface FormItemProps {
   id: any;
   name: string;
   area: string;
-  order_fee: string;
+  o20: string;
+  o40: string;
   add_time: any;
 }
 interface FormProps {

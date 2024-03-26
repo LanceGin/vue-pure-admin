@@ -10,7 +10,8 @@ const props = withDefaults(defineProps<FormProps>(), {
     id: "",
     name: "",
     area: "",
-    order_fee: "",
+    o20: "",
+    o40: "",
     add_time: ""
   })
 });
@@ -40,8 +41,12 @@ defineExpose({ getRef });
       <el-input v-model="newFormInline.area" placeholder="请输入码头" />
     </el-form-item>
 
-    <el-form-item label="打单费" prop="order_fee">
-      <el-input v-model="newFormInline.order_fee" placeholder="请输入打单费" />
+    <el-form-item label="20打单费" prop="o20">
+      <el-input v-model="newFormInline.o20" placeholder="请输入打单费" />
+    </el-form-item>
+
+    <el-form-item label="40打单费" prop="o40">
+      <el-input v-model="newFormInline.o40" placeholder="请输入打单费" />
     </el-form-item>
   </el-form>
 </template>

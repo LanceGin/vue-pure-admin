@@ -21,7 +21,8 @@ export function useRole() {
     id: "",
     name: "",
     area: "",
-    order_fee: "",
+    o20: "",
+    o40: "",
     add_time: ""
   });
   const formRef = ref();
@@ -47,7 +48,16 @@ export function useRole() {
     },
     {
       label: "打单费",
-      prop: "order_fee"
+      children: [
+        {
+          label: "20",
+          prop: "o20"
+        },
+        {
+          label: "40",
+          prop: "o40"
+        }
+      ]
     },
     {
       label: "创建时间",
@@ -141,7 +151,8 @@ export function useRole() {
           id: row?.id ?? "",
           name: row?.name ?? "",
           area: row?.area ?? "",
-          order_fee: row?.order_fee ?? "",
+          o20: row?.o20 ?? "",
+          o40: row?.o40 ?? "",
           add_time: row?.add_time ?? ""
         }
       },
