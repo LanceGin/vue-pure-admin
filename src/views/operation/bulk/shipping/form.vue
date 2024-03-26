@@ -69,9 +69,9 @@ defineExpose({ getRef });
         placeholder="请输入船公司"
       />
     </el-form-item>
-    <el-form-item label="提单号" prop="seal_no">
+    <el-form-item label="提单号" prop="bl_no">
       <el-input
-        v-model="newFormInline.seal_no"
+        v-model="newFormInline.bl_no"
         clearable
         placeholder="请输入提单号"
       />
@@ -90,9 +90,9 @@ defineExpose({ getRef });
         placeholder="请输入箱型"
       />
     </el-form-item>
-    <el-form-item label="封号" prop="bl_no">
+    <el-form-item label="封号" prop="seal_no">
       <el-input
-        v-model="newFormInline.bl_no"
+        v-model="newFormInline.seal_no"
         clearable
         placeholder="请输入封号"
       />
@@ -123,27 +123,6 @@ defineExpose({ getRef });
         v-model="newFormInline.car_no"
         clearable
         placeholder="请输入车号"
-      />
-    </el-form-item>
-    <el-form-item label="订舱费" prop="booking_fee">
-      <el-input
-        v-model="newFormInline.booking_fee"
-        clearable
-        placeholder="请输入订舱费"
-      />
-    </el-form-item>
-    <el-form-item label="换单费" prop="exchange_fee">
-      <el-input
-        v-model="newFormInline.exchange_fee"
-        clearable
-        placeholder="请输入换单费"
-      />
-    </el-form-item>
-    <el-form-item label="运费" prop="freight">
-      <el-input
-        v-model="newFormInline.freight"
-        clearable
-        placeholder="请输入运费"
       />
     </el-form-item>
     <el-form-item label="备注" prop="remarks">

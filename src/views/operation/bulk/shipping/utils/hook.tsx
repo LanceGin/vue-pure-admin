@@ -10,7 +10,9 @@ import { reactive, ref, onMounted, h } from "vue";
 import {
   addBulkCargo,
   deleteBulkCargo,
+  deleteShippingFee,
   editBulkCargo,
+  generateShippingFee,
   getBulkCargoList
 } from "@/api/operation";
 // import { func } from "vue-types";
@@ -69,7 +71,7 @@ export function useRole() {
     },
     {
       label: "提单号",
-      prop: "seal_no"
+      prop: "bl_no"
     },
     {
       label: "箱号",
@@ -81,7 +83,7 @@ export function useRole() {
     },
     {
       label: "封号",
-      prop: "bl_no"
+      prop: "seal_no"
     },
     {
       label: "流向",
@@ -98,14 +100,6 @@ export function useRole() {
     {
       label: "车号",
       prop: "car_no"
-    },
-    {
-      label: "换单费",
-      prop: "exchange_fee"
-    },
-    {
-      label: "水运费",
-      prop: "freight"
     },
     {
       label: "备注",
@@ -149,8 +143,10 @@ export function useRole() {
     message(`您删除了客户名称为${currentRow.value.customer}的这条数据`, {
       type: "success"
     });
-    await deleteBulkCargo(currentRow.value);
-    onSearch();
+    deleteShippingFee(currentRow.value).then(() => {
+      deleteBulkCargo(currentRow.value);
+      onSearch();
+    });
   }
 
   function handleSizeChange(val: number) {
@@ -197,7 +193,11 @@ export function useRole() {
   };
 
   async function handleAddBulkCargo(bulk) {
-    await addBulkCargo(bulk);
+    const { data } = await addBulkCargo(bulk);
+    const select_item = {
+      select_item: data.list
+    };
+    generateShippingFee(select_item);
   }
 
   function openDialog(title = "添加", row?: FormItemProps) {
