@@ -25,6 +25,24 @@ export default {
       meta: {
         title: $t("menus.operationReport")
       }
+    },
+    {
+      path: "/iframe/transport",
+      name: "FrametTransport",
+      component: () => import("@/layout/frameView.vue"),
+      meta: {
+        title: "运输节点服务",
+        frameSrc: "transportManage"
+      }
+    },
+    {
+      path: "/iframe/path",
+      name: "FramePath",
+      component: () => import("@/layout/frameView.vue"),
+      meta: {
+        title: "运输行程服务",
+        frameSrc: "pathTrack"
+      }
     }
   ]
 } as RouteConfigsTable;

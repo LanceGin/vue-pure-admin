@@ -2,6 +2,7 @@
 import { useI18n } from "vue-i18n";
 import { useRoute } from "vue-router";
 import { ref, unref, onMounted, nextTick } from "vue";
+// import { http } from "@/utils/http";
 
 defineOptions({
   name: "FrameView"
@@ -13,8 +14,13 @@ const currentRoute = useRoute();
 const frameSrc = ref<string>("");
 const frameRef = ref<HTMLElement | null>(null);
 
-if (unref(currentRoute.meta)?.frameSrc) {
-  frameSrc.value = unref(currentRoute.meta)?.frameSrc as string;
+console.log(111111, unref(currentRoute.meta)?.frameSrc);
+if (unref(currentRoute.meta)?.frameSrc == "transportManage") {
+  frameSrc.value =
+    "https://lims.sinoiov.cn/#/middle-page?p=lmJwhHlwZSI6InRyYW5zcG9ydE1hbmFnZSIsInBUb2tlbiI6IjRlNjVjODBlNWY4ODQ0YzE5NzYwODg0YTBjMTVeMyM5In0=";
+} else if (unref(currentRoute.meta)?.frameSrc == "pathTrack") {
+  frameSrc.value =
+    "https://lims.sinoiov.cn/#/middle-page?p=1mJwMHlwZSI6InBhdGhUcmFjayIsInBUb2tlbiI6IjM0MWQyYTg0ZmNhNDQ1ZDliNGE5Njc5NGI3MjVeMyQ1In0=";
 }
 unref(currentRoute.meta)?.frameLoading === false && hideLoading();
 
@@ -22,7 +28,44 @@ function hideLoading() {
   loading.value = false;
 }
 
+const param = {
+  cid: "67f14880-43c9-4e56-9d43-1611ec224b1a",
+  srt: "5895f81d-e674-4945-8dc9-914a2af38525",
+  type: "pathTrack"
+};
+
+import hmacSHA1 from "crypto-js/hmac-sha1";
+
+function processParam(param) {
+  // eslint-disable-next-line no-prototype-builtins
+  if (!param.hasOwnProperty("srt")) {
+    throw new Error();
+  }
+  const srt = param["srt"];
+  delete param["srt"];
+  const paramValueList = [];
+  for (const key in param) {
+    // eslint-disable-next-line no-prototype-builtins
+    if (param.hasOwnProperty(key)) {
+      paramValueList.push(key + param[key]);
+    }
+  }
+  paramValueList.sort();
+  const data = paramValueList.join("");
+  const signature = hmacSHA1(data, srt).toString();
+  return signature.toUpperCase();
+}
+
 function init() {
+  const sign = processParam(param);
+  console.log(6666, sign.toUpperCase());
+  // http
+  //   .request("post", "https://zhiyunopenapi.95155.com/save/apis/pluginUrl", {
+  //     data
+  //   })
+  //   .then(a => {
+  //     console.log(11111, a);
+  //   });
   nextTick(() => {
     const iframe = unref(frameRef);
     if (!iframe) return;
