@@ -55,6 +55,7 @@ export function useRole() {
     order_time: "",
     order_fee: "",
     temp_status: "",
+    temp_port: "",
     trans_status: "",
     abnormal_fee: "",
     dispatch_remark: "",
@@ -143,6 +144,10 @@ export function useRole() {
     {
       label: "还箱点",
       prop: "unload_port"
+    },
+    {
+      label: "暂落点",
+      prop: "temp_port"
     },
     {
       label: "中转港",
