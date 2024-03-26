@@ -64,11 +64,15 @@ defineExpose({ getRef });
     label-width="82px"
   >
     <el-form-item label="还箱点：" prop="unload_port">
-      <el-input
+      <el-select
         v-model="newFormInline.unload_port"
+        placeholder="请选择还箱点"
         clearable
-        placeholder="请输入还箱点"
-      />
+        class="!w-[180px]"
+      >
+        <el-option label="武汉金口" value="武汉金口" />
+        <el-option label="武汉阳逻" value="武汉阳逻" />
+      </el-select>
     </el-form-item>
     <el-form-item label="装箱封号：" prop="export_seal_no">
       <el-input

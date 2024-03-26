@@ -279,7 +279,7 @@ export function useRole() {
           export_seal_no: row?.export_seal_no ?? ""
         }
       },
-      width: "40%",
+      width: "20%",
       draggable: true,
       fullscreenIcon: true,
       closeOnClickModal: false,
