@@ -318,7 +318,7 @@ export function useRole() {
           seal_no: row?.seal_no ?? "",
           container_type: row?.container_type ?? a,
           container_count: row?.container_type ?? b,
-          container_fee: row?.container_type ?? c,
+          container_fee: row?.container_type ?? c.toFixed(2),
           ship_name: row?.ship_name ?? "",
           track_no: row?.track_no ?? "",
           unload_port: row?.unload_port ?? "",
