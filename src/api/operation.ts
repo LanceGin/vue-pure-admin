@@ -175,7 +175,19 @@ export const getBulkCargoList = (data?: object) => {
 
 // 新增散货记录
 export const addBulkCargo = (data?: object) => {
-  return http.request<ChangeResult>("post", baseUrlApi("addBulkCargo"), {
+  return http.request<ListResult>("post", baseUrlApi("addBulkCargo"), {
+    data
+  });
+};
+// 生成太仓水运费列表
+export const generateShippingFee = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("generateShippingFee"), {
+    data
+  });
+};
+// 删除太仓水运费列表
+export const deleteShippingFee = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("deleteShippingFee"), {
     data
   });
 };
