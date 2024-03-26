@@ -63,6 +63,13 @@ defineExpose({ getRef });
     :rules="formRules"
     label-width="82px"
   >
+    <el-form-item label="还箱点：" prop="unload_port">
+      <el-input
+        v-model="newFormInline.unload_port"
+        clearable
+        placeholder="请输入还箱点"
+      />
+    </el-form-item>
     <el-form-item label="装箱封号：" prop="export_seal_no">
       <el-input
         v-model="newFormInline.export_seal_no"
