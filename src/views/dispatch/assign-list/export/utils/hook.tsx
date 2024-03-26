@@ -286,7 +286,7 @@ export function useRole() {
       }
     });
     generateExportDispatch(select_container);
-    generateOrderFee(select_track_no);
+    generateOrderFee(select_container.select_container);
     generateDispatchFee(select_container);
   }
 

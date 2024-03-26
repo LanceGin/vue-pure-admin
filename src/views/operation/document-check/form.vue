@@ -7,7 +7,7 @@ const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
     id: "",
     order_status: "未审核",
-    order_type: "",
+    order_type: "进口",
     ship_company: "",
     customer: "",
     subproject: "",

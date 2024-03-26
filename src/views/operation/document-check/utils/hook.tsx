@@ -247,7 +247,7 @@ export function useRole() {
         formInline: {
           id: row?.id ?? "",
           order_status: row?.order_status ?? "",
-          order_type: row?.order_type ?? "",
+          order_type: row?.order_type ?? "进口",
           ship_company: row?.ship_company ?? "",
           customer: row?.customer ?? "",
           subproject: row?.subproject ?? "",
@@ -325,11 +325,13 @@ export function useRole() {
       .then(() => {
         console.log("submit", selectRows.value);
         const select_track_no = [];
+        const select_container = [];
         selectRows.value.forEach(v => {
           select_track_no.push(v.track_no);
+          select_container.push(v);
         });
         submitDocumentCheck(select_track_no);
-        generateOrderFee(select_track_no);
+        generateOrderFee(select_container);
         onSearch();
       })
       .catch(() => {
