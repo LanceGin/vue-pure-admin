@@ -8,7 +8,11 @@ import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
-import { getLighteringList, importYtoj } from "@/api/operation";
+import {
+  generateShipFee,
+  getLighteringList,
+  importYtoj
+} from "@/api/operation";
 
 export function useRole() {
   const form = reactive({
@@ -177,7 +181,11 @@ export function useRole() {
   async function uploadExcelDetail(item) {
     const form = new FormData();
     form.append("file", item.file);
-    await importYtoj(form);
+    const { data } = await importYtoj(form);
+    const select_item = {
+      select_item: data.list
+    };
+    generateShipFee(select_item);
   }
 
   async function onSearch() {

@@ -227,6 +227,13 @@ export const importYtoj = data => {
   );
 };
 
+// 生成水运费列表
+export const generateShipFee = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("generateShipFee"), {
+    data
+  });
+};
+
 // 批量导入驳运ytoj记录
 export const importJtoy = data => {
   return http.request<ListResult>(
