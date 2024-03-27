@@ -72,7 +72,7 @@ export function useRole() {
   // const { tagStyle } = usePublicHooks();
   const pagination = reactive<PaginationProps>({
     total: 0,
-    pageSize: 10,
+    pageSize: 100,
     pageSizes: [10, 20, 50, 100, 200, 500],
     currentPage: 1,
     background: true
@@ -111,14 +111,14 @@ export function useRole() {
       prop: "door"
     },
     {
-      label: "道口",
-      prop: "crossing"
-    },
-    {
       label: "做箱时间",
       prop: "make_time",
       formatter: ({ make_time }) => dayjs(make_time).format("YYYY-MM-DD HH:mm"),
       minWidth: 120
+    },
+    {
+      label: "道口",
+      prop: "crossing"
     },
     {
       label: "提箱点",
