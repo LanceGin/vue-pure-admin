@@ -16,7 +16,6 @@ import {
   UploadProps,
   UploadRawFile,
   genFileId,
-  ElMessage,
   ElMessageBox
 } from "element-plus";
 // import AddFill from "@iconify-icons/ri/add-circle-line";
@@ -63,11 +62,7 @@ const submitUpload = () => {
 };
 
 const handleSuccess = () => {
-  ElMessage({
-    type: "success",
-    message: "导入成功"
-  });
-  onSearch();
+  console.log("导入");
 };
 
 const handleClose = () => {

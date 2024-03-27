@@ -15,6 +15,7 @@ import {
 } from "@/api/dispatch";
 import { useUserStore } from "@/store/modules/user";
 import { generateDispatchFee, generateOrderFee } from "@/api/finance";
+import { ElMessage } from "element-plus";
 
 export function useRole() {
   const end = new Date();
@@ -274,20 +275,17 @@ export function useRole() {
     form.append("file", item.file);
     form.append("add_by", user.username);
     const { data } = await importExportContainer(form);
-    const select_track_no = [];
     const select_container = {
       select_container: data.list
     };
-    data.list.forEach(item => {
-      if (select_track_no.includes(item.track_no)) {
-        console.log("运单号已存在");
-      } else {
-        select_track_no.push(item.track_no);
-      }
-    });
     generateExportDispatch(select_container);
     generateOrderFee(select_container.select_container);
     generateDispatchFee(select_container);
+    ElMessage({
+      type: "success",
+      message: "导入成功"
+    });
+    onSearch();
   }
 
   /** 菜单权限 */
