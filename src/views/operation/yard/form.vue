@@ -49,6 +49,7 @@ const columns: TableColumnList = [
   }
 ];
 
+const tipinput = ref("tipinput");
 const haveRow = ref(true);
 const selectRow = ref();
 const tableData = ref([]);
@@ -153,7 +154,7 @@ function getRef() {
 const map = ref();
 const markers = ref([]);
 // const auto = ref();
-// const placeSearch = ref();
+const placeSearch = ref();
 const instance = getCurrentInstance();
 const { MapConfigure } = instance.appContext.config.globalProperties.$config;
 
@@ -202,10 +203,22 @@ function initMap() {
         });
         markers.value.push(marker);
       });
+
+      // 搜索
+      placeSearch.value = new AMap.PlaceSearch({
+        //构造地点查询类
+        pageSize: 1, // 单页显示结果条数
+        map: map.value // 展现结果的地图实例
+      });
     })
     .catch(e => {
       console.log(e);
     });
+}
+
+function searchAdd() {
+  //关键字查询
+  placeSearch.value.search(newFormInline.value.yard_adress);
 }
 
 onMounted(() => {
@@ -246,6 +259,8 @@ defineExpose({ getRef });
           <el-input
             v-model="newFormInline.yard_adress"
             placeholder="请输入堆场地址"
+            :id="tipinput"
+            @change="searchAdd"
           />
         </el-form-item>
 
