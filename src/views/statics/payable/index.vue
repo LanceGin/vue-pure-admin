@@ -95,6 +95,18 @@ const handleClose = () => {
           <el-option label="已驳回" value="已驳回" />
         </el-select>
       </el-form-item>
+      <el-form-item label="单据类型：" prop="order_type">
+        <el-select
+          v-model="form.order_type"
+          placeholder="请选择单据类型"
+          clearable
+          class="!w-[120px]"
+        >
+          <el-option label="全部" value="" />
+          <el-option label="进口" value="进口" />
+          <el-option label="出口" value="出口" />
+        </el-select>
+      </el-form-item>
       <el-form-item label="做箱时间：" prop="make_time_range">
         <el-date-picker
           v-model="form.make_time_range"
@@ -166,6 +178,14 @@ const handleClose = () => {
         <el-button link type="primary" @click="form.containner_no = ''"
           >清空</el-button
         >
+      </el-form-item>
+      <el-form-item label="备注：" prop="remark">
+        <el-input
+          v-model="form.remark"
+          placeholder="请输入备注"
+          clearable
+          class="!w-[120px]"
+        />
       </el-form-item>
     </el-form>
     <el-form
