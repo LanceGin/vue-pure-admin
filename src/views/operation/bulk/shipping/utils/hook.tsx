@@ -13,8 +13,10 @@ import {
   deleteShippingFee,
   editBulkCargo,
   generateShippingFee,
-  getBulkCargoList
+  getBulkCargoList,
+  importShipping
 } from "@/api/operation";
+import { ElMessage } from "element-plus";
 // import { func } from "vue-types";
 
 export function useRole() {
@@ -264,6 +266,22 @@ export function useRole() {
     });
   }
 
+  // 上传文件批量导入
+  async function uploadExcelDetail(item) {
+    const form = new FormData();
+    form.append("file", item.file);
+    const { data } = await importShipping(form);
+    const select_item = {
+      select_item: data.list
+    };
+    generateShippingFee(select_item);
+    ElMessage({
+      type: "success",
+      message: "导入成功"
+    });
+    onSearch();
+  }
+
   // 编辑按钮
   function handleEdit() {
     openDialog("编辑", currentRow.value);
@@ -301,6 +319,7 @@ export function useRole() {
     pagination,
     // buttonClass,
     exportExcel,
+    uploadExcelDetail,
     onSearch,
     resetForm,
     openDialog,

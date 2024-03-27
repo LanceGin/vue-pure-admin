@@ -179,6 +179,26 @@ export const addBulkCargo = (data?: object) => {
     data
   });
 };
+
+// 批量导入船运记录
+export const importShipping = data => {
+  return http.request<ListResult>(
+    "post",
+    baseUrlApi("importShipping"),
+    {
+      data
+    },
+    {
+      transformRequest: [
+        function (data, headers) {
+          delete headers["Content-Type"];
+          return data;
+        }
+      ]
+    }
+  );
+};
+
 // 生成太仓水运费列表
 export const generateShippingFee = (data?: object) => {
   return http.request<ListResult>("post", baseUrlApi("generateShippingFee"), {

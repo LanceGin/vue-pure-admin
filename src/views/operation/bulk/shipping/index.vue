@@ -12,12 +12,20 @@ import Search from "@iconify-icons/ep/search";
 import Upload from "@iconify-icons/ep/upload";
 import Download from "@iconify-icons/ep/download";
 import AddFill from "@iconify-icons/ri/add-circle-line";
+import {
+  UploadInstance,
+  UploadProps,
+  UploadRawFile,
+  genFileId,
+  ElMessageBox
+} from "element-plus";
 
 defineOptions({
   name: "Role"
 });
 
 const formRef = ref();
+const dialogVisible = ref(false);
 const {
   form,
   loading,
@@ -27,8 +35,8 @@ const {
   pagination,
   // buttonClass,
   exportExcel,
+  uploadExcelDetail,
   onSearch,
-  resetForm,
   openDialog,
   handleDelete,
   // handleDatabase,
@@ -39,6 +47,36 @@ const {
   handleCurrentChange,
   handleSelectionChange
 } = useRole();
+
+const upload = ref<UploadInstance>();
+
+const handleExceed: UploadProps["onExceed"] = files => {
+  upload.value!.clearFiles();
+  const file = files[0] as UploadRawFile;
+  file.uid = genFileId();
+  upload.value!.handleStart(file);
+};
+
+const submitUpload = () => {
+  upload.value!.submit();
+  dialogVisible.value = false;
+  onSearch();
+};
+
+const handleSuccess = () => {
+  console.log("导入");
+};
+
+const handleClose = () => {
+  ElMessageBox.confirm("确定取消导入船运列表？")
+    .then(() => {
+      // then
+      dialogVisible.value = false;
+    })
+    .catch(() => {
+      // catch error
+    });
+};
 </script>
 
 <template>
@@ -121,7 +159,10 @@ const {
         >
           添加船运记录
         </el-button>
-        <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
+        <el-button
+          :icon="useRenderIcon(Download)"
+          @click="dialogVisible = true"
+        >
           导入
         </el-button>
         <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
@@ -145,6 +186,33 @@ const {
         </el-button>
       </el-form-item>
     </el-form>
+
+    <el-dialog v-model="dialogVisible" title="导入船运列表" width="30%">
+      <el-upload
+        ref="upload"
+        accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
+        :limit="1"
+        :on-exceed="handleExceed"
+        :on-success="handleSuccess"
+        :auto-upload="false"
+        :http-request="uploadExcelDetail"
+      >
+        <template #trigger>
+          <el-button type="primary">选择文件</el-button>
+        </template>
+        <template #tip>
+          <div class="el-upload__tip text-red">
+            仅限上传1份文件，多次上传覆盖之前文件
+          </div>
+        </template>
+      </el-upload>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="handleClose">取消</el-button>
+          <el-button type="primary" @click="submitUpload"> 上传 </el-button>
+        </span>
+      </template>
+    </el-dialog>
 
     <PureTableBar title="船运列表" :columns="columns" @refresh="onSearch">
       <template v-slot="{ size, dynamicColumns }">
