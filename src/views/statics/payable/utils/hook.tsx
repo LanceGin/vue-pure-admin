@@ -192,7 +192,7 @@ export function useRole() {
     },
     {
       label: "供应商",
-      prop: "car_owner"
+      prop: "custom_name"
     },
     {
       label: "结算单位",
@@ -346,7 +346,7 @@ export function useRole() {
           add_by: row?.add_by ?? "",
           add_time: row?.add_time ?? "",
           project_name: row?.project_name ?? "",
-          custom_name: row?.custom_name ?? "",
+          custom_name: row?.car_owner ?? c_o,
           flow_direction: row?.flow_direction ?? "",
           acc_company: row?.acc_company ?? "",
           content: row?.content ?? "",
