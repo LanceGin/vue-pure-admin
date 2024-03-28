@@ -72,7 +72,7 @@ defineExpose({ getRef });
         v-model="newFormInline.crossing"
         placeholder="请选择道口"
       >
-        <el-option label="汇晟" value="汇晟" />
+        <el-option label="汇昇" value="汇昇" />
         <el-option label="汇众" value="汇众" />
         <el-option label="GA" value="GA" />
         <el-option label="BS" value="BS" />
