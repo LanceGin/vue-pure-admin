@@ -225,8 +225,8 @@ export function useRole() {
     res.unshift(titleList);
     for (let i = 1; i < res.length; i++) {
       const element = res[i];
-      element[2] == "" ? dayjs(element[2]).format("YYYY-MM") : "";
-      element[5] == "" ? dayjs(element[5]).format("YYYY-MM-DD") : "";
+      element[2] = dayjs(element[2]).format("YYYY-MM");
+      element[5] = dayjs(element[5]).format("YYYY-MM-DD");
     }
     const workSheet = utils.aoa_to_sheet(res);
     const workBook = utils.book_new();

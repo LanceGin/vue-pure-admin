@@ -61,7 +61,8 @@ export function useRole() {
     dispatch_car_no: "",
     trans_status: "",
     dispatch_remark: "",
-    remark: ""
+    remark: "",
+    type: ""
   });
   const formRef = ref();
   const selectRows = ref([]);
@@ -89,6 +90,12 @@ export function useRole() {
       type: "index"
     },
     {
+      label: "船名航次",
+      prop: "ship_name",
+      hide: true,
+      minWidth: 120
+    },
+    {
       label: "运单号",
       prop: "track_no",
       minWidth: 120
@@ -111,30 +118,30 @@ export function useRole() {
       prop: "door"
     },
     {
+      label: "道口",
+      prop: "crossing"
+    },
+    {
       label: "做箱时间",
       prop: "make_time",
       formatter: ({ make_time }) => dayjs(make_time).format("YYYY-MM-DD HH:mm"),
       minWidth: 120
     },
     {
-      label: "道口",
-      prop: "crossing"
-    },
-    {
       label: "提箱点",
       prop: "load_port"
     },
     {
-      label: "还箱点",
-      prop: "unload_port"
+      label: "装箱点",
+      prop: "export_port"
     },
     {
       label: "装箱封号",
       prop: "export_seal_no"
     },
     {
-      label: "装箱点",
-      prop: "export_port"
+      label: "还箱点",
+      prop: "unload_port"
     },
     {
       label: "车号",

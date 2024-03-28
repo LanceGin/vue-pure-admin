@@ -69,12 +69,40 @@ const {
         />
       </el-form-item>
       <el-form-item label="提箱点：" prop="load_port">
-        <el-input
+        <el-select
           v-model="form.load_port"
-          placeholder="请输入提箱点"
+          placeholder="请选择提箱点"
           clearable
-          class="!w-[200px]"
-        />
+          class="!w-[180px]"
+        >
+          <el-option label="全部" value="" />
+          <el-option label="武汉金口" value="武汉金口" />
+          <el-option label="武汉阳逻" value="武汉阳逻" />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="还箱点：" prop="unload_port">
+        <el-select
+          v-model="form.unload_port"
+          placeholder="请选择还箱点"
+          clearable
+          class="!w-[180px]"
+        >
+          <el-option label="全部" value="" />
+          <el-option label="武汉金口" value="武汉金口" />
+          <el-option label="武汉阳逻" value="武汉阳逻" />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="单据类型：" prop="type">
+        <el-select
+          v-model="form.type"
+          placeholder="请选择单据类型"
+          clearable
+          class="!w-[180px]"
+        >
+          <el-option label="全部" value="" />
+          <el-option label="拆箱" value="拆箱" />
+          <el-option label="装箱" value="装箱" />
+        </el-select>
       </el-form-item>
       <el-form-item label="箱号：" prop="containner_no">
         <el-input
@@ -116,6 +144,7 @@ const {
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border
+          highlight-current-row
           align-whole="center"
           showOverflowTooltip
           table-layout="auto"
@@ -145,6 +174,14 @@ const {
 <style scoped lang="scss">
 :deep(.el-dropdown-menu__item i) {
   margin: 0;
+}
+
+:deep(.el-table) {
+  --el-table-hover-text-color: red;
+}
+
+:deep(.current-row) {
+  color: red;
 }
 
 .search-form {
