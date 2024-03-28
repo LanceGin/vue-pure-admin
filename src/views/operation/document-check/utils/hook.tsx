@@ -325,14 +325,13 @@ export function useRole() {
       .then(() => {
         console.log("submit", selectRows.value);
         const select_track_no = [];
-        const select_container = [];
         selectRows.value.forEach(v => {
           select_track_no.push(v.track_no);
-          select_container.push(v);
         });
-        submitDocumentCheck(select_track_no);
-        generateOrderFee(select_container);
-        onSearch();
+        submitDocumentCheck(select_track_no).then(data => {
+          generateOrderFee(data.data);
+          onSearch();
+        });
       })
       .catch(() => {
         ElMessage({

@@ -10,7 +10,9 @@ import { reactive, ref, onMounted, h } from "vue";
 import {
   addBulkCargo,
   deleteBulkCargo,
+  deleteLandingFee,
   editBulkCargo,
+  generateLandingFee,
   getBulkCargoList
 } from "@/api/operation";
 // import { func } from "vue-types";
@@ -80,7 +82,7 @@ export function useRole() {
     },
     {
       label: "封号",
-      prop: "bl_no"
+      prop: "seal_no"
     },
     {
       label: "始发地区",
@@ -152,8 +154,10 @@ export function useRole() {
     message(`您删除了箱号为${currentRow.value.container_no}的这条数据`, {
       type: "success"
     });
-    await deleteBulkCargo(currentRow.value);
-    onSearch();
+    deleteLandingFee(currentRow.value).then(() => {
+      deleteBulkCargo(currentRow.value);
+      onSearch();
+    });
   }
 
   function handleSizeChange(val: number) {
@@ -200,7 +204,11 @@ export function useRole() {
   };
 
   async function handleAddBulkCargo(bulk) {
-    await addBulkCargo(bulk);
+    const { data } = await addBulkCargo(bulk);
+    const select_item = {
+      select_item: data.list
+    };
+    generateLandingFee(select_item);
   }
 
   function openDialog(title = "添加", row?: FormItemProps) {

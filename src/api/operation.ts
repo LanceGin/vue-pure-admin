@@ -212,6 +212,32 @@ export const deleteShippingFee = (data?: object) => {
   });
 };
 
+// 生成陆运运费列表
+export const generateLandingFee = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("generateLandingFee"), {
+    data
+  });
+};
+// 删除陆运运费列表
+export const deleteLandingFee = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("deleteLandingFee"), {
+    data
+  });
+};
+
+// 生成散货运费列表
+export const generateBulkFee = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("generateBulkFee"), {
+    data
+  });
+};
+// 删除散货运费列表
+export const deleteBulkFee = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("deleteBulkFee"), {
+    data
+  });
+};
+
 // 删除散货记录
 export const deleteBulkCargo = (data?: object) => {
   return http.request<ChangeResult>("post", baseUrlApi("deleteBulkCargo"), {

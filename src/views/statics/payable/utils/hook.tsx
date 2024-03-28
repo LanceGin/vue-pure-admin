@@ -66,7 +66,8 @@ export function useRole() {
     acc_company: "",
     content: "",
     invoice_no: "",
-    car_owner: ""
+    car_owner: "",
+    temp_port: ""
   });
   const formRef = ref();
   const selectRows = ref([]);
@@ -165,6 +166,10 @@ export function useRole() {
     {
       label: "门点",
       prop: "door"
+    },
+    {
+      label: "暂落点",
+      prop: "temp_port"
     },
     {
       label: "车辆",

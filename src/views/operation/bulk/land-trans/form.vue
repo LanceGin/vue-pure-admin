@@ -111,9 +111,9 @@ defineExpose({ getRef });
         placeholder="请输入箱型"
       />
     </el-form-item>
-    <el-form-item label="封号" prop="bl_no">
+    <el-form-item label="封号" prop="seal_no">
       <el-input
-        v-model="newFormInline.bl_no"
+        v-model="newFormInline.seal_no"
         clearable
         placeholder="请输入封号"
       />

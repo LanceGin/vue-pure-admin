@@ -43,8 +43,8 @@ const {
   handleCurrentChange,
   handleSelectionChange,
   // handleSetInvoiceNo,
-  handleSetAmount
-  // handleSetRemark
+  handleSetAmount,
+  handleSetRemark
 } = useRole();
 
 const upload = ref<UploadInstance>();
@@ -89,6 +89,7 @@ const handleClose = () => {
           clearable
           class="!w-[120px]"
         >
+          <el-option label="全部" value="" />
           <el-option label="未提交" value="未提交" />
           <el-option label="未审核" value="未审核" />
           <el-option label="已审核" value="已审核" />
@@ -105,6 +106,9 @@ const handleClose = () => {
           <el-option label="全部" value="" />
           <el-option label="进口" value="进口" />
           <el-option label="出口" value="出口" />
+          <el-option label="陆运" value="陆运" />
+          <el-option label="散货" value="散货" />
+          <el-option label="船运" value="船运" />
         </el-select>
       </el-form-item>
       <el-form-item label="做箱时间：" prop="make_time_range">
@@ -162,6 +166,14 @@ const handleClose = () => {
         <el-input
           v-model="form.custom_name"
           placeholder="请输入供应商"
+          clearable
+          class="!w-[120px]"
+        />
+      </el-form-item>
+      <el-form-item label="暂落点：" prop="temp_port">
+        <el-input
+          v-model="form.temp_port"
+          placeholder="请输入暂落点"
           clearable
           class="!w-[120px]"
         />
@@ -226,6 +238,13 @@ const handleClose = () => {
           :disabled="haveRow"
         >
           批量调整金额
+        </el-button>
+        <el-button
+          :icon="useRenderIcon(EditPen)"
+          @click="handleSetRemark()"
+          :disabled="haveRow"
+        >
+          批量备注
         </el-button>
         <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
           导出
