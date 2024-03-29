@@ -99,7 +99,7 @@ const {
           clearable
           class="!w-[180px]"
         >
-          <el-option label="全部" value="" />
+          <el-option label="全部" value="全部" />
           <el-option label="拆箱" value="拆箱" />
           <el-option label="装箱" value="装箱" />
         </el-select>
