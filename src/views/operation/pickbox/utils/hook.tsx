@@ -279,6 +279,7 @@ export function useRole() {
           id: "",
           make_time: "",
           load_port: "",
+          door: "",
           crossing: "",
           remark: ""
         }
@@ -310,6 +311,7 @@ export function useRole() {
                 select_container_no: [],
                 make_time: curData.make_time,
                 load_port: curData.load_port,
+                door: curData.door,
                 crossing: curData.crossing,
                 remark: curData.remark
               };

@@ -90,6 +90,17 @@ defineExpose({ getRef });
         <el-option label="NPBS" value="NPBS" />
       </el-select>
     </el-form-item>
+    <el-form-item label="门点" prop="door">
+      <el-select
+        filterable
+        allow-create
+        v-model="newFormInline.door"
+        placeholder="请选择门点"
+      >
+        <el-option label="汇昇" value="汇昇" />
+        <el-option label="汇众" value="汇众" />
+      </el-select>
+    </el-form-item>
     <el-form-item label="提箱点" prop="load_port">
       <el-input
         v-model="newFormInline.load_port"
