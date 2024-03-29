@@ -81,9 +81,9 @@ export function useRole() {
       slot: "expand"
     },
     {
-      label: "做箱时间",
-      prop: "make_time",
-      formatter: ({ make_time }) => dayjs(make_time).format("YYYY-MM-DD"),
+      label: "暂落时间",
+      prop: "temp_time",
+      formatter: ({ temp_time }) => dayjs(temp_time).format("YYYY-MM-DD"),
       minWidth: 100
     },
     {

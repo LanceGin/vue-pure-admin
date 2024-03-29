@@ -155,6 +155,34 @@ export function useRole() {
     {
       label: "暂落状态",
       prop: "temp_status"
+    },
+    {
+      label: "暂落点",
+      prop: "temp_port"
+    },
+    {
+      label: "暂落时间",
+      prop: "temp_time",
+      formatter: ({ temp_time }) => {
+        if (temp_time == null) {
+          return "";
+        } else {
+          return dayjs(temp_time).format("YYYY-MM-DD");
+        }
+      }
+    },
+    {
+      label: "暂落天数",
+      prop: "temp_time",
+      formatter: ({ temp_time }) => {
+        const a_time = dayjs(temp_time).format("YYYY-MM-DD");
+        const now_time = dayjs().format("YYYY-MM-DD");
+        if (temp_time == null) {
+          return "";
+        } else {
+          return (dayjs(now_time).diff(a_time, "day") + 1).toString();
+        }
+      }
     }
   ];
 

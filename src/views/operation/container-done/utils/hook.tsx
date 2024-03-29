@@ -61,7 +61,8 @@ export function useRole() {
     dispatch_remark: "",
     dispatch_car_no: "",
     amount: "",
-    remark: ""
+    remark: "",
+    op_time: ""
   });
   const formRef = ref();
   const currentRow = ref();
@@ -86,9 +87,9 @@ export function useRole() {
       prop: "trans_status"
     },
     {
-      label: "做箱时间",
-      prop: "make_time",
-      formatter: ({ make_time }) => dayjs(make_time).format("YYYY-MM-DD"),
+      label: "拆箱/暂落时间",
+      prop: "op_time",
+      formatter: ({ op_time }) => dayjs(op_time).format("YYYY-MM-DD"),
       minWidth: 120
     },
     {
