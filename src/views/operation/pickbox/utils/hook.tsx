@@ -205,6 +205,25 @@ export function useRole() {
       return arr;
     });
     const titleList = [];
+    const now_time = dayjs().format("YYYY-MM-DD");
+    for (let i = 0; i < res.length; i++) {
+      const element = res[i];
+      element[8] = dayjs(element[8]).format("YYYY-MM-DD");
+      element[10] = dayjs(element[10]).format("YYYY-MM-DD");
+      if (element[1] == "待挑箱") {
+        element[11] = (
+          dayjs(now_time).diff(dayjs(element[10]).format("YYYY-MM-DD"), "day") +
+          1
+        ).toString();
+      } else {
+        element[11] = (
+          dayjs(dayjs(element[8]).format("YYYY-MM-DD")).diff(
+            dayjs(element[10]).format("YYYY-MM-DD"),
+            "day"
+          ) + 1
+        ).toString();
+      }
+    }
     columns.forEach(column => {
       titleList.push(column.label);
     });
