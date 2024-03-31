@@ -29,6 +29,7 @@ const {
   onSearch,
   openDialog,
   handleDelete,
+  handleSubmit,
   // handleDatabase,
   handleRowDblclick,
   handleEdit,
@@ -99,6 +100,14 @@ const {
           :disabled="haveRow"
         >
           删除
+        </el-button>
+        <el-button
+          type="primary"
+          :icon="useRenderIcon(EditPen)"
+          @click="handleSubmit()"
+          :disabled="haveRow"
+        >
+          提交
         </el-button>
       </el-form-item>
     </el-form>

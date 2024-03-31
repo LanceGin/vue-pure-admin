@@ -6,6 +6,7 @@ import { FormProps } from "./utils/types";
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
     id: "",
+    status: "",
     type: "",
     title: "",
     content: "",

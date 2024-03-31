@@ -9,12 +9,19 @@ import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
 import { useUserStore } from "@/store/modules/user";
-import { addReport, deleteReport, editReport, reportList } from "@/api/daily";
+import {
+  addReport,
+  deleteReport,
+  editReport,
+  reportList,
+  submitReport
+} from "@/api/daily";
 
 export function useRole() {
   const user = useUserStore();
   const form = reactive({
     id: "",
+    status: "",
     type: "",
     title: "",
     content: "",
@@ -36,6 +43,10 @@ export function useRole() {
     background: true
   });
   const columns: TableColumnList = [
+    {
+      label: "状态",
+      prop: "status"
+    },
     {
       label: "类型",
       prop: "type"
@@ -92,6 +103,14 @@ export function useRole() {
       type: "success"
     });
     await deleteReport(currentRow.value);
+    onSearch();
+  }
+
+  async function handleSubmit() {
+    message(`您提交了标题为${currentRow.value.title}的这条数据`, {
+      type: "success"
+    });
+    await submitReport(currentRow.value);
     onSearch();
   }
 
@@ -230,6 +249,7 @@ export function useRole() {
     openDialog,
     handleMenu,
     handleDelete,
+    handleSubmit,
     // handleDatabase,
     handleRowDblclick,
     handleEdit,

@@ -2,6 +2,7 @@
 
 interface FormItemProps {
   id: string;
+  status: string;
   type: string;
   title: string;
   content: string;
