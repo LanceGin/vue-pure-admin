@@ -140,7 +140,14 @@ export function useRole() {
     },
     {
       label: "提箱点",
-      prop: "load_port"
+      prop: "load_port",
+      cellRenderer: ({ row }) => {
+        if (row.temp_port != null && row.type == "拆箱") {
+          return row.temp_port;
+        } else {
+          return row.load_port;
+        }
+      }
     },
     {
       label: "还箱点",
@@ -148,7 +155,14 @@ export function useRole() {
     },
     {
       label: "暂落点",
-      prop: "temp_port"
+      prop: "temp_port",
+      cellRenderer: ({ row }) => {
+        if (row.type == "暂落") {
+          return row.temp_port;
+        } else {
+          return "";
+        }
+      }
     },
     {
       label: "中转港",
