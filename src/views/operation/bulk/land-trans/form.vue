@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { reactive, ref } from "vue";
 import { formRules } from "./utils/rule";
 import { FormProps } from "./utils/types";
 import { convertTextToCode, regionData, CodeToText } from "@/utils/chinaArea";
+import { vehicleInfoList } from "@/api/vehicle";
+import type { PaginationProps } from "@pureadmin/table";
 
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
@@ -60,6 +62,54 @@ const handleChange2 = value => {
   newFormInline.value.unload_area = `${CodeToText[value[0]]}-${
     CodeToText[value[1]]
   }-${CodeToText[value[2]]}`;
+};
+
+/** 分页配置 */
+const pagination = reactive<PaginationProps>({
+  pageSize: 500,
+  currentPage: 1,
+  total: 0
+});
+const form = reactive({
+  id: "",
+  car_no: "",
+  driver: "",
+  mobile: ""
+});
+
+interface CompanyItem {
+  id: string;
+  car_no: string;
+  car: string;
+}
+const loading = ref(false);
+const list = ref<CompanyItem[]>([]);
+const options = ref<CompanyItem[]>([]);
+let accData = [];
+const data = vehicleInfoList({ pagination, form });
+data.then(v => {
+  accData = v.data.list;
+  list.value = accData.map(item => {
+    return {
+      id: `${item.id}`,
+      car_no: `${item.car_no}`,
+      car: `${item.car_no}-${item.driver}-${item.territory}`
+    };
+  });
+});
+
+const remoteMethod = (query: string) => {
+  if (query) {
+    loading.value = true;
+    setTimeout(() => {
+      loading.value = false;
+      options.value = list.value.filter(item => {
+        return item.car_no.toLowerCase().includes(query.toLowerCase());
+      });
+    }, 200);
+  } else {
+    options.value = [];
+  }
 };
 
 function getRef() {
@@ -147,11 +197,24 @@ defineExpose({ getRef });
       />
     </el-form-item>
     <el-form-item label="车号" prop="car_no">
-      <el-input
+      <el-select
         v-model="newFormInline.car_no"
-        clearable
-        placeholder="请输入车号"
-      />
+        filterable
+        allow-create
+        remote
+        reserve-keyword
+        placeholder="输入车号关键字"
+        :remote-method="remoteMethod"
+        :loading="loading"
+        style="width: 240px"
+      >
+        <el-option
+          v-for="item in options"
+          :key="item.id"
+          :label="item.car"
+          :value="item.car_no"
+        />
+      </el-select>
     </el-form-item>
     <el-form-item label="运费" prop="freight">
       <el-input
