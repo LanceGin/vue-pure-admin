@@ -38,6 +38,7 @@ export function useRole() {
   const formRef = ref();
   const currentRow = ref();
   const haveRow = ref(true);
+  const selectRows = ref([]);
   const dataList = ref([]);
   const loading = ref(true);
   // const switchLoadMap = ref({});
@@ -50,6 +51,10 @@ export function useRole() {
     background: true
   });
   const columns: TableColumnList = [
+    {
+      type: "selection",
+      align: "left"
+    },
     {
       label: "状态",
       cellRenderer: ({ row, props }) => (
@@ -156,10 +161,18 @@ export function useRole() {
   }
 
   async function handleDelete() {
-    message(`您删除了客户为${currentRow.value.customer}的这条数据`, {
+    const data = {
+      select_id: [],
+      select_customer: []
+    };
+    selectRows.value.forEach(v => {
+      data.select_id.push(v.id);
+      data.select_customer.push(v.customer);
+    });
+    message(`您删除了客户为为${data.select_customer}的数据`, {
       type: "success"
     });
-    await deleteDoorPrice(currentRow.value);
+    await deleteDoorPrice(data);
     onSearch();
   }
 
@@ -182,6 +195,12 @@ export function useRole() {
 
   function handleSelectionChange(val) {
     console.log("handleSelectionChange", val);
+    selectRows.value = val;
+    if (selectRows.value.length > 0) {
+      haveRow.value = false;
+    } else {
+      haveRow.value = true;
+    }
   }
 
   async function onSearch() {
