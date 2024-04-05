@@ -53,11 +53,11 @@ const {
       <el-form-item label="做箱日期：" prop="make_time_range">
         <el-date-picker
           v-model="form.make_time_range"
-          type="daterange"
+          type="datetimerange"
           start-placeholder="起始日期"
           end-placeholder="截止日期"
-          format="YYYY-MM-DD"
-          value-format="YYYY/MM/DD"
+          format="YYYY-MM-DD HH:mm:ss"
+          :default-time="new Date(2000, 1, 1, 6, 0, 0)"
         />
       </el-form-item>
       <el-form-item label="门点：" prop="door">

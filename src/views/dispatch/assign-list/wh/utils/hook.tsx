@@ -17,8 +17,14 @@ import {
 import { ElMessage, ElMessageBox } from "element-plus";
 
 export function useRole() {
-  const end = new Date();
-  const start = new Date();
+  const now = new Date();
+  const start = new Date(now.setHours(6, 0, 0, 0));
+  const tomorrow = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate() + 1
+  );
+  const end = new Date(tomorrow.setHours(6, 0, 0, 0));
   // start.setTime(start.getTime() - 3600 * 1000 * 24 * 5);
   const form = reactive({
     id: "",
