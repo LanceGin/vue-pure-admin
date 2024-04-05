@@ -113,13 +113,29 @@ export function useRole() {
     {
       label: "做箱时间",
       prop: "make_time",
-      formatter: ({ make_time }) =>
-        make_time === null ? "" : dayjs(make_time).format("YYYY-MM-DD"),
+      cellRenderer: ({ row }) => {
+        if (row.dispatch_type == "拆箱") {
+          return row.make_time == null
+            ? ""
+            : dayjs(row.make_time).format("YYYY-MM-DD");
+        } else {
+          return row.temp_time == null
+            ? ""
+            : dayjs(row.temp_time).format("YYYY-MM-DD");
+        }
+      },
       minWidth: 100
     },
     {
       label: "单据类型",
-      prop: "order_type"
+      prop: "order_type",
+      cellRenderer: ({ row }) => {
+        if (row.dispatch_type == "拆箱") {
+          return row.order_type;
+        } else {
+          return "暂落";
+        }
+      }
     },
     {
       label: "客户简称",
@@ -165,11 +181,25 @@ export function useRole() {
     },
     {
       label: "门点",
-      prop: "door"
+      prop: "door",
+      cellRenderer: ({ row }) => {
+        if (row.dispatch_type == "拆箱" && row.temp_time != null) {
+          return row.temp_port;
+        } else {
+          return row.door;
+        }
+      }
     },
     {
       label: "暂落点",
-      prop: "temp_port"
+      prop: "temp_port",
+      cellRenderer: ({ row }) => {
+        if (row.dispatch_type == "拆箱" && row.temp_time != null) {
+          return "";
+        } else {
+          return row.temp_port;
+        }
+      }
     },
     {
       label: "车辆",
