@@ -12,7 +12,7 @@ import Search from "@iconify-icons/ep/search";
 import Upload from "@iconify-icons/ep/upload";
 
 defineOptions({
-  name: "Role"
+  name: "LighteringStat"
 });
 
 const formRef = ref();

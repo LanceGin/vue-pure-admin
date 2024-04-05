@@ -146,7 +146,8 @@ export default {
           component: () =>
             import("@/views/operation/lightering/ytoj/index.vue"),
           meta: {
-            title: "阳逻-金口"
+            title: "阳逻-金口",
+            keepAlive: true
           }
         },
         {
@@ -155,7 +156,8 @@ export default {
           component: () =>
             import("@/views/operation/lightering/jtoy/index.vue"),
           meta: {
-            title: "金口-阳逻"
+            title: "金口-阳逻",
+            keepAlive: true
           }
         },
         {
@@ -164,7 +166,8 @@ export default {
           component: () =>
             import("@/views/operation/lightering/stat/index.vue"),
           meta: {
-            title: "驳运统计"
+            title: "驳运统计",
+            keepAlive: true
           }
         }
       ]
