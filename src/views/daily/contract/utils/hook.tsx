@@ -131,6 +131,20 @@ export function useRole() {
     },
     {
       label: "合同履行情况",
+      prop: "end_time",
+      cellRenderer: ({ row }) => {
+        const a_time = dayjs(row.end_time).format("YYYY-MM-DD");
+        const now_time = dayjs().format("YYYY-MM-DD");
+        const delta_time = dayjs(a_time).diff(now_time, "day") + 1;
+        if (delta_time < 0) {
+          return "到期终止";
+        } else {
+          return "履行中";
+        }
+      }
+    },
+    {
+      label: "合同状态",
       prop: "status"
     },
     {

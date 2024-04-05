@@ -105,16 +105,27 @@ const {
           <el-option label="其他" value="其他" />
         </el-select>
       </el-form-item>
-      <el-form-item label="履行情况：" prop="status">
+      <!-- <el-form-item label="履行情况：" prop="status">
         <el-select
           v-model="form.status"
-          placeholder="请选择情况"
+          placeholder="请选择履行情况"
           clearable
           class="!w-[180px]"
         >
           <el-option label="全部" value="" />
           <el-option label="履行中" value="履行中" />
           <el-option label="到期终止" value="到期终止" />
+        </el-select>
+      </el-form-item> -->
+      <el-form-item label="状态：" prop="status">
+        <el-select
+          v-model="form.status"
+          placeholder="请选择状态"
+          clearable
+          class="!w-[180px]"
+        >
+          <el-option label="全部" value="" />
+          <el-option label="正常" value="正常" />
           <el-option label="异常-变更" value="异常-变更" />
           <el-option label="异常-解除" value="异常-解除" />
           <el-option label="异常-违约" value="异常-违约" />
