@@ -32,7 +32,7 @@ const {
   handleSelectionChange,
   handlePickBox,
   handleTempDrop,
-  // handleMakeTime,
+  handleArriveTime,
   // handleLoadPort,
   handleSetting
 } = useRole();
@@ -154,21 +154,21 @@ const {
         >
           挑箱
         </el-button>
-        <!-- <el-button
-          type="primary"
-          :icon="useRenderIcon(EditPen)"
-          @click="handleMakeTime()"
-          :disabled="haveRow"
-        >
-          批量设置做箱时间
-        </el-button> -->
         <el-button
           type="primary"
           :icon="useRenderIcon(EditPen)"
           @click="handleSetting()"
           :disabled="haveRow"
         >
-          批量修改箱信息
+          修改箱信息
+        </el-button>
+        <el-button
+          type="primary"
+          :icon="useRenderIcon(EditPen)"
+          @click="handleArriveTime()"
+          :disabled="haveRow"
+        >
+          修改船期
         </el-button>
         <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
           导出

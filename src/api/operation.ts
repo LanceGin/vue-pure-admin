@@ -426,9 +426,9 @@ export const loadPort = (data?: object) => {
   });
 };
 
-// 批量设置做箱时间
-export const makeTime = (data?: object) => {
-  return http.request<ListResult>("post", baseUrlApi("makeTime"), {
+// 修改船期
+export const arriveTime = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("arriveTime"), {
     data
   });
 };

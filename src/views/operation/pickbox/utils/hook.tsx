@@ -9,9 +9,9 @@ import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
 import {
+  arriveTime,
   getPickBoxList,
   loadPort,
-  makeTime,
   pickBox,
   settingContainer,
   tempDrop
@@ -488,28 +488,30 @@ export function useRole() {
       });
   }
 
-  // 批量设置做箱时间
-  async function handleMakeTime() {
-    ElMessageBox.prompt("请输入新的做箱时间", "批量设置做箱时间", {
+  // 修改船期
+  async function handleArriveTime() {
+    ElMessageBox.prompt("请输入新的船期", "批量设置船期", {
       confirmButtonText: "确认",
       cancelButtonText: "取消",
       inputType: "datetime-local"
     })
-      .then(make_time => {
+      .then(arrive_time => {
         const data = {
-          select_container_no: [],
-          make_time: make_time
+          select_track_no: [],
+          arrive_time: arrive_time
         };
         selectRows.value.forEach(v => {
-          data.select_container_no.push(v.containner_no);
+          if (!data.select_track_no.includes(v.track_no)) {
+            data.select_track_no.push(v.track_no);
+          }
         });
-        makeTime(data);
+        arriveTime(data);
         onSearch();
       })
       .catch(() => {
         ElMessage({
           type: "info",
-          message: "取消修改提箱点"
+          message: "取消修改船期"
         });
       });
   }
@@ -578,7 +580,7 @@ export function useRole() {
     handleSelectionChange,
     handlePickBox,
     handleTempDrop,
-    handleMakeTime,
+    handleArriveTime,
     handleLoadPort,
     handleSetting
   };
