@@ -20,6 +20,7 @@ import {
 } from "@/api/daily";
 import { useUserStore } from "@/store/modules/user";
 import { ElMessage, ElMessageBox } from "element-plus";
+import Print from "@/utils/print";
 
 export function useRole() {
   const user = useUserStore();
@@ -340,7 +341,6 @@ export function useRole() {
   }
 
   function applyDialog(title = "打印", selectRows) {
-    console.log(43423325, selectRows);
     addDialog({
       title: `申请单打印`,
       props: {
@@ -353,24 +353,10 @@ export function useRole() {
       fullscreenIcon: true,
       closeOnClickModal: false,
       contentRenderer: () => h(applyPrint, { ref: formRef }),
-      beforeSure: (done, { options }) => {
+      beforeSure: () => {
         const FormRef = formRef.value.getRef();
-        const curData = options.props.formInline as FormItemProps;
-        FormRef.validate(valid => {
-          if (valid) {
-            console.log("curData", curData);
-            // 表单规则校验通过
-            if (title === "新增") {
-              // 实际开发先调用新增接口，再进行下面操作
-              // handleAddData(curData);
-              console.log("打印");
-            } else {
-              // 实际开发先调用编辑接口，再进行下面操作
-              // asyncEdit(curData);
-              console.log("取消");
-            }
-          }
-        });
+        console.log(title, FormRef);
+        Print(".apply_print").toPrint;
       }
     });
   }
@@ -379,31 +365,19 @@ export function useRole() {
     addDialog({
       title: `报销单打印`,
       props: {
-        selectRows: selectRows
+        formInline: {
+          selectRows: selectRows
+        }
       },
-      width: "40%",
+      width: "900px",
       draggable: true,
       fullscreenIcon: true,
       closeOnClickModal: false,
       contentRenderer: () => h(reimPrint, { ref: formRef }),
-      beforeSure: (done, { options }) => {
+      beforeSure: () => {
         const FormRef = formRef.value.getRef();
-        const curData = options.props.formInline as FormItemProps;
-        FormRef.validate(valid => {
-          if (valid) {
-            console.log("curData", curData);
-            // 表单规则校验通过
-            if (title === "新增") {
-              // 实际开发先调用新增接口，再进行下面操作
-              // handleAddData(curData);
-              console.log("打印");
-            } else {
-              // 实际开发先调用编辑接口，再进行下面操作
-              // asyncEdit(curData);
-              console.log("取消");
-            }
-          }
-        });
+        console.log(title, FormRef);
+        Print(".reim_print").toPrint;
       }
     });
   }

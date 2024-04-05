@@ -18,8 +18,6 @@ const ruleFormRef = ref();
 const newFormInline = ref(props.formInline);
 const selectRows = newFormInline.value.selectRows;
 
-console.log(11111, newFormInline, selectRows[0]);
-
 function getRef() {
   return ruleFormRef.value;
 }
@@ -28,12 +26,11 @@ defineExpose({ getRef });
 </script>
 
 <template>
-  <div style="padding: 5px 30px; overflow: hidden">
+  <div class="apply_print" style="padding: 5px 30px; overflow: hidden">
     <table
       border="0"
       cellpadding="1"
       width="100%"
-      :model="selectRows"
       style="padding-right: 50px; padding-bottom: 5px; padding-left: 50px"
     >
       <tbody>
@@ -136,7 +133,7 @@ defineExpose({ getRef });
           <td colspan="2">日期:</td>
           <td colspan="2">
             日期:<label>{{
-              dayjs(selectRows[0].apply_time).format("YYYY-MM-DD")
+              dayjs(selectRows[0].audit_time).format("YYYY-MM-DD")
             }}</label>
           </td>
           <td colspan="2">日期:<label /></td>
