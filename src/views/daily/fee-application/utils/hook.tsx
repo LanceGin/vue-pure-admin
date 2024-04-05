@@ -340,12 +340,15 @@ export function useRole() {
   }
 
   function applyDialog(title = "打印", selectRows) {
+    console.log(43423325, selectRows);
     addDialog({
       title: `申请单打印`,
       props: {
-        selectRows: selectRows
+        formInline: {
+          selectRows: selectRows
+        }
       },
-      width: "40%",
+      width: "900px",
       draggable: true,
       fullscreenIcon: true,
       closeOnClickModal: false,
