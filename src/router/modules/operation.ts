@@ -15,7 +15,8 @@ export default {
       name: "ShipCompany",
       component: () => import("@/views/operation/ship-company/index.vue"),
       meta: {
-        title: "船公司管理"
+        title: "船公司管理",
+        roles: ["admin", "operation", "ship_company"]
       }
     },
     {
@@ -23,7 +24,8 @@ export default {
       name: "Motorcade",
       component: () => import("@/views/operation/motorcade/index.vue"),
       meta: {
-        title: $t("menus.motorcade")
+        title: $t("menus.motorcade"),
+        roles: ["admin", "operation", "motorcade"]
       }
     },
     // {
@@ -66,7 +68,8 @@ export default {
       name: "Yard",
       component: () => import("@/views/operation/yard/index.vue"),
       meta: {
-        title: $t("menus.yard")
+        title: $t("menus.yard"),
+        roles: ["admin", "operation", "yard"]
       }
     },
     // {
@@ -88,7 +91,8 @@ export default {
           name: "Shipping",
           component: () => import("@/views/operation/bulk/shipping/index.vue"),
           meta: {
-            title: "船运"
+            title: "船运",
+            roles: ["admin", "operation", "shipping"]
           }
         },
         {
@@ -97,7 +101,8 @@ export default {
           component: () =>
             import("@/views/operation/bulk/land-trans/index.vue"),
           meta: {
-            title: "陆运"
+            title: "陆运",
+            roles: ["admin", "operation", "land_trans"]
           }
         },
         {
@@ -105,7 +110,8 @@ export default {
           name: "Bulk",
           component: () => import("@/views/operation/bulk/bulk/index.vue"),
           meta: {
-            title: "散货"
+            title: "散货",
+            roles: ["admin", "operation", "bulk"]
           }
         }
       ]
@@ -115,7 +121,8 @@ export default {
       name: "DocumenCheck",
       component: () => import("@/views/operation/document-check/index.vue"),
       meta: {
-        title: $t("menus.documentCheck")
+        title: $t("menus.documentCheck"),
+        roles: ["admin", "operation", "document_check"]
       }
     },
     {
@@ -123,7 +130,8 @@ export default {
       name: "ContainerDone",
       component: () => import("@/views/operation/container-done/index.vue"),
       meta: {
-        title: "单据查看"
+        title: "单据查看",
+        roles: ["admin", "operation", "container_done"]
       }
     },
     {
@@ -131,7 +139,8 @@ export default {
       name: "PickBox",
       component: () => import("@/views/operation/pickbox/index.vue"),
       meta: {
-        title: $t("menus.pickbox")
+        title: $t("menus.pickbox"),
+        roles: ["admin", "operation", "pick_box"]
       }
     },
     {
@@ -147,7 +156,8 @@ export default {
             import("@/views/operation/lightering/ytoj/index.vue"),
           meta: {
             title: "阳逻-金口",
-            keepAlive: true
+            keepAlive: true,
+            roles: ["admin", "operation", "ytoj"]
           }
         },
         {
@@ -157,7 +167,8 @@ export default {
             import("@/views/operation/lightering/jtoy/index.vue"),
           meta: {
             title: "金口-阳逻",
-            keepAlive: true
+            keepAlive: true,
+            roles: ["admin", "operation", "jtoy"]
           }
         },
         {
@@ -167,7 +178,8 @@ export default {
             import("@/views/operation/lightering/stat/index.vue"),
           meta: {
             title: "驳运统计",
-            keepAlive: true
+            keepAlive: true,
+            roles: ["admin", "operation", "lightering_stat"]
           }
         }
       ]

@@ -15,7 +15,8 @@ export default {
       name: "VehicleInfo",
       component: () => import("@/views/vehicle/vehicle-info/index.vue"),
       meta: {
-        title: $t("menus.vehicleInfo")
+        title: $t("menus.vehicleInfo"),
+        roles: ["admin", "vehicle", "vehicle_info"]
       }
     },
     {
@@ -23,7 +24,8 @@ export default {
       name: "DriverInfo",
       component: () => import("@/views/vehicle/driver-info/index.vue"),
       meta: {
-        title: $t("menus.driverInfo")
+        title: $t("menus.driverInfo"),
+        roles: ["admin", "vehicle", "driver_info"]
       }
     },
     {
@@ -31,7 +33,8 @@ export default {
       name: "VehicleRate",
       component: () => import("@/views/vehicle/vehicle-rate/index.vue"),
       meta: {
-        title: $t("menus.vehicleRate")
+        title: $t("menus.vehicleRate"),
+        roles: ["admin", "vehicle", "vehicle_rate"]
       }
     },
     {
@@ -39,7 +42,8 @@ export default {
       name: "OilConsumption",
       component: () => import("@/views/vehicle/oil-consumption/index.vue"),
       meta: {
-        title: $t("menus.oilConsumption")
+        title: $t("menus.oilConsumption"),
+        roles: ["admin", "vehicle", "oil_consumption"]
       }
     },
     {
@@ -47,7 +51,8 @@ export default {
       name: "Refuel",
       component: () => import("@/views/vehicle/refuel/index.vue"),
       meta: {
-        title: "撬装加油"
+        title: "撬装加油",
+        roles: ["admin", "vehicle", "refuel"]
       }
     },
     {
@@ -55,7 +60,8 @@ export default {
       name: "VehicleFee",
       component: () => import("@/views/vehicle/vehicle-fee/index.vue"),
       meta: {
-        title: "车辆费用"
+        title: "车辆费用",
+        roles: ["admin", "vehicle", "vehicle_fee"]
       }
     }
   ]

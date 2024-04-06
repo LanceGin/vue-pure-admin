@@ -15,7 +15,8 @@ export default {
       name: "LighteringPrice",
       component: () => import("@/views/statics/lightering-price/index.vue"),
       meta: {
-        title: "驳运价格"
+        title: "驳运价格",
+        roles: ["admin", "statics", "lightering_price"]
       }
     },
     {
@@ -23,7 +24,8 @@ export default {
       name: "CollectionPrice",
       component: () => import("@/views/statics/collection-price/index.vue"),
       meta: {
-        title: $t("menus.collectionPrice")
+        title: $t("menus.collectionPrice"),
+        roles: ["admin", "statics", "collection_price"]
       }
     },
     {
@@ -31,7 +33,8 @@ export default {
       name: "PayPrice",
       component: () => import("@/views/statics/pay-price/index.vue"),
       meta: {
-        title: $t("menus.payPrice")
+        title: $t("menus.payPrice"),
+        roles: ["admin", "statics", "pay_price"]
       }
     },
     {
@@ -39,7 +42,8 @@ export default {
       name: "Recievable",
       component: () => import("@/views/statics/recievable/index.vue"),
       meta: {
-        title: $t("menus.recievable")
+        title: $t("menus.recievable"),
+        roles: ["admin", "statics", "recievable"]
       }
     },
     {
@@ -47,7 +51,8 @@ export default {
       name: "payable",
       component: () => import("@/views/statics/payable/index.vue"),
       meta: {
-        title: $t("menus.payable")
+        title: $t("menus.payable"),
+        roles: ["admin", "statics", "payable"]
       }
     },
     {
@@ -55,7 +60,8 @@ export default {
       name: "VehicleFeeStat",
       component: () => import("@/views/statics/vehicle-fee-stat/index.vue"),
       meta: {
-        title: "车辆费用统计"
+        title: "车辆费用统计",
+        roles: ["admin", "statics", "vehicle_fee_stat"]
       }
     }
   ]

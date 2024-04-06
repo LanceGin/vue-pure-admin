@@ -15,7 +15,8 @@ export default {
       name: "Check",
       component: () => import("@/views/hr/check/index.vue"),
       meta: {
-        title: "运作人员考核"
+        title: "运作人员考核",
+        roles: ["admin", "hr", "check"]
       }
     },
     {
@@ -23,7 +24,8 @@ export default {
       name: "CheckPoint",
       component: () => import("@/views/hr/check-point/index.vue"),
       meta: {
-        title: "打卡点管理"
+        title: "打卡点管理",
+        roles: ["admin", "hr", "check_point"]
       }
     },
     {
@@ -31,7 +33,8 @@ export default {
       name: "Staff",
       component: () => import("@/views/hr/staff/index.vue"),
       meta: {
-        title: $t("menus.staff")
+        title: $t("menus.staff"),
+        roles: ["admin", "hr", "staff"]
       }
     },
     {
@@ -39,7 +42,8 @@ export default {
       name: "CheckOn",
       component: () => import("@/views/hr/check-on/index.vue"),
       meta: {
-        title: $t("menus.checkOn")
+        title: $t("menus.checkOn"),
+        roles: ["admin", "hr", "checkon"]
       }
     }
   ]

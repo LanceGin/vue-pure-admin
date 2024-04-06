@@ -1,7 +1,7 @@
 // 模拟后端动态生成路由
 import { MockMethod } from "vite-plugin-mock";
 // import { system, permission, frame, tabs } from "@/router/enums";
-import { permission } from "@/router/enums";
+// import { permission } from "@/router/enums";
 
 /**
  * roles：页面级别权限，这里模拟二种 "admin"、"common"
@@ -47,33 +47,33 @@ import { permission } from "@/router/enums";
 //   ]
 // };
 
-const permissionRouter = {
-  path: "/permission",
-  meta: {
-    title: "menus.permission",
-    icon: "lollipop",
-    rank: permission
-  },
-  children: [
-    {
-      path: "/permission/page/index",
-      name: "PermissionPage",
-      meta: {
-        title: "menus.permissionPage",
-        roles: ["admin", "common"]
-      }
-    },
-    {
-      path: "/permission/button/index",
-      name: "PermissionButton",
-      meta: {
-        title: "menus.permissionButton",
-        roles: ["admin", "common"],
-        auths: ["btn_add", "btn_edit", "btn_delete"]
-      }
-    }
-  ]
-};
+// const permissionRouter = {
+//   path: "/permission",
+//   meta: {
+//     title: "menus.permission",
+//     icon: "lollipop",
+//     rank: permission
+//   },
+//   children: [
+//     {
+//       path: "/permission/page/index",
+//       name: "PermissionPage",
+//       meta: {
+//         title: "menus.permissionPage",
+//         roles: ["admin", "common"]
+//       }
+//     },
+//     {
+//       path: "/permission/button/index",
+//       name: "PermissionButton",
+//       meta: {
+//         title: "menus.permissionButton",
+//         roles: ["admin", "common"],
+//         auths: ["btn_add", "btn_edit", "btn_delete"]
+//       }
+//     }
+//   ]
+// };
 
 // const frameRouter = {
 //   path: "/iframe",
@@ -207,7 +207,7 @@ export default [
       return {
         success: true,
         // data: [systemRouter, permissionRouter, frameRouter, tabsRouter]
-        data: [permissionRouter]
+        data: []
       };
     }
   }

@@ -15,7 +15,8 @@ export default {
       name: "TransportReport",
       component: () => import("@/views/welcome/index.vue"),
       meta: {
-        title: $t("menus.transportReport")
+        title: $t("menus.transportReport"),
+        roles: ["admin", "manager"]
       }
     },
     {
@@ -23,7 +24,8 @@ export default {
       name: "OperationReport",
       component: () => import("@/views/welcome/index.vue"),
       meta: {
-        title: $t("menus.operationReport")
+        title: $t("menus.operationReport"),
+        roles: ["admin", "manager"]
       }
     }
   ]

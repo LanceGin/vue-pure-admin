@@ -39,7 +39,8 @@ export default {
       name: "Contract",
       component: () => import("@/views/daily/contract/index.vue"),
       meta: {
-        title: $t("menus.contract")
+        title: $t("menus.contract"),
+        roles: ["admin", "daily", "contract"]
       }
     }
   ]

@@ -15,7 +15,8 @@ export default {
       name: "AccountKeep",
       component: () => import("@/views/finance/account-keep/index.vue"),
       meta: {
-        title: $t("menus.accountKeep")
+        title: $t("menus.accountKeep"),
+        roles: ["admin", "finance", "account_keep"]
       }
     },
     {
@@ -23,7 +24,8 @@ export default {
       name: "FeeName",
       component: () => import("@/views/finance/fee-name/index.vue"),
       meta: {
-        title: "费用名维护"
+        title: "费用名维护",
+        roles: ["admin", "finance", "fee_name"]
       }
     },
     {
@@ -31,7 +33,8 @@ export default {
       name: "CollectionCheck",
       component: () => import("@/views/finance/collection-check/index.vue"),
       meta: {
-        title: $t("menus.collectionCheck")
+        title: $t("menus.collectionCheck"),
+        roles: ["admin", "finance", "collection_check"]
       }
     },
     {
@@ -39,7 +42,8 @@ export default {
       name: "PayCheck",
       component: () => import("@/views/finance/pay-check/index.vue"),
       meta: {
-        title: $t("menus.payCheck")
+        title: $t("menus.payCheck"),
+        roles: ["admin", "finance", "pay_check"]
       }
     },
     {
@@ -47,7 +51,8 @@ export default {
       name: "CollectionManage",
       component: () => import("@/views/finance/collection-manage/index.vue"),
       meta: {
-        title: $t("menus.collectionManage")
+        title: $t("menus.collectionManage"),
+        roles: ["admin", "finance", "collection_manage"]
       }
     },
     {
@@ -55,7 +60,8 @@ export default {
       name: "PayManage",
       component: () => import("@/views/finance/pay-manage/index.vue"),
       meta: {
-        title: $t("menus.payManage")
+        title: $t("menus.payManage"),
+        roles: ["admin", "finance", "pay_manage"]
       }
     },
     {
@@ -63,7 +69,8 @@ export default {
       name: "CollectionStat",
       component: () => import("@/views/finance/collection-stat/index.vue"),
       meta: {
-        title: $t("menus.collectionStat")
+        title: $t("menus.collectionStat"),
+        roles: ["admin", "finance", "collection_stat"]
       }
     },
     {
@@ -71,7 +78,8 @@ export default {
       name: "PayStat",
       component: () => import("@/views/finance/pay-stat/index.vue"),
       meta: {
-        title: $t("menus.payStat")
+        title: $t("menus.payStat"),
+        roles: ["admin", "finance", "pay_stat"]
       }
     },
     {
@@ -79,7 +87,8 @@ export default {
       name: "Prestore",
       component: () => import("@/views/finance/prestore/index.vue"),
       meta: {
-        title: $t("menus.prestore")
+        title: $t("menus.prestore"),
+        roles: ["admin", "finance", "prestore"]
       }
     },
     {
@@ -87,7 +96,8 @@ export default {
       name: "Invoice",
       component: () => import("@/views/finance/invoice/index.vue"),
       meta: {
-        title: $t("menus.invoice")
+        title: $t("menus.invoice"),
+        roles: ["admin", "finance", "invoice"]
       }
     },
     {
@@ -95,7 +105,8 @@ export default {
       name: "PayInvoice",
       component: () => import("@/views/finance/pay-invoice/index.vue"),
       meta: {
-        title: $t("menus.payInvoice")
+        title: $t("menus.payInvoice"),
+        roles: ["admin", "finance", "pay_invoice"]
       }
     },
     {
@@ -103,7 +114,8 @@ export default {
       name: "PayInvoiceOrig",
       component: () => import("@/views/finance/pay-invoice-orig/index.vue"),
       meta: {
-        title: "原始发票管理"
+        title: "原始发票管理",
+        roles: ["admin", "finance", "pay_invoice_orig"]
       }
     }
   ]

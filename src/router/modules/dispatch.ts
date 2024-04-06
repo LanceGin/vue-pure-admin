@@ -24,7 +24,8 @@ export default {
           component: () =>
             import("@/views/dispatch/assign/unpacking/index.vue"),
           meta: {
-            title: "拆箱暂落列表"
+            title: "拆箱暂落列表",
+            roles: ["admin", "dispatch", "unpacking"]
           }
         },
         {
@@ -32,7 +33,8 @@ export default {
           name: "Packing",
           component: () => import("@/views/dispatch/assign/packing/index.vue"),
           meta: {
-            title: "装箱临时派车"
+            title: "装箱临时派车",
+            roles: ["admin", "dispatch", "packing"]
           }
         }
       ]
@@ -59,7 +61,8 @@ export default {
           component: () =>
             import("@/views/dispatch/assign-list/import/index.vue"),
           meta: {
-            title: "进口"
+            title: "进口",
+            roles: ["admin", "dispatch", "import"]
           }
         },
         {
@@ -68,7 +71,8 @@ export default {
           component: () =>
             import("@/views/dispatch/assign-list/export/index.vue"),
           meta: {
-            title: "出口"
+            title: "出口",
+            roles: ["admin", "dispatch", "export"]
           }
         },
         {
@@ -77,7 +81,8 @@ export default {
           component: () =>
             import("@/views/dispatch/assign-list/temp-drop/index.vue"),
           meta: {
-            title: "暂落"
+            title: "暂落",
+            roles: ["admin", "dispatch", "temp_drop"]
           }
         },
         {
@@ -85,7 +90,8 @@ export default {
           name: "WH",
           component: () => import("@/views/dispatch/assign-list/wh/index.vue"),
           meta: {
-            title: "武汉派车单"
+            title: "武汉派车单",
+            roles: ["admin", "dispatch", "wh_dispatch"]
           }
         }
       ]
@@ -96,7 +102,8 @@ export default {
       component: () => import("@/layout/frameView.vue"),
       meta: {
         title: "运输节点服务",
-        frameSrc: "transportManage"
+        frameSrc: "transportManage",
+        roles: ["admin", "dispatch", "transport_manage"]
       }
     },
     {
@@ -105,7 +112,8 @@ export default {
       component: () => import("@/layout/frameView.vue"),
       meta: {
         title: "运输行程服务",
-        frameSrc: "pathTrack"
+        frameSrc: "pathTrack",
+        roles: ["admin", "dispatch", "path_track"]
       }
     }
   ]
