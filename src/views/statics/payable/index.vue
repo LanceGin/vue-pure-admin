@@ -19,7 +19,7 @@ import {
 } from "element-plus";
 
 defineOptions({
-  name: "Role"
+  name: "Payable"
 });
 
 const formRef = ref();

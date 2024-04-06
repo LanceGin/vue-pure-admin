@@ -16,6 +16,7 @@ export default {
       component: () => import("@/views/statics/lightering-price/index.vue"),
       meta: {
         title: "驳运价格",
+        keepAlive: true,
         roles: ["admin", "statics", "lightering_price"]
       }
     },
@@ -25,6 +26,7 @@ export default {
       component: () => import("@/views/statics/collection-price/index.vue"),
       meta: {
         title: $t("menus.collectionPrice"),
+        keepAlive: true,
         roles: ["admin", "statics", "collection_price"]
       }
     },
@@ -34,6 +36,7 @@ export default {
       component: () => import("@/views/statics/pay-price/index.vue"),
       meta: {
         title: $t("menus.payPrice"),
+        keepAlive: true,
         roles: ["admin", "statics", "pay_price"]
       }
     },
@@ -43,15 +46,17 @@ export default {
       component: () => import("@/views/statics/recievable/index.vue"),
       meta: {
         title: $t("menus.recievable"),
+        keepAlive: true,
         roles: ["admin", "statics", "recievable"]
       }
     },
     {
       path: "/statics/payable",
-      name: "payable",
+      name: "Payable",
       component: () => import("@/views/statics/payable/index.vue"),
       meta: {
         title: $t("menus.payable"),
+        keepAlive: true,
         roles: ["admin", "statics", "payable"]
       }
     },
@@ -61,6 +66,7 @@ export default {
       component: () => import("@/views/statics/vehicle-fee-stat/index.vue"),
       meta: {
         title: "车辆费用统计",
+        keepAlive: true,
         roles: ["admin", "statics", "vehicle_fee_stat"]
       }
     }

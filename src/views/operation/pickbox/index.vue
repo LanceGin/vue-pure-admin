@@ -13,7 +13,7 @@ import Upload from "@iconify-icons/ep/upload";
 // import AddFill from "@iconify-icons/ri/add-circle-line";
 
 defineOptions({
-  name: "Role"
+  name: "PickBox"
 });
 
 const formRef = ref();

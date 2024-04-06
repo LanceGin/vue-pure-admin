@@ -13,7 +13,7 @@ import Search from "@iconify-icons/ep/search";
 // import AddFill from "@iconify-icons/ri/add-circle-line";
 
 defineOptions({
-  name: "Role"
+  name: "PayManage"
 });
 
 const formRef = ref();

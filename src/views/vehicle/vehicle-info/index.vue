@@ -21,7 +21,7 @@ import {
 } from "element-plus";
 
 defineOptions({
-  name: "Role"
+  name: "VehicleInfo"
 });
 
 const formRef = ref();

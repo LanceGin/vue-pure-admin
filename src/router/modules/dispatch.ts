@@ -25,6 +25,7 @@ export default {
             import("@/views/dispatch/assign/unpacking/index.vue"),
           meta: {
             title: "拆箱暂落列表",
+            keepAlive: true,
             roles: ["admin", "dispatch", "unpacking"]
           }
         },
@@ -34,19 +35,12 @@ export default {
           component: () => import("@/views/dispatch/assign/packing/index.vue"),
           meta: {
             title: "装箱临时派车",
+            keepAlive: true,
             roles: ["admin", "dispatch", "packing"]
           }
         }
       ]
     },
-    // {
-    //   path: "/dispatch/car_assignation_status",
-    //   name: "CarAssignationStatus",
-    //   component: () => import("@/views/dispatch/assign-status/index.vue"),
-    //   meta: {
-    //     title: $t("menus.carAssignationStatus")
-    //   }
-    // },
     {
       path: "/dispatch/car_assignation_list",
       redirect: "/dispatch/car_assignation_list/import",
@@ -62,6 +56,7 @@ export default {
             import("@/views/dispatch/assign-list/import/index.vue"),
           meta: {
             title: "进口",
+            keepAlive: true,
             roles: ["admin", "dispatch", "import"]
           }
         },
@@ -72,6 +67,7 @@ export default {
             import("@/views/dispatch/assign-list/export/index.vue"),
           meta: {
             title: "出口",
+            keepAlive: true,
             roles: ["admin", "dispatch", "export"]
           }
         },
@@ -82,6 +78,7 @@ export default {
             import("@/views/dispatch/assign-list/temp-drop/index.vue"),
           meta: {
             title: "暂落",
+            keepAlive: true,
             roles: ["admin", "dispatch", "temp_drop"]
           }
         },
@@ -91,6 +88,7 @@ export default {
           component: () => import("@/views/dispatch/assign-list/wh/index.vue"),
           meta: {
             title: "武汉派车单",
+            keepAlive: true,
             roles: ["admin", "dispatch", "wh_dispatch"]
           }
         }

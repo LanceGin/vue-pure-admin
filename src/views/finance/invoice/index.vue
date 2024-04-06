@@ -21,7 +21,7 @@ import {
 // import AddFill from "@iconify-icons/ri/add-circle-line";
 
 defineOptions({
-  name: "Role"
+  name: "Invoice"
 });
 
 const formRef = ref();

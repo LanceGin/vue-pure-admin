@@ -11,7 +11,7 @@ import EditPen from "@iconify-icons/ep/edit-pen";
 import Search from "@iconify-icons/ep/search";
 
 defineOptions({
-  name: "Role"
+  name: "Packing"
 });
 
 const formRef = ref();

@@ -16,6 +16,7 @@ export default {
       component: () => import("@/views/vehicle/vehicle-info/index.vue"),
       meta: {
         title: $t("menus.vehicleInfo"),
+        keepAlive: true,
         roles: ["admin", "vehicle", "vehicle_info"]
       }
     },
@@ -25,6 +26,7 @@ export default {
       component: () => import("@/views/vehicle/driver-info/index.vue"),
       meta: {
         title: $t("menus.driverInfo"),
+        keepAlive: true,
         roles: ["admin", "vehicle", "driver_info"]
       }
     },
@@ -34,6 +36,7 @@ export default {
       component: () => import("@/views/vehicle/vehicle-rate/index.vue"),
       meta: {
         title: $t("menus.vehicleRate"),
+        keepAlive: true,
         roles: ["admin", "vehicle", "vehicle_rate"]
       }
     },
@@ -43,6 +46,7 @@ export default {
       component: () => import("@/views/vehicle/oil-consumption/index.vue"),
       meta: {
         title: $t("menus.oilConsumption"),
+        keepAlive: true,
         roles: ["admin", "vehicle", "oil_consumption"]
       }
     },
@@ -52,6 +56,7 @@ export default {
       component: () => import("@/views/vehicle/refuel/index.vue"),
       meta: {
         title: "撬装加油",
+        keepAlive: true,
         roles: ["admin", "vehicle", "refuel"]
       }
     },
@@ -61,6 +66,7 @@ export default {
       component: () => import("@/views/vehicle/vehicle-fee/index.vue"),
       meta: {
         title: "车辆费用",
+        keepAlive: true,
         roles: ["admin", "vehicle", "vehicle_fee"]
       }
     }

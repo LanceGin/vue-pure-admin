@@ -21,7 +21,7 @@ import {
 } from "element-plus";
 
 defineOptions({
-  name: "Role"
+  name: "CollectionPrice"
 });
 
 const formRef = ref();

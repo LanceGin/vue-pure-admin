@@ -13,7 +13,7 @@ import Download from "@iconify-icons/ep/download";
 import AddFill from "@iconify-icons/ri/add-circle-line";
 
 defineOptions({
-  name: "Role"
+  name: "FeeName"
 });
 
 const formRef = ref();

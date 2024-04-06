@@ -16,6 +16,7 @@ export default {
       component: () => import("@/views/finance/account-keep/index.vue"),
       meta: {
         title: $t("menus.accountKeep"),
+        keepAlive: true,
         roles: ["admin", "finance", "account_keep"]
       }
     },
@@ -25,6 +26,7 @@ export default {
       component: () => import("@/views/finance/fee-name/index.vue"),
       meta: {
         title: "费用名维护",
+        keepAlive: true,
         roles: ["admin", "finance", "fee_name"]
       }
     },
@@ -34,6 +36,7 @@ export default {
       component: () => import("@/views/finance/collection-check/index.vue"),
       meta: {
         title: $t("menus.collectionCheck"),
+        keepAlive: true,
         roles: ["admin", "finance", "collection_check"]
       }
     },
@@ -43,6 +46,7 @@ export default {
       component: () => import("@/views/finance/pay-check/index.vue"),
       meta: {
         title: $t("menus.payCheck"),
+        keepAlive: true,
         roles: ["admin", "finance", "pay_check"]
       }
     },
@@ -52,6 +56,7 @@ export default {
       component: () => import("@/views/finance/collection-manage/index.vue"),
       meta: {
         title: $t("menus.collectionManage"),
+        keepAlive: true,
         roles: ["admin", "finance", "collection_manage"]
       }
     },
@@ -61,6 +66,7 @@ export default {
       component: () => import("@/views/finance/pay-manage/index.vue"),
       meta: {
         title: $t("menus.payManage"),
+        keepAlive: true,
         roles: ["admin", "finance", "pay_manage"]
       }
     },
@@ -70,6 +76,7 @@ export default {
       component: () => import("@/views/finance/collection-stat/index.vue"),
       meta: {
         title: $t("menus.collectionStat"),
+        keepAlive: true,
         roles: ["admin", "finance", "collection_stat"]
       }
     },
@@ -79,6 +86,7 @@ export default {
       component: () => import("@/views/finance/pay-stat/index.vue"),
       meta: {
         title: $t("menus.payStat"),
+        keepAlive: true,
         roles: ["admin", "finance", "pay_stat"]
       }
     },
@@ -88,6 +96,7 @@ export default {
       component: () => import("@/views/finance/prestore/index.vue"),
       meta: {
         title: $t("menus.prestore"),
+        keepAlive: true,
         roles: ["admin", "finance", "prestore"]
       }
     },
@@ -97,6 +106,7 @@ export default {
       component: () => import("@/views/finance/invoice/index.vue"),
       meta: {
         title: $t("menus.invoice"),
+        keepAlive: true,
         roles: ["admin", "finance", "invoice"]
       }
     },
@@ -106,6 +116,7 @@ export default {
       component: () => import("@/views/finance/pay-invoice/index.vue"),
       meta: {
         title: $t("menus.payInvoice"),
+        keepAlive: true,
         roles: ["admin", "finance", "pay_invoice"]
       }
     },
@@ -115,6 +126,7 @@ export default {
       component: () => import("@/views/finance/pay-invoice-orig/index.vue"),
       meta: {
         title: "原始发票管理",
+        keepAlive: true,
         roles: ["admin", "finance", "pay_invoice_orig"]
       }
     }

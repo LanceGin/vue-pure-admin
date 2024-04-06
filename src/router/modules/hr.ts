@@ -16,6 +16,7 @@ export default {
       component: () => import("@/views/hr/check/index.vue"),
       meta: {
         title: "运作人员考核",
+        keepAlive: true,
         roles: ["admin", "hr", "check"]
       }
     },
@@ -25,6 +26,7 @@ export default {
       component: () => import("@/views/hr/check-point/index.vue"),
       meta: {
         title: "打卡点管理",
+        keepAlive: true,
         roles: ["admin", "hr", "check_point"]
       }
     },
@@ -34,6 +36,7 @@ export default {
       component: () => import("@/views/hr/staff/index.vue"),
       meta: {
         title: $t("menus.staff"),
+        keepAlive: true,
         roles: ["admin", "hr", "staff"]
       }
     },
@@ -43,6 +46,7 @@ export default {
       component: () => import("@/views/hr/check-on/index.vue"),
       meta: {
         title: $t("menus.checkOn"),
+        keepAlive: true,
         roles: ["admin", "hr", "checkon"]
       }
     }

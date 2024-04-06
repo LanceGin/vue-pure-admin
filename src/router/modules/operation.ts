@@ -16,6 +16,7 @@ export default {
       component: () => import("@/views/operation/ship-company/index.vue"),
       meta: {
         title: "船公司管理",
+        keepAlive: true,
         roles: ["admin", "operation", "ship_company"]
       }
     },
@@ -25,6 +26,7 @@ export default {
       component: () => import("@/views/operation/motorcade/index.vue"),
       meta: {
         title: $t("menus.motorcade"),
+        keepAlive: true,
         roles: ["admin", "operation", "motorcade"]
       }
     },
@@ -69,6 +71,7 @@ export default {
       component: () => import("@/views/operation/yard/index.vue"),
       meta: {
         title: $t("menus.yard"),
+        keepAlive: true,
         roles: ["admin", "operation", "yard"]
       }
     },
@@ -92,6 +95,7 @@ export default {
           component: () => import("@/views/operation/bulk/shipping/index.vue"),
           meta: {
             title: "船运",
+            keepAlive: true,
             roles: ["admin", "operation", "shipping"]
           }
         },
@@ -102,6 +106,7 @@ export default {
             import("@/views/operation/bulk/land-trans/index.vue"),
           meta: {
             title: "陆运",
+            keepAlive: true,
             roles: ["admin", "operation", "land_trans"]
           }
         },
@@ -111,6 +116,7 @@ export default {
           component: () => import("@/views/operation/bulk/bulk/index.vue"),
           meta: {
             title: "散货",
+            keepAlive: true,
             roles: ["admin", "operation", "bulk"]
           }
         }
@@ -122,6 +128,7 @@ export default {
       component: () => import("@/views/operation/document-check/index.vue"),
       meta: {
         title: $t("menus.documentCheck"),
+        keepAlive: true,
         roles: ["admin", "operation", "document_check"]
       }
     },
@@ -131,6 +138,7 @@ export default {
       component: () => import("@/views/operation/container-done/index.vue"),
       meta: {
         title: "单据查看",
+        keepAlive: true,
         roles: ["admin", "operation", "container_done"]
       }
     },
@@ -140,6 +148,7 @@ export default {
       component: () => import("@/views/operation/pickbox/index.vue"),
       meta: {
         title: $t("menus.pickbox"),
+        keepAlive: true,
         roles: ["admin", "operation", "pick_box"]
       }
     },

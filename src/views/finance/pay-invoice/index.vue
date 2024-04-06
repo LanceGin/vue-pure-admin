@@ -12,7 +12,7 @@ import Upload from "@iconify-icons/ep/upload";
 import Edit from "@iconify-icons/ep/edit";
 
 defineOptions({
-  name: "Role"
+  name: "PayInvoice"
 });
 
 const formRef = ref();

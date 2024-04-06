@@ -199,7 +199,7 @@ defineExpose({ getRef });
           <td colspan="2">
             审核:<img
               border="0"
-              src="../../upload/8058132213new_zhoujia.jpg"
+              src="http://www.howhan-e.com/upload/8058132213new_zhoujia.jpg"
               style="height: 40px; vertical-align: middle"
             />
           </td>

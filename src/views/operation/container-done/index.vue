@@ -10,7 +10,7 @@ import Upload from "@iconify-icons/ep/upload";
 import Edit from "@iconify-icons/ep/edit";
 
 defineOptions({
-  name: "Role"
+  name: "ContainerDone"
 });
 
 const formRef = ref();

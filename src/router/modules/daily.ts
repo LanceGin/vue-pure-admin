@@ -15,7 +15,8 @@ export default {
       name: "Custom",
       component: () => import("@/views/daily/custom/index.vue"),
       meta: {
-        title: $t("menus.custom")
+        title: $t("menus.custom"),
+        keepAlive: true
       }
     },
     {
@@ -23,6 +24,7 @@ export default {
       name: "Report",
       component: () => import("@/views/daily/report/index.vue"),
       meta: {
+        keepAlive: true,
         title: "工作报告"
       }
     },
@@ -31,6 +33,7 @@ export default {
       name: "FeeApplication",
       component: () => import("@/views/daily/fee-application/index.vue"),
       meta: {
+        keepAlive: true,
         title: $t("menus.feeApplication")
       }
     },
@@ -39,6 +42,7 @@ export default {
       name: "Contract",
       component: () => import("@/views/daily/contract/index.vue"),
       meta: {
+        keepAlive: true,
         title: $t("menus.contract"),
         roles: ["admin", "daily", "contract"]
       }
