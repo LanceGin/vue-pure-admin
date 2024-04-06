@@ -17,6 +17,7 @@ export function useRole() {
   const form = reactive({
     id: "",
     name: "",
+    address: "",
     location: ""
   });
   const formRef = ref();
@@ -37,6 +38,10 @@ export function useRole() {
     {
       label: "名称",
       prop: "name"
+    },
+    {
+      label: "地址",
+      prop: "address"
     },
     {
       label: "经纬度",
@@ -125,6 +130,7 @@ export function useRole() {
         formInline: {
           id: row?.id ?? "",
           name: row?.name ?? "",
+          address: row?.address ?? "",
           location: row?.location ?? ""
         }
       },

@@ -3,6 +3,7 @@
 interface FormItemProps {
   id: string;
   name: string;
+  address: string;
   location: string;
 }
 interface FormProps {
