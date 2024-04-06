@@ -3,8 +3,6 @@ import { utils, writeFile } from "xlsx";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
 import { getUserList, addUser, deleteUser, editUser } from "@/api/user";
-// import { ElMessageBox } from "element-plus";
-// import { tableData } from "./data";
 import { usePublicHooks } from "../../hooks";
 import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
@@ -26,7 +24,9 @@ export function useRole() {
     shenfenzheng: "",
     zhuzhi: "",
     ruzhishijian: "",
-    zhuangtai: ""
+    zhuangtai: "",
+    check_point: "",
+    work_hours: ""
   });
   const formRef = ref();
   const currentRow = ref();
@@ -68,8 +68,12 @@ export function useRole() {
       prop: "wechat"
     },
     {
-      label: "密码",
-      prop: "mima"
+      label: "打卡点",
+      prop: "check_point"
+    },
+    {
+      label: "工作时间",
+      prop: "work_hours"
     },
     {
       label: "身份证号",
@@ -205,7 +209,9 @@ export function useRole() {
           shenfenzheng: row?.shenfenzheng ?? "",
           zhuzhi: row?.zhuzhi ?? "",
           ruzhishijian: row?.ruzhishijian ?? "",
-          zhuangtai: row?.zhuangtai ?? ""
+          zhuangtai: row?.zhuangtai ?? "",
+          check_point: row?.check_point ?? "",
+          work_hours: row?.work_hours ?? ""
         }
       },
       width: "40%",

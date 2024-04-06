@@ -103,7 +103,7 @@ defineExpose({ getRef });
 </script>
 
 <template>
-  <div class="apply_print" style="padding: 5px 30px; overflow: hidden">
+  <div class="reim_print" style="padding: 5px 30px; overflow: hidden">
     <table
       border="0"
       cellpadding="1"

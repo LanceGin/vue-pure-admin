@@ -15,6 +15,8 @@ interface FormItemProps {
   zhuzhi: string;
   ruzhishijian: string;
   zhuangtai: string;
+  check_point: string;
+  work_hours: string;
 }
 interface FormProps {
   formInline: FormItemProps;

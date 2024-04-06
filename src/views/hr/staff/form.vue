@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { reactive, ref } from "vue";
 import { formRules } from "./utils/rule";
 import { FormProps } from "./utils/types";
+import type { PaginationProps } from "@pureadmin/table";
+import { clockPointList } from "@/api/user";
 
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
@@ -18,9 +20,59 @@ const props = withDefaults(defineProps<FormProps>(), {
     shenfenzheng: "",
     zhuzhi: "",
     ruzhishijian: "",
-    zhuangtai: ""
+    zhuangtai: "",
+    check_point: "",
+    work_hours: ""
   })
 });
+
+/** 分页配置 */
+const pagination = reactive<PaginationProps>({
+  pageSize: 500,
+  currentPage: 1,
+  total: 0
+});
+const form = reactive({
+  id: "",
+  name: "",
+  address: "",
+  location: ""
+});
+
+interface CompanyItem {
+  id: string;
+  name: string;
+  address: string;
+}
+const loading = ref(false);
+const list = ref<CompanyItem[]>([]);
+const options = ref<CompanyItem[]>([]);
+let accData = [];
+const data = clockPointList({ pagination, form });
+data.then(v => {
+  accData = v.data.list;
+  list.value = accData.map(item => {
+    return {
+      id: `${item.id}`,
+      name: `${item.name}`,
+      address: `${item.name}-${item.address}`
+    };
+  });
+});
+
+const remoteMethod = (query: string) => {
+  if (query) {
+    loading.value = true;
+    setTimeout(() => {
+      loading.value = false;
+      options.value = list.value.filter(item => {
+        return item.name.toLowerCase().includes(query.toLowerCase());
+      });
+    }, 200);
+  } else {
+    options.value = [];
+  }
+};
 
 const ruleFormRef = ref();
 const newFormInline = ref(props.formInline);
@@ -46,7 +98,6 @@ defineExpose({ getRef });
         placeholder="请输入用户名"
       />
     </el-form-item>
-
     <el-form-item label="姓名" prop="realname">
       <el-input
         v-model="newFormInline.realname"
@@ -54,7 +105,6 @@ defineExpose({ getRef });
         placeholder="请输入姓名"
       />
     </el-form-item>
-
     <el-form-item label="手机号" prop="mobile">
       <el-input
         v-model="newFormInline.mobile"
@@ -62,7 +112,6 @@ defineExpose({ getRef });
         placeholder="请输入手机号"
       />
     </el-form-item>
-
     <el-form-item label="邮箱" prop="email">
       <el-input
         v-model="newFormInline.email"
@@ -70,7 +119,6 @@ defineExpose({ getRef });
         placeholder="请输入邮箱"
       />
     </el-form-item>
-
     <el-form-item label="部门" prop="department">
       <el-input
         v-model="newFormInline.department"
@@ -78,11 +126,38 @@ defineExpose({ getRef });
         placeholder="请输入部门"
       />
     </el-form-item>
-
+    <el-form-item label="打卡点" prop="check_point">
+      <el-select
+        v-model="newFormInline.check_point"
+        filterable
+        remote
+        reserve-keyword
+        placeholder="输入打卡点关键字"
+        :remote-method="remoteMethod"
+        :loading="loading"
+        style="width: 240px"
+      >
+        <el-option
+          v-for="item in options"
+          :key="item.id"
+          :label="item.address"
+          :value="item.name"
+        />
+      </el-select>
+    </el-form-item>
+    <el-form-item label="工作时间" prop="work_hours">
+      <el-input
+        v-model="newFormInline.work_hours"
+        clearable
+        placeholder="请输入工作时间"
+      />
+    </el-form-item>
     <el-form-item label="密码" prop="mima">
       <el-input
         v-model="newFormInline.mima"
         clearable
+        type="password"
+        show-password
         placeholder="请输入密码"
       />
     </el-form-item>
