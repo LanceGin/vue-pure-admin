@@ -30,6 +30,7 @@ const {
   onSearch,
   resetForm,
   openDialog,
+  authDialog,
   handleDelete,
   // handleDatabase,
   handleRowDblclick,
@@ -101,7 +102,7 @@ const {
         </el-button>
         <el-button
           :icon="useRenderIcon(EditPen)"
-          @click="resetForm(formRef)"
+          @click="authDialog()"
           :disabled="haveRow"
         >
           权限

@@ -146,6 +146,13 @@ export const editUser = (data?: object) => {
   });
 };
 
+// 设置权限
+export const authUser = (data?: object) => {
+  return http.request<EditUserResult>("post", baseUrlApi("authUser"), {
+    data
+  });
+};
+
 // 员工打卡记录
 export const getWxClockList = (data?: object) => {
   return http.request<WxClockListResult>("post", baseUrlApi("wxClockList"), {

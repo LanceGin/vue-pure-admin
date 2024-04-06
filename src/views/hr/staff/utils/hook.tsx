@@ -1,8 +1,15 @@
 import dayjs from "dayjs";
 import { utils, writeFile } from "xlsx";
 import editForm from "../form.vue";
+import authForm from "../authForm.vue";
 import { message } from "@/utils/message";
-import { getUserList, addUser, deleteUser, editUser } from "@/api/user";
+import {
+  getUserList,
+  addUser,
+  deleteUser,
+  editUser,
+  authUser
+} from "@/api/user";
 import { usePublicHooks } from "../../hooks";
 import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
@@ -11,6 +18,7 @@ import { reactive, ref, onMounted, h } from "vue";
 
 export function useRole() {
   const form = reactive({
+    id: "",
     name: "",
     realname: "",
     mobile: "",
@@ -26,7 +34,8 @@ export function useRole() {
     ruzhishijian: "",
     zhuangtai: "",
     check_point: "",
-    work_hours: ""
+    work_hours: "",
+    roles: ""
   });
   const formRef = ref();
   const currentRow = ref();
@@ -197,6 +206,7 @@ export function useRole() {
       title: `${title}员工`,
       props: {
         formInline: {
+          id: row?.id ?? "",
           name: row?.name ?? "",
           realname: row?.realname ?? "",
           mobile: row?.mobile ?? "",
@@ -211,7 +221,8 @@ export function useRole() {
           ruzhishijian: row?.ruzhishijian ?? "",
           zhuangtai: row?.zhuangtai ?? "",
           check_point: row?.check_point ?? "",
-          work_hours: row?.work_hours ?? ""
+          work_hours: row?.work_hours ?? "",
+          roles: row?.roles ?? ""
         }
       },
       width: "40%",
@@ -244,6 +255,33 @@ export function useRole() {
             }
           }
         });
+      }
+    });
+  }
+
+  function authDialog() {
+    addDialog({
+      title: `设置权限`,
+      props: {
+        formInline: {
+          id: currentRow.value.id,
+          roles: currentRow.value.roles
+        }
+      },
+      width: "40%",
+      draggable: true,
+      fullscreenIcon: true,
+      closeOnClickModal: false,
+      contentRenderer: () => h(authForm, { ref: formRef }),
+      beforeSure: (done, { options }) => {
+        const curData = options.props.formInline as FormItemProps;
+        console.log(222222, curData);
+        function chores() {
+          done(); // 关闭弹框
+          onSearch(); // 刷新表格数据
+        }
+        authUser(curData);
+        chores();
       }
     });
   }
@@ -287,6 +325,7 @@ export function useRole() {
     onSearch,
     resetForm,
     openDialog,
+    authDialog,
     handleMenu,
     handleDelete,
     // handleDatabase,

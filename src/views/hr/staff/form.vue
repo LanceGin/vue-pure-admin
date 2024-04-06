@@ -7,6 +7,7 @@ import { clockPointList } from "@/api/user";
 
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
+    id: "",
     name: "",
     realname: "",
     mobile: "",
@@ -22,7 +23,8 @@ const props = withDefaults(defineProps<FormProps>(), {
     ruzhishijian: "",
     zhuangtai: "",
     check_point: "",
-    work_hours: ""
+    work_hours: "",
+    roles: ""
   })
 });
 

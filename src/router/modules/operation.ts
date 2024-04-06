@@ -96,7 +96,7 @@ export default {
           meta: {
             title: "船运",
             keepAlive: true,
-            roles: ["admin", "operation", "shipping"]
+            roles: ["admin", "operation", "bulk"]
           }
         },
         {
@@ -107,7 +107,7 @@ export default {
           meta: {
             title: "陆运",
             keepAlive: true,
-            roles: ["admin", "operation", "land_trans"]
+            roles: ["admin", "operation", "bulk"]
           }
         },
         {
@@ -166,7 +166,7 @@ export default {
           meta: {
             title: "阳逻-金口",
             keepAlive: true,
-            roles: ["admin", "operation", "ytoj"]
+            roles: ["admin", "operation", "lightering"]
           }
         },
         {
@@ -177,7 +177,7 @@ export default {
           meta: {
             title: "金口-阳逻",
             keepAlive: true,
-            roles: ["admin", "operation", "jtoy"]
+            roles: ["admin", "operation", "lightering"]
           }
         },
         {
@@ -188,7 +188,7 @@ export default {
           meta: {
             title: "驳运统计",
             keepAlive: true,
-            roles: ["admin", "operation", "lightering_stat"]
+            roles: ["admin", "operation", "lightering"]
           }
         }
       ]

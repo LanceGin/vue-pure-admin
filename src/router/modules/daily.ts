@@ -16,7 +16,8 @@ export default {
       component: () => import("@/views/daily/custom/index.vue"),
       meta: {
         title: $t("menus.custom"),
-        keepAlive: true
+        keepAlive: true,
+        roles: ["admin", "daily", "custom"]
       }
     },
     {

@@ -1,6 +1,7 @@
 // 虽然字段很少 但是抽离出来 后续有扩展字段需求就很方便了
 
 interface FormItemProps {
+  id: string;
   name: string;
   realname: string;
   mobile: string;
@@ -17,6 +18,7 @@ interface FormItemProps {
   zhuangtai: string;
   check_point: string;
   work_hours: string;
+  roles: string;
 }
 interface FormProps {
   formInline: FormItemProps;
