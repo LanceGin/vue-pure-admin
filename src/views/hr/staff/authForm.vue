@@ -53,20 +53,12 @@ const data = [
             label: "堆场管理"
           },
           {
-            role: "motorcade",
-            label: "客户管理"
-          },
-          {
             role: "bulk",
             label: "其他业务管理"
           },
           {
             role: "document_check",
             label: "单证管理"
-          },
-          {
-            role: "container_done",
-            label: "单据查看"
           },
           {
             role: "container_done",
