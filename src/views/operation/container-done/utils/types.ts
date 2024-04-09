@@ -17,6 +17,7 @@ interface FormItemProps {
   track_no: string;
   unload_port: string;
   door: string;
+  car_no: string;
   make_time: string;
   load_port: string;
   count: string;

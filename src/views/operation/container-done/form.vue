@@ -21,6 +21,7 @@ const props = withDefaults(defineProps<FormProps>(), {
     track_no: "",
     unload_port: "",
     door: "",
+    car_no: "",
     make_time: "",
     load_port: "",
     count: "",

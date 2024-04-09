@@ -21,6 +21,7 @@ const props = withDefaults(defineProps<FormProps>(), {
     track_no: "",
     unload_port: "",
     door: "",
+    car_no: "",
     make_time: "",
     load_port: "",
     count: "",
@@ -101,6 +102,13 @@ defineExpose({ getRef });
         v-model="newFormInline.door"
         clearable
         placeholder="请输入门点"
+      />
+    </el-form-item>
+    <el-form-item label="车号" prop="car_no">
+      <el-input
+        v-model="newFormInline.car_no"
+        clearable
+        placeholder="请输入车号"
       />
     </el-form-item>
     <el-form-item label="做箱时间" prop="make_time">
