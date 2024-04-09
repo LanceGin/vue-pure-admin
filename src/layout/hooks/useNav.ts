@@ -38,6 +38,11 @@ export function useNav() {
     return useUserStoreHook()?.username;
   });
 
+  /** 城市 */
+  const city = computed(() => {
+    return useUserStoreHook()?.city;
+  });
+
   /** 设置国际化选中后的样式 */
   const getDropdownItemStyle = computed(() => {
     return (locale, t) => {
@@ -142,6 +147,7 @@ export function useNav() {
     isCollapse,
     pureApp,
     username,
+    city,
     userAvatar,
     avatarsStyle,
     tooltipEffect,

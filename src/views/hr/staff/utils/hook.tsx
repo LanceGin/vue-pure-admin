@@ -15,8 +15,10 @@ import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
+import { useUserStore } from "@/store/modules/user";
 
 export function useRole() {
+  const user = useUserStore();
   const form = reactive({
     id: "",
     name: "",
@@ -36,7 +38,7 @@ export function useRole() {
     check_point: "",
     work_hours: "",
     roles: "",
-    city: ""
+    city: user.city
   });
   const formRef = ref();
   const currentRow = ref();

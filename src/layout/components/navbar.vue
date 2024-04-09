@@ -18,6 +18,7 @@ const {
   onPanel,
   pureApp,
   username,
+  city,
   userAvatar,
   avatarsStyle,
   toggleSideBar
@@ -88,7 +89,9 @@ const { t } = useTranslationLang();
       <el-dropdown trigger="click">
         <span class="el-dropdown-link navbar-bg-hover select-none">
           <img :src="userAvatar" :style="avatarsStyle" />
-          <p v-if="username" class="dark:text-white">{{ username }}</p>
+          <p v-if="username" class="dark:text-white">
+            {{ username }} - {{ city }}
+          </p>
         </span>
         <template #dropdown>
           <el-dropdown-menu class="logout">
