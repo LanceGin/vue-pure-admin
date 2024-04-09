@@ -19,6 +19,7 @@ interface FormItemProps {
   check_point: string;
   work_hours: string;
   roles: string;
+  city: string;
 }
 interface FormProps {
   formInline: FormItemProps;

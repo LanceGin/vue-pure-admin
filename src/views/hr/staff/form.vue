@@ -24,7 +24,8 @@ const props = withDefaults(defineProps<FormProps>(), {
     zhuangtai: "",
     check_point: "",
     work_hours: "",
-    roles: ""
+    roles: "",
+    city: ""
   })
 });
 
@@ -193,6 +194,19 @@ defineExpose({ getRef });
       >
         <el-option label="在职" value="0" />
         <el-option label="离职" value="1" />
+      </el-select>
+    </el-form-item>
+    <el-form-item label="地区" prop="city">
+      <el-select
+        v-model="newFormInline.city"
+        placeholder="请选择地区"
+        clearable
+      >
+        <el-option label="上海" value="上海" />
+        <el-option label="太仓" value="太仓" />
+        <el-option label="武汉" value="武汉" />
+        <el-option label="岳阳" value="岳阳" />
+        <el-option label="其他" value="其他" />
       </el-select>
     </el-form-item>
   </el-form>

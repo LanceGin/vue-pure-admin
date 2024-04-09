@@ -35,7 +35,8 @@ export function useRole() {
     zhuangtai: "",
     check_point: "",
     work_hours: "",
-    roles: ""
+    roles: "",
+    city: ""
   });
   const formRef = ref();
   const currentRow = ref();
@@ -83,6 +84,10 @@ export function useRole() {
     {
       label: "工作时间",
       prop: "work_hours"
+    },
+    {
+      label: "工作地点",
+      prop: "city"
     },
     {
       label: "身份证号",
@@ -222,7 +227,8 @@ export function useRole() {
           zhuangtai: row?.zhuangtai ?? "",
           check_point: row?.check_point ?? "",
           work_hours: row?.work_hours ?? "",
-          roles: row?.roles ?? ""
+          roles: row?.roles ?? "",
+          city: row?.city ?? ""
         }
       },
       width: "40%",
@@ -275,7 +281,6 @@ export function useRole() {
       contentRenderer: () => h(authForm, { ref: formRef }),
       beforeSure: (done, { options }) => {
         const curData = options.props.formInline as FormItemProps;
-        console.log(222222, curData);
         function chores() {
           done(); // 关闭弹框
           onSearch(); // 刷新表格数据

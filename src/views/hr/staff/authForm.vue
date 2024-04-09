@@ -22,7 +22,8 @@ const props = withDefaults(defineProps<FormProps>(), {
     zhuangtai: "",
     check_point: "",
     work_hours: "",
-    roles: ""
+    roles: "",
+    city: ""
   })
 });
 
