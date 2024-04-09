@@ -38,6 +38,7 @@ export type setType = {
 
 export type userType = {
   username?: string;
+  city?: string;
   roles?: Array<string>;
   verifyCode?: string;
   currentPage?: number;

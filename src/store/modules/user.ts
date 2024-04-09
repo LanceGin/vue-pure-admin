@@ -15,6 +15,8 @@ export const useUserStore = defineStore({
     // 用户名
     username:
       storageSession().getItem<DataInfo<number>>(sessionKey)?.username ?? "",
+    // 办公地区
+    city: storageSession().getItem<DataInfo<number>>(sessionKey)?.city ?? "",
     // 页面级别权限
     roles: storageSession().getItem<DataInfo<number>>(sessionKey)?.roles ?? [],
     // 前端生成的验证码（按实际需求替换）
@@ -26,6 +28,10 @@ export const useUserStore = defineStore({
     /** 存储用户名 */
     SET_USERNAME(username: string) {
       this.username = username;
+    },
+    /** 存储办公城市 */
+    SET_CITY(city: string) {
+      this.city = city;
     },
     /** 存储角色 */
     SET_ROLES(roles: Array<string>) {
@@ -57,6 +63,7 @@ export const useUserStore = defineStore({
     /** 前端登出（不调用接口） */
     logOut() {
       this.username = "";
+      this.city = "";
       this.roles = [];
       removeToken();
       useMultiTagsStoreHook().handleTags("equal", [...routerArrays]);
