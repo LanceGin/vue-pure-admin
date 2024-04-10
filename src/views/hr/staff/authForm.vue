@@ -153,7 +153,13 @@ const data = [
           },
           {
             role: "staff",
-            label: "员工管理"
+            label: "员工管理",
+            children: [
+              {
+                role: "btn_auth",
+                label: "权限设置"
+              }
+            ]
           },
           {
             role: "checkon",
