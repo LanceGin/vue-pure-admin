@@ -100,13 +100,15 @@ const {
         >
           添加员工
         </el-button>
-        <el-button
-          :icon="useRenderIcon(EditPen)"
-          @click="authDialog()"
-          :disabled="haveRow"
-        >
-          权限
-        </el-button>
+        <Auth value="btn_auth">
+          <el-button
+            :icon="useRenderIcon(EditPen)"
+            @click="authDialog()"
+            :disabled="haveRow"
+          >
+            权限
+          </el-button>
+        </Auth>
         <el-button
           :icon="useRenderIcon(EditPen)"
           @click="resetForm(formRef)"

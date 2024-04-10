@@ -28,6 +28,7 @@ const modulesRoutes = import.meta.glob("/src/views/**/*.{vue,tsx}");
 
 // 动态路由
 import { getAsyncRoutes } from "@/api/routes";
+import { useUserStore } from "@/store/modules/user";
 
 function handRank(routeInfo: any) {
   const { name, path, parentId, meta } = routeInfo;
@@ -343,8 +344,12 @@ function getHistoryMode(routerHistory): RouterHistory {
 }
 
 /** 获取当前页面按钮级别的权限 */
+// function getAuths(): Array<string> {
+//   return router.currentRoute.value.meta.auths as Array<string>;
+// }
 function getAuths(): Array<string> {
-  return router.currentRoute.value.meta.auths as Array<string>;
+  const user = useUserStore();
+  return user.roles as Array<string>;
 }
 
 /** 是否有按钮级别的权限 */
