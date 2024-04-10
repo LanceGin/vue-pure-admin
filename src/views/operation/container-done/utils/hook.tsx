@@ -62,7 +62,8 @@ export function useRole() {
     dispatch_car_no: "",
     amount: "",
     remark: "",
-    op_time: ""
+    op_time: "",
+    city: user.city
   });
   const formRef = ref();
   const currentRow = ref();

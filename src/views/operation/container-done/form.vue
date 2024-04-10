@@ -41,7 +41,8 @@ const props = withDefaults(defineProps<FormProps>(), {
     remark: "",
     add_by: "",
     abnormal_fee: "",
-    dispatch_remark: ""
+    dispatch_remark: "",
+    city: ""
   })
 });
 

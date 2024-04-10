@@ -36,6 +36,7 @@ interface FormItemProps {
   fee: string;
   remark: string;
   add_by: string;
+  city: string;
 }
 interface FormProps {
   formInline: FormItemProps;

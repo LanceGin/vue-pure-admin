@@ -18,8 +18,10 @@ import {
 } from "@/api/operation";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { generatePlanningFee } from "@/api/finance";
+import { useUserStore } from "@/store/modules/user";
 
 export function useRole() {
+  const user = useUserStore();
   const form = reactive({
     id: "",
     order_status: "",
@@ -49,7 +51,8 @@ export function useRole() {
     order_time: "",
     order_fee: "",
     temp_status: "",
-    remark: ""
+    remark: "",
+    city: user.city
   });
   const formRef = ref();
   const selectRows = ref([]);

@@ -31,6 +31,7 @@ interface FormItemProps {
   temp_status: string;
   remark: string;
   crossing: string;
+  city: string;
 }
 interface FormProps {
   formInline: FormItemProps;
