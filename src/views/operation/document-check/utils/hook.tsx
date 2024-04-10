@@ -49,7 +49,9 @@ export function useRole() {
     container_weight: "",
     container_status: "",
     order_time: "",
-    order_fee: ""
+    order_fee: "",
+    add_by: user.username,
+    city: user.city
   });
   const formRef = ref();
   const currentRow = ref();
@@ -271,7 +273,9 @@ export function useRole() {
           container_weight: row?.container_weight ?? "",
           container_status: row?.container_status ?? "",
           order_time: row?.order_time ?? "",
-          order_fee: row?.order_fee ?? ""
+          order_fee: row?.order_fee ?? "",
+          add_by: row?.add_by ?? user.username,
+          city: row?.city ?? user.city
         }
       },
       width: "40%",
@@ -312,6 +316,7 @@ export function useRole() {
     const form = new FormData();
     form.append("file", item.file);
     form.append("add_by", user.username);
+    form.append("city", user.city);
     await importDocumentCheck(form);
   }
 

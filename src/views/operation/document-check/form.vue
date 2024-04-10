@@ -31,7 +31,9 @@ const props = withDefaults(defineProps<FormProps>(), {
     container_weight: "",
     container_status: "",
     order_time: "",
-    order_fee: ""
+    order_fee: "",
+    add_by: "",
+    city: ""
   })
 });
 

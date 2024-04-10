@@ -274,6 +274,7 @@ export function useRole() {
     const form = new FormData();
     form.append("file", item.file);
     form.append("add_by", user.username);
+    form.append("city", user.city);
     const { data } = await importExportContainer(form);
     const select_container = {
       select_container: data.list
