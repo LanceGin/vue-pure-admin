@@ -9,8 +9,10 @@ import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
+import { useUserStore } from "@/store/modules/user";
 
 export function useRole() {
+  const user = useUserStore();
   const form = reactive({
     userName: "",
     clock_date: "",
@@ -22,7 +24,8 @@ export function useRole() {
     clockout_location: "",
     clockout_type: "",
     clockout_remark: "",
-    remark: ""
+    remark: "",
+    city: user.city
   });
   const formRef = ref();
   const dataList = ref([]);
