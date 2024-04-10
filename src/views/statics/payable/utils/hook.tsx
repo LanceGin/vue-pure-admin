@@ -17,8 +17,10 @@ import {
   submitContainerFee
 } from "@/api/statics";
 import { ElMessage, ElMessageBox } from "element-plus";
+import { useUserStore } from "@/store/modules/user";
 
 export function useRole() {
+  const user = useUserStore();
   const form = reactive({
     id: "",
     status: "未提交",
@@ -67,7 +69,8 @@ export function useRole() {
     content: "",
     invoice_no: "",
     car_owner: "",
-    temp_port: ""
+    temp_port: "",
+    city: user.city
   });
   const formRef = ref();
   const selectRows = ref([]);
