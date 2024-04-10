@@ -16,8 +16,10 @@ import {
 } from "@/api/dispatch";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { generateDispatchFee } from "@/api/finance";
+import { useUserStore } from "@/store/modules/user";
 
 export function useRole() {
+  const user = useUserStore();
   const form = reactive({
     id: "",
     order_status: "",
@@ -46,7 +48,8 @@ export function useRole() {
     container_status: "",
     order_time: "",
     order_fee: "",
-    car_no: ""
+    car_no: "",
+    city: user.city
   });
   const formRef = ref();
   const selectRows = ref([]);
