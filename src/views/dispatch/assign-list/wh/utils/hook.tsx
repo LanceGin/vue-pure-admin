@@ -192,7 +192,7 @@ export function useRole() {
     res.unshift(titleList);
     for (let i = 1; i < res.length; i++) {
       const element = res[i];
-      element[6] = dayjs(element[6]).format("YYYY-MM-DD HH:mm");
+      element[8] = dayjs(element[8]).format("YYYY-MM-DD HH:mm");
     }
     const workSheet = utils.aoa_to_sheet(res);
     const workBook = utils.book_new();
