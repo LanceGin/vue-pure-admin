@@ -133,7 +133,7 @@ export function useRole() {
       label: "单据类型",
       prop: "order_type",
       cellRenderer: ({ row }) => {
-        if (row.dispatch_type == "拆箱") {
+        if (row.temp_time == null) {
           return row.order_type;
         } else {
           return "暂落";
