@@ -20,7 +20,8 @@ const props = withDefaults(defineProps<FormProps>(), {
     o40gp: "",
     o20tk: "",
     o40hc: "",
-    add_time: ""
+    add_time: "",
+    city: ""
   })
 });
 

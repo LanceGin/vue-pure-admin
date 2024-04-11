@@ -15,8 +15,10 @@ import {
   getDoorPriceList,
   importDoorPrice
 } from "@/api/statics";
+import { useUserStore } from "@/store/modules/user";
 
 export function useRole() {
+  const user = useUserStore();
   const form = reactive({
     id: "",
     is_pay: "1",
@@ -33,7 +35,8 @@ export function useRole() {
     o40gp: "",
     o20tk: "",
     o40hc: "",
-    add_time: ""
+    add_time: "",
+    city: user.city
   });
   const formRef = ref();
   const currentRow = ref();
@@ -249,7 +252,8 @@ export function useRole() {
           o40gp: row?.o40gp ?? "",
           o20tk: row?.o20tk ?? "",
           o40hc: row?.o40hc ?? "",
-          add_time: row?.add_time ?? ""
+          add_time: row?.add_time ?? "",
+          city: row?.city ?? user.city
         }
       },
       width: "40%",
@@ -291,6 +295,7 @@ export function useRole() {
     const form = new FormData();
     form.append("file", item.file);
     form.append("is_pay", "1");
+    form.append("city", user.city);
     await importDoorPrice(form);
   }
 
