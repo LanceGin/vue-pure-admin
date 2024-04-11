@@ -154,7 +154,14 @@ export function useRole() {
     },
     {
       label: "码头",
-      prop: "load_port"
+      prop: "load_port",
+      cellRenderer: ({ row }) => {
+        if (row.order_type == "进口") {
+          return row.load_port;
+        } else {
+          return row.unload_port;
+        }
+      }
     },
     {
       label: "船公司",
