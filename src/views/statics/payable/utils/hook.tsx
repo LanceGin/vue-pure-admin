@@ -117,7 +117,7 @@ export function useRole() {
       label: "做箱时间",
       prop: "make_time",
       cellRenderer: ({ row }) => {
-        if (row.dispatch_type == "拆箱") {
+        if (row.dispatch_type == "拆箱" || row.dispatch_type == "装箱") {
           return row.make_time == null
             ? ""
             : dayjs(row.make_time).format("YYYY-MM-DD");
@@ -133,10 +133,10 @@ export function useRole() {
       label: "单据类型",
       prop: "order_type",
       cellRenderer: ({ row }) => {
-        if (row.temp_time == null) {
-          return row.order_type;
-        } else {
+        if (row.dispatch_type == "暂落") {
           return "暂落";
+        } else {
+          return row.order_type;
         }
       }
     },

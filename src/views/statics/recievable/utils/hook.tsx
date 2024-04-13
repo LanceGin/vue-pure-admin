@@ -113,7 +113,7 @@ export function useRole() {
       label: "做箱时间",
       prop: "make_time",
       cellRenderer: ({ row }) => {
-        if (row.dispatch_type == "拆箱") {
+        if (row.dispatch_type == "拆箱" || row.dispatch_type == "装箱") {
           return row.make_time == null
             ? ""
             : dayjs(row.make_time).format("YYYY-MM-DD");
