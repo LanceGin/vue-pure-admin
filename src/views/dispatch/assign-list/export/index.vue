@@ -6,7 +6,7 @@ import { useRenderIcon } from "../../../../components/ReIcon/src/hooks";
 
 // import Database from "@iconify-icons/ri/database-2-line";
 // import More from "@iconify-icons/ep/more-filled";
-// import Delete from "@iconify-icons/ep/delete";
+import Delete from "@iconify-icons/ep/delete";
 // import EditPen from "@iconify-icons/ep/edit-pen";
 import Search from "@iconify-icons/ep/search";
 import Upload from "@iconify-icons/ep/upload";
@@ -29,6 +29,7 @@ const dialogVisible = ref(false);
 const {
   form,
   loading,
+  haveRow,
   columns,
   dataList,
   pagination,
@@ -40,6 +41,7 @@ const {
   // openDialog,
   // handleDelete,
   // handleDatabase,
+  handleDeleteContainer,
   handleSizeChange,
   handlePageChange,
   handleCurrentChange,
@@ -157,6 +159,14 @@ const handleClose = () => {
           @click="dialogVisible = true"
         >
           导入
+        </el-button>
+        <el-button
+          type="danger"
+          :icon="useRenderIcon(Delete)"
+          @click="handleDeleteContainer()"
+          :disabled="haveRow"
+        >
+          删除
         </el-button>
         <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
           导出

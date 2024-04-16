@@ -15,7 +15,8 @@ import {
 } from "@/api/dispatch";
 import { useUserStore } from "@/store/modules/user";
 import { generateDispatchFee, generateOrderFee } from "@/api/finance";
-import { ElMessage } from "element-plus";
+import { ElMessage, ElMessageBox } from "element-plus";
+import { deleteContainer } from "@/api/operation";
 
 export function useRole() {
   // const end = new Date();
@@ -55,6 +56,8 @@ export function useRole() {
     city: user.city
   });
   const formRef = ref();
+  const selectRows = ref([]);
+  const haveRow = ref(true);
   const dataList = ref([]);
   const loading = ref(true);
   // const switchLoadMap = ref({});
@@ -67,6 +70,10 @@ export function useRole() {
     background: true
   });
   const columns: TableColumnList = [
+    {
+      type: "selection",
+      align: "left"
+    },
     {
       label: "船公司",
       prop: "ship_company"
@@ -208,6 +215,12 @@ export function useRole() {
 
   function handleSelectionChange(val) {
     console.log("handleSelectionChange", val);
+    selectRows.value = val;
+    if (selectRows.value.length > 0) {
+      haveRow.value = false;
+    } else {
+      haveRow.value = true;
+    }
   }
 
   async function onSearch() {
@@ -290,6 +303,37 @@ export function useRole() {
     onSearch();
   }
 
+  // 删除
+  async function handleDeleteContainer() {
+    ElMessageBox.confirm("确认删除？箱子以及所包含费用都将删除", "删除数据", {
+      confirmButtonText: "确认",
+      cancelButtonText: "取消",
+      type: "warning"
+    })
+      .then(() => {
+        const data = {
+          select_container_id: []
+        };
+        selectRows.value.forEach(v => {
+          data.select_container_id.push(v.id);
+          if (v.container_status != "待挑箱") {
+            throw new Error("非待挑箱状态无法删除");
+          }
+        });
+        deleteContainer(data);
+        onSearch();
+      })
+      .catch(info => {
+        if (info == "cancel") {
+          info = "取消删除";
+        }
+        ElMessage({
+          type: "info",
+          message: info
+        });
+      });
+  }
+
   /** 菜单权限 */
   function handleMenu() {
     message("等菜单管理页面开发后完善");
@@ -305,6 +349,7 @@ export function useRole() {
   return {
     form,
     loading,
+    haveRow,
     columns,
     dataList,
     pagination,
@@ -316,6 +361,7 @@ export function useRole() {
     openDialog,
     handleMenu,
     handleDelete,
+    handleDeleteContainer,
     // handleDatabase,
     handleSizeChange,
     handlePageChange,
