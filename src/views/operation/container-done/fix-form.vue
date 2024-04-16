@@ -105,6 +105,20 @@ defineExpose({ getRef });
         placeholder="请输入门点"
       />
     </el-form-item>
+    <el-form-item label="提箱点" prop="load_port">
+      <el-input
+        v-model="newFormInline.load_port"
+        clearable
+        placeholder="请输入提箱点"
+      />
+    </el-form-item>
+    <el-form-item label="还箱点" prop="unload_port">
+      <el-input
+        v-model="newFormInline.unload_port"
+        clearable
+        placeholder="请输入还箱点"
+      />
+    </el-form-item>
     <el-form-item label="车号" prop="car_no">
       <el-input
         v-model="newFormInline.car_no"

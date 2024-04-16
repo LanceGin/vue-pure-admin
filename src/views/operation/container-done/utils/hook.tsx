@@ -355,6 +355,8 @@ export function useRole() {
           seal_no: currentRow.value.seal_no,
           container_type: currentRow.value.container_type,
           door: currentRow.value.door,
+          load_port: currentRow.value.load_port,
+          unload_port: currentRow.value.unload_port,
           car_no: currentRow.value.car_no,
           make_time: currentRow.value.make_time,
           add_by: user.username
