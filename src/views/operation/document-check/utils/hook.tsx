@@ -178,14 +178,17 @@ export function useRole() {
   }
 
   async function handleDelete() {
-    const select_track_no = [];
+    const data = {
+      select_track_no: [],
+      city: user.city
+    };
     selectRows.value.forEach(v => {
-      select_track_no.push(v.track_no);
+      data.select_track_no.push(v.track_no);
     });
-    message(`您删除了订单号为${select_track_no}的数据`, {
+    message(`您删除了订单号为${data.select_track_no}的数据`, {
       type: "success"
     });
-    await deleteDocumentCheck(select_track_no);
+    await deleteDocumentCheck(data);
     onSearch();
   }
 
