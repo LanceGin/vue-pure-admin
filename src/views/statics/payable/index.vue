@@ -72,6 +72,31 @@ const handleClose = () => {
       // catch error
     });
 };
+
+//指定列求和
+const getSummaries = param => {
+  const { columns, data } = param;
+  const sums = [];
+  columns.forEach((column, index) => {
+    const values = data.map(item => Number(item[column.property]));
+    if (["amount"].includes(column.property)) {
+      sums[index] = values.reduce((prev, curr) => {
+        const value = Number(curr);
+        if (!isNaN(value)) {
+          return Number(Number(prev + curr).toFixed(2));
+        } else {
+          return Number(Number(prev).toFixed(2));
+        }
+      }, 0);
+      sums[index];
+    }
+    if (index === 0) {
+      return;
+    }
+  });
+  sums[0] = `合计`;
+  return sums;
+};
 </script>
 
 <template>
@@ -288,6 +313,8 @@ const handleClose = () => {
           :loading="loading"
           :size="size"
           adaptive
+          show-summary
+          :summary-method="getSummaries"
           :data="dataList"
           :columns="dynamicColumns"
           :pagination="pagination"
