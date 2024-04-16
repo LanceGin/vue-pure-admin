@@ -10,7 +10,7 @@ import EditPen from "@iconify-icons/ep/edit-pen";
 import Search from "@iconify-icons/ep/search";
 import Upload from "@iconify-icons/ep/upload";
 // import Download from "@iconify-icons/ep/download";
-// import AddFill from "@iconify-icons/ri/add-circle-line";
+import Delete from "@iconify-icons/ep/delete";
 
 defineOptions({
   name: "PickBox"
@@ -30,6 +30,7 @@ const {
   handlePageChange,
   handleCurrentChange,
   handleSelectionChange,
+  handleDeleteContainer,
   handlePickBox,
   handleTempDrop,
   handleArriveTime,
@@ -169,6 +170,14 @@ const {
           :disabled="haveRow"
         >
           修改船期
+        </el-button>
+        <el-button
+          type="danger"
+          :icon="useRenderIcon(Delete)"
+          @click="handleDeleteContainer()"
+          :disabled="haveRow"
+        >
+          删除
         </el-button>
         <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
           导出

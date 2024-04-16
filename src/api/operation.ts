@@ -405,6 +405,13 @@ export const getPickBoxList = (data?: object) => {
   });
 };
 
+// 删除箱子
+export const deleteContainer = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("deleteContainer"), {
+    data
+  });
+};
+
 // 挑箱
 export const pickBox = (data?: object) => {
   return http.request<ListResult>("post", baseUrlApi("pickBox"), {

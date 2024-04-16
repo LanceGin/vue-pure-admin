@@ -10,6 +10,7 @@ import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
 import {
   arriveTime,
+  deleteContainer,
   getPickBoxList,
   loadPort,
   pickBox,
@@ -406,6 +407,37 @@ export function useRole() {
     });
   }
 
+  // 删除
+  async function handleDeleteContainer() {
+    ElMessageBox.confirm("确认删除？箱子以及所包含费用都将删除", "删除数据", {
+      confirmButtonText: "确认",
+      cancelButtonText: "取消",
+      type: "warning"
+    })
+      .then(() => {
+        const data = {
+          select_container_id: []
+        };
+        selectRows.value.forEach(v => {
+          data.select_container_id.push(v.id);
+          if (v.container_status != "待挑箱") {
+            throw new Error("非待挑箱状态无法删除");
+          }
+        });
+        deleteContainer(data);
+        onSearch();
+      })
+      .catch(info => {
+        if (info == "cancel") {
+          info = "取消删除";
+        }
+        ElMessage({
+          type: "info",
+          message: info
+        });
+      });
+  }
+
   // 挑箱
   async function handlePickBox() {
     ElMessageBox.prompt("请输入实付金额", "挑箱确认", {
@@ -581,6 +613,7 @@ export function useRole() {
     handlePageChange,
     handleCurrentChange,
     handleSelectionChange,
+    handleDeleteContainer,
     handlePickBox,
     handleTempDrop,
     handleArriveTime,
