@@ -96,6 +96,10 @@ const data = [
             label: "暂落派车单"
           },
           {
+            role: "btn_eir",
+            label: "推送eir"
+          },
+          {
             role: "wh_dispatch",
             label: "武汉派车单"
           },

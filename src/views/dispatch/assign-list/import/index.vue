@@ -38,7 +38,8 @@ const {
   handleCurrentChange,
   handleSelectionChange,
   handleRevoke,
-  handleFinish
+  handleFinish,
+  handleEir
 } = useRole();
 </script>
 
@@ -154,6 +155,16 @@ const {
         >
           一键完成
         </el-button>
+        <Auth value="btn_eir">
+          <el-button
+            type="primary"
+            :icon="useRenderIcon(EditPen)"
+            @click="handleEir()"
+            :disabled="haveRow"
+          >
+            Eir推送
+          </el-button>
+        </Auth>
       </el-form-item>
     </el-form>
 

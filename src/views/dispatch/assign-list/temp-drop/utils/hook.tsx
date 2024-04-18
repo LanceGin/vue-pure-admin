@@ -332,6 +332,27 @@ export function useRole() {
       });
   }
 
+  // 推送eir
+  async function handleEir() {
+    ElMessageBox.confirm("确认后将推送至Eir平台", "推送Eir", {
+      confirmButtonText: "确认",
+      cancelButtonText: "取消"
+    })
+      .then(() => {
+        ElMessage({
+          type: "error",
+          message:
+            "the source system does not have permission to access the service"
+        });
+      })
+      .catch(() => {
+        ElMessage({
+          type: "info",
+          message: "取消推送"
+        });
+      });
+  }
+
   // 双击行
   function handleRowDblclick(row) {
     console.log(row);
@@ -375,6 +396,7 @@ export function useRole() {
     handleCurrentChange,
     handleSelectionChange,
     handleRevoke,
-    handleFinish
+    handleFinish,
+    handleEir
   };
 }
