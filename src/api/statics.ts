@@ -10,6 +10,7 @@ export type ListResult = {
     list: Array<any>;
     /** 总条目数 */
     total?: number;
+    total_amount?: string;
     /** 每页显示条目个数 */
     pageSize?: number;
     /** 当前页数 */

@@ -71,6 +71,7 @@ export function useRole() {
   const formRef = ref();
   const selectRows = ref([]);
   const multipleSelection = ref([]);
+  const total_amount = ref();
   const haveRow = ref(true);
   const dataList = ref([]);
   const loading = ref(true);
@@ -306,6 +307,7 @@ export function useRole() {
       form
     });
     dataList.value = data.list;
+    total_amount.value = data.total_amount;
     pagination.total = data.total;
     pagination.pageSize = data.pageSize;
     pagination.currentPage = data.currentPage;
@@ -568,6 +570,7 @@ export function useRole() {
     columns,
     dataList,
     pagination,
+    total_amount,
     // buttonClass,
     exportExcel,
     onSearch,

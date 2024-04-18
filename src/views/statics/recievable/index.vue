@@ -31,6 +31,7 @@ const {
   columns,
   dataList,
   pagination,
+  total_amount,
   // buttonClass,
   exportExcel,
   onSearch,
@@ -80,7 +81,7 @@ const getSummaries = param => {
   columns.forEach((column, index) => {
     const values = data.map(item => Number(item[column.property]));
     if (["amount"].includes(column.property)) {
-      sums[index] = values.reduce((prev, curr) => {
+      sums[4] = values.reduce((prev, curr) => {
         const value = Number(curr);
         if (!isNaN(value)) {
           return Number(Number(prev + curr).toFixed(2));
@@ -88,13 +89,15 @@ const getSummaries = param => {
           return Number(Number(prev).toFixed(2));
         }
       }, 0);
-      sums[index];
+      sums[4];
     }
     if (index === 0) {
       return;
     }
   });
-  sums[0] = `合计`;
+  sums[1] = `合计`;
+  sums[2] = total_amount.value;
+  sums[3] = `单页合计`;
   return sums;
 };
 </script>
