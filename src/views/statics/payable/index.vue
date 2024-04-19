@@ -96,7 +96,7 @@ const getSummaries = param => {
     }
   });
   sums[1] = `合计`;
-  sums[2] = total_amount.value;
+  sums[2] = total_amount.value.toFixed(2);
   sums[3] = `单页合计`;
   return sums;
 };
