@@ -58,7 +58,8 @@ export function useRole() {
     temp_port: "",
     temp_status: "",
     temp_time: "",
-    city: user.city
+    city: user.city,
+    type: ""
   });
   const formRef = ref();
   const selectRows = ref([]);
@@ -240,6 +241,7 @@ export function useRole() {
           unload_port: row?.unload_port ?? "",
           door: row?.door ?? "",
           make_time: dayjs(row?.make_time).format("YYYY-MM-DD") ?? "",
+          temp_time: dayjs(row?.temp_time).format("YYYY-MM-DD") ?? "",
           load_port: row?.load_port ?? "",
           count: row?.count ?? "",
           transfer_port: row?.transfer_port ?? "",
@@ -251,6 +253,7 @@ export function useRole() {
           order_time: row?.order_time ?? "",
           order_fee: row?.order_fee ?? "",
           car_no: row?.car_no ?? "",
+          type: row?.type ?? "",
           transport_status: row?.transport_status ?? "",
           temp_port: row?.temp_port ?? ""
         }

@@ -33,7 +33,8 @@ const props = withDefaults(defineProps<FormProps>(), {
     order_time: "",
     order_fee: "",
     car_no: "",
-    transport_status: ""
+    transport_status: "",
+    type: ""
   })
 });
 

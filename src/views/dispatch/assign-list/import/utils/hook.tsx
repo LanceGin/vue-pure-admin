@@ -55,6 +55,7 @@ export function useRole() {
     dispatch_car_no: "",
     transport_status: "",
     trans_status: "",
+    type: "",
     city: user.city
   });
   const formRef = ref();
@@ -252,6 +253,7 @@ export function useRole() {
           order_time: row?.order_time ?? "",
           order_fee: row?.order_fee ?? "",
           car_no: row?.car_no ?? "",
+          type: row?.type ?? "",
           transport_status: row?.transport_status ?? ""
         }
       },

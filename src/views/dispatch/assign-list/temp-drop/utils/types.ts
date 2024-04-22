@@ -33,6 +33,7 @@ interface FormItemProps {
   temp_port: string;
   temp_status: string;
   temp_time: string;
+  type: string;
 }
 interface FormProps {
   formInline: FormItemProps;

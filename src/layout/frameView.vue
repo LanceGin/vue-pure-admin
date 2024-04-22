@@ -17,10 +17,10 @@ const frameRef = ref<HTMLElement | null>(null);
 console.log(111111, unref(currentRoute.meta)?.frameSrc);
 if (unref(currentRoute.meta)?.frameSrc == "transportManage") {
   frameSrc.value =
-    "https://lims.sinoiov.cn/#/middle-page?p=0jJwIHlwZSI6InRyYW5zcG9ydE1hbmFnZSIsInBUb2tlbiI6ImJkZjU4ZjJiMmRjZTRlNjRhOTY4MTFiNWE1ZTVeNyRmIn0=";
+    "https://lims.sinoiov.cn/#/middle-page?p=0jJwEHlwZSI6InRyYW5zcG9ydE1hbmFnZSIsInBUb2tlbiI6IjJjMDYxZmY5ZTk5ZTRjYzg5NGI4ZTQ2MTQ4ZGVeMyk1In0=";
 } else if (unref(currentRoute.meta)?.frameSrc == "pathTrack") {
   frameSrc.value =
-    "https://lims.sinoiov.cn/#/middle-page?p=wDJwgHlwZSI6InBhdGhUcmFjayIsInBUb2tlbiI6IjhkMjM2MmQwZThlNzQzMzBiMGQ2ZmJmNjAyOTVeOyE3In0=";
+    "https://lims.sinoiov.cn/#/middle-page?p=1TJwEHlwZSI6InBhdGhUcmFjayIsInBUb2tlbiI6IjAwYzE2YzE1NzQ2NTRjMTJhZWY1MWQwODdkZmVeYydjIn0=";
 }
 unref(currentRoute.meta)?.frameLoading === false && hideLoading();
 

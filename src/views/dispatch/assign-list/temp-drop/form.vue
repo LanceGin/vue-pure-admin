@@ -36,7 +36,8 @@ const props = withDefaults(defineProps<FormProps>(), {
     transport_status: "",
     temp_port: "",
     temp_status: "",
-    temp_time: ""
+    temp_time: "",
+    type: ""
   })
 });
 
@@ -71,9 +72,9 @@ defineExpose({ getRef });
         placeholder="请输入暂落点"
       />
     </el-form-item>
-    <el-form-item label="做箱时间：" prop="make_time">
+    <el-form-item label="暂落时间：" prop="temp_time">
       <el-date-picker
-        v-model="newFormInline.make_time"
+        v-model="newFormInline.temp_time"
         type="date"
         placeholder="请输入做箱时间"
         value-format="YYYY-MM-DD"

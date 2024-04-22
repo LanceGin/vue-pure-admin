@@ -168,7 +168,11 @@ const {
       </el-form-item>
     </el-form>
 
-    <PureTableBar title="进口派车单列表" :columns="columns" @refresh="onSearch">
+    <PureTableBar
+      title="进口派车单列表（双击编辑）"
+      :columns="columns"
+      @refresh="onSearch"
+    >
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border
