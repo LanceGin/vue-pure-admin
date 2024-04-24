@@ -17,10 +17,10 @@ const frameRef = ref<HTMLElement | null>(null);
 console.log(111111, unref(currentRoute.meta)?.frameSrc);
 if (unref(currentRoute.meta)?.frameSrc == "transportManage") {
   frameSrc.value =
-    "https://lims.sinoiov.cn/#/middle-page?p=0jJwEHlwZSI6InRyYW5zcG9ydE1hbmFnZSIsInBUb2tlbiI6IjJjMDYxZmY5ZTk5ZTRjYzg5NGI4ZTQ2MTQ4ZGVeMyk1In0=";
+    "https://lims.sinoiov.cn/#/middle-page?p=xGJwAHlwZSI6InRyYW5zcG9ydE1hbmFnZSIsInBUb2tlbiI6ImIyYWJhNmIzNTAwMDQ3YTViMTM2MzJiNTkyMTVeOyY0In0=";
 } else if (unref(currentRoute.meta)?.frameSrc == "pathTrack") {
   frameSrc.value =
-    "https://lims.sinoiov.cn/#/middle-page?p=1TJwEHlwZSI6InBhdGhUcmFjayIsInBUb2tlbiI6IjAwYzE2YzE1NzQ2NTRjMTJhZWY1MWQwODdkZmVeYydjIn0=";
+    "https://lims.sinoiov.cn/#/middle-page?p=5DJwgHlwZSI6InBhdGhUcmFjayIsInBUb2tlbiI6ImQ2YTRiYmMzMmY3ZTQ3NWE5ZGY5OWI4MmVjODVeMyIyIn0=";
 }
 unref(currentRoute.meta)?.frameLoading === false && hideLoading();
 

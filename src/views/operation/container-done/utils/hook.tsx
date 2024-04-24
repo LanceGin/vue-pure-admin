@@ -358,7 +358,9 @@ export function useRole() {
           load_port: currentRow.value.load_port,
           unload_port: currentRow.value.unload_port,
           car_no: currentRow.value.car_no,
-          make_time: currentRow.value.make_time,
+          make_time: dayjs(currentRow.value.make_time).format(
+            "YYYY-MM-DD HH:mm:ss"
+          ),
           add_by: user.username
         }
       },

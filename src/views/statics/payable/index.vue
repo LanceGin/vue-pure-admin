@@ -96,7 +96,7 @@ const getSummaries = param => {
     }
   });
   sums[1] = `合计`;
-  sums[2] = total_amount.value.toFixed(2);
+  sums[2] = Math.round(total_amount.value * 100) / 100;
   sums[3] = `单页合计`;
   return sums;
 };
