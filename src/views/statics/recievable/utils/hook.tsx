@@ -114,14 +114,14 @@ export function useRole() {
       label: "做箱时间",
       prop: "make_time",
       cellRenderer: ({ row }) => {
-        if (row.dispatch_type == "拆箱" || row.dispatch_type == "装箱") {
-          return row.make_time == null
-            ? ""
-            : dayjs(row.make_time).format("YYYY-MM-DD");
-        } else {
+        if (row.dispatch_type == "暂落") {
           return row.temp_time == null
             ? ""
             : dayjs(row.temp_time).format("YYYY-MM-DD");
+        } else {
+          return row.make_time == null
+            ? ""
+            : dayjs(row.make_time).format("YYYY-MM-DD");
         }
       },
       minWidth: 100
@@ -130,10 +130,10 @@ export function useRole() {
       label: "单据类型",
       prop: "order_type",
       cellRenderer: ({ row }) => {
-        if (row.temp_time == null) {
-          return row.order_type;
-        } else {
+        if (row.dispatch_type == "暂落") {
           return "暂落";
+        } else {
+          return row.order_type;
         }
       }
     },
@@ -154,7 +154,11 @@ export function useRole() {
       prop: "load_port",
       cellRenderer: ({ row }) => {
         if (row.order_type == "进口") {
-          return row.load_port;
+          if (row.dispatch_type == "拆箱" || row.fee_name == "堆存费") {
+            return row.temp_port;
+          } else {
+            return row.load_port;
+          }
         } else {
           return row.unload_port;
         }
@@ -188,7 +192,14 @@ export function useRole() {
     },
     {
       label: "门点",
-      prop: "door"
+      prop: "door",
+      cellRenderer: ({ row }) => {
+        if (row.dispatch_type == "拆箱" || row.fee_name == "堆存费") {
+          return row.door;
+        } else {
+          return row.temp_port;
+        }
+      }
     },
     {
       label: "暂落点",
@@ -196,7 +207,14 @@ export function useRole() {
     },
     {
       label: "车辆",
-      prop: "car_no"
+      prop: "car_no",
+      cellRenderer: ({ row }) => {
+        if (row.dispatch_type == "拆箱" || row.fee_name == "堆存费") {
+          return row.car_no;
+        } else {
+          return row.temp_car_no;
+        }
+      }
     },
     {
       label: "备注",

@@ -447,6 +447,7 @@ export function useRole() {
     })
       .then(actual_amount => {
         const data = {
+          type: "拆箱",
           select_container_id: [],
           select_container: [],
           actual_amount: actual_amount
@@ -491,6 +492,7 @@ export function useRole() {
           actual_amount = a[1];
         }
         const data = {
+          type: "暂落",
           select_container_id: [],
           select_container: [],
           temp_port: temp_port,
