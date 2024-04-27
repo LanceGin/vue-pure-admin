@@ -154,7 +154,7 @@ export function useRole() {
       prop: "load_port",
       cellRenderer: ({ row }) => {
         if (row.order_type == "进口") {
-          if (row.dispatch_type == "拆箱" || row.fee_name == "堆存费") {
+          if (row.dispatch_type == "暂落" || row.fee_name == "堆存费") {
             return row.temp_port;
           } else {
             return row.load_port;
@@ -194,10 +194,14 @@ export function useRole() {
       label: "门点",
       prop: "door",
       cellRenderer: ({ row }) => {
-        if (row.dispatch_type == "拆箱" || row.fee_name == "堆存费") {
-          return row.door;
+        if (row.order_type == "进口") {
+          if (row.dispatch_type == "拆箱" || row.fee_name == "堆存费") {
+            return row.door;
+          } else {
+            return row.temp_port;
+          }
         } else {
-          return row.temp_port;
+          return row.door;
         }
       }
     },
@@ -209,10 +213,14 @@ export function useRole() {
       label: "车辆",
       prop: "car_no",
       cellRenderer: ({ row }) => {
-        if (row.dispatch_type == "拆箱" || row.fee_name == "堆存费") {
-          return row.car_no;
+        if (row.order_type == "进口") {
+          if (row.dispatch_type == "拆箱" || row.fee_name == "堆存费") {
+            return row.car_no;
+          } else {
+            return row.temp_car_no;
+          }
         } else {
-          return row.temp_car_no;
+          return row.car_no;
         }
       }
     },

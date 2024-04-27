@@ -133,6 +133,7 @@ const getSummaries = param => {
         >
           <el-option label="全部" value="" />
           <el-option label="进口" value="进口" />
+          <el-option label="暂落" value="暂落" />
           <el-option label="出口" value="出口" />
           <el-option label="陆运" value="陆运" />
           <el-option label="散货" value="散货" />
