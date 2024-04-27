@@ -19,6 +19,7 @@ import {
 } from "@/api/operation";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { useUserStore } from "@/store/modules/user";
+import { updateDispatchFee } from "@/api/finance";
 
 export function useRole() {
   const user = useUserStore();
@@ -285,7 +286,9 @@ export function useRole() {
   }
 
   async function handleEditContainer(container) {
-    await fixContainerInfo(container);
+    const { data } = await fixContainerInfo(container);
+    console.log(1111111, data);
+    updateDispatchFee(data.list);
   }
 
   function openDialog(title = "添加") {

@@ -75,6 +75,13 @@ export const generateDispatchFee = (data?: object) => {
   });
 };
 
+// 更新拖车费
+export const updateDispatchFee = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("updateDispatchFee"), {
+    data
+  });
+};
+
 // 生成异常费
 export const generateAbnormalFee = (data?: object) => {
   return http.request<ListResult>("post", baseUrlApi("generateAbnormalFee"), {

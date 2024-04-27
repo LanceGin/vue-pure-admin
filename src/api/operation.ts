@@ -360,7 +360,7 @@ export const addContainerFee = (data?: object) => {
 };
 // 修正箱子信息
 export const fixContainerInfo = (data?: object) => {
-  return http.request<ChangeResult>("post", baseUrlApi("fixContainerInfo"), {
+  return http.request<ListResult>("post", baseUrlApi("fixContainerInfo"), {
     data
   });
 };
