@@ -276,7 +276,74 @@ export function useRole() {
     const res = data.list.map(item => {
       const arr = [];
       columns.forEach(column => {
-        arr.push(item[column.prop as string]);
+        if (column.prop == "account_period") {
+          if (item["account_period"] == null) {
+            arr.push("");
+          } else {
+            arr.push(dayjs(item["account_period"]).format("YYYY-MM-DD"));
+          }
+        } else if (column.prop == "make_time") {
+          if (item["dispatch_type"] == "暂落") {
+            if (item["temp_time"] == null) {
+              arr.push("");
+            } else {
+              arr.push(dayjs(item["temp_time"]).format("YYYY-MM-DD"));
+            }
+          } else {
+            if (item["make_time"] == null) {
+              arr.push("");
+            } else {
+              arr.push(dayjs(item["make_time"]).format("YYYY-MM-DD"));
+            }
+          }
+        } else if (column.prop == "order_type") {
+          if (item["dispatch_type"] == "暂落") {
+            arr.push("暂落");
+          } else {
+            arr.push(item["order_type"]);
+          }
+        } else if (column.prop == "load_port") {
+          if (item["order_type"] == "进口") {
+            if (
+              item["dispatch_type"] == "暂落" ||
+              item["fee_name"] == "堆存费"
+            ) {
+              arr.push(item["temp_port"]);
+            } else {
+              arr.push(item["load_port"]);
+            }
+          } else {
+            arr.push(item["unload_port"]);
+          }
+        } else if (column.prop == "door") {
+          if (item["order_type"] == "进口") {
+            if (
+              item["dispatch_type"] == "拆箱" ||
+              item["fee_name"] == "堆存费"
+            ) {
+              arr.push(item["door"]);
+            } else {
+              arr.push(item["temp_port"]);
+            }
+          } else {
+            arr.push(item["door"]);
+          }
+        } else if (column.prop == "car_no") {
+          if (item["order_type"] == "进口") {
+            if (
+              item["dispatch_type"] == "拆箱" ||
+              item["fee_name"] == "堆存费"
+            ) {
+              arr.push(item["car_no"]);
+            } else {
+              arr.push(item["temp_car_no"]);
+            }
+          } else {
+            arr.push(item["car_no"]);
+          }
+        } else {
+          arr.push(item[column.prop as string]);
+        }
       });
       return arr;
     });
@@ -285,11 +352,6 @@ export function useRole() {
       titleList.push(column.label);
     });
     res.unshift(titleList);
-    for (let i = 1; i < res.length; i++) {
-      const element = res[i];
-      element[2] = dayjs(element[2]).format("YYYY-MM");
-      element[5] = dayjs(element[5]).format("YYYY-MM-DD");
-    }
     const workSheet = utils.aoa_to_sheet(res);
     const workBook = utils.book_new();
     utils.book_append_sheet(workBook, workSheet, "数据报表");
