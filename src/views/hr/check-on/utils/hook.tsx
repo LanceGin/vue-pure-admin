@@ -52,11 +52,11 @@ export function useRole() {
     {
       label: "签到时间",
       prop: "clockin_time",
-      formatter: ({ clockin_time }) =>
-        dayjs(clockin_time).format("YYYY-MM-DD HH:mm:ss")
+      formatter: ({ clockin_time }) => dayjs(clockin_time).format("HH:mm:ss")
     },
     {
       label: "签到地点",
+      prop: "clockin_location",
       slot: "clockin"
     },
     {
@@ -81,11 +81,11 @@ export function useRole() {
     {
       label: "签退时间",
       prop: "clockout_time",
-      formatter: ({ clockout_time }) =>
-        dayjs(clockout_time).format("YYYY-MM-DD HH:mm:ss")
+      formatter: ({ clockout_time }) => dayjs(clockout_time).format("HH:mm:ss")
     },
     {
       label: "签退地点",
+      prop: "clockout_location",
       slot: "clockout"
     },
     {
@@ -127,7 +127,47 @@ export function useRole() {
     const res = data.list.map(item => {
       const arr = [];
       columns.forEach(column => {
-        arr.push(item[column.prop as string]);
+        if (column.prop == "clock_date") {
+          if (item["clock_date"] == null) {
+            arr.push("");
+          } else {
+            arr.push(dayjs(item["clock_date"]).format("YYYY-MM-DD"));
+          }
+        } else if (column.prop == "clockin_time") {
+          if (item["clockin_time"] == null) {
+            arr.push("");
+          } else {
+            arr.push(dayjs(item["clockin_time"]).format("HH:mm:ss"));
+          }
+        } else if (column.prop == "clockout_time") {
+          if (item["clockout_time"] == null) {
+            arr.push("");
+          } else {
+            arr.push(dayjs(item["clockout_time"]).format("HH:mm:ss"));
+          }
+        } else if (column.prop == "clockin_type") {
+          if (item["clockin_type"] == 0) {
+            arr.push("正常");
+          } else if (item["clockin_type"] == 1) {
+            arr.push("迟到");
+          } else if (item["clockin_type"] == 2) {
+            arr.push("外勤");
+          } else {
+            arr.push("迟到+外勤");
+          }
+        } else if (column.prop == "clockout_type") {
+          if (item["clockout_type"] == 0) {
+            arr.push("正常");
+          } else if (item["clockout_type"] == 1) {
+            arr.push("早退");
+          } else if (item["clockout_type"] == 2) {
+            arr.push("外勤");
+          } else {
+            arr.push("早退+外勤");
+          }
+        } else {
+          arr.push(item[column.prop as string]);
+        }
       });
       return arr;
     });
