@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
 // import { ElMessageBox } from "element-plus";
-import { usePublicHooks } from "../../hooks";
+// import { usePublicHooks } from "../../hooks";
 import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
@@ -45,7 +45,7 @@ export function useRole() {
   const dataList = ref([]);
   const loading = ref(true);
   // const switchLoadMap = ref({});
-  const { tagStyle } = usePublicHooks();
+  // const { tagStyle } = usePublicHooks();
   const pagination = reactive<PaginationProps>({
     total: 0,
     pageSize: 10,
@@ -58,14 +58,14 @@ export function useRole() {
       type: "selection",
       align: "left"
     },
-    {
-      label: "状态",
-      cellRenderer: ({ row, props }) => (
-        <el-tag size={props.size} style={tagStyle.value(Number(row.status))}>
-          {row.status == 1 ? "有效" : "无效"}
-        </el-tag>
-      )
-    },
+    // {
+    //   label: "状态",
+    //   cellRenderer: ({ row, props }) => (
+    //     <el-tag size={props.size} style={tagStyle.value(Number(row.status))}>
+    //       {row.status == 1 ? "有效" : "无效"}
+    //     </el-tag>
+    //   )
+    // },
     {
       label: "客户",
       prop: "customer"
@@ -145,13 +145,25 @@ export function useRole() {
     const res = data.list.map(item => {
       const arr = [];
       columns.forEach(column => {
-        arr.push(item[column.prop as string]);
+        if (column.label == "拆箱" || column.label == "装箱") {
+          column.children.forEach(c => {
+            arr.push(item[c.prop as string]);
+          });
+        } else {
+          arr.push(item[column.prop as string]);
+        }
       });
       return arr;
     });
     const titleList = [];
     columns.forEach(column => {
-      titleList.push(column.label);
+      if (column.label == "拆箱" || column.label == "装箱") {
+        column.children.forEach(c => {
+          titleList.push(c.label + column.label);
+        });
+      } else {
+        titleList.push(column.label);
+      }
     });
     res.unshift(titleList);
     const workSheet = utils.aoa_to_sheet(res);
