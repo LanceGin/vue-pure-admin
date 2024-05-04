@@ -29,9 +29,11 @@ interface FormItemProps {
   order_time: string;
   order_fee: string;
   temp_status: string;
+  temp_port: string;
   remark: string;
   crossing: string;
   city: string;
+  actual_amount_temp: string;
 }
 interface FormProps {
   formInline: FormItemProps;

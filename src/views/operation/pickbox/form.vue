@@ -33,8 +33,11 @@ const props = withDefaults(defineProps<FormProps>(), {
     order_time: "",
     order_fee: "",
     temp_status: "",
+    temp_port: "",
     remark: "",
-    crossing: ""
+    crossing: "",
+    city: "",
+    actual_amount_temp: ""
   })
 });
 

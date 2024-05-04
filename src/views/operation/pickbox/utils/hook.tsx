@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import { utils, writeFile } from "xlsx";
 import editForm from "../form.vue";
+import tdForm from "../td-form.vue";
 import { message } from "@/utils/message";
 // import { ElMessageBox } from "element-plus";
 // import { usePublicHooks } from "../../hooks";
@@ -352,23 +353,20 @@ export function useRole() {
   }
 
   // 暂落
-  function pickDialog(title = "挑箱", _row?: FormItemProps) {
+  function pickDialog(title = "暂落", _row?: FormItemProps) {
     addDialog({
       title: `${title}`,
       props: {
         formInline: {
-          id: "",
-          make_time: "",
-          load_port: "",
-          crossing: "",
-          remark: ""
+          temp_port: "",
+          actual_amount_temp: ""
         }
       },
       width: "40%",
       draggable: true,
       fullscreenIcon: true,
       closeOnClickModal: false,
-      contentRenderer: () => h(editForm, { ref: formRef }),
+      contentRenderer: () => h(tdForm, { ref: formRef }),
       beforeSure: (done, { options }) => {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
@@ -388,20 +386,35 @@ export function useRole() {
               chores();
             } else {
               const data = {
-                select_container_no: [],
-                make_time: curData.make_time,
-                load_port: curData.load_port,
-                crossing: curData.crossing,
-                remark: curData.remark
+                type: "暂落",
+                select_container_id: [],
+                select_container: [],
+                temp_port: curData.temp_port,
+                actual_amount: {
+                  value: curData.actual_amount_temp
+                }
               };
               selectRows.value.forEach(v => {
-                data.select_container_no.push(v.containner_no);
+                data.select_container_id.push(v.id);
+                data.select_container.push(v);
+                if (v.make_time === null) {
+                  throw new Error("所选箱未设置做箱时间");
+                } else if (v.load_port === null) {
+                  throw new Error("所选箱未设置提箱点");
+                }
               });
-              settingContainer(data);
-              // 实际开发先调用编辑接口，再进行下面操作
-              chores();
+              generatePlanningFee(data).then(() => {
+                tempDrop(data);
+                // 实际开发先调用编辑接口，再进行下面操作
+                chores();
+              });
             }
           }
+        }).catch(info => {
+          ElMessage({
+            type: "info",
+            message: info
+          });
         });
       }
     });

@@ -26,13 +26,14 @@ const {
   pagination,
   exportExcel,
   onSearch,
+  pickDialog,
   handleSizeChange,
   handlePageChange,
   handleCurrentChange,
   handleSelectionChange,
   handleDeleteContainer,
   handlePickBox,
-  handleTempDrop,
+  // handleTempDrop,
   handleArriveTime,
   // handleLoadPort,
   handleSetting
@@ -142,7 +143,7 @@ const {
         <el-button
           type="primary"
           :icon="useRenderIcon(EditPen)"
-          @click="handleTempDrop()"
+          @click="pickDialog()"
           :disabled="haveRow"
         >
           暂落
