@@ -358,6 +358,12 @@ export const addContainerFee = (data?: object) => {
     data
   });
 };
+// 删除箱子费用
+export const deleteContainerFee = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("deleteContainerFee"), {
+    data
+  });
+};
 // 修正箱子信息
 export const fixContainerInfo = (data?: object) => {
   return http.request<ListResult>("post", baseUrlApi("fixContainerInfo"), {

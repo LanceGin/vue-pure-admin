@@ -15,7 +15,8 @@ import {
   submitDocumentCheck,
   addContainerFee,
   getDispatchFeeList,
-  fixContainerInfo
+  fixContainerInfo,
+  deleteContainerFee
 } from "@/api/operation";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { useUserStore } from "@/store/modules/user";
@@ -196,6 +197,11 @@ export function useRole() {
     {
       label: "备注",
       prop: "remark"
+    },
+    {
+      label: "操作",
+      fixed: "right",
+      slot: "operation"
     }
   ];
 
@@ -345,6 +351,17 @@ export function useRole() {
     });
   }
 
+  // 删除异常费用
+  async function handleDeleteFee(row) {
+    deleteContainerFee(row).then(() => {
+      getDispatchFeeList({
+        form: row
+      }).then(data => {
+        containerFeeList.value = data.data.list;
+      });
+    });
+  }
+
   function fixDialog(title = "修正") {
     addDialog({
       title: `${title}箱信息`,
@@ -480,6 +497,7 @@ export function useRole() {
     handleMenu,
     handleDelete,
     // handleDatabase,
+    handleDeleteFee,
     handleRowDblclick,
     uploadExcelDetail,
     handleSubmit,

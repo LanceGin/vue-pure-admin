@@ -5,6 +5,7 @@ import { PureTableBar } from "../../../components/RePureTableBar";
 import { useRenderIcon } from "../../../components/ReIcon/src/hooks";
 // import Database from "@iconify-icons/ri/database-2-line";
 // import More from "@iconify-icons/ep/more-filled";
+import Delete from "@iconify-icons/ep/delete";
 import Search from "@iconify-icons/ep/search";
 import Upload from "@iconify-icons/ep/upload";
 import Edit from "@iconify-icons/ep/edit";
@@ -34,6 +35,7 @@ const {
   // handleDatabase,
   // handleSubmit,
   // handleEdit,
+  handleDeleteFee,
   handleRowDblclick,
   handleSizeChange,
   handlePageChange,
@@ -180,7 +182,19 @@ const {
           background: 'var(--el-table-row-hover-bg-color)',
           color: 'var(--el-text-color-primary)'
         }"
-      />
+      >
+        <template #operation="{ row }">
+          <el-button
+            class="reset-margin"
+            link
+            type="danger"
+            :icon="useRenderIcon(Delete)"
+            @click="handleDeleteFee(row)"
+          >
+            删除
+          </el-button>
+        </template>
+      </pure-table>
     </el-dialog>
 
     <PureTableBar
