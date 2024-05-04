@@ -13,8 +13,10 @@ import {
   getLighteringList,
   importYtoj
 } from "@/api/operation";
+import { useUserStore } from "@/store/modules/user";
 
 export function useRole() {
+  const user = useUserStore();
   const form = reactive({
     id: "",
     type: "0",
@@ -45,7 +47,9 @@ export function useRole() {
     cargo_owner: "",
     forwarder: "",
     transfer_type: "",
-    remarks: ""
+    remarks: "",
+    add_by: user.username,
+    city: user.city
   });
   const formRef = ref();
   const dataList = ref([]);
@@ -183,6 +187,8 @@ export function useRole() {
     form.append("file", item.file);
     const { data } = await importYtoj(form);
     const select_item = {
+      city: user.city,
+      add_by: user.username,
       select_item: data.list
     };
     generateShipFee(select_item);
