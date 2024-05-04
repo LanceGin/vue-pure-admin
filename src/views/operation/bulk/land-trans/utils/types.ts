@@ -27,6 +27,8 @@ interface FormItemProps {
   error_fee: string;
   remarks: string;
   add_time: string;
+  add_by: string;
+  city: string;
 }
 interface FormProps {
   formInline: FormItemProps;

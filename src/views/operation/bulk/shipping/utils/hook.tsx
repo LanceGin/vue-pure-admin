@@ -18,8 +18,10 @@ import {
 } from "@/api/operation";
 import { ElMessage } from "element-plus";
 // import { func } from "vue-types";
+import { useUserStore } from "@/store/modules/user";
 
 export function useRole() {
+  const user = useUserStore();
   const form = reactive({
     id: "",
     type: "0",
@@ -43,7 +45,9 @@ export function useRole() {
     freight: "",
     error_fee: "",
     remarks: "",
-    add_time: ""
+    add_time: "",
+    add_by: user.username,
+    city: user.city
   });
   const formRef = ref();
   const currentRow = ref();
@@ -229,7 +233,9 @@ export function useRole() {
           freight: row?.freight ?? "",
           error_fee: row?.error_fee ?? "",
           remarks: row?.remarks ?? "",
-          add_time: row?.add_time ?? ""
+          add_time: row?.add_time ?? "",
+          add_by: row?.add_by ?? user.username,
+          city: row?.city ?? user.city
         }
       },
       width: "40%",
