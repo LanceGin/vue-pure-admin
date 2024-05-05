@@ -293,7 +293,6 @@ export function useRole() {
 
   async function handleEditContainer(container) {
     const { data } = await fixContainerInfo(container);
-    console.log(1111111, data);
     updateDispatchFee(data.list);
     updatePlanningFee(data.list);
   }
@@ -379,9 +378,10 @@ export function useRole() {
           load_port: currentRow.value.load_port,
           unload_port: currentRow.value.unload_port,
           car_no: currentRow.value.car_no,
-          make_time: dayjs(currentRow.value.make_time).format(
-            "YYYY-MM-DD HH:mm:ss"
-          ),
+          make_time:
+            currentRow.value.type == "暂落"
+              ? dayjs(currentRow.value.temp_time).format("YYYY-MM-DD HH:mm:ss")
+              : dayjs(currentRow.value.make_time).format("YYYY-MM-DD HH:mm:ss"),
           add_by: user.username
         }
       },
