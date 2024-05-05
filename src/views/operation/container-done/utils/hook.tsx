@@ -20,7 +20,7 @@ import {
 } from "@/api/operation";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { useUserStore } from "@/store/modules/user";
-import { updateDispatchFee } from "@/api/finance";
+import { updateDispatchFee, updatePlanningFee } from "@/api/finance";
 
 export function useRole() {
   const user = useUserStore();
@@ -295,6 +295,7 @@ export function useRole() {
     const { data } = await fixContainerInfo(container);
     console.log(1111111, data);
     updateDispatchFee(data.list);
+    updatePlanningFee(data.list);
   }
 
   function openDialog(title = "添加") {

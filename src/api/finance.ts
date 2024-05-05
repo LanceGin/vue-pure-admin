@@ -61,6 +61,13 @@ export const generatePlanningFee = (data?: object) => {
   });
 };
 
+// 更新码头计划费
+export const updatePlanningFee = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("updatePlanningFee"), {
+    data
+  });
+};
+
 // 生成堆存费
 export const generateStorageFee = (data?: object) => {
   return http.request<ListResult>("post", baseUrlApi("generateStorageFee"), {
