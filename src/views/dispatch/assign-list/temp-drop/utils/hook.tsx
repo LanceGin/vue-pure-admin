@@ -298,11 +298,14 @@ export function useRole() {
       cancelButtonText: "取消"
     })
       .then(() => {
-        const select_container_id = [];
+        const data = {
+          type: "暂落",
+          select_container_id: []
+        };
         selectRows.value.forEach(v => {
-          select_container_id.push(v.id);
+          data.select_container_id.push(v.id);
         });
-        oneStepRevoke(select_container_id);
+        oneStepRevoke(data);
         onSearch();
       })
       .catch(() => {
