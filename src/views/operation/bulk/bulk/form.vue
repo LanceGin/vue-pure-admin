@@ -25,12 +25,16 @@ const props = withDefaults(defineProps<FormProps>(), {
     car_type: "",
     car_no: "",
     driver_mobile: "",
+    weight: "",
+    volume: "",
     booking_fee: "",
     exchange_fee: "",
     freight: "",
     error_fee: "",
     remarks: "",
-    add_time: ""
+    add_time: "",
+    add_by: "",
+    city: ""
   })
 });
 
@@ -145,6 +149,20 @@ defineExpose({ getRef });
         v-model="newFormInline.driver_mobile"
         clearable
         placeholder="请输入驾驶员手机号"
+      />
+    </el-form-item>
+    <el-form-item label="重量" prop="weight">
+      <el-input
+        v-model="newFormInline.weight"
+        clearable
+        placeholder="请输入重量"
+      />
+    </el-form-item>
+    <el-form-item label="体积" prop="volume">
+      <el-input
+        v-model="newFormInline.volume"
+        clearable
+        placeholder="请输入体积"
       />
     </el-form-item>
     <el-form-item label="运费" prop="freight">

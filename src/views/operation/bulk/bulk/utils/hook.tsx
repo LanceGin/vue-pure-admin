@@ -40,6 +40,8 @@ export function useRole() {
     car_type: "",
     car_no: "",
     driver_mobile: "",
+    weight: "",
+    volume: "",
     booking_fee: "",
     exchange_fee: "",
     freight: "",
@@ -110,6 +112,14 @@ export function useRole() {
     {
       label: "驾驶员手机号",
       prop: "driver_mobile"
+    },
+    {
+      label: "重量",
+      prop: "weight"
+    },
+    {
+      label: "体积",
+      prop: "volume"
     },
     {
       label: "运费",
@@ -238,6 +248,8 @@ export function useRole() {
           car_type: row?.car_type ?? "",
           car_no: row?.car_no ?? "",
           driver_mobile: row?.driver_mobile ?? "",
+          weight: row?.weight ?? "",
+          volume: row?.volume ?? "",
           booking_fee: row?.booking_fee ?? "",
           exchange_fee: row?.exchange_fee ?? "",
           freight: row?.freight ?? "",

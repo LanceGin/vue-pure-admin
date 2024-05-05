@@ -20,6 +20,8 @@ interface FormItemProps {
   car_type: string;
   car_no: string;
   driver_mobile: string;
+  weight: string;
+  volume: string;
   booking_fee: string;
   exchange_fee: string;
   freight: string;
