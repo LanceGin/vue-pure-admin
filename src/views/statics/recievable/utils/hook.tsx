@@ -114,7 +114,7 @@ export function useRole() {
       label: "做箱时间",
       prop: "make_time",
       cellRenderer: ({ row }) => {
-        if (row.dispatch_type == "暂落" && row.fee_name != "计划费") {
+        if (row.dispatch_type == "暂落") {
           return row.temp_time == null
             ? ""
             : dayjs(row.temp_time).format("YYYY-MM-DD");
@@ -279,7 +279,7 @@ export function useRole() {
             arr.push(dayjs(item["account_period"]).format("YYYY-MM-DD"));
           }
         } else if (column.prop == "make_time") {
-          if (item["dispatch_type"] == "暂落" && item["fee_name"] != "计划费") {
+          if (item["dispatch_type"] == "暂落") {
             if (item["temp_time"] == null) {
               arr.push("");
             } else {

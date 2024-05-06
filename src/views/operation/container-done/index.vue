@@ -151,14 +151,16 @@ const {
         >
           添加异常费用
         </el-button>
-        <el-button
-          type="primary"
-          :icon="useRenderIcon(Edit)"
-          @click="fixDialog('修正')"
-          :disabled="haveRow"
-        >
-          修正箱信息
-        </el-button>
+        <Auth value="btn_fix_container">
+          <el-button
+            type="primary"
+            :icon="useRenderIcon(Edit)"
+            @click="fixDialog('修正')"
+            :disabled="haveRow"
+          >
+            修正箱信息
+          </el-button>
+        </Auth>
         <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
           导出
         </el-button>

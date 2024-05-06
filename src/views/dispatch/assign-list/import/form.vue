@@ -62,7 +62,7 @@ defineExpose({ getRef });
         placeholder="请输入车牌号"
       />
     </el-form-item>
-    <el-form-item label="拆箱门点：" prop="door">
+    <!-- <el-form-item label="拆箱门点：" prop="door">
       <el-input
         v-model="newFormInline.door"
         clearable
@@ -77,6 +77,6 @@ defineExpose({ getRef });
         format="YYYY/MM/DD"
         value-format="YYYY-MM-DD"
       />
-    </el-form-item>
+    </el-form-item> -->
   </el-form>
 </template>

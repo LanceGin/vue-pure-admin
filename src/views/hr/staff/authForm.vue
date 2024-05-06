@@ -66,6 +66,10 @@ const data = [
             label: "单据查看"
           },
           {
+            role: "btn_fix_container",
+            label: "箱信息修改"
+          },
+          {
             role: "pick_box",
             label: "挑箱"
           },
