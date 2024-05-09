@@ -55,6 +55,8 @@ const {
           placeholder="请输入堆场名称"
           clearable
           class="!w-[200px]"
+          name="yard_name"
+          autocomplete="on"
         />
       </el-form-item>
       <el-form-item label="联系人：" prop="contacts_name">
@@ -63,6 +65,8 @@ const {
           placeholder="请输入联系人"
           clearable
           class="!w-[180px]"
+          name="contacts_name"
+          autocomplete="on"
         />
       </el-form-item>
       <el-form-item label="堆场类型：" prop="is_dock">

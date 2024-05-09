@@ -55,6 +55,8 @@ const {
           placeholder="请输入船公司名"
           clearable
           class="!w-[200px]"
+          name="ship_company_name"
+          autocomplete="on"
         />
       </el-form-item>
       <el-form-item label="码头：" prop="area">
@@ -63,6 +65,8 @@ const {
           placeholder="请输入码头"
           clearable
           class="!w-[180px]"
+          name="load_port"
+          autocomplete="on"
         />
       </el-form-item>
     </el-form>

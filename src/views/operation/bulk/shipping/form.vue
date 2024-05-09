@@ -27,7 +27,9 @@ const props = withDefaults(defineProps<FormProps>(), {
     freight: "",
     error_fee: "",
     remarks: "",
-    add_time: ""
+    add_time: "",
+    add_by: "",
+    city: ""
   })
 });
 
@@ -60,6 +62,8 @@ defineExpose({ getRef });
         v-model="newFormInline.customer"
         clearable
         placeholder="请输入客户"
+        name="customer"
+        autocomplete="on"
       />
     </el-form-item>
     <el-form-item label="船公司" prop="ship_company">
@@ -67,6 +71,8 @@ defineExpose({ getRef });
         v-model="newFormInline.ship_company"
         clearable
         placeholder="请输入船公司"
+        name="ship_company"
+        autocomplete="on"
       />
     </el-form-item>
     <el-form-item label="提单号" prop="bl_no">
@@ -74,6 +80,8 @@ defineExpose({ getRef });
         v-model="newFormInline.bl_no"
         clearable
         placeholder="请输入提单号"
+        name="bl_no"
+        autocomplete="on"
       />
     </el-form-item>
     <el-form-item label="箱号" prop="container_no">
@@ -81,6 +89,8 @@ defineExpose({ getRef });
         v-model="newFormInline.container_no"
         clearable
         placeholder="请输入箱号"
+        name="container_no"
+        autocomplete="on"
       />
     </el-form-item>
     <el-form-item label="箱型" prop="container_type">
@@ -88,6 +98,8 @@ defineExpose({ getRef });
         v-model="newFormInline.container_type"
         clearable
         placeholder="请输入箱型"
+        name="container_type"
+        autocomplete="on"
       />
     </el-form-item>
     <el-form-item label="封号" prop="seal_no">
@@ -95,6 +107,8 @@ defineExpose({ getRef });
         v-model="newFormInline.seal_no"
         clearable
         placeholder="请输入封号"
+        name="seal_no"
+        autocomplete="on"
       />
     </el-form-item>
     <el-form-item label="流向" prop="flow_direction">
@@ -102,6 +116,8 @@ defineExpose({ getRef });
         v-model="newFormInline.flow_direction"
         clearable
         placeholder="请输入流向"
+        name="flow_direction"
+        autocomplete="on"
       />
     </el-form-item>
     <el-form-item label="船名航次" prop="voyage">
@@ -109,6 +125,8 @@ defineExpose({ getRef });
         v-model="newFormInline.voyage"
         clearable
         placeholder="请输入船名航次"
+        name="voyage"
+        autocomplete="on"
       />
     </el-form-item>
     <el-form-item label="地址" prop="address">
@@ -116,6 +134,8 @@ defineExpose({ getRef });
         v-model="newFormInline.address"
         clearable
         placeholder="请输入地址"
+        name="address"
+        autocomplete="on"
       />
     </el-form-item>
     <el-form-item label="车号" prop="car_no">
@@ -123,6 +143,8 @@ defineExpose({ getRef });
         v-model="newFormInline.car_no"
         clearable
         placeholder="请输入车号"
+        name="car_no"
+        autocomplete="on"
       />
     </el-form-item>
     <el-form-item label="备注" prop="remarks">
@@ -130,6 +152,8 @@ defineExpose({ getRef });
         v-model="newFormInline.remarks"
         clearable
         placeholder="请输入备注"
+        name="remarks"
+        autocomplete="on"
       />
     </el-form-item>
   </el-form>

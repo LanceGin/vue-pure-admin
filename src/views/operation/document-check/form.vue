@@ -71,6 +71,8 @@ defineExpose({ getRef });
         v-model="newFormInline.ship_company"
         clearable
         placeholder="请输入船公司"
+        name="ship_company"
+        autocomplete="on"
       />
     </el-form-item>
 
@@ -79,6 +81,8 @@ defineExpose({ getRef });
         v-model="newFormInline.customer"
         clearable
         placeholder="请输入客户名"
+        name="customer"
+        autocomplete="on"
       />
     </el-form-item>
 
@@ -87,6 +91,8 @@ defineExpose({ getRef });
         v-model="newFormInline.subproject"
         clearable
         placeholder="请输入子项目名"
+        name="subproject"
+        autocomplete="on"
       />
     </el-form-item>
 
@@ -105,6 +111,8 @@ defineExpose({ getRef });
         v-model="newFormInline.start_port"
         clearable
         placeholder="请输入起始港"
+        name="start_port"
+        autocomplete="on"
       />
     </el-form-item>
 
@@ -113,6 +121,8 @@ defineExpose({ getRef });
         v-model="newFormInline.target_port"
         clearable
         placeholder="请输入目的港"
+        name="target_port"
+        autocomplete="on"
       />
     </el-form-item>
 
@@ -121,6 +131,8 @@ defineExpose({ getRef });
         v-model="newFormInline.containner_no"
         clearable
         placeholder="请输入箱号"
+        name="containner_no"
+        autocomplete="on"
       />
     </el-form-item>
 
@@ -129,6 +141,8 @@ defineExpose({ getRef });
         v-model="newFormInline.seal_no"
         clearable
         placeholder="请输入封号"
+        name="seal_no"
+        autocomplete="on"
       />
     </el-form-item>
 
@@ -137,6 +151,8 @@ defineExpose({ getRef });
         v-model="newFormInline.container_type"
         clearable
         placeholder="请输入箱型"
+        name="container_type"
+        autocomplete="on"
       />
     </el-form-item>
 
@@ -145,6 +161,8 @@ defineExpose({ getRef });
         v-model="newFormInline.ship_name"
         clearable
         placeholder="请输入船名航次"
+        name="ship_name"
+        autocomplete="on"
       />
     </el-form-item>
 
@@ -153,6 +171,8 @@ defineExpose({ getRef });
         v-model="newFormInline.track_no"
         clearable
         placeholder="请输入运单号"
+        name="track_no"
+        autocomplete="on"
       />
     </el-form-item>
 
@@ -161,6 +181,8 @@ defineExpose({ getRef });
         v-model="newFormInline.load_port"
         clearable
         placeholder="请输入提箱码头"
+        name="load_port"
+        autocomplete="on"
       />
     </el-form-item>
 
@@ -169,6 +191,8 @@ defineExpose({ getRef });
         v-model="newFormInline.door"
         clearable
         placeholder="请输入门点"
+        name="door"
+        autocomplete="on"
       />
     </el-form-item>
   </el-form>

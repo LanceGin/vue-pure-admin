@@ -252,6 +252,8 @@ defineExpose({ getRef });
           <el-input
             v-model="newFormInline.yard_name"
             placeholder="请输入堆场名称"
+            name="yard_name"
+            autocomplete="on"
           />
         </el-form-item>
 
@@ -268,6 +270,8 @@ defineExpose({ getRef });
           <el-input
             v-model="newFormInline.port_name"
             placeholder="请输入所属港口"
+            name="port_name"
+            autocomplete="on"
           />
         </el-form-item>
 
@@ -275,6 +279,8 @@ defineExpose({ getRef });
           <el-input
             v-model="newFormInline.contacts_name"
             placeholder="请输入联系人"
+            name="contacts_name"
+            autocomplete="on"
           />
         </el-form-item>
 
@@ -282,11 +288,18 @@ defineExpose({ getRef });
           <el-input
             v-model="newFormInline.mobile"
             placeholder="请输入联系电话"
+            name="mobile"
+            autocomplete="on"
           />
         </el-form-item>
 
         <el-form-item label="备注" prop="remarks">
-          <el-input v-model="newFormInline.remarks" placeholder="请输入备注" />
+          <el-input
+            v-model="newFormInline.remarks"
+            placeholder="请输入备注"
+            name="remarks"
+            autocomplete="on"
+          />
         </el-form-item>
 
         <el-form-item label="经度" prop="longitude">
@@ -304,6 +317,8 @@ defineExpose({ getRef });
           <el-input
             v-model="newFormInline.base_price_20"
             placeholder="请输入进场价格20"
+            name="base_price_20"
+            autocomplete="on"
           />
         </el-form-item>
 
@@ -311,6 +326,8 @@ defineExpose({ getRef });
           <el-input
             v-model="newFormInline.base_price_40"
             placeholder="请输入进场价格40"
+            name="base_price_40"
+            autocomplete="on"
           />
         </el-form-item>
         <el-form-item label="计价规则" prop="price_rule">

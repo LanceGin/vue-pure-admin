@@ -68,6 +68,8 @@ defineExpose({ getRef });
         v-model="newFormInline.ship_name"
         clearable
         placeholder="请输入船名航次"
+        name="ship_name"
+        autocomplete="on"
       />
     </el-form-item>
     <el-form-item label="运单号" prop="track_no">
@@ -75,6 +77,8 @@ defineExpose({ getRef });
         v-model="newFormInline.track_no"
         clearable
         placeholder="请输入运单号"
+        name="track_no"
+        autocomplete="on"
       />
     </el-form-item>
     <el-form-item label="箱号" prop="containner_no">
@@ -82,6 +86,8 @@ defineExpose({ getRef });
         v-model="newFormInline.containner_no"
         clearable
         placeholder="请输入箱号"
+        name="containner_no"
+        autocomplete="on"
       />
     </el-form-item>
     <el-form-item label="封号" prop="seal_no">
@@ -89,6 +95,8 @@ defineExpose({ getRef });
         v-model="newFormInline.seal_no"
         clearable
         placeholder="请输入封号"
+        name="seal_no"
+        autocomplete="on"
       />
     </el-form-item>
     <el-form-item label="箱型" prop="container_type">
@@ -96,6 +104,8 @@ defineExpose({ getRef });
         v-model="newFormInline.container_type"
         clearable
         placeholder="请输入箱型"
+        name="container_type"
+        autocomplete="on"
       />
     </el-form-item>
     <el-form-item label="门点" prop="door">
@@ -103,6 +113,8 @@ defineExpose({ getRef });
         v-model="newFormInline.door"
         clearable
         placeholder="请输入门点"
+        name="door"
+        autocomplete="on"
       />
     </el-form-item>
     <el-form-item label="提箱点" prop="load_port">
@@ -110,6 +122,8 @@ defineExpose({ getRef });
         v-model="newFormInline.load_port"
         clearable
         placeholder="请输入提箱点"
+        name="load_port"
+        autocomplete="on"
       />
     </el-form-item>
     <el-form-item label="还箱点" prop="unload_port">
@@ -117,6 +131,8 @@ defineExpose({ getRef });
         v-model="newFormInline.unload_port"
         clearable
         placeholder="请输入还箱点"
+        name="unload_port"
+        autocomplete="on"
       />
     </el-form-item>
     <el-form-item label="车号" prop="car_no">
@@ -124,6 +140,8 @@ defineExpose({ getRef });
         v-model="newFormInline.car_no"
         clearable
         placeholder="请输入车号"
+        name="car_no"
+        autocomplete="on"
       />
     </el-form-item>
     <el-form-item label="做箱时间" prop="make_time">

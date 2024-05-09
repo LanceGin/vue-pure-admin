@@ -84,6 +84,8 @@ defineExpose({ getRef });
         v-model="newFormInline.fee_name"
         clearable
         placeholder="请输入费用名"
+        name="fee_name"
+        autocomplete="on"
       />
     </el-form-item>
     <el-form-item label="金额" prop="fee">
@@ -98,6 +100,8 @@ defineExpose({ getRef });
         v-model="newFormInline.remark"
         clearable
         placeholder="请输入备注"
+        name="remark"
+        autocomplete="on"
       />
     </el-form-item>
   </el-form>

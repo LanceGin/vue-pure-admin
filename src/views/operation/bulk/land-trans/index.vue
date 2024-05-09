@@ -64,6 +64,8 @@ const {
           placeholder="请输入箱号"
           clearable
           class="!w-[200px]"
+          name="container_no"
+          autocomplete="on"
         />
       </el-form-item>
       <el-form-item label="流向：" prop="flow_direction">
@@ -72,6 +74,8 @@ const {
           placeholder="请输入流向"
           clearable
           class="!w-[200px]"
+          name="flow_direction"
+          autocomplete="on"
         />
       </el-form-item>
       <el-form-item label="车号：" prop="car_no">
@@ -80,6 +84,8 @@ const {
           placeholder="请输入车号"
           clearable
           class="!w-[180px]"
+          name="car_no"
+          autocomplete="on"
         />
       </el-form-item>
     </el-form>

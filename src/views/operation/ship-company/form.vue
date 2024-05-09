@@ -34,19 +34,39 @@ defineExpose({ getRef });
     label-width="82px"
   >
     <el-form-item label="船公司名" prop="name">
-      <el-input v-model="newFormInline.name" placeholder="请输入船公司名" />
+      <el-input
+        v-model="newFormInline.name"
+        placeholder="请输入船公司名"
+        name="ship_company_name"
+        autocomplete="on"
+      />
     </el-form-item>
 
     <el-form-item label="码头" prop="area">
-      <el-input v-model="newFormInline.area" placeholder="请输入码头" />
+      <el-input
+        v-model="newFormInline.area"
+        placeholder="请输入码头"
+        name="load_port"
+        autocomplete="on"
+      />
     </el-form-item>
 
     <el-form-item label="20打单费" prop="o20">
-      <el-input v-model="newFormInline.o20" placeholder="请输入打单费" />
+      <el-input
+        v-model="newFormInline.o20"
+        placeholder="请输入打单费"
+        name="o20"
+        autocomplete="on"
+      />
     </el-form-item>
 
     <el-form-item label="40打单费" prop="o40">
-      <el-input v-model="newFormInline.o40" placeholder="请输入打单费" />
+      <el-input
+        v-model="newFormInline.o40"
+        placeholder="请输入打单费"
+        name="o40"
+        autocomplete="on"
+      />
     </el-form-item>
   </el-form>
 </template>

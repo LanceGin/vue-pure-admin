@@ -64,6 +64,8 @@ const {
           placeholder="请输入装货地址"
           clearable
           class="!w-[180px]"
+          name="load_address"
+          autocomplete="on"
         />
       </el-form-item>
       <el-form-item label="卸货地址：" prop="unload_address">
@@ -72,6 +74,8 @@ const {
           placeholder="请输入卸货地址"
           clearable
           class="!w-[180px]"
+          name="unload_address"
+          autocomplete="on"
         />
       </el-form-item>
       <el-form-item label="车号：" prop="car_no">
@@ -80,6 +84,8 @@ const {
           placeholder="请输入车号"
           clearable
           class="!w-[180px]"
+          name="car_no"
+          autocomplete="on"
         />
       </el-form-item>
     </el-form>

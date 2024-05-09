@@ -55,6 +55,8 @@ const {
           placeholder="请输入客户简称"
           clearable
           class="!w-[200px]"
+          name="companyShortName"
+          autocomplete="on"
         />
       </el-form-item>
       <el-form-item label="客户地址：" prop="companyAddress">
@@ -63,6 +65,8 @@ const {
           placeholder="请输入客户地址"
           clearable
           class="!w-[180px]"
+          name="companyAddress"
+          autocomplete="on"
         />
       </el-form-item>
       <el-form-item label="客户状态：" prop="state">

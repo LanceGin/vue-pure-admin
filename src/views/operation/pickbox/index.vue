@@ -64,6 +64,8 @@ const {
           placeholder="请输入船名/航次"
           clearable
           class="!w-[120px]"
+          name="ship_name"
+          autocomplete="on"
         />
       </el-form-item>
       <el-form-item label="运单号" prop="track_no">
@@ -72,6 +74,8 @@ const {
           placeholder="请输入运单号"
           clearable
           class="!w-[120px]"
+          name="track_no"
+          autocomplete="on"
         />
       </el-form-item>
 
@@ -111,6 +115,8 @@ const {
           type="textarea"
           clearable
           class="!w-[120px]"
+          name="containner_no"
+          autocomplete="on"
         />
         <el-button link type="primary" @click="form.containner_no = ''"
           >清空</el-button
@@ -122,6 +128,8 @@ const {
           placeholder="请输入门点"
           clearable
           class="!w-[120px]"
+          name="door"
+          autocomplete="on"
         />
       </el-form-item>
     </el-form>

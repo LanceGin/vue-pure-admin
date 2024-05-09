@@ -65,6 +65,8 @@ defineExpose({ getRef });
       <el-input
         v-model="newFormInline.companyShortName"
         placeholder="请输入客户简称"
+        name="companyShortName"
+        autocomplete="on"
       />
     </el-form-item>
 
@@ -72,6 +74,8 @@ defineExpose({ getRef });
       <el-input
         v-model="newFormInline.companyName"
         placeholder="请输入客户全称"
+        name="companyName"
+        autocomplete="on"
       />
     </el-form-item>
 
@@ -79,6 +83,8 @@ defineExpose({ getRef });
       <el-input
         v-model="newFormInline.companyAddress"
         placeholder="请输入企业地址"
+        name="companyAddress"
+        autocomplete="on"
       />
     </el-form-item>
 
@@ -86,6 +92,8 @@ defineExpose({ getRef });
       <el-input
         v-model="newFormInline.companyContact"
         placeholder="请输入联系人"
+        name="companyContact"
+        autocomplete="on"
       />
     </el-form-item>
 
@@ -93,6 +101,8 @@ defineExpose({ getRef });
       <el-input
         v-model="newFormInline.companyPhone1"
         placeholder="请输入联系电话"
+        name="companyPhone1"
+        autocomplete="on"
       />
     </el-form-item>
 

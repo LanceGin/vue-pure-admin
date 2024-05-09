@@ -102,14 +102,18 @@ const handleClose = () => {
           placeholder="请输入船公司"
           clearable
           class="!w-[200px]"
+          name="ship_company"
+          autocomplete="on"
         />
       </el-form-item>
-      <el-form-item label="提单号：" prop="seal_no">
+      <el-form-item label="提单号：" prop="bl_no">
         <el-input
-          v-model="form.seal_no"
+          v-model="form.bl_no"
           placeholder="请输入提单号"
           clearable
           class="!w-[180px]"
+          name="bl_no"
+          autocomplete="on"
         />
       </el-form-item>
       <el-form-item label="箱号：" prop="container_no">
@@ -118,6 +122,8 @@ const handleClose = () => {
           placeholder="请输入箱号"
           clearable
           class="!w-[200px]"
+          name="container_no"
+          autocomplete="on"
         />
       </el-form-item>
       <el-form-item label="车号：" prop="car_no">
@@ -126,6 +132,8 @@ const handleClose = () => {
           placeholder="请输入车号"
           clearable
           class="!w-[180px]"
+          name="car_no"
+          autocomplete="on"
         />
       </el-form-item>
       <el-form-item label="船名航次：" prop="voyage">
@@ -134,6 +142,8 @@ const handleClose = () => {
           placeholder="请输入船名航次"
           clearable
           class="!w-[180px]"
+          name="voyage"
+          autocomplete="on"
         />
       </el-form-item>
     </el-form>

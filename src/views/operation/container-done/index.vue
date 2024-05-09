@@ -70,6 +70,8 @@ const {
           placeholder="请输入客户名称"
           clearable
           class="!w-[200px]"
+          name="customer"
+          autocomplete="on"
         />
       </el-form-item>
       <el-form-item label="门点" prop="door">
@@ -78,6 +80,8 @@ const {
           placeholder="请输入门点"
           clearable
           class="!w-[200px]"
+          name="door"
+          autocomplete="on"
         />
       </el-form-item>
       <el-form-item label="日期：" prop="make_time_range">
@@ -96,6 +100,8 @@ const {
           placeholder="请输入运单号"
           clearable
           class="!w-[200px]"
+          name="track_no"
+          autocomplete="on"
         />
       </el-form-item>
       <el-form-item label="箱号" prop="containner_no">
@@ -106,6 +112,8 @@ const {
           type="textarea"
           clearable
           class="!w-[200px]"
+          name="containner_no"
+          autocomplete="on"
         />
         <el-button link type="primary" @click="form.containner_no = ''"
           >清空</el-button

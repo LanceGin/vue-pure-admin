@@ -93,6 +93,8 @@ defineExpose({ getRef });
         v-model="newFormInline.customer"
         clearable
         placeholder="请输入客户"
+        name="customer"
+        autocomplete="on"
       />
     </el-form-item>
     <el-form-item label="承运车队" prop="fleet">
@@ -100,6 +102,8 @@ defineExpose({ getRef });
         v-model="newFormInline.fleet"
         clearable
         placeholder="请输入承运车队"
+        name="fleet"
+        autocomplete="on"
       />
     </el-form-item>
     <el-form-item label="装货地区" prop="load_area">
@@ -114,6 +118,8 @@ defineExpose({ getRef });
         v-model="newFormInline.load_address"
         clearable
         placeholder="请输入装货地址"
+        name="load_address"
+        autocomplete="on"
       />
     </el-form-item>
     <el-form-item label="卸货地区" prop="unload_area">
@@ -128,6 +134,8 @@ defineExpose({ getRef });
         v-model="newFormInline.unload_address"
         clearable
         placeholder="请输入卸货地址"
+        name="unload_address"
+        autocomplete="on"
       />
     </el-form-item>
     <el-form-item label="车型" prop="car_type">
@@ -135,6 +143,8 @@ defineExpose({ getRef });
         v-model="newFormInline.car_type"
         clearable
         placeholder="请输入车型"
+        name="car_type"
+        autocomplete="on"
       />
     </el-form-item>
     <el-form-item label="车号" prop="car_no">
@@ -142,6 +152,8 @@ defineExpose({ getRef });
         v-model="newFormInline.car_no"
         clearable
         placeholder="请输入车号"
+        name="car_no"
+        autocomplete="on"
       />
     </el-form-item>
     <el-form-item label="驾驶员手机号" prop="driver_mobile">
@@ -149,6 +161,8 @@ defineExpose({ getRef });
         v-model="newFormInline.driver_mobile"
         clearable
         placeholder="请输入驾驶员手机号"
+        name="driver_mobile"
+        autocomplete="on"
       />
     </el-form-item>
     <el-form-item label="重量" prop="weight">
@@ -156,6 +170,8 @@ defineExpose({ getRef });
         v-model="newFormInline.weight"
         clearable
         placeholder="请输入重量"
+        name="weight"
+        autocomplete="on"
       />
     </el-form-item>
     <el-form-item label="体积" prop="volume">
@@ -163,6 +179,8 @@ defineExpose({ getRef });
         v-model="newFormInline.volume"
         clearable
         placeholder="请输入体积"
+        name="volume"
+        autocomplete="on"
       />
     </el-form-item>
     <el-form-item label="运费" prop="freight">
@@ -177,6 +195,8 @@ defineExpose({ getRef });
         v-model="newFormInline.remarks"
         clearable
         placeholder="请输入备注"
+        name="remarks"
+        autocomplete="on"
       />
     </el-form-item>
   </el-form>
