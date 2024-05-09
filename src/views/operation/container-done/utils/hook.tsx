@@ -394,12 +394,9 @@ export function useRole() {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
         function chores() {
-          message(
-            `您为订单号为${curData.track_no}的这条数据${title}了异常费用`,
-            {
-              type: "success"
-            }
-          );
+          message(`您为订单号为${curData.track_no}的这条数据${title}了数据`, {
+            type: "success"
+          });
           done(); // 关闭弹框
           onSearch(); // 刷新表格数据
         }
