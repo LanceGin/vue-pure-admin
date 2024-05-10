@@ -21,6 +21,26 @@ export default {
       }
     },
     {
+      path: "/statics/land_price",
+      name: "LandPrice",
+      component: () => import("@/views/statics/land-price/index.vue"),
+      meta: {
+        title: "陆运价格",
+        keepAlive: true,
+        roles: ["admin", "statics", "land_price"]
+      }
+    },
+    {
+      path: "/statics/bulk_price",
+      name: "BulkPrice",
+      component: () => import("@/views/statics/bulk-price/index.vue"),
+      meta: {
+        title: "散货价格",
+        keepAlive: true,
+        roles: ["admin", "statics", "bulk_price"]
+      }
+    },
+    {
       path: "/statics/collection_price",
       name: "CollectionPrice",
       component: () => import("@/views/statics/collection-price/index.vue"),

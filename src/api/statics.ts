@@ -105,6 +105,62 @@ export const editLighteringPrice = (data?: object) => {
   });
 };
 
+// 获取陆运运价格列表
+export const landPriceList = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("landPriceList"), {
+    data
+  });
+};
+
+// 新增陆运运价格
+export const addLandPrice = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("addLandPrice"), {
+    data
+  });
+};
+
+// 删除陆运运价格
+export const deleteLandPrice = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("deleteLandPrice"), {
+    data
+  });
+};
+
+// 编辑陆运运价格
+export const editLandPrice = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("editLandPrice"), {
+    data
+  });
+};
+
+// 获取散货价格列表
+export const bulkPriceList = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("bulkPriceList"), {
+    data
+  });
+};
+
+// 新增散货价格
+export const addBulkPrice = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("addBulkPrice"), {
+    data
+  });
+};
+
+// 删除散货价格
+export const deleteBulkPrice = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("deleteBulkPrice"), {
+    data
+  });
+};
+
+// 编辑散货价格
+export const editBulkPrice = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("editBulkPrice"), {
+    data
+  });
+};
+
 // 获取统计费用列表
 export const containerFeeList = (data?: object) => {
   return http.request<ListResult>("post", baseUrlApi("containerFeeList"), {

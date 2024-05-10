@@ -158,7 +158,9 @@ export function useRole() {
       prop: "load_port",
       cellRenderer: ({ row }) => {
         if (row.order_type == "进口") {
-          if (row.dispatch_type == "暂落" || row.fee_name == "堆存费") {
+          if (row.fee_name == "堆存费") {
+            return row.temp_port;
+          } else if (row.dispatch_type == "拆箱" && row.temp_port != null) {
             return row.temp_port;
           } else {
             return row.load_port;
