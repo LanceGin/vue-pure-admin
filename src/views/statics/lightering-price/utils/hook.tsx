@@ -13,8 +13,10 @@ import {
   importDoorPrice,
   lighteringPriceList
 } from "@/api/statics";
+import { useUserStore } from "@/store/modules/user";
 
 export function useRole() {
+  const user = useUserStore();
   const form = reactive({
     id: "",
     settlement: "",
@@ -23,7 +25,9 @@ export function useRole() {
     p40: "",
     p20: "",
     c40: "",
-    c20: ""
+    c20: "",
+    add_by: user.username,
+    city: user.city
   });
   const formRef = ref();
   const currentRow = ref();
@@ -178,7 +182,9 @@ export function useRole() {
           p40: row?.p40 ?? "",
           p20: row?.p20 ?? "",
           c40: row?.c40 ?? "",
-          c20: row?.c20 ?? ""
+          c20: row?.c20 ?? "",
+          add_by: row?.add_by ?? user.username,
+          city: row?.city ?? user.city
         }
       },
       width: "40%",

@@ -9,6 +9,8 @@ interface FormItemProps {
   p20: string;
   c40: string;
   c20: string;
+  add_by: string;
+  city: string;
 }
 interface FormProps {
   formInline: FormItemProps;

@@ -12,7 +12,9 @@ const props = withDefaults(defineProps<FormProps>(), {
     p40: "",
     p20: "",
     c40: "",
-    c20: ""
+    c20: "",
+    add_by: "",
+    city: ""
   })
 });
 
