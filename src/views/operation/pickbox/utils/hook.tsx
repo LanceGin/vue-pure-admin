@@ -127,9 +127,12 @@ export function useRole() {
     {
       label: "堆存天数",
       prop: "arrive_time",
-      formatter: ({ arrive_time }) => {
-        const a_time = dayjs(arrive_time).format("YYYY-MM-DD");
-        const now_time = dayjs().format("YYYY-MM-DD");
+      cellRenderer: ({ row }) => {
+        const a_time = dayjs(row.arrive_time).format("YYYY-MM-DD");
+        let now_time = dayjs().format("YYYY-MM-DD");
+        if (row.make_time !== null) {
+          now_time = dayjs(row.make_time).format("YYYY-MM-DD");
+        }
         return (dayjs(now_time).diff(a_time, "day") + 1).toString();
       }
     },
