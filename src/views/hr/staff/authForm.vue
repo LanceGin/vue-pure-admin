@@ -182,6 +182,14 @@ const data = [
             label: "驳运价格"
           },
           {
+            role: "land_price",
+            label: "陆运价格"
+          },
+          {
+            role: "bulk_price",
+            label: "散货价格"
+          },
+          {
             role: "collection_price",
             label: "门点价格（应收）"
           },
