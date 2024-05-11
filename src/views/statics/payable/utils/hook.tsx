@@ -550,6 +550,8 @@ export function useRole() {
         });
         ElMessage({
           type: "error",
+          duration: 0,
+          showClose: true,
           message: `箱号为${errorNo}数据有误`
         });
         onSearch();
