@@ -36,6 +36,7 @@ export function useRole() {
     o20tk: "",
     o40hc: "",
     add_time: "",
+    add_by: user.username,
     city: user.city
   });
   const formRef = ref();
@@ -307,6 +308,7 @@ export function useRole() {
     const form = new FormData();
     form.append("file", item.file);
     form.append("is_pay", "0");
+    form.append("add_by", user.username);
     form.append("city", user.city);
     await importDoorPrice(form);
   }

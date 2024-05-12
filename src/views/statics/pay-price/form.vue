@@ -21,6 +21,7 @@ const props = withDefaults(defineProps<FormProps>(), {
     o20tk: "",
     o40hc: "",
     add_time: "",
+    add_by: "",
     city: ""
   })
 });

@@ -36,6 +36,7 @@ export function useRole() {
     o20tk: "",
     o40hc: "",
     add_time: "",
+    add_by: user.username,
     city: user.city
   });
   const formRef = ref();
@@ -265,6 +266,7 @@ export function useRole() {
           o20tk: row?.o20tk ?? "",
           o40hc: row?.o40hc ?? "",
           add_time: row?.add_time ?? "",
+          add_by: row?.add_by ?? user.username,
           city: row?.city ?? user.city
         }
       },
@@ -307,6 +309,7 @@ export function useRole() {
     const form = new FormData();
     form.append("file", item.file);
     form.append("is_pay", "1");
+    form.append("add_by", user.username);
     form.append("city", user.city);
     await importDoorPrice(form);
   }

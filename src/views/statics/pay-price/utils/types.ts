@@ -17,6 +17,7 @@ interface FormItemProps {
   o20tk: string;
   o40hc: string;
   add_time: any;
+  add_by: string;
   city: string;
 }
 interface FormProps {
