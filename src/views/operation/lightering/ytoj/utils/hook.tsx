@@ -24,6 +24,7 @@ export function useRole() {
     voyage: "",
     voyage_index: "",
     container_no: "",
+    customs_seal_no: "",
     seal_no: "",
     customs_container_type: "",
     iso: "",
@@ -33,6 +34,7 @@ export function useRole() {
     extra_operation: "",
     trade_type: "",
     bl_no: "",
+    cargo_type: "",
     cargo_name: "",
     load_port: "",
     target_port: "",
@@ -111,8 +113,16 @@ export function useRole() {
       prop: "trade_type"
     },
     {
-      label: "铅封号",
+      label: "海关铅封号",
+      prop: "customs_seal_no"
+    },
+    {
+      label: "船公司铅封号",
       prop: "seal_no"
+    },
+    {
+      label: "货类",
+      prop: "cargo_type"
     },
     {
       label: "货名",

@@ -7,6 +7,7 @@ interface FormItemProps {
   voyage: string;
   voyage_string: string;
   container_no: string;
+  customs_seal_no: string;
   seal_no: string;
   customs_container_type: string;
   iso: string;
@@ -16,6 +17,7 @@ interface FormItemProps {
   extra_operation: string;
   trade_type: string;
   bl_no: string;
+  cargo_type: string;
   cargo_name: string;
   load_port: string;
   target_port: string;
