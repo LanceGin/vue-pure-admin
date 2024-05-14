@@ -294,7 +294,9 @@ export function useRole() {
   async function handleEditContainer(container) {
     const { data } = await fixContainerInfo(container);
     updateDispatchFee(data.list);
-    updatePlanningFee(data.list);
+    if (container.type != "装箱") {
+      updatePlanningFee(data.list);
+    }
   }
 
   function openDialog(title = "添加") {
@@ -378,6 +380,7 @@ export function useRole() {
           load_port: currentRow.value.load_port,
           unload_port: currentRow.value.unload_port,
           car_no: currentRow.value.car_no,
+          type: currentRow.value.type,
           make_time:
             currentRow.value.type == "暂落"
               ? dayjs(currentRow.value.temp_time).format("YYYY-MM-DD HH:mm:ss")
