@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
 import { useRoute } from "vue-router";
-import { ref, unref, onMounted, nextTick } from "vue";
+import { ref, unref, nextTick, onMounted } from "vue";
 // import { http } from "@/utils/http";
+import { getSino } from "@/api/third";
 
 defineOptions({
   name: "FrameView"
@@ -14,13 +15,20 @@ const currentRoute = useRoute();
 const frameSrc = ref<string>("");
 const frameRef = ref<HTMLElement | null>(null);
 
-console.log(111111, unref(currentRoute.meta)?.frameSrc);
 if (unref(currentRoute.meta)?.frameSrc == "transportManage") {
-  frameSrc.value =
-    "https://lims.sinoiov.cn/#/middle-page?p=iTJwRHlwZSI6InRyYW5zcG9ydE1hbmFnZSIsInBUb2tlbiI6IjAzM2Y5MzAwMDVkYjRmMjlhMzg0ZjVhMWJjNGVeNydhIn0=";
+  const data = {
+    type: "transportManage"
+  };
+  getSino(data).then(result => {
+    frameSrc.value = result.data.result;
+  });
 } else if (unref(currentRoute.meta)?.frameSrc == "pathTrack") {
-  frameSrc.value =
-    "https://lims.sinoiov.cn/#/middle-page?p=0GJwEHlwZSI6InBhdGhUcmFjayIsInBUb2tlbiI6IjI4ZDM1YzAyZjM3YzQwNjNiNTIzY2ExZGJmZDVeOyZiIn0=";
+  const data = {
+    type: "pathTrack"
+  };
+  getSino(data).then(result => {
+    frameSrc.value = result.data.result;
+  });
 }
 unref(currentRoute.meta)?.frameLoading === false && hideLoading();
 
@@ -93,7 +101,12 @@ onMounted(() => {
     v-loading="loading"
     :element-loading-text="t('status.hsLoad')"
   >
-    <iframe :src="frameSrc" class="frame-iframe" ref="frameRef" />
+    <iframe
+      :src="frameSrc"
+      class="frame-iframe"
+      ref="frameRef"
+      allow="accelerometer;gyroscope"
+    />
   </div>
 </template>
 
