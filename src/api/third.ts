@@ -24,3 +24,10 @@ export const getSino = (data?: object) => {
     data
   });
 };
+
+// 提交eir
+export const submitEir = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("submitEir"), {
+    data
+  });
+};

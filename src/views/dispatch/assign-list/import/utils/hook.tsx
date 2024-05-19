@@ -16,6 +16,7 @@ import {
 } from "@/api/dispatch";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { useUserStore } from "@/store/modules/user";
+import { submitEir } from "@/api/third";
 
 export function useRole() {
   const user = useUserStore();
@@ -344,10 +345,12 @@ export function useRole() {
       cancelButtonText: "取消"
     })
       .then(() => {
+        selectRows.value.forEach(v => {
+          submitEir(v);
+        });
         ElMessage({
-          type: "error",
-          message:
-            "the source system does not have permission to access the service"
+          type: "success",
+          message: "已发起推送"
         });
       })
       .catch(() => {

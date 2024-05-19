@@ -1,283 +1,103 @@
 <script setup lang="ts">
-import dayjs from "dayjs";
-// import MdEditor from "md-editor-v3";
-import Bar from "./components/Bar.vue";
-import Pie from "./components/Pie.vue";
-import Line from "./components/Line.vue";
-import { getReleases } from "@/api/list";
-import TypeIt from "@/components/ReTypeit";
-// import { useWindowSize } from "@vueuse/core";
-import { ref, markRaw } from "vue";
-// import Github from "./components/Github.vue";
-import { randomColor } from "@pureadmin/utils";
-import { useRenderFlicker } from "@/components/ReFlicker";
+// import { useColumns } from "./columns";
+export interface schemaItem {
+  field: string;
+  label: string;
+}
 
 defineOptions({
-  name: "Welcome"
+  name: "About"
 });
 
-const list = ref();
-const loading = ref<boolean>(true);
-// const { version } = __APP_INFO__.pkg;
-// const titleClass = computed(() => {
-//   return ["text-base", "font-medium"];
-// });
+const { pkg } = __APP_INFO__;
+const { dependencies, devDependencies } = pkg;
 
-// const { height } = useWindowSize();
+const schema: schemaItem[] = [];
+const devSchema: schemaItem[] = [];
 
-setTimeout(() => {
-  loading.value = !loading.value;
-}, 800);
+// const { columns } = useColumns();
 
-getReleases().then(({ data }) => {
-  list.value = data.list.map(v => {
-    return {
-      content: v.body,
-      timestamp: dayjs(v.published_at).format("YYYY/MM/DD hh:mm:ss A"),
-      icon: markRaw(
-        useRenderFlicker({
-          background: randomColor({ type: "hex" }) as string
-        })
-      )
-    };
-  });
+Object.keys(dependencies).forEach(key => {
+  schema.push({ field: dependencies[key], label: key });
+});
+
+Object.keys(devDependencies).forEach(key => {
+  devSchema.push({ field: devDependencies[key], label: key });
 });
 </script>
 
 <template>
   <div>
-    <el-row :gutter="24">
-      <!-- pureAdmin 版本信息 -->
-      <!-- <el-col
-        :xs="24"
-        :sm="24"
-        :md="12"
-        :lg="12"
-        :xl="12"
-        class="mb-[18px]"
-        v-motion
-        :initial="{
-          opacity: 0,
-          y: 100
-        }"
-        :enter="{
-          opacity: 1,
-          y: 0,
-          transition: {
-            delay: 200
-          }
-        }"
-      >
-        <el-card
-          shadow="never"
-          :style="{ height: `calc(${height}px - 35vh - 250px)` }"
+    <el-card class="mb-4 box-card" shadow="never">
+      <template #header>
+        <div class="card-header">
+          <span class="font-medium">关于</span>
+        </div>
+      </template>
+      <span style="font-size: 15px"> @上海濠瀚科技有限公司 E物流管理系统 </span>
+    </el-card>
+
+    <!-- <el-card class="m-4 box-card" shadow="never">
+      <template #header>
+        <div class="card-header">
+          <span class="font-medium">项目信息</span>
+        </div>
+      </template>
+      <PureDescriptions :columns="columns" border :column="3" align="left" />
+    </el-card>
+
+    <el-card class="m-4 box-card" shadow="never">
+      <template #header>
+        <div class="card-header">
+          <span class="font-medium">生产环境依赖</span>
+        </div>
+      </template>
+      <el-descriptions border>
+        <el-descriptions-item
+          :label="item.label"
+          label-align="left"
+          align="left"
+          v-for="(item, index) in schema"
+          :key="index"
         >
-          <template #header>
-            <a
-              :class="titleClass"
-              href="https://github.com/pure-admin/vue-pure-admin/releases"
-              target="_black"
-            >
-              <TypeIt
-                :className="'type-it2'"
-                :values="[`PureAdmin 版本日志（当前版本 v${version}）`]"
-                :cursor="false"
-                :speed="60"
-              />
-            </a>
-          </template>
-          <el-skeleton animated :rows="7" :loading="loading">
-            <template #default>
-              <el-scrollbar :height="`calc(${height}px - 35vh - 340px)`">
-                <el-timeline v-show="list?.length > 0">
-                  <el-timeline-item
-                    v-for="(item, index) in list"
-                    :key="index"
-                    :icon="item.icon"
-                    :timestamp="item.timestamp"
-                  >
-                    <md-editor v-model="item.content" preview-only />
-                  </el-timeline-item>
-                </el-timeline>
-                <el-empty v-show="list?.length === 0" />
-              </el-scrollbar>
-            </template>
-          </el-skeleton>
-        </el-card>
-      </el-col> -->
+          <a
+            :href="'https://www.npmjs.com/package/' + item.label"
+            target="_blank"
+          >
+            <span style="color: var(--el-color-primary)">{{ item.field }}</span>
+          </a>
+        </el-descriptions-item>
+      </el-descriptions>
+    </el-card>
 
-      <!-- 个人github信息 -->
-      <!-- <el-col
-        :xs="24"
-        :sm="24"
-        :md="12"
-        :lg="12"
-        :xl="12"
-        class="mb-[18px]"
-        v-motion
-        :initial="{
-          opacity: 0,
-          y: 100
-        }"
-        :enter="{
-          opacity: 1,
-          y: 0,
-          transition: {
-            delay: 200
-          }
-        }"
-      >
-        <el-card
-          shadow="never"
-          :style="{ height: `calc(${height}px - 35vh - 250px)` }"
+    <el-card class="m-4 box-card" shadow="never">
+      <template #header>
+        <div class="card-header">
+          <span class="font-medium">开发环境依赖</span>
+        </div>
+      </template>
+      <el-descriptions border>
+        <el-descriptions-item
+          :label="item.label"
+          label-align="left"
+          align="left"
+          v-for="(item, index) in devSchema"
+          :key="index"
         >
-          <template #header>
-            <a
-              :class="titleClass"
-              href="https://github.com/xiaoxian521"
-              target="_black"
-            >
-              <TypeIt
-                :className="'type-it1'"
-                :values="['GitHub信息']"
-                :cursor="false"
-                :speed="120"
-              />
-            </a>
-          </template>
-          <el-skeleton animated :rows="7" :loading="loading">
-            <template #default>
-              <el-scrollbar :height="`calc(${height}px - 35vh - 340px)`">
-                <Github />
-              </el-scrollbar>
-            </template>
-          </el-skeleton>
-        </el-card>
-      </el-col> -->
-
-      <!-- github折线图信息 -->
-      <el-col
-        :xs="24"
-        :sm="24"
-        :md="12"
-        :lg="8"
-        :xl="8"
-        class="mb-[18px]"
-        v-motion
-        :initial="{
-          opacity: 0,
-          y: 100
-        }"
-        :enter="{
-          opacity: 1,
-          y: 0,
-          transition: {
-            delay: 400
-          }
-        }"
-      >
-        <el-card shadow="never">
-          <template #header>
-            <TypeIt
-              :className="'type-it4'"
-              :values="['业务量对比图']"
-              :cursor="false"
-              :speed="120"
-            />
-          </template>
-          <el-skeleton animated :rows="7" :loading="loading">
-            <template #default>
-              <Line />
-            </template>
-          </el-skeleton>
-        </el-card>
-      </el-col>
-
-      <!-- github饼图信息 -->
-      <el-col
-        :xs="24"
-        :sm="24"
-        :md="12"
-        :lg="8"
-        :xl="8"
-        class="mb-[18px]"
-        v-motion
-        :initial="{
-          opacity: 0,
-          y: 100
-        }"
-        :enter="{
-          opacity: 1,
-          y: 0,
-          transition: {
-            delay: 400
-          }
-        }"
-      >
-        <el-card shadow="never">
-          <template #header>
-            <TypeIt
-              :className="'type-it3'"
-              :values="['月度饼图']"
-              :cursor="false"
-              :speed="120"
-            />
-          </template>
-          <el-skeleton animated :rows="7" :loading="loading">
-            <template #default>
-              <Pie />
-            </template>
-          </el-skeleton>
-        </el-card>
-      </el-col>
-
-      <!-- github柱状图信息 -->
-      <el-col
-        :xs="24"
-        :sm="24"
-        :md="24"
-        :lg="8"
-        :xl="8"
-        class="mb-[18px]"
-        v-motion
-        :initial="{
-          opacity: 0,
-          y: 100
-        }"
-        :enter="{
-          opacity: 1,
-          y: 0,
-          transition: {
-            delay: 400
-          }
-        }"
-      >
-        <el-card shadow="never">
-          <template #header>
-            <TypeIt
-              :className="'type-it5'"
-              :values="['成本利润比']"
-              :cursor="false"
-              :speed="120"
-            />
-          </template>
-          <el-skeleton animated :rows="7" :loading="loading">
-            <template #default>
-              <Bar />
-            </template>
-          </el-skeleton>
-        </el-card>
-      </el-col>
-    </el-row>
+          <a
+            :href="'https://www.npmjs.com/package/' + item.label"
+            target="_blank"
+          >
+            <span style="color: var(--el-color-primary)">{{ item.field }}</span>
+          </a>
+        </el-descriptions-item>
+      </el-descriptions>
+    </el-card> -->
   </div>
 </template>
 
 <style lang="scss" scoped>
-:deep(.el-timeline-item) {
-  margin: 6px 0 0 6px;
-}
-
 .main-content {
-  margin: 20px 20px 0 !important;
+  margin: 0 !important;
 }
 </style>

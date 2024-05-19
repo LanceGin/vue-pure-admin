@@ -34,9 +34,7 @@ Object.keys(devDependencies).forEach(key => {
           <span class="font-medium">关于</span>
         </div>
       </template>
-      <span style="font-size: 15px">
-        @上海濠瀚科技有限公司 E物流管理系统 开发中
-      </span>
+      <span style="font-size: 15px"> @上海濠瀚科技有限公司 E物流管理系统 </span>
     </el-card>
 
     <!-- <el-card class="m-4 box-card" shadow="never">
