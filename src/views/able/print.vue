@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import Print from "@/utils/print";
-import Line from "../welcome/components/Line.vue";
+import Line from "../manager/components/Line.vue";
 
 defineOptions({
   name: "Print"

@@ -13,7 +13,7 @@ export default {
     {
       path: "/manager/transport_report",
       name: "TransportReport",
-      component: () => import("@/views/welcome/index.vue"),
+      component: () => import("@/views/manager/index.vue"),
       meta: {
         title: $t("menus.transportReport"),
         roles: ["admin", "manager"]
@@ -22,7 +22,7 @@ export default {
     {
       path: "/manager/operation_report",
       name: "OperationReport",
-      component: () => import("@/views/welcome/index.vue"),
+      component: () => import("@/views/manager/index.vue"),
       meta: {
         title: $t("menus.operationReport"),
         roles: ["admin", "manager"]
