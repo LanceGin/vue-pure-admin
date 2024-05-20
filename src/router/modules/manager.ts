@@ -15,16 +15,16 @@ export default {
       name: "TransportReport",
       component: () => import("@/views/manager/index.vue"),
       meta: {
-        title: $t("menus.transportReport"),
+        title: "汇总业务报表",
         roles: ["admin", "manager"]
       }
     },
     {
-      path: "/manager/operation_report",
-      name: "OperationReport",
+      path: "/manager/wh_transport_report",
+      name: "WhTransportReport",
       component: () => import("@/views/manager/index.vue"),
       meta: {
-        title: $t("menus.operationReport"),
+        title: "武汉业务报表",
         roles: ["admin", "manager"]
       }
     }

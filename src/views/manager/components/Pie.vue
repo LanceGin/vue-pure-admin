@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, watch, type Ref } from "vue";
-import { useAppStoreHook } from "@/store/modules/app";
+import { useAppStoreHook } from "../../../store/modules/app";
 import {
   delay,
   useDark,
@@ -26,29 +26,22 @@ setOptions(
     },
     legend: {
       icon: "circle",
-      //@ts-expect-error
-      right: true
+      right: "auto"
     },
     series: [
       {
-        name: "Github信息",
+        name: "月度饼图",
         type: "pie",
         top: "20%",
         radius: "80%",
         center: ["40%", "50%"],
-        color: ["#e6a23c", "#f56c6c", "#53a7ff"],
+        color: ["#f56c6c", "#cce0c5", "#53a7ff", "#e6a23c"],
         data: [
-          { value: 400, name: "watchers" },
-          { value: 1600, name: "forks" },
-          { value: 7200, name: "star" }
+          { value: 1572, name: "上海" },
+          { value: 256, name: "太仓" },
+          { value: 883, name: "武汉" },
+          { value: 265, name: "岳阳" }
         ]
-        // emphasis: {
-        //   itemStyle: {
-        //     shadowBlur: 10,
-        //     shadowOffsetX: 0,
-        //     shadowColor: "rgba(0, 0, 0, 0.5)"
-        //   }
-        // }
       }
     ]
   },

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, watch, type Ref } from "vue";
-import { useAppStoreHook } from "@/store/modules/app";
+import { useAppStoreHook } from "../../../store/modules/app";
 import {
   delay,
   useDark,
@@ -33,8 +33,7 @@ setOptions(
       right: "10px"
     },
     legend: {
-      //@ts-expect-error
-      right: true,
+      right: "auto",
       data: ["watchers", "fork", "star"]
     },
     xAxis: [

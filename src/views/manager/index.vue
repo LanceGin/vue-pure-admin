@@ -13,7 +13,7 @@ import { randomColor } from "@pureadmin/utils";
 import { useRenderFlicker } from "@/components/ReFlicker";
 
 defineOptions({
-  name: "Welcome"
+  name: "Manager"
 });
 
 const list = ref();
@@ -47,121 +47,13 @@ getReleases().then(({ data }) => {
 <template>
   <div>
     <el-row :gutter="24">
-      <!-- pureAdmin 版本信息 -->
-      <!-- <el-col
-        :xs="24"
-        :sm="24"
-        :md="12"
-        :lg="12"
-        :xl="12"
-        class="mb-[18px]"
-        v-motion
-        :initial="{
-          opacity: 0,
-          y: 100
-        }"
-        :enter="{
-          opacity: 1,
-          y: 0,
-          transition: {
-            delay: 200
-          }
-        }"
-      >
-        <el-card
-          shadow="never"
-          :style="{ height: `calc(${height}px - 35vh - 250px)` }"
-        >
-          <template #header>
-            <a
-              :class="titleClass"
-              href="https://github.com/pure-admin/vue-pure-admin/releases"
-              target="_black"
-            >
-              <TypeIt
-                :className="'type-it2'"
-                :values="[`PureAdmin 版本日志（当前版本 v${version}）`]"
-                :cursor="false"
-                :speed="60"
-              />
-            </a>
-          </template>
-          <el-skeleton animated :rows="7" :loading="loading">
-            <template #default>
-              <el-scrollbar :height="`calc(${height}px - 35vh - 340px)`">
-                <el-timeline v-show="list?.length > 0">
-                  <el-timeline-item
-                    v-for="(item, index) in list"
-                    :key="index"
-                    :icon="item.icon"
-                    :timestamp="item.timestamp"
-                  >
-                    <md-editor v-model="item.content" preview-only />
-                  </el-timeline-item>
-                </el-timeline>
-                <el-empty v-show="list?.length === 0" />
-              </el-scrollbar>
-            </template>
-          </el-skeleton>
-        </el-card>
-      </el-col> -->
-
-      <!-- 个人github信息 -->
-      <!-- <el-col
-        :xs="24"
-        :sm="24"
-        :md="12"
-        :lg="12"
-        :xl="12"
-        class="mb-[18px]"
-        v-motion
-        :initial="{
-          opacity: 0,
-          y: 100
-        }"
-        :enter="{
-          opacity: 1,
-          y: 0,
-          transition: {
-            delay: 200
-          }
-        }"
-      >
-        <el-card
-          shadow="never"
-          :style="{ height: `calc(${height}px - 35vh - 250px)` }"
-        >
-          <template #header>
-            <a
-              :class="titleClass"
-              href="https://github.com/xiaoxian521"
-              target="_black"
-            >
-              <TypeIt
-                :className="'type-it1'"
-                :values="['GitHub信息']"
-                :cursor="false"
-                :speed="120"
-              />
-            </a>
-          </template>
-          <el-skeleton animated :rows="7" :loading="loading">
-            <template #default>
-              <el-scrollbar :height="`calc(${height}px - 35vh - 340px)`">
-                <Github />
-              </el-scrollbar>
-            </template>
-          </el-skeleton>
-        </el-card>
-      </el-col> -->
-
-      <!-- github折线图信息 -->
+      <!-- 业务量对比图 -->
       <el-col
         :xs="24"
         :sm="24"
-        :md="12"
-        :lg="8"
-        :xl="8"
+        :md="24"
+        :lg="24"
+        :xl="24"
         class="mb-[18px]"
         v-motion
         :initial="{
@@ -180,7 +72,7 @@ getReleases().then(({ data }) => {
           <template #header>
             <TypeIt
               :className="'type-it4'"
-              :values="['业务量对比图']"
+              :values="['最近一月业务量对比图']"
               :cursor="false"
               :speed="120"
             />
@@ -197,9 +89,9 @@ getReleases().then(({ data }) => {
       <el-col
         :xs="24"
         :sm="24"
-        :md="12"
-        :lg="8"
-        :xl="8"
+        :md="24"
+        :lg="24"
+        :xl="24"
         class="mb-[18px]"
         v-motion
         :initial="{
@@ -236,8 +128,8 @@ getReleases().then(({ data }) => {
         :xs="24"
         :sm="24"
         :md="24"
-        :lg="8"
-        :xl="8"
+        :lg="24"
+        :xl="24"
         class="mb-[18px]"
         v-motion
         :initial="{
