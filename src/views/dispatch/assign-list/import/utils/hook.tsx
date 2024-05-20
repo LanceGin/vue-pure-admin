@@ -63,6 +63,8 @@ export function useRole() {
   const selectRows = ref([]);
   const haveRow = ref(true);
   const dataList = ref([]);
+  const eirSuccessList = ref([]);
+  const eirErrorList = ref([]);
   const loading = ref(true);
   // const switchLoadMap = ref({});
   // const { tagStyle } = usePublicHooks();
@@ -345,13 +347,35 @@ export function useRole() {
       cancelButtonText: "取消"
     })
       .then(() => {
-        selectRows.value.forEach(v => {
-          submitEir(v);
-        });
-        ElMessage({
-          type: "success",
-          message: "已发起推送"
-        });
+        let i = 0;
+        for (const v of selectRows.value) {
+          submitEir(v).then(res => {
+            i += 1;
+            if (res.success) {
+              eirSuccessList.value.push(v.containner_no);
+            } else {
+              eirErrorList.value.push(v.containner_no);
+            }
+            if (i == selectRows.value.length) {
+              if (eirSuccessList.value.length > 0) {
+                ElMessage({
+                  type: "success",
+                  duration: 0,
+                  showClose: true,
+                  message: `箱号${eirSuccessList.value.toString()}推送成功`
+                });
+              }
+              if (eirErrorList.value.length > 0) {
+                ElMessage({
+                  type: "error",
+                  duration: 0,
+                  showClose: true,
+                  message: `箱号${eirErrorList.value.toString()}推送失败`
+                });
+              }
+            }
+          });
+        }
       })
       .catch(() => {
         ElMessage({
