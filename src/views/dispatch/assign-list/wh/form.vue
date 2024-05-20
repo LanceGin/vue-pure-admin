@@ -68,6 +68,8 @@ defineExpose({ getRef });
         v-model="newFormInline.unload_port"
         placeholder="请选择还箱点"
         clearable
+        filterable
+        allow-create
         class="!w-[180px]"
       >
         <el-option label="武汉金口" value="武汉金口" />
@@ -82,11 +84,19 @@ defineExpose({ getRef });
       />
     </el-form-item>
     <el-form-item label="装箱点：" prop="export_port">
-      <el-input
+      <el-select
         v-model="newFormInline.export_port"
+        placeholder="请选择装箱点"
         clearable
-        placeholder="请输入装箱点"
-      />
+        filterable
+        allow-create
+        class="!w-[180px]"
+      >
+        <el-option label="安吉" value="安吉" />
+        <el-option label="汇众" value="汇众" />
+        <el-option label="通用" value="通用" />
+        <el-option label="发动机" value="发动机" />
+      </el-select>
     </el-form-item>
     <el-form-item label="备注：" prop="dispatch_remark">
       <el-input
