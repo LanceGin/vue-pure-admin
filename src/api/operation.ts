@@ -352,6 +352,12 @@ export const addContainer = (data?: object) => {
     data
   });
 };
+// 新增出口箱子
+export const addExportContainer = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("addExportContainer"), {
+    data
+  });
+};
 // 新增箱子费用
 export const addContainerFee = (data?: object) => {
   return http.request<ChangeResult>("post", baseUrlApi("addContainerFee"), {

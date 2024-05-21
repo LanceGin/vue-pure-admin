@@ -18,7 +18,7 @@ import {
   genFileId,
   ElMessageBox
 } from "element-plus";
-// import AddFill from "@iconify-icons/ri/add-circle-line";
+import AddFill from "@iconify-icons/ri/add-circle-line";
 
 defineOptions({
   name: "Export"
@@ -38,7 +38,7 @@ const {
   uploadExcelDetail,
   onSearch,
   // resetForm,
-  // openDialog,
+  openDialog,
   // handleDelete,
   // handleDatabase,
   handleDeleteContainer,
@@ -153,6 +153,13 @@ const handleClose = () => {
           @click="onSearch"
         >
           搜索
+        </el-button>
+        <el-button
+          type="primary"
+          :icon="useRenderIcon(AddFill)"
+          @click="openDialog('新增')"
+        >
+          新增
         </el-button>
         <el-button
           :icon="useRenderIcon(Download)"

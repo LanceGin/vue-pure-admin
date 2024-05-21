@@ -16,7 +16,7 @@ import {
 import { useUserStore } from "@/store/modules/user";
 import { generateDispatchFee, generateOrderFee } from "@/api/finance";
 import { ElMessage, ElMessageBox } from "element-plus";
-import { deleteContainer } from "@/api/operation";
+import { addExportContainer, deleteContainer } from "@/api/operation";
 
 export function useRole() {
   // const end = new Date();
@@ -223,6 +223,17 @@ export function useRole() {
     }
   }
 
+  async function handleAddContainer(container) {
+    const { data } = await addExportContainer(container);
+    const select_container = {
+      select_container: data.list
+    };
+    generateExportDispatch(select_container);
+    generateOrderFee(select_container.select_container);
+    generateDispatchFee(select_container);
+    onSearch();
+  }
+
   async function onSearch() {
     loading.value = true;
     const { data } = await getExportDispatchList({
@@ -245,11 +256,41 @@ export function useRole() {
     onSearch();
   };
 
-  function openDialog(title = "添加") {
+  function openDialog(title = "添加", row?: FormItemProps) {
     addDialog({
-      title: `${title}驾驶员`,
+      title: `${title}出口箱`,
       props: {
-        formInline: {}
+        formInline: {
+          id: row?.id ?? "",
+          order_status: row?.order_status ?? "已提交",
+          order_type: row?.order_type ?? "出口",
+          ship_company: row?.ship_company ?? "",
+          customer: row?.customer ?? "",
+          subproject: row?.subproject ?? "",
+          arrive_time: row?.arrive_time ?? "",
+          start_port: row?.start_port ?? "",
+          target_port: row?.target_port ?? "",
+          containner_no: row?.containner_no ?? "",
+          seal_no: row?.seal_no ?? "",
+          container_type: row?.container_type ?? "",
+          ship_name: row?.ship_name ?? "",
+          track_no: row?.track_no ?? "",
+          unload_port: row?.unload_port ?? "",
+          door: row?.door ?? "",
+          make_time: row?.make_time ?? "",
+          load_port: row?.load_port ?? "",
+          count: row?.count ?? "",
+          transfer_port: row?.transfer_port ?? "",
+          package_count: row?.package_count ?? "",
+          gross_weight: row?.gross_weight ?? "",
+          volume: row?.volume ?? "",
+          container_weight: row?.container_weight ?? "",
+          container_status: row?.container_status ?? "已完成",
+          order_time: row?.order_time ?? "",
+          order_fee: row?.order_fee ?? "",
+          add_by: row?.add_by ?? user.username,
+          city: row?.city ?? user.city
+        }
       },
       width: "40%",
       draggable: true,
@@ -272,6 +313,7 @@ export function useRole() {
             // 表单规则校验通过
             if (title === "新增") {
               // 实际开发先调用新增接口，再进行下面操作
+              handleAddContainer(curData);
               chores();
             } else {
               // 实际开发先调用编辑接口，再进行下面操作
@@ -316,9 +358,10 @@ export function useRole() {
         };
         selectRows.value.forEach(v => {
           data.select_container_id.push(v.id);
-          if (v.container_status != "待挑箱") {
-            throw new Error("非待挑箱状态无法删除");
-          }
+          // 出口箱可删除任意状态的
+          // if (v.container_status != "待挑箱") {
+          //   throw new Error("非待挑箱状态无法删除");
+          // }
         });
         deleteContainer(data);
         onSearch();
