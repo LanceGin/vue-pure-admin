@@ -37,7 +37,8 @@ export function useRole() {
     total: "",
     f: "",
     t: "",
-    apply_by: ""
+    apply_by: "",
+    city: user.city
   });
   const formRef = ref();
   const dataList = ref([]);
