@@ -362,7 +362,7 @@ export function useRole() {
       props: {
         formInline: {
           temp_port: "",
-          actual_amount_temp: ""
+          actual_amount_temp: null
         }
       },
       width: "40%",
