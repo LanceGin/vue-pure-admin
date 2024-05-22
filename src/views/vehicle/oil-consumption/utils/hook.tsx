@@ -46,7 +46,7 @@ export function useRole() {
   const columns: TableColumnList = [
     {
       label: "序号",
-      prop: "id"
+      type: "index"
     },
     {
       label: "车号",
