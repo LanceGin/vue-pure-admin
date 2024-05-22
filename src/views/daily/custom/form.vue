@@ -31,13 +31,13 @@ defineExpose({ getRef });
     :rules="formRules"
     label-width="82px"
   >
-    <el-form-item label="代码" prop="company_code">
+    <!-- <el-form-item label="代码" prop="company_code">
       <el-input
         v-model="newFormInline.company_code"
         clearable
         placeholder="请输入代码"
       />
-    </el-form-item>
+    </el-form-item> -->
     <el-form-item label="名称" prop="company_name">
       <el-input
         v-model="newFormInline.company_name"
