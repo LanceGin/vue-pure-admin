@@ -36,6 +36,7 @@ const props = withDefaults(defineProps<FormProps>(), {
     type: "",
     status: "",
     temp_status: "",
+    temp_port: "",
     fee_name: "",
     fee: "",
     remark: "",

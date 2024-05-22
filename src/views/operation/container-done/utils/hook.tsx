@@ -379,6 +379,7 @@ export function useRole() {
           door: currentRow.value.door,
           load_port: currentRow.value.load_port,
           unload_port: currentRow.value.unload_port,
+          temp_port: currentRow.value.temp_port,
           car_no: currentRow.value.car_no,
           type: currentRow.value.type,
           make_time:

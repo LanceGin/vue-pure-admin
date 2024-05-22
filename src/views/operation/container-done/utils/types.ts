@@ -32,6 +32,7 @@ interface FormItemProps {
   type: string;
   status: string;
   temp_status: string;
+  temp_port: string;
   fee_name: string;
   fee: string;
   remark: string;

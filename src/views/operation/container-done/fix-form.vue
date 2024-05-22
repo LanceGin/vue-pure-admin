@@ -36,6 +36,7 @@ const props = withDefaults(defineProps<FormProps>(), {
     type: "",
     status: "",
     temp_status: "",
+    temp_port: "",
     fee_name: "",
     fee: "",
     remark: "",
@@ -132,6 +133,15 @@ defineExpose({ getRef });
         clearable
         placeholder="请输入还箱点"
         name="unload_port"
+        autocomplete="on"
+      />
+    </el-form-item>
+    <el-form-item label="暂落点" prop="temp_port">
+      <el-input
+        v-model="newFormInline.temp_port"
+        clearable
+        placeholder="请输入暂落点"
+        name="temp_port"
         autocomplete="on"
       />
     </el-form-item>
