@@ -252,7 +252,7 @@ export function useRole() {
     },
     {
       label: "供应商",
-      prop: "custom_name"
+      prop: "car_owner"
     },
     {
       label: "结算单位",

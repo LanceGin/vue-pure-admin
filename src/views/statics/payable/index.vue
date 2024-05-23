@@ -191,9 +191,9 @@ const getSummaries = param => {
           class="!w-[120px]"
         />
       </el-form-item>
-      <el-form-item label="供应商：" prop="custom_name">
+      <el-form-item label="供应商：" prop="car_owner">
         <el-input
-          v-model="form.custom_name"
+          v-model="form.car_owner"
           placeholder="请输入供应商"
           clearable
           class="!w-[120px]"
