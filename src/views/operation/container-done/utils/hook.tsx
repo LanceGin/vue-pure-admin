@@ -24,9 +24,9 @@ import { updateDispatchFee, updatePlanningFee } from "@/api/finance";
 
 export function useRole() {
   const user = useUserStore();
-  const end = new Date();
-  const start = new Date();
-  start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+  // const end = new Date();
+  // const start = new Date();
+  // start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
   const form = reactive({
     id: "",
     order_status: "",
@@ -45,7 +45,8 @@ export function useRole() {
     unload_port: "",
     door: "",
     make_time: "",
-    make_time_range: ref<[Date, Date]>([start, end]),
+    // make_time_range: ref<[Date, Date]>([start, end]),
+    make_time_range: [],
     load_port: "",
     count: "",
     transfer_port: "",
