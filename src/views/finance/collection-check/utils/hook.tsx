@@ -121,6 +121,10 @@ export function useRole() {
       prop: "door"
     },
     {
+      label: "车号",
+      prop: "car_no"
+    },
+    {
       label: "费用",
       prop: "amount"
     }
