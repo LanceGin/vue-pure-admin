@@ -199,6 +199,7 @@ defineExpose({ getRef });
     <el-form-item label="地区" prop="city">
       <el-select
         v-model="newFormInline.city"
+        multiple
         placeholder="请选择地区"
         clearable
       >

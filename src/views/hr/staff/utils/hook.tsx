@@ -38,7 +38,7 @@ export function useRole() {
     check_point: "",
     work_hours: "",
     roles: "",
-    city: user.city
+    city: user.city.split(",")
   });
   const formRef = ref();
   const currentRow = ref();
@@ -230,7 +230,7 @@ export function useRole() {
           check_point: row?.check_point ?? "",
           work_hours: row?.work_hours ?? "",
           roles: row?.roles ?? "",
-          city: row?.city ?? ""
+          city: row?.city.split(",") ?? ""
         }
       },
       width: "40%",
