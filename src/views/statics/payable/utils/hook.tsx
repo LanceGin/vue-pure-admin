@@ -298,6 +298,8 @@ export function useRole() {
               arr.push(dayjs(item["make_time"]).format("YYYY-MM-DD"));
             }
           }
+        } else if (column.prop == "amount") {
+          arr.push(parseFloat(item["amount"]));
         } else if (column.prop == "order_type") {
           if (item["dispatch_type"] == "暂落") {
             arr.push("暂落");
@@ -552,7 +554,8 @@ export function useRole() {
           type: "error",
           duration: 0,
           showClose: true,
-          message: `箱号为${errorNo}数据有误`
+          dangerouslyUseHTMLString: true,
+          message: `以下箱号数据有误:<br/> <br/> ${errorNo.join("<br/>")}`
         });
         onSearch();
       }
