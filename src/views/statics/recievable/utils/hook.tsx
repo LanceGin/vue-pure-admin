@@ -67,7 +67,8 @@ export function useRole() {
     content: "",
     invoice_no: "",
     temp_port: "",
-    city: user.city
+    city: user.city,
+    city_type: ""
   });
   const formRef = ref();
   const selectRows = ref([]);

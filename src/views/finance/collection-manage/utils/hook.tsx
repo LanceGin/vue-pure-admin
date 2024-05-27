@@ -33,7 +33,8 @@ export function useRole() {
     t: "",
     is_invoice: "",
     add_by: "",
-    city: user.city
+    city: user.city,
+    city_type: ""
   });
   const formRef = ref();
   const dataList = ref([]);
@@ -138,6 +139,10 @@ export function useRole() {
     {
       label: "卸货门点",
       prop: "door"
+    },
+    {
+      label: "车号",
+      prop: "car_no"
     },
     {
       label: "费用",

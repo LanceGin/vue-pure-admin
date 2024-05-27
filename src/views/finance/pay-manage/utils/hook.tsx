@@ -34,7 +34,8 @@ export function useRole() {
     invoice_no: "",
     keep_time: "",
     remark: "",
-    city: user.city
+    city: user.city,
+    city_type: ""
   });
   const formRef = ref();
   const currentRow = ref();
@@ -150,6 +151,10 @@ export function useRole() {
     {
       label: "卸货门点",
       prop: "door"
+    },
+    {
+      label: "车号",
+      prop: "car_no"
     },
     {
       label: "结算费用",

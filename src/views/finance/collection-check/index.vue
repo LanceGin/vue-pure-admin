@@ -83,6 +83,19 @@ const {
           class="!w-[200px]"
         />
       </el-form-item>
+      <el-form-item label="地区：" prop="city_type">
+        <el-select
+          v-model="form.city_type"
+          placeholder="请选择地区"
+          clearable
+          class="!w-[180px]"
+        >
+          <el-option label="上海" value="上海" />
+          <el-option label="太仓" value="太仓" />
+          <el-option label="武汉" value="武汉" />
+          <el-option label="岳阳" value="岳阳" />
+        </el-select>
+      </el-form-item>
     </el-form>
     <el-form
       ref="formRef"
