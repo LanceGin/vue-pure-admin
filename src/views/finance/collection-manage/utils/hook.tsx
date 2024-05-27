@@ -12,8 +12,10 @@ import {
   financeCheckList,
   generateContainerFee
 } from "@/api/finance";
+import { useUserStore } from "@/store/modules/user";
 
 export function useRole() {
+  const user = useUserStore();
   const form = reactive({
     id: "",
     type: "应收",
@@ -30,7 +32,8 @@ export function useRole() {
     f: "",
     t: "",
     is_invoice: "",
-    add_by: ""
+    add_by: "",
+    city: user.city
   });
   const formRef = ref();
   const dataList = ref([]);

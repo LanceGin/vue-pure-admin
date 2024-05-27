@@ -8,8 +8,10 @@ import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
 import { collectionContainerList, financeCheckList } from "@/api/finance";
+import { useUserStore } from "@/store/modules/user";
 
 export function useRole() {
+  const user = useUserStore();
   const form = reactive({
     id: "",
     type: "应付",
@@ -31,7 +33,8 @@ export function useRole() {
     t: "",
     invoice_no: "",
     keep_time: "",
-    remark: ""
+    remark: "",
+    city: user.city
   });
   const formRef = ref();
   const currentRow = ref();
