@@ -38,7 +38,8 @@ export function useRole() {
     check_point: "",
     work_hours: "",
     roles: "",
-    city: user.city.split(",")
+    city: user.city.split(","),
+    city_type: ""
   });
   const formRef = ref();
   const currentRow = ref();
