@@ -266,6 +266,7 @@ export function useRole() {
           o20tk: row?.o20tk ?? "",
           o40hc: row?.o40hc ?? "",
           add_time: row?.add_time ?? "",
+          add_by: row?.add_by ?? user.username,
           city: row?.city ?? user.city
         }
       },
