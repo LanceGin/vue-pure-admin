@@ -131,6 +131,11 @@ export function useRole() {
       prop: "container_type"
     },
     {
+      label: "做箱时间",
+      prop: "make_time",
+      formatter: ({ make_time }) => dayjs(make_time).format("YYYY-MM-DD")
+    },
+    {
       label: "提箱码头",
       prop: "load_port"
     },

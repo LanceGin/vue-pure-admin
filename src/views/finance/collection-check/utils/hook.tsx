@@ -122,6 +122,11 @@ export function useRole() {
       prop: "door"
     },
     {
+      label: "做箱时间",
+      prop: "make_time",
+      formatter: ({ make_time }) => dayjs(make_time).format("YYYY-MM-DD")
+    },
+    {
       label: "车号",
       prop: "car_no"
     },
