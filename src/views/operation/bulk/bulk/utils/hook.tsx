@@ -255,7 +255,7 @@ export function useRole() {
           freight: row?.freight ?? "",
           error_fee: row?.error_fee ?? "",
           remarks: row?.remarks ?? "",
-          add_time: row?.add_time ?? "",
+          add_time: dayjs(row?.add_time).format("YYYY-MM-DD") ?? "",
           add_by: row?.add_by ?? user.username,
           city: row?.city ?? user.city
         }
