@@ -30,6 +30,7 @@ export function useRole() {
     amount: "",
     less_amount: "",
     more_amount: "",
+    actual_amount: "",
     fee_type: "",
     remark: "",
     order_status: "",
@@ -112,8 +113,12 @@ export function useRole() {
       prop: "fee_name"
     },
     {
-      label: "金额",
+      label: "应付金额",
       prop: "amount"
+    },
+    {
+      label: "实付金额",
+      prop: "actual_amount"
     },
     {
       label: "做箱时间",

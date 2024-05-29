@@ -84,12 +84,23 @@ const getSummaries = param => {
       sums[4] = values.reduce((prev, curr) => {
         const value = Number(curr);
         if (!isNaN(value)) {
-          return Number(Number(prev + curr).toFixed(2));
+          return Number((Number(prev) + Number(curr)).toFixed(2));
         } else {
           return Number(Number(prev).toFixed(2));
         }
       }, 0);
       sums[4];
+    }
+    if (["actual_amount"].includes(column.property)) {
+      sums[5] = values.reduce((prev, curr) => {
+        const value = Number(curr);
+        if (!isNaN(value)) {
+          return Number((Number(prev) + Number(curr)).toFixed(2));
+        } else {
+          return Number(Number(prev).toFixed(2));
+        }
+      }, 0);
+      sums[5];
     }
     if (index === 0) {
       return;
