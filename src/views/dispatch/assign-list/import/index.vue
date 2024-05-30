@@ -164,14 +164,14 @@ const {
           >
             Eir派单
           </el-button>
-          <el-button
+          <!-- <el-button
             type="primary"
             :icon="useRenderIcon(EditPen)"
             @click="handleEir()"
             :disabled="haveRow"
           >
             Eir转单
-          </el-button>
+          </el-button> -->
         </Auth>
       </el-form-item>
     </el-form>
