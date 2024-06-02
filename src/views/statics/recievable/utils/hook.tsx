@@ -227,8 +227,8 @@ export function useRole() {
       }
     },
     {
-      label: "备注",
-      prop: "remark"
+      label: "费用备注",
+      prop: "fee_remark"
     },
     {
       label: "录入人",
@@ -475,7 +475,8 @@ export function useRole() {
           project_name: row?.project_name ?? "",
           custom_name: row?.custom_name ?? "",
           flow_direction: row?.flow_direction ?? "",
-          content: row?.content ?? ""
+          content: row?.content ?? "",
+          submit_by: user.username
         }
       },
       width: "40%",

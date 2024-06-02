@@ -237,8 +237,8 @@ export function useRole() {
       }
     },
     {
-      label: "备注",
-      prop: "remark"
+      label: "费用备注",
+      prop: "fee_remark"
     },
     {
       label: "发票号",
@@ -481,7 +481,8 @@ export function useRole() {
           flow_direction: row?.flow_direction ?? "",
           acc_company: row?.acc_company ?? "",
           content: row?.content ?? "",
-          car_owner: row?.car_owner ?? c_o
+          car_owner: row?.car_owner ?? c_o,
+          submit_by: user.username
         }
       },
       width: "40%",

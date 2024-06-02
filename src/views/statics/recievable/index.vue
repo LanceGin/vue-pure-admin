@@ -220,7 +220,7 @@ const getSummaries = param => {
           >清空</el-button
         >
       </el-form-item>
-      <el-form-item label="备注：" prop="remark">
+      <el-form-item label="费用备注：" prop="remark">
         <el-input
           v-model="form.remark"
           placeholder="请输入备注"

@@ -289,7 +289,6 @@ export function useRole() {
 
   // 审核通过
   function handleApprove(row) {
-    row.add_by = user.username;
     console.log(row);
     approvePay(row);
     onSearch();
