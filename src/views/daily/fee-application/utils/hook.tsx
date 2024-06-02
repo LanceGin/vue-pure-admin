@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import { utils, writeFile } from "xlsx";
 import editForm from "../form.vue";
+import showForm from "../show-form.vue";
 import applyPrint from "../apply-print.vue";
 import reimPrint from "../reim-print.vue";
 import { message } from "@/utils/message";
@@ -21,6 +22,7 @@ import {
 import { useUserStore } from "@/store/modules/user";
 import { ElMessage, ElMessageBox } from "element-plus";
 import Print from "@/utils/print";
+import { showReciept } from "@/api/third";
 
 export function useRole() {
   const user = useUserStore();
@@ -49,9 +51,11 @@ export function useRole() {
     invoice_no: "",
     remark: "",
     apply_time: "",
-    apply_time_range: ""
+    apply_time_range: "",
+    reciept_url: ""
   });
   const formRef = ref();
+  const r_url = ref("");
   const currentRow = ref();
   const selectRows = ref([]);
   const haveRow = ref(true);
@@ -161,6 +165,10 @@ export function useRole() {
       label: "申请日期",
       prop: "apply_time",
       formatter: ({ apply_time }) => dayjs(apply_time).format("YYYY-MM-DD")
+    },
+    {
+      label: "水单",
+      slot: "reciept_url"
     }
   ];
 
@@ -340,6 +348,47 @@ export function useRole() {
     });
   }
 
+  function showRecieptDialog(title = "添加", row?: FormItemProps) {
+    addDialog({
+      title: `${title}水单`,
+      props: {
+        formInline: {
+          id: row?.id ?? "",
+          reciept_url: r_url.value
+        }
+      },
+      width: "40%",
+      draggable: true,
+      fullscreenIcon: true,
+      closeOnClickModal: false,
+      contentRenderer: () => h(showForm, { ref: formRef }),
+      beforeSure: (done, { options }) => {
+        const FormRef = formRef.value.getRef();
+        const curData = options.props.formInline as FormItemProps;
+        function chores() {
+          message(`您${title}了费用名为${curData.fee_name}的这条数据`, {
+            type: "success"
+          });
+          done(); // 关闭弹框
+          onSearch(); // 刷新表格数据
+        }
+        FormRef.validate(valid => {
+          if (valid) {
+            console.log("curData", curData);
+            // 表单规则校验通过
+            if (title === "新增") {
+              // 实际开发先调用新增接口，再进行下面操作
+              chores();
+            } else {
+              // 实际开发先调用编辑接口，再进行下面操作
+              chores();
+            }
+          }
+        });
+      }
+    });
+  }
+
   function applyDialog(title = "打印", selectRows) {
     addDialog({
       title: `申请单打印`,
@@ -465,6 +514,14 @@ export function useRole() {
     reimDialog("打印报销单", selectRows.value);
   }
 
+  // 查看水单
+  async function handleShowReciept(item) {
+    showReciept(item).then(data => {
+      r_url.value = data.data.result;
+      showRecieptDialog("查看");
+    });
+  }
+
   /** 菜单权限 */
   function handleMenu() {
     message("等菜单管理页面开发后完善");
@@ -501,6 +558,7 @@ export function useRole() {
     handleSizeChange,
     handlePageChange,
     handleCurrentChange,
-    handleSelectionChange
+    handleSelectionChange,
+    handleShowReciept
   };
 }

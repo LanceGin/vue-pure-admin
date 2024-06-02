@@ -16,17 +16,19 @@ const props = withDefaults(defineProps<FormProps>(), {
     tax_amount: "",
     apply_by: "",
     apply_department: "",
+    acc_company_id: "",
+    company_name: "",
+    bank: "",
+    account_no: "",
     create_time: "",
     reimburse_by: "",
     audit_by: "",
     audit_time: "",
     approve_by: "",
     fee_no: "",
+    invoice_no: "",
     remark: "",
     apply_time: "",
-    keep_by: "",
-    keep_time: "",
-    company_name: "",
     reciept_url: ""
   })
 });

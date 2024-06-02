@@ -4,6 +4,9 @@ import { useRole } from "./utils/hook";
 import { PureTableBar } from "../../../components/RePureTableBar";
 import { useRenderIcon } from "../../../components/ReIcon/src/hooks";
 
+import { ElMessage, ElMessageBox } from "element-plus";
+import { genFileId } from "element-plus";
+import type { UploadInstance, UploadProps, UploadRawFile } from "element-plus";
 // import Database from "@iconify-icons/ri/database-2-line";
 // import More from "@iconify-icons/ep/more-filled";
 import EditPen from "@iconify-icons/ep/edit-pen";
@@ -17,6 +20,7 @@ defineOptions({
 });
 
 const formRef = ref();
+const dialogVisible = ref(false);
 const {
   form,
   loading,
@@ -36,8 +40,44 @@ const {
   // handleCurrentChange,
   handleSelectionChange,
   handleKeep,
-  handleCancelKeep
+  handleCancelKeep,
+  handleUploadReceipt,
+  handleShowReciept
 } = useRole();
+
+const upload = ref<UploadInstance>();
+
+const handleExceed: UploadProps["onExceed"] = files => {
+  upload.value!.clearFiles();
+  const file = files[0] as UploadRawFile;
+  file.uid = genFileId();
+  upload.value!.handleStart(file);
+};
+
+const submitUpload = () => {
+  upload.value!.submit();
+  dialogVisible.value = false;
+  onSearch();
+};
+
+const handleSuccess = () => {
+  ElMessage({
+    type: "success",
+    message: "上传成功"
+  });
+  onSearch();
+};
+
+const handleClose = () => {
+  ElMessageBox.confirm("确定取消上传？")
+    .then(() => {
+      // then
+      dialogVisible.value = false;
+    })
+    .catch(() => {
+      // catch error
+    });
+};
 </script>
 
 <template>
@@ -149,8 +189,44 @@ const {
         >
           撤销记账
         </el-button>
+        <el-button
+          class="reset-margin"
+          type="primary"
+          :icon="useRenderIcon(EditPen)"
+          :disabled="haveRow"
+          @click="dialogVisible = true"
+        >
+          上传水单
+        </el-button>
       </el-form-item>
     </el-form>
+
+    <el-dialog v-model="dialogVisible" title="上传水单" width="30%">
+      <el-upload
+        ref="upload"
+        accept="image/jpg,image/jpeg,image/png"
+        :limit="1"
+        :on-exceed="handleExceed"
+        :on-success="handleSuccess"
+        :auto-upload="false"
+        :http-request="handleUploadReceipt"
+      >
+        <template #trigger>
+          <el-button type="primary">选择文件</el-button>
+        </template>
+        <template #tip>
+          <div class="el-upload__tip text-red">
+            仅限上传1份文件，多次上传覆盖之前文件
+          </div>
+        </template>
+      </el-upload>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="handleClose">取消</el-button>
+          <el-button type="primary" @click="submitUpload"> 上传 </el-button>
+        </span>
+      </template>
+    </el-dialog>
 
     <PureTableBar title="费用记录" :columns="columns" @refresh="onSearch">
       <template v-slot="{ size, dynamicColumns }">
@@ -173,7 +249,30 @@ const {
           @selection-change="handleSelectionChange"
           @page-size-change="handleSizeChange"
           @page-current-change="handlePageChange"
-        />
+        >
+          <template #reciept_url="{ row }">
+            <el-button
+              class="reset-margin"
+              link
+              type="primary"
+              :size="size"
+              @click="handleShowReciept(row)"
+              v-if="row.reciept_url != ''"
+            >
+              查看水单
+            </el-button>
+            <el-button
+              class="reset-margin"
+              link
+              disabled
+              type="default"
+              :size="size"
+              v-else
+            >
+              未上传
+            </el-button>
+          </template>
+        </pure-table>
       </template>
     </PureTableBar>
   </div>

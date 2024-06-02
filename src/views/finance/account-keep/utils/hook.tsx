@@ -12,6 +12,7 @@ import { appliedFeeList } from "@/api/daily";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { cancelKeepAppliedFee, keepAppliedFee } from "@/api/finance";
 import { useUserStore } from "@/store/modules/user";
+import { showReciept, uploadReciept } from "@/api/third";
 
 export function useRole() {
   const user = useUserStore();
@@ -37,9 +38,11 @@ export function useRole() {
     apply_time: "",
     keep_by: "",
     keep_time: "",
-    company_name: ""
+    company_name: "",
+    reciept_url: ""
   });
   const formRef = ref();
+  const r_url = ref("");
   const haveRow = ref(true);
   const selectRows = ref([]);
   const dataList = ref([]);
@@ -135,6 +138,10 @@ export function useRole() {
     {
       label: "备注",
       prop: "remark"
+    },
+    {
+      label: "水单",
+      slot: "reciept_url"
     }
   ];
 
@@ -227,7 +234,7 @@ export function useRole() {
 
   function openDialog(title = "添加", row?: FormItemProps) {
     addDialog({
-      title: `${title}费用记录`,
+      title: `${title}水单`,
       props: {
         formInline: {
           id: row?.id ?? "",
@@ -250,7 +257,8 @@ export function useRole() {
           remark: row?.remark ?? "",
           apply_time: row?.apply_time ?? "",
           keep_by: row?.keep_by ?? "",
-          keep_time: row?.keep_time ?? ""
+          keep_time: row?.keep_time ?? "",
+          reciept_url: r_url.value
         }
       },
       width: "40%",
@@ -319,7 +327,7 @@ export function useRole() {
       });
   }
 
-  // 记账
+  // 撤销记账
   async function handleCancelKeep() {
     ElMessageBox.confirm("确认撤销记账？", "撤销记账确认", {
       confirmButtonText: "确认",
@@ -346,6 +354,27 @@ export function useRole() {
           message: info
         });
       });
+  }
+
+  // 上传水单
+  async function handleUploadReceipt(item) {
+    const select_id = [];
+    selectRows.value.forEach(v => {
+      select_id.push(v.id);
+    });
+    const form = new FormData();
+    form.append("file", item.file);
+    form.append("reciept_name", selectRows.value[0].fee_no);
+    form.append("select_id", select_id.toString());
+    await uploadReciept(form);
+  }
+
+  // 查看水单
+  async function handleShowReciept(item) {
+    showReciept(item).then(data => {
+      r_url.value = data.data.result;
+      openDialog("查看");
+    });
   }
 
   /** 菜单权限 */
@@ -380,6 +409,8 @@ export function useRole() {
     handleCurrentChange,
     handleSelectionChange,
     handleKeep,
-    handleCancelKeep
+    handleCancelKeep,
+    handleUploadReceipt,
+    handleShowReciept
   };
 }

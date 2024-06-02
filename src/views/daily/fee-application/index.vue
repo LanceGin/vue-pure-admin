@@ -39,7 +39,8 @@ const {
   handleSizeChange,
   handlePageChange,
   handleCurrentChange,
-  handleSelectionChange
+  handleSelectionChange,
+  handleShowReciept
 } = useRole();
 </script>
 
@@ -220,7 +221,30 @@ const {
           @page-size-change="handleSizeChange"
           @page-current-change="handlePageChange"
           @current-change="handleCurrentChange"
-        />
+        >
+          <template #reciept_url="{ row }">
+            <el-button
+              class="reset-margin"
+              link
+              type="primary"
+              :size="size"
+              @click="handleShowReciept(row)"
+              v-if="row.reciept_url != ''"
+            >
+              查看水单
+            </el-button>
+            <el-button
+              class="reset-margin"
+              link
+              disabled
+              type="default"
+              :size="size"
+              v-else
+            >
+              未上传
+            </el-button>
+          </template>
+        </pure-table>
       </template>
     </PureTableBar>
   </div>

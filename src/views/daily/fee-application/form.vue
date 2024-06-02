@@ -31,7 +31,8 @@ const props = withDefaults(defineProps<FormProps>(), {
     fee_no: "",
     invoice_no: "",
     remark: "",
-    apply_time: ""
+    apply_time: "",
+    reciept_url: ""
   })
 });
 

@@ -18,6 +18,32 @@ export type ChangeResult = {
   };
 };
 
+// 上传水单接口
+export const uploadReciept = data => {
+  return http.request<ListResult>(
+    "post",
+    baseUrlApi("uploadReciept"),
+    {
+      data
+    },
+    {
+      transformRequest: [
+        function (data, headers) {
+          delete headers["Content-Type"];
+          return data;
+        }
+      ]
+    }
+  );
+};
+
+// 查看水单接口
+export const showReciept = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("showReciept"), {
+    data
+  });
+};
+
 // 获取中交接口
 export const getSino = (data?: object) => {
   return http.request<ListResult>("post", baseUrlApi("getSino"), {
