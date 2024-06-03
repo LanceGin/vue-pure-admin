@@ -36,6 +36,7 @@ export function useRole() {
     apply_amount: "",
     reimburse_amount: "",
     tax_amount: "",
+    city: user.city,
     apply_by: user.username,
     apply_department: "",
     acc_company_id: "",

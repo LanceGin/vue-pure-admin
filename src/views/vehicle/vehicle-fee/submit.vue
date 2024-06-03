@@ -3,6 +3,7 @@ import { reactive, ref } from "vue";
 import { formRules } from "./utils/rule";
 import { FormProps } from "./utils/types";
 import { accCompanyList } from "@/api/daily";
+import { feeNameList } from "@/api/finance";
 import type { PaginationProps } from "@pureadmin/table";
 
 const props = withDefaults(defineProps<FormProps>(), {
@@ -26,7 +27,8 @@ const props = withDefaults(defineProps<FormProps>(), {
     annex_url: "",
     remark: "",
     add_by: "",
-    fee_name: ""
+    fee_name: "",
+    allocation_start: ""
   })
 });
 
@@ -44,16 +46,30 @@ const form = reactive({
   account_no: "",
   remark: ""
 });
+const fee_form = reactive({
+  id: "",
+  code: "",
+  name: ""
+});
 
 interface CompanyItem {
   id: string;
   company_name: string;
 }
+
+interface FeeItem {
+  id: string;
+  fee_name: string;
+}
 const loading = ref(false);
 const list = ref<CompanyItem[]>([]);
 const options = ref<CompanyItem[]>([]);
+const fee_list = ref<FeeItem[]>([]);
+const fee_options = ref<FeeItem[]>([]);
 let accData = [];
+let feeData = [];
 const data = accCompanyList({ pagination, form });
+const fee_data = feeNameList({ pagination, form: fee_form });
 data.then(v => {
   accData = v.data.list;
   list.value = accData.map(item => {
@@ -63,6 +79,29 @@ data.then(v => {
     };
   });
 });
+fee_data.then(v => {
+  feeData = v.data.list;
+  fee_list.value = feeData.map(item => {
+    return {
+      id: `${item.id}`,
+      fee_name: `${item.name}`
+    };
+  });
+});
+
+const feeRemoteMethod = (query: string) => {
+  if (query) {
+    loading.value = true;
+    setTimeout(() => {
+      loading.value = false;
+      fee_options.value = fee_list.value.filter(item => {
+        return item.fee_name.toLowerCase().includes(query.toLowerCase());
+      });
+    }, 200);
+  } else {
+    fee_options.value = [];
+  }
+};
 
 const remoteMethod = (query: string) => {
   if (query) {
@@ -96,11 +135,23 @@ defineExpose({ getRef });
     label-width="82px"
   >
     <el-form-item label="费用名" prop="fee_name">
-      <el-input
+      <el-select
         v-model="newFormInline.fee_name"
-        clearable
-        placeholder="请输入费用名"
-      />
+        filterable
+        remote
+        reserve-keyword
+        placeholder="输入费用名关键字"
+        :remote-method="feeRemoteMethod"
+        :loading="loading"
+        style="width: 240px"
+      >
+        <el-option
+          v-for="item in fee_options"
+          :key="item.id"
+          :label="item.fee_name"
+          :value="item.fee_name"
+        />
+      </el-select>
     </el-form-item>
     <el-form-item label="结算单位" prop="company">
       <el-select

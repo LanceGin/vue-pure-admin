@@ -372,6 +372,7 @@ export function useRole() {
         formInline: {
           dispatch_id: currentRow.value.dispatch_id,
           id: currentRow.value.id,
+          customer: currentRow.value.customer,
           ship_name: currentRow.value.ship_name,
           track_no: currentRow.value.track_no,
           containner_no: currentRow.value.containner_no,

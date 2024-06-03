@@ -64,6 +64,15 @@ defineExpose({ getRef });
     :rules="formRules"
     label-width="82px"
   >
+    <el-form-item label="客户" prop="customer">
+      <el-input
+        v-model="newFormInline.customer"
+        clearable
+        placeholder="请输入客户"
+        name="customer"
+        autocomplete="on"
+      />
+    </el-form-item>
     <el-form-item label="船名航次" prop="ship_name">
       <el-input
         v-model="newFormInline.ship_name"
