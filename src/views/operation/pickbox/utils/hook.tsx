@@ -42,6 +42,7 @@ export function useRole() {
     unload_port: "",
     door: "",
     make_time: "",
+    plan_time: "",
     load_port: "",
     count: "",
     transfer_port: "",
@@ -107,10 +108,17 @@ export function useRole() {
       prop: "seal_no"
     },
     {
-      label: "计划做箱时间",
+      label: "做箱时间",
       prop: "make_time",
       formatter: ({ make_time }) =>
         dayjs(make_time).format("YYYY-MM-DD HH:mm:ss"),
+      minWidth: 120
+    },
+    {
+      label: "计划时间",
+      prop: "plan_time",
+      formatter: ({ plan_time }) =>
+        dayjs(plan_time).format("YYYY-MM-DD HH:mm:ss"),
       minWidth: 120
     },
     {

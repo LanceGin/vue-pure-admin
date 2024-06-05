@@ -18,6 +18,7 @@ interface FormItemProps {
   unload_port: string;
   door: string;
   make_time: string;
+  plan_time: string;
   load_port: string;
   count: string;
   transfer_port: string;

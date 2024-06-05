@@ -22,6 +22,7 @@ const props = withDefaults(defineProps<FormProps>(), {
     unload_port: "",
     door: "",
     make_time: "",
+    plan_time: "",
     load_port: "",
     count: "",
     transfer_port: "",
