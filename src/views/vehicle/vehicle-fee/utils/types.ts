@@ -21,6 +21,7 @@ interface FormItemProps {
   annex_url: string;
   remark: string;
   add_by: string;
+  apply_department: string;
   fee_name: string;
 }
 interface FormProps {

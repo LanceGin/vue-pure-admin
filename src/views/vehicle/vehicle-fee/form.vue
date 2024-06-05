@@ -27,6 +27,7 @@ const props = withDefaults(defineProps<FormProps>(), {
     annex_url: "",
     remark: "",
     add_by: "",
+    apply_department: "",
     fee_name: ""
   })
 });

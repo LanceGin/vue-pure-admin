@@ -40,7 +40,8 @@ export function useRole() {
     settlement_confirm: "",
     annex_url: "",
     remark: "",
-    add_by: user.username
+    add_by: user.username,
+    apply_department: ""
   });
   const formRef = ref();
   const selectRows = ref([]);
@@ -308,6 +309,7 @@ export function useRole() {
           actual_amount: row?.actual_amount ?? d,
           tax_amount: row?.tax_amount ?? e,
           add_by: row?.add_by ?? user.username,
+          apply_department: row?.apply_department ?? "",
           fee_name: row?.fee_name ?? ""
         }
       },
