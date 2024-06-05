@@ -6,6 +6,7 @@ interface FormItemProps {
   status: string;
   account_period: string;
   custom_name: string;
+  apply_department: string;
   project_name: string;
   flow_direction: string;
   bank: string;

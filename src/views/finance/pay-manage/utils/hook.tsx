@@ -18,6 +18,7 @@ export function useRole() {
     status: "已审核",
     account_period: "",
     custom_name: "",
+    apply_department: "",
     project_name: "",
     flow_direction: "",
     company_name: "",
@@ -67,6 +68,10 @@ export function useRole() {
     {
       label: "供应商名称",
       prop: "custom_name"
+    },
+    {
+      label: "申请单位",
+      prop: "apply_department"
     },
     {
       label: "结算单位",

@@ -9,6 +9,9 @@ export const formRules = reactive(<FormRules>{
   custom_name: [
     { required: true, message: "供应商称为必填项", trigger: "blur" }
   ],
+  apply_department: [
+    { required: true, message: "申请单位为必填项", trigger: "blur" }
+  ],
   acc_company: [
     { required: true, message: "结算单位为必填项", trigger: "blur" }
   ],

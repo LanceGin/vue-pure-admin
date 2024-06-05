@@ -50,6 +50,7 @@ const props = withDefaults(defineProps<FormProps>(), {
     add_time: "",
     project_name: "",
     custom_name: "",
+    apply_department: "",
     flow_direction: "",
     acc_company: "",
     content: "",
@@ -174,6 +175,28 @@ defineExpose({ getRef });
         clearable
         placeholder="请输入供应商"
       />
+    </el-form-item>
+    <el-form-item label="申请单位" prop="apply_department">
+      <el-select
+        v-model="newFormInline.apply_department"
+        placeholder="请选择申请单位"
+        clearable
+        allow-create
+        filterable
+        class="!w-[180px]"
+      >
+        <el-option label="富安上海" value="富安上海" />
+        <el-option label="富安太仓" value="富安太仓" />
+        <el-option label="港鸣实业" value="港鸣实业" />
+        <el-option label="濠瀚科技" value="濠瀚科技" />
+        <el-option label="富安国际" value="富安国际" />
+        <el-option label="鲜友网销" value="鲜友网销" />
+        <el-option label="鲜友书局" value="鲜友书局" />
+        <el-option label="武汉江通源" value="武汉江通源" />
+        <el-option label="长沙沪源" value="长沙沪源" />
+        <el-option label="众源润达" value="众源润达" />
+        <el-option label="众源仁合" value="众源仁合" />
+      </el-select>
     </el-form-item>
     <el-form-item label="结算单位" prop="acc_company">
       <el-select

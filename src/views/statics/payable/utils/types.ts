@@ -43,6 +43,7 @@ interface FormItemProps {
   add_time: string;
   project_name: string;
   custom_name: string;
+  apply_department: string;
   flow_direction: string;
   acc_company: string;
   content: string;
