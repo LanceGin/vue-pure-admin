@@ -38,6 +38,7 @@ const {
   handleReject,
   handleSizeChange,
   handleCurrentChange,
+  handlePageChange,
   handleSelectionChange
 } = useRole();
 </script>
@@ -148,7 +149,8 @@ const {
           @row-dblclick="handleRowDblclick"
           @selection-change="handleSelectionChange"
           @page-size-change="handleSizeChange"
-          @page-current-change="handleCurrentChange"
+          @current-change="handleCurrentChange"
+          @page-current-change="handlePageChange"
         >
           <template #operation="{ row }">
             <el-popconfirm

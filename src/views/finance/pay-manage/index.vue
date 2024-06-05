@@ -36,6 +36,7 @@ const {
   // handleEdit,
   handleSizeChange,
   handleCurrentChange,
+  handlePageChange,
   handleSelectionChange
 } = useRole();
 </script>
@@ -169,6 +170,7 @@ const {
           @row-dblclick="handleRowDblclick"
           @page-size-change="handleSizeChange"
           @current-change="handleCurrentChange"
+          @page-current-change="handlePageChange"
         />
       </template>
     </PureTableBar>
