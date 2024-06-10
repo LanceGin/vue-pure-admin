@@ -39,7 +39,9 @@ const {
   handleSelectionChange,
   handleRevoke,
   handleFinish,
-  handleEir
+  handleSyncEir,
+  handleEir,
+  handleTransferEir
 } = useRole();
 </script>
 
@@ -159,19 +161,27 @@ const {
           <el-button
             type="primary"
             :icon="useRenderIcon(EditPen)"
-            @click="handleEir()"
+            @click="handleSyncEir()"
             :disabled="haveRow"
           >
-            Eir派单
+            同步Eir
           </el-button>
-          <!-- <el-button
+          <el-button
             type="primary"
             :icon="useRenderIcon(EditPen)"
             @click="handleEir()"
             :disabled="haveRow"
           >
+            Eir派单
+          </el-button>
+          <el-button
+            type="primary"
+            :icon="useRenderIcon(EditPen)"
+            @click="handleTransferEir()"
+            :disabled="haveRow"
+          >
             Eir转单
-          </el-button> -->
+          </el-button>
         </Auth>
       </el-form-item>
     </el-form>

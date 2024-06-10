@@ -16,7 +16,7 @@ import {
 } from "@/api/dispatch";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { useUserStore } from "@/store/modules/user";
-import { submitEir } from "@/api/third";
+import { submitEir, syncEir, transferEir } from "@/api/third";
 
 export function useRole() {
   // const end = new Date();
@@ -60,7 +60,8 @@ export function useRole() {
     temp_status: "",
     temp_time: "",
     city: user.city,
-    type: ""
+    type: "",
+    receipt_no: ""
   });
   const formRef = ref();
   const selectRows = ref([]);
@@ -134,6 +135,10 @@ export function useRole() {
     {
       label: "运输状态",
       prop: "trans_status"
+    },
+    {
+      label: "设备交接号",
+      prop: "receipt_no"
     }
   ];
 
@@ -341,6 +346,53 @@ export function useRole() {
       });
   }
 
+  // 同步eir
+  async function handleSyncEir() {
+    ElMessageBox.confirm(
+      "设备交接号同步后可进行Eir派单或转单",
+      "同步Eir设备交接号",
+      {
+        confirmButtonText: "确认",
+        cancelButtonText: "取消"
+      }
+    )
+      .then(() => {
+        let i = 0;
+        for (const v of selectRows.value) {
+          syncEir(v).then(res => {
+            i += 1;
+            if (res.success) {
+              eirSuccessList.value.push(v.containner_no);
+            } else {
+              eirErrorList.value.push(v.containner_no);
+            }
+            if (i == selectRows.value.length) {
+              if (eirSuccessList.value.length > 0) {
+                ElMessage({
+                  type: "success",
+                  showClose: true,
+                  message: `箱号${eirSuccessList.value.toString()}同步成功`
+                });
+              }
+              if (eirErrorList.value.length > 0) {
+                ElMessage({
+                  type: "error",
+                  showClose: true,
+                  message: `箱号${eirErrorList.value.toString()}同步失败`
+                });
+              }
+            }
+          });
+        }
+      })
+      .catch(() => {
+        ElMessage({
+          type: "info",
+          message: "取消推送"
+        });
+      });
+  }
+
   // 推送eir
   async function handleEir() {
     ElMessageBox.confirm("确认后将推送至Eir平台", "推送Eir", {
@@ -351,6 +403,51 @@ export function useRole() {
         let i = 0;
         for (const v of selectRows.value) {
           submitEir(v).then(res => {
+            i += 1;
+            if (res.success) {
+              eirSuccessList.value.push(v.containner_no);
+            } else {
+              eirErrorList.value.push(v.containner_no);
+            }
+            if (i == selectRows.value.length) {
+              if (eirSuccessList.value.length > 0) {
+                ElMessage({
+                  type: "success",
+                  duration: 0,
+                  showClose: true,
+                  message: `箱号${eirSuccessList.value.toString()}推送成功`
+                });
+              }
+              if (eirErrorList.value.length > 0) {
+                ElMessage({
+                  type: "error",
+                  duration: 0,
+                  showClose: true,
+                  message: `箱号${eirErrorList.value.toString()}推送失败`
+                });
+              }
+            }
+          });
+        }
+      })
+      .catch(() => {
+        ElMessage({
+          type: "info",
+          message: "取消推送"
+        });
+      });
+  }
+
+  // eir转单
+  async function handleTransferEir() {
+    ElMessageBox.confirm("确认后将推送至Eir平台进行转单", "推送Eir", {
+      confirmButtonText: "确认",
+      cancelButtonText: "取消"
+    })
+      .then(() => {
+        let i = 0;
+        for (const v of selectRows.value) {
+          transferEir(v).then(res => {
             i += 1;
             if (res.success) {
               eirSuccessList.value.push(v.containner_no);
@@ -430,6 +527,8 @@ export function useRole() {
     handleSelectionChange,
     handleRevoke,
     handleFinish,
-    handleEir
+    handleSyncEir,
+    handleEir,
+    handleTransferEir
   };
 }

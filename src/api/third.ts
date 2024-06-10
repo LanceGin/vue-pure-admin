@@ -51,9 +51,23 @@ export const getSino = (data?: object) => {
   });
 };
 
+// 同步eir
+export const syncEir = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("syncEir"), {
+    data
+  });
+};
+
 // 提交eir
 export const submitEir = (data?: object) => {
   return http.request<ListResult>("post", baseUrlApi("submitEir"), {
+    data
+  });
+};
+
+// eir转单
+export const transferEir = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("transferEir"), {
     data
   });
 };
