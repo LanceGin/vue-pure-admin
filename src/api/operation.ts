@@ -445,6 +445,13 @@ export const loadPort = (data?: object) => {
   });
 };
 
+// 修改计划时间
+export const planTime = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("planTime"), {
+    data
+  });
+};
+
 // 修改船期
 export const arriveTime = (data?: object) => {
   return http.request<ListResult>("post", baseUrlApi("arriveTime"), {

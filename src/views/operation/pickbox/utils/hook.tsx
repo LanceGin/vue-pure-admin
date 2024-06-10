@@ -15,6 +15,7 @@ import {
   getPickBoxList,
   loadPort,
   pickBox,
+  planTime,
   settingContainer,
   tempDrop
 } from "@/api/operation";
@@ -464,17 +465,17 @@ export function useRole() {
 
   // 挑箱
   async function handlePickBox() {
-    ElMessageBox.prompt("请输入实付金额", "挑箱确认", {
+    ElMessageBox.confirm("若计划时间为空则根据做箱时间计算计划费", "挑箱确认", {
       confirmButtonText: "确认",
       cancelButtonText: "取消",
       type: "warning"
     })
-      .then(actual_amount => {
+      .then(() => {
         const data = {
           type: "拆箱",
           select_container_id: [],
           select_container: [],
-          actual_amount: actual_amount
+          actual_amount: null
         };
         selectRows.value.forEach(v => {
           data.select_container_id.push(v.id);
@@ -545,6 +546,32 @@ export function useRole() {
         ElMessage({
           type: "info",
           message: info
+        });
+      });
+  }
+
+  // 修改计划时间
+  async function handlePlanTime() {
+    ElMessageBox.prompt("请输入新的计划时间", "批量设置计划时间", {
+      confirmButtonText: "确认",
+      cancelButtonText: "取消",
+      inputType: "datetime-local"
+    })
+      .then(plan_time => {
+        const data = {
+          select_container_no: [],
+          plan_time: plan_time
+        };
+        selectRows.value.forEach(v => {
+          data.select_container_no.push(v.containner_no);
+        });
+        planTime(data);
+        onSearch();
+      })
+      .catch(() => {
+        ElMessage({
+          type: "info",
+          message: "取消修改计划时间"
         });
       });
   }
@@ -642,6 +669,7 @@ export function useRole() {
     handleDeleteContainer,
     handlePickBox,
     handleTempDrop,
+    handlePlanTime,
     handleArriveTime,
     handleLoadPort,
     handleSetting

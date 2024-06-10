@@ -66,12 +66,12 @@ defineExpose({ getRef });
         placeholder="请输入暂落点"
       />
     </el-form-item>
-    <el-form-item label="实付金额" prop="actual_amount_temp">
+    <!-- <el-form-item label="实付金额" prop="actual_amount_temp">
       <el-input
         v-model="newFormInline.actual_amount_temp"
         clearable
         placeholder="请输入实付金额"
       />
-    </el-form-item>
+    </el-form-item> -->
   </el-form>
 </template>
