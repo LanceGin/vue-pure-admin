@@ -475,7 +475,9 @@ export function useRole() {
           type: "拆箱",
           select_container_id: [],
           select_container: [],
-          actual_amount: null
+          actual_amount: {
+            value: null
+          }
         };
         selectRows.value.forEach(v => {
           data.select_container_id.push(v.id);
