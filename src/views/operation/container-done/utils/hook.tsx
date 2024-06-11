@@ -295,7 +295,7 @@ export function useRole() {
   async function handleEditContainer(container) {
     const { data } = await fixContainerInfo(container);
     updateDispatchFee(data.list);
-    if (container.type != "装箱") {
+    if (user.city == "上海" && container.type != "装箱") {
       updatePlanningFee(data.list);
     }
   }
