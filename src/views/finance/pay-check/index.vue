@@ -25,7 +25,8 @@ const {
   columns,
   containerColumns,
   dataList,
-  containerList,
+  // containerList,
+  filterTableData,
   pagination,
   // buttonClass,
   exportExcel,
@@ -112,7 +113,7 @@ const {
         align-whole="center"
         showOverflowTooltip
         highlight-current-row
-        :data="containerList"
+        :data="filterTableData"
         :columns="containerColumns"
         :header-cell-style="{
           background: 'var(--el-table-row-hover-bg-color)',

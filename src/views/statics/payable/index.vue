@@ -218,6 +218,14 @@ const getSummaries = param => {
           class="!w-[120px]"
         />
       </el-form-item>
+      <el-form-item label="门点：" prop="door">
+        <el-input
+          v-model="form.door"
+          placeholder="请输入门点"
+          clearable
+          class="!w-[120px]"
+        />
+      </el-form-item>
       <el-form-item label="箱号" prop="containner_no">
         <el-input
           v-model="form.containner_no"

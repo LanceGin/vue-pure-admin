@@ -7,7 +7,7 @@ import { message } from "@/utils/message";
 import { addDialog } from "@/components/ReDialog";
 import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
-import { reactive, ref, onMounted, h } from "vue";
+import { reactive, ref, onMounted, h, computed } from "vue";
 import {
   approvePay,
   collectionContainerList,
@@ -47,6 +47,14 @@ export function useRole() {
   const containerList = ref([]);
   const loading = ref(true);
   const containerVisible = ref(false);
+  const search = ref("");
+  const filterTableData = computed(() =>
+    containerList.value.filter(
+      data =>
+        !search.value ||
+        data.car_no.toLowerCase().includes(search.value.toLowerCase())
+    )
+  );
   // const switchLoadMap = ref({});
   // const { tagStyle } = usePublicHooks();
   const pagination = reactive<PaginationProps>({
@@ -150,7 +158,16 @@ export function useRole() {
     },
     {
       label: "车号",
-      prop: "car_no"
+      prop: "car_no",
+      minWidth: 120,
+      headerRenderer: () => (
+        <el-input
+          v-model={search.value}
+          size="small"
+          clearable
+          placeholder="车号（可检索）"
+        />
+      )
     },
     {
       label: "结算费用",
@@ -334,6 +351,7 @@ export function useRole() {
     containerColumns,
     dataList,
     containerList,
+    filterTableData,
     pagination,
     // buttonClass,
     exportExcel,
