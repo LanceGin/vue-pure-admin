@@ -107,6 +107,20 @@ const handleClose = () => {
           class="!w-[200px]"
         />
       </el-form-item>
+      <el-form-item label="车辆属地" prop="territory">
+        <el-select
+          v-model="form.territory"
+          placeholder="请选择车辆属地"
+          clearable
+          class="!w-[120px]"
+        >
+          <el-option label="全部" value="" />
+          <el-option label="上海" value="上海" />
+          <el-option label="太仓" value="太仓" />
+          <el-option label="武汉" value="武汉" />
+          <el-option label="岳阳" value="岳阳" />
+        </el-select>
+      </el-form-item>
     </el-form>
     <el-form
       ref="formRef"

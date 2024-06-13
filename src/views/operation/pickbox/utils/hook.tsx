@@ -226,14 +226,15 @@ export function useRole() {
     for (let i = 0; i < res.length; i++) {
       const element = res[i];
       element[8] = dayjs(element[8]).format("YYYY-MM-DD");
-      element[10] = dayjs(element[10]).format("YYYY-MM-DD");
+      element[9] = dayjs(element[9]).format("YYYY-MM-DD");
+      element[11] = dayjs(element[11]).format("YYYY-MM-DD");
       if (element[1] == "待挑箱") {
-        element[11] = (
+        element[12] = (
           dayjs(now_time).diff(dayjs(element[10]).format("YYYY-MM-DD"), "day") +
           1
         ).toString();
       } else {
-        element[11] = (
+        element[12] = (
           dayjs(dayjs(element[8]).format("YYYY-MM-DD")).diff(
             dayjs(element[10]).format("YYYY-MM-DD"),
             "day"
