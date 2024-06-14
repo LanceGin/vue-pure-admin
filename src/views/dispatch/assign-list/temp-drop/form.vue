@@ -53,7 +53,8 @@ const form = reactive({
   id: "",
   car_no: "",
   driver: "",
-  mobile: ""
+  mobile: "",
+  territory: ""
 });
 
 interface CompanyItem {

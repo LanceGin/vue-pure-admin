@@ -48,6 +48,7 @@ const form = reactive({
   id: "",
   car_no: "",
   driver: "",
+  territory: "",
   mobile: ""
 });
 
