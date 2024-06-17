@@ -278,6 +278,10 @@ const data = [
       {
         role: "manager",
         label: "总办"
+      },
+      {
+        role: "operation_log",
+        label: "操作记录"
       }
     ]
   }
