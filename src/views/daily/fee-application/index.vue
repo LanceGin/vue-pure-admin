@@ -78,7 +78,23 @@ const {
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="收/付：" prop="is_pay">
+      <!-- <el-form-item label="申请人：" prop="apply_by">
+        <el-input
+          v-model="form.apply_by"
+          placeholder="请输入申请人"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item> -->
+      <el-form-item label="申请单位：" prop="apply_department">
+        <el-input
+          v-model="form.apply_department"
+          placeholder="请输入申请单位"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
+      <!-- <el-form-item label="收/付：" prop="is_pay">
         <el-select
           v-model="form.is_pay"
           placeholder="请选择类型"
@@ -89,7 +105,7 @@ const {
           <el-option label="收" value="收" />
           <el-option label="付" value="付" />
         </el-select>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="支付类型：" prop="pay_type">
         <el-select
           v-model="form.pay_type"
