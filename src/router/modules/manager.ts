@@ -11,6 +11,15 @@ export default {
   },
   children: [
     {
+      path: "/manager/operation_log",
+      name: "OperationLog",
+      component: () => import("@/views/manager/operation-log/index.vue"),
+      meta: {
+        title: "操作记录",
+        roles: ["admin", "operation_log"]
+      }
+    },
+    {
       path: "/manager/transport_report",
       name: "TransportReport",
       component: () => import("@/views/manager/index.vue"),
