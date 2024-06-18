@@ -38,6 +38,7 @@ export function useRole() {
     check_point: "",
     work_hours: "",
     roles: "",
+    add_by: user.username,
     city: user.city.split(","),
     city_type: ""
   });
@@ -66,11 +67,13 @@ export function useRole() {
     },
     {
       label: "手机",
-      prop: "mobile"
+      prop: "mobile",
+      hide: true
     },
     {
       label: "邮箱",
-      prop: "email"
+      prop: "email",
+      hide: true
     },
     {
       label: "部门",
@@ -94,11 +97,13 @@ export function useRole() {
     },
     {
       label: "身份证号",
-      prop: "shenfenzheng"
+      prop: "shenfenzheng",
+      hide: true
     },
     {
       label: "家庭住址",
-      prop: "zhuzhi"
+      prop: "zhuzhi",
+      hide: true
     },
     {
       label: "入职时间",

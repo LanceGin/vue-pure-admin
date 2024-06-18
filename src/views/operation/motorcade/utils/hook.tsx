@@ -16,8 +16,10 @@ import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
 // import { func } from "vue-types";
+import { useUserStore } from "@/store/modules/user";
 
 export function useRole() {
+  const user = useUserStore();
   const form = reactive({
     id: "",
     companyShortName: "",
@@ -28,7 +30,8 @@ export function useRole() {
     state: "",
     project: "",
     mendian: "",
-    zixiangmu: ""
+    zixiangmu: "",
+    add_by: user.username
   });
   const formRef = ref();
   const currentRow = ref();

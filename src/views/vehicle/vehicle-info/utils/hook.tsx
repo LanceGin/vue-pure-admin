@@ -15,8 +15,10 @@ import {
   importVehicleInfo,
   vehicleInfoList
 } from "@/api/vehicle";
+import { useUserStore } from "@/store/modules/user";
 
 export function useRole() {
+  const user = useUserStore();
   const form = reactive({
     id: "",
     territory: "",
@@ -32,7 +34,8 @@ export function useRole() {
     driver: "",
     mobile: "",
     attribute: "",
-    remark: ""
+    remark: "",
+    add_by: user.username
   });
   const formRef = ref();
   const currentRow = ref();

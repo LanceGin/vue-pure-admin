@@ -15,8 +15,10 @@ import {
   editDriverInfo,
   importDriverInfo
 } from "@/api/vehicle";
+import { useUserStore } from "@/store/modules/user";
 
 export function useRole() {
+  const user = useUserStore();
   const form = reactive({
     id: "",
     name: "",
@@ -27,7 +29,8 @@ export function useRole() {
     remark: "",
     id_card_url: "",
     driver_license_url: "",
-    certifiacation_url: ""
+    certifiacation_url: "",
+    add_by: user.username
   });
   const formRef = ref();
   const currentRow = ref();

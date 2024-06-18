@@ -57,6 +57,21 @@ const {
           class="!w-[200px]"
         />
       </el-form-item>
+      <el-form-item label="操作：" prop="operation">
+        <el-select
+          v-model="form.operation"
+          placeholder="请选择操作"
+          clearable
+          class="!w-[180px]"
+        >
+          <el-option label="全部" value="" />
+          <el-option label="登录" value="登录" />
+          <el-option label="查看员工信息" value="查看员工信息" />
+          <el-option label="查看客户信息" value="查看客户信息" />
+          <el-option label="查看车辆信息" value="查看车辆信息" />
+          <el-option label="查看驾驶员信息" value="查看驾驶员信息" />
+        </el-select>
+      </el-form-item>
     </el-form>
     <el-form
       ref="formRef"

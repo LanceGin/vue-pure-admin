@@ -9,8 +9,8 @@ import { useRenderIcon } from "../../../components/ReIcon/src/hooks";
 import Delete from "@iconify-icons/ep/delete";
 import EditPen from "@iconify-icons/ep/edit-pen";
 import Search from "@iconify-icons/ep/search";
-import Upload from "@iconify-icons/ep/upload";
-import Download from "@iconify-icons/ep/download";
+// import Upload from "@iconify-icons/ep/upload";
+// import Download from "@iconify-icons/ep/download";
 import AddFill from "@iconify-icons/ri/add-circle-line";
 
 defineOptions({
@@ -26,7 +26,7 @@ const {
   dataList,
   pagination,
   // buttonClass,
-  exportExcel,
+  // exportExcel,
   onSearch,
   resetForm,
   openDialog,
@@ -129,12 +129,12 @@ const {
         >
           微信功能
         </el-button>
-        <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
+        <!-- <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
           导入
         </el-button>
         <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
           导出
-        </el-button>
+        </el-button> -->
         <el-button
           type="primary"
           :icon="useRenderIcon(EditPen)"
