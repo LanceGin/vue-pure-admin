@@ -172,8 +172,10 @@ export function useRole() {
           } else {
             return row.load_port;
           }
-        } else {
+        } else if (row.transfer_port == "") {
           return row.unload_port;
+        } else {
+          return row.transfer_port;
         }
       }
     },
@@ -323,8 +325,10 @@ export function useRole() {
             } else {
               arr.push(item["load_port"]);
             }
-          } else {
+          } else if (item["transfer_port"] == "") {
             arr.push(item["unload_port"]);
+          } else {
+            arr.push(item["transfer_port"]);
           }
         } else if (column.prop == "door") {
           if (item["order_type"] == "进口") {
