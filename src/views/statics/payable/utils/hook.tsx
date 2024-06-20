@@ -215,8 +215,10 @@ export function useRole() {
           } else {
             return row.temp_port;
           }
-        } else {
+        } else if (row.pay_door == "") {
           return row.door;
+        } else {
+          return row.pay_door;
         }
       }
     },
@@ -340,8 +342,10 @@ export function useRole() {
             } else {
               arr.push(item["temp_port"]);
             }
-          } else {
+          } else if (item["pay_door"] == "") {
             arr.push(item["door"]);
+          } else {
+            arr.push(item["pay_door"]);
           }
         } else if (column.prop == "car_no") {
           if (item["order_type"] == "进口") {
