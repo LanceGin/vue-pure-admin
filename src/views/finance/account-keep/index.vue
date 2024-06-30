@@ -204,6 +204,7 @@ const handleClose = () => {
     <el-dialog v-model="dialogVisible" title="上传水单" width="30%">
       <el-upload
         ref="upload"
+        drag
         accept="image/jpg,image/jpeg,image/png"
         :limit="1"
         :on-exceed="handleExceed"
@@ -212,11 +213,11 @@ const handleClose = () => {
         :http-request="handleUploadReceipt"
       >
         <template #trigger>
-          <el-button type="primary">选择文件</el-button>
+          <el-button type="primary">选择或拖拽文件</el-button>
         </template>
         <template #tip>
           <div class="el-upload__tip text-red">
-            仅限上传1份文件，多次上传覆盖之前文件
+            可手动选择或拖拽图片上传，可上传多份
           </div>
         </template>
       </el-upload>

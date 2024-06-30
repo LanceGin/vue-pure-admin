@@ -42,7 +42,7 @@ export function useRole() {
     reciept_url: ""
   });
   const formRef = ref();
-  const r_url = ref("");
+  const r_url = ref([]);
   const haveRow = ref(true);
   const selectRows = ref([]);
   const dataList = ref([]);

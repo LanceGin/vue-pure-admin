@@ -56,7 +56,7 @@ export function useRole() {
     reciept_url: ""
   });
   const formRef = ref();
-  const r_url = ref("");
+  const r_url = ref([]);
   const currentRow = ref();
   const selectRows = ref([]);
   const haveRow = ref(true);

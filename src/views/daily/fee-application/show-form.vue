@@ -29,7 +29,7 @@ const props = withDefaults(defineProps<FormProps>(), {
     invoice_no: "",
     remark: "",
     apply_time: "",
-    reciept_url: ""
+    reciept_url: []
   })
 });
 
@@ -50,10 +50,15 @@ defineExpose({ getRef });
     :rules="formRules"
     label-width="82px"
   >
-    <el-form-item label="" prop="reciept_url">
+    <el-form-item
+      v-for="(item, index) in newFormInline.reciept_url"
+      :key="index"
+      label=""
+      prop="reciept_url"
+    >
       <el-image
         style="width: 600px; height: 400px"
-        :src="newFormInline.reciept_url"
+        :src="item.reciept_url"
         fit="contain"
       />
     </el-form-item>

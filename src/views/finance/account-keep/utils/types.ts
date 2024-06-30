@@ -22,7 +22,7 @@ interface FormItemProps {
   apply_time: string;
   keep_by: string;
   keep_time: string;
-  reciept_url: string;
+  reciept_url: Array<any>;
 }
 interface FormProps {
   formInline: FormItemProps;

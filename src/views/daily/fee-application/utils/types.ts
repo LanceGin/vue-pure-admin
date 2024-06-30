@@ -25,7 +25,7 @@ interface FormItemProps {
   invoice_no: string;
   remark: string;
   apply_time: string;
-  reciept_url: string;
+  reciept_url: Array<any>;
 }
 interface FormProps {
   formInline: FormItemProps;

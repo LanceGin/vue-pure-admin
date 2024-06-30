@@ -10,6 +10,14 @@ export type ListResult = {
   };
 };
 
+export type ShowResult = {
+  success: boolean;
+  data?: {
+    /** 列表数据 */
+    result: Array<any>;
+  };
+};
+
 export type ChangeResult = {
   success: boolean;
   data?: {
@@ -39,7 +47,7 @@ export const uploadReciept = data => {
 
 // 查看水单接口
 export const showReciept = (data?: object) => {
-  return http.request<ListResult>("post", baseUrlApi("showReciept"), {
+  return http.request<ShowResult>("post", baseUrlApi("showReciept"), {
     data
   });
 };
