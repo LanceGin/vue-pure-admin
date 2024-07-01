@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import { formRules } from "./utils/rule";
 import { FormProps } from "./utils/types";
+import { deleteReciept } from "@/api/third";
 
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
@@ -38,6 +39,11 @@ function getRef() {
   return ruleFormRef.value;
 }
 
+function removeDomain(item, index) {
+  deleteReciept(item);
+  newFormInline.value.reciept_url.splice(index, 1);
+}
+
 defineExpose({ getRef });
 </script>
 
@@ -59,6 +65,13 @@ defineExpose({ getRef });
         :src="item.reciept_url"
         fit="contain"
       />
+      <el-button
+        class="mt-2"
+        type="danger"
+        @click.prevent="removeDomain(item, index)"
+      >
+        删除
+      </el-button>
     </el-form-item>
   </el-form>
 </template>

@@ -52,6 +52,13 @@ export const showReciept = (data?: object) => {
   });
 };
 
+// 删除水单接口
+export const deleteReciept = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("deleteReciept"), {
+    data
+  });
+};
+
 // 获取中交接口
 export const getSino = (data?: object) => {
   return http.request<ListResult>("post", baseUrlApi("getSino"), {
