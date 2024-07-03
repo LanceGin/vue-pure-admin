@@ -12,7 +12,7 @@ const props = withDefaults(defineProps<FormProps>(), {
     status: "",
     is_admin: "",
     fee_name: "",
-    is_pay: "",
+    is_pay: "付",
     pay_type: "",
     apply_amount: "",
     reimburse_amount: "",
@@ -198,7 +198,7 @@ defineExpose({ getRef });
         />
       </el-select>
     </el-form-item>
-    <el-form-item label="收/付" prop="is_pay">
+    <!-- <el-form-item label="收/付" prop="is_pay">
       <el-select
         v-model="newFormInline.is_pay"
         placeholder="请选择收/付"
@@ -208,7 +208,7 @@ defineExpose({ getRef });
         <el-option label="收" value="收" />
         <el-option label="付" value="付" />
       </el-select>
-    </el-form-item>
+    </el-form-item> -->
     <el-form-item label="支付类型" prop="pay_type">
       <el-select
         v-model="newFormInline.pay_type"

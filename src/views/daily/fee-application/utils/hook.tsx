@@ -53,6 +53,8 @@ export function useRole() {
     remark: "",
     apply_time: "",
     apply_time_range: "",
+    keep_time: "",
+    keep_time_range: "",
     reciept_url: ""
   });
   const formRef = ref();
@@ -166,6 +168,11 @@ export function useRole() {
       label: "申请日期",
       prop: "apply_time",
       formatter: ({ apply_time }) => dayjs(apply_time).format("YYYY-MM-DD")
+    },
+    {
+      label: "记账日期",
+      prop: "keep_time",
+      formatter: ({ keep_time }) => dayjs(keep_time).format("YYYY-MM-DD")
     },
     {
       label: "水单",

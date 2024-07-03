@@ -62,6 +62,16 @@ const {
           value-format="YYYY-MM-DD"
         />
       </el-form-item>
+      <el-form-item label="记账日期：" prop="keep_time_range">
+        <el-date-picker
+          v-model="form.keep_time_range"
+          type="daterange"
+          start-placeholder="开始时间"
+          end-placeholder="结束时间"
+          format="YYYY-MM-DD"
+          value-format="YYYY-MM-DD"
+        />
+      </el-form-item>
       <el-form-item label="费用编号：" prop="fee_no">
         <el-input
           v-model="form.fee_no"
@@ -78,18 +88,36 @@ const {
           class="!w-[200px]"
         />
       </el-form-item>
-      <!-- <el-form-item label="申请人：" prop="apply_by">
-        <el-input
-          v-model="form.apply_by"
-          placeholder="请输入申请人"
-          clearable
-          class="!w-[200px]"
-        />
-      </el-form-item> -->
+      <Auth value="btn_fee_by_add_by">
+        <el-form-item label="申请人：" prop="apply_by">
+          <el-input
+            v-model="form.apply_by"
+            placeholder="请输入申请人"
+            clearable
+            class="!w-[200px]"
+          />
+        </el-form-item>
+      </Auth>
       <el-form-item label="申请单位：" prop="apply_department">
         <el-input
           v-model="form.apply_department"
           placeholder="请输入申请单位"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
+      <el-form-item label="结算单位：" prop="company_name">
+        <el-input
+          v-model="form.company_name"
+          placeholder="请输入结算单位"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
+      <el-form-item label="备注：" prop="remark">
+        <el-input
+          v-model="form.remark"
+          placeholder="请输入备注"
           clearable
           class="!w-[200px]"
         />

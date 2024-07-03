@@ -168,6 +168,10 @@ const data = [
             label: "权限设置"
           },
           {
+            role: "btn_fee_by_add_by",
+            label: "筛选费用申请人"
+          },
+          {
             role: "checkon",
             label: "考勤信息"
           }

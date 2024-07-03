@@ -122,6 +122,22 @@ const handleClose = () => {
           value-format="YYYY-MM-DD"
         />
       </el-form-item>
+      <el-form-item label="结算单位：" prop="company_name">
+        <el-input
+          v-model="form.company_name"
+          placeholder="请输入结算单位"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
+      <el-form-item label="备注：" prop="remark">
+        <el-input
+          v-model="form.remark"
+          placeholder="请输入备注"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
       <el-form-item label="支付类型：" prop="pay_type">
         <el-select
           v-model="form.pay_type"
