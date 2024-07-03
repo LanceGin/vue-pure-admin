@@ -3,6 +3,7 @@ import { reactive, ref } from "vue";
 import { formRules } from "./utils/rule";
 import { FormProps } from "./utils/types";
 import { feeNameList } from "@/api/finance";
+import { getMotorcadeList } from "@/api/operation";
 import type { PaginationProps } from "@pureadmin/table";
 
 const props = withDefaults(defineProps<FormProps>(), {
@@ -65,22 +66,52 @@ const fee_form = reactive({
   code: "",
   name: ""
 });
+const form = reactive({
+  id: "",
+  companyShortName: "",
+  companyName: "",
+  companyAddress: "",
+  companyContact: "",
+  companyPhone1: "",
+  state: ""
+});
+
 interface FeeItem {
   id: string;
   fee_name: string;
 }
 
+interface CompanyItem {
+  id: string;
+  companyName: string;
+  company: string;
+}
+
 const loading = ref(false);
 const fee_list = ref<FeeItem[]>([]);
 const fee_options = ref<FeeItem[]>([]);
+const list = ref<CompanyItem[]>([]);
+const options = ref<CompanyItem[]>([]);
 let feeData = [];
+let accData = [];
 const fee_data = feeNameList({ pagination, form: fee_form });
+const data = getMotorcadeList({ pagination, form });
 fee_data.then(v => {
   feeData = v.data.list;
   fee_list.value = feeData.map(item => {
     return {
       id: `${item.id}`,
       fee_name: `${item.name}`
+    };
+  });
+});
+data.then(v => {
+  accData = v.data.list;
+  list.value = accData.map(item => {
+    return {
+      id: `${item.id}`,
+      companyName: `${item.companyName}`,
+      company: `${item.companyName}`
     };
   });
 });
@@ -95,6 +126,19 @@ const feeRemoteMethod = (query: string) => {
     }, 200);
   } else {
     fee_options.value = [];
+  }
+};
+const remoteMethod = (query: string) => {
+  if (query) {
+    loading.value = true;
+    setTimeout(() => {
+      loading.value = false;
+      options.value = list.value.filter(item => {
+        return item.companyName.toLowerCase().includes(query.toLowerCase());
+      });
+    }, 200);
+  } else {
+    options.value = [];
   }
 };
 
@@ -125,11 +169,23 @@ defineExpose({ getRef });
       />
     </el-form-item>
     <el-form-item label="客户名称" prop="custom_name">
-      <el-input
+      <el-select
         v-model="newFormInline.custom_name"
-        clearable
-        placeholder="请输入客户名称"
-      />
+        filterable
+        remote
+        reserve-keyword
+        placeholder="输入客户名称关键字"
+        :remote-method="remoteMethod"
+        :loading="loading"
+        style="width: 240px"
+      >
+        <el-option
+          v-for="item in options"
+          :key="item.id"
+          :label="item.company"
+          :value="item.companyName"
+        />
+      </el-select>
     </el-form-item>
     <el-form-item label="项目名称" prop="project_name">
       <el-input

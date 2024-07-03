@@ -169,13 +169,13 @@ defineExpose({ getRef });
         value-format="YYYY-MM"
       />
     </el-form-item>
-    <el-form-item label="供应商" prop="custom_name">
+    <!-- <el-form-item label="供应商" prop="custom_name">
       <el-input
         v-model="newFormInline.custom_name"
         clearable
         placeholder="请输入供应商"
       />
-    </el-form-item>
+    </el-form-item> -->
     <el-form-item label="申请单位" prop="apply_department">
       <el-select
         v-model="newFormInline.apply_department"
