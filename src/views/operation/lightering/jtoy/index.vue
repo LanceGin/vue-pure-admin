@@ -117,9 +117,9 @@ const handleClose = () => {
           class="!w-[200px]"
         />
       </el-form-item>
-      <el-form-item label="日期：" prop="add_time">
+      <el-form-item label="日期：" prop="make_time_range">
         <el-date-picker
-          v-model="form.add_time"
+          v-model="form.make_time_range"
           type="daterange"
           start-placeholder="起始日期"
           end-placeholder="截止日期"

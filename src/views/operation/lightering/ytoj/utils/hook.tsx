@@ -17,10 +17,13 @@ import { useUserStore } from "@/store/modules/user";
 
 export function useRole() {
   const user = useUserStore();
+  const end = new Date();
+  const start = new Date(end.getFullYear(), end.getMonth(), 1);
   const form = reactive({
     id: "",
     type: "0",
     add_time: "",
+    make_time_range: ref<[Date, Date]>([start, end]),
     voyage: "",
     voyage_index: "",
     container_no: "",
