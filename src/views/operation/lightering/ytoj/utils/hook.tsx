@@ -19,11 +19,13 @@ export function useRole() {
   const user = useUserStore();
   const end = new Date();
   const start = new Date(end.getFullYear(), end.getMonth(), 1);
+  const a = dayjs(end).format("YYYY/MM/DD");
+  const b = dayjs(start).format("YYYY/MM/DD");
   const form = reactive({
     id: "",
     type: "0",
     add_time: "",
-    make_time_range: ref<[Date, Date]>([start, end]),
+    make_time_range: ref<[String, String]>([b, a]),
     voyage: "",
     voyage_index: "",
     container_no: "",
