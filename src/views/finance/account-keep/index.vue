@@ -88,12 +88,23 @@ const handleClose = () => {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="申请日期" prop="apply_time">
+      <el-form-item label="申请日期：" prop="apply_time_range">
         <el-date-picker
-          v-model="form.apply_time"
-          type="date"
-          placeholder="请输入申请日期"
-          format="YYYY/MM/DD"
+          v-model="form.apply_time_range"
+          type="daterange"
+          start-placeholder="开始时间"
+          end-placeholder="结束时间"
+          format="YYYY-MM-DD"
+          value-format="YYYY-MM-DD"
+        />
+      </el-form-item>
+      <el-form-item label="记账日期：" prop="keep_time_range">
+        <el-date-picker
+          v-model="form.keep_time_range"
+          type="daterange"
+          start-placeholder="开始时间"
+          end-placeholder="结束时间"
+          format="YYYY-MM-DD"
           value-format="YYYY-MM-DD"
         />
       </el-form-item>
@@ -111,15 +122,6 @@ const handleClose = () => {
           placeholder="请输入费用名称"
           clearable
           class="!w-[180px]"
-        />
-      </el-form-item>
-      <el-form-item label="记账时间" prop="keep_time">
-        <el-date-picker
-          v-model="form.keep_time"
-          type="date"
-          placeholder="请输入记账时间"
-          format="YYYY/MM/DD"
-          value-format="YYYY-MM-DD"
         />
       </el-form-item>
       <el-form-item label="结算单位：" prop="company_name">
