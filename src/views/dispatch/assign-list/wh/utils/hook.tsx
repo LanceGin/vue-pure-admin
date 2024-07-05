@@ -113,7 +113,14 @@ export function useRole() {
     },
     {
       label: "封号",
-      prop: "seal_no"
+      prop: "seal_no",
+      cellRenderer: ({ row }) => {
+        if (row.type == "拆箱") {
+          return row.seal_no;
+        } else {
+          return "";
+        }
+      }
     },
     {
       label: "箱型",
@@ -121,7 +128,14 @@ export function useRole() {
     },
     {
       label: "送货地点",
-      prop: "door"
+      prop: "door",
+      cellRenderer: ({ row }) => {
+        if (row.type == "拆箱") {
+          return row.door;
+        } else {
+          return "";
+        }
+      }
     },
     {
       label: "道口",
@@ -139,11 +153,25 @@ export function useRole() {
     },
     {
       label: "装箱点",
-      prop: "export_port"
+      prop: "export_port",
+      cellRenderer: ({ row }) => {
+        if (row.type == "装箱") {
+          return row.door;
+        } else {
+          return row.export_port;
+        }
+      }
     },
     {
       label: "装箱封号",
-      prop: "export_seal_no"
+      prop: "export_seal_no",
+      cellRenderer: ({ row }) => {
+        if (row.type == "装箱") {
+          return row.seal_no;
+        } else {
+          return row.export_seal_no;
+        }
+      }
     },
     {
       label: "还箱点",
