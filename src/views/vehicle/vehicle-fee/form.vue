@@ -42,6 +42,7 @@ const form = reactive({
   id: "",
   car_no: "",
   driver: "",
+  territory: "",
   mobile: ""
 });
 
@@ -72,6 +73,7 @@ const remoteMethod = (query: string) => {
     setTimeout(() => {
       loading.value = false;
       options.value = list.value.filter(item => {
+        console.log(111111, item);
         return item.car_no.toLowerCase().includes(query.toLowerCase());
       });
     }, 200);
