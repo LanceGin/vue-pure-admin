@@ -27,6 +27,7 @@ export function useRole() {
     reimburse_amount: "",
     tax_amount: "",
     apply_by: "",
+    apply_by_select: "",
     apply_department: "",
     create_time: "",
     reimburse_by: "",

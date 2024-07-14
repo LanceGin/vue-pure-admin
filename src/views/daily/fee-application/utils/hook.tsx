@@ -38,6 +38,7 @@ export function useRole() {
     tax_amount: "",
     city: user.city,
     apply_by: user.username,
+    apply_by_select: "",
     apply_department: "",
     acc_company_id: "",
     company_name: "",

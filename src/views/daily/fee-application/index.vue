@@ -89,9 +89,9 @@ const {
         />
       </el-form-item>
       <Auth value="btn_fee_by_add_by">
-        <el-form-item label="申请人：" prop="apply_by">
+        <el-form-item label="申请人：" prop="apply_by_select">
           <el-input
-            v-model="form.apply_by"
+            v-model="form.apply_by_select"
             placeholder="请输入申请人"
             clearable
             class="!w-[200px]"
