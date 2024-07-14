@@ -5,7 +5,9 @@ import { FormProps } from "./utils/types";
 import { convertTextToCode, regionData, CodeToText } from "@/utils/chinaArea";
 import { vehicleInfoList } from "@/api/vehicle";
 import type { PaginationProps } from "@pureadmin/table";
+import { useUserStore } from "@/store/modules/user";
 
+const user = useUserStore();
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
     id: "",
@@ -76,7 +78,9 @@ const form = reactive({
   id: "",
   car_no: "",
   driver: "",
-  mobile: ""
+  territory: "",
+  mobile: "",
+  add_by: user.username
 });
 
 interface CompanyItem {
