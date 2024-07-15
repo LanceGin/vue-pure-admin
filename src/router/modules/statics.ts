@@ -89,6 +89,16 @@ export default {
         keepAlive: true,
         roles: ["admin", "statics", "vehicle_fee_stat"]
       }
+    },
+    {
+      path: "/statics/dispatch_stat",
+      name: "DispatchStat",
+      component: () => import("@/views/statics/dispatch-stat/index.vue"),
+      meta: {
+        title: "业务量统计",
+        keepAlive: true,
+        roles: ["admin", "statics", "dispatch_stat"]
+      }
     }
   ]
 } as RouteConfigsTable;

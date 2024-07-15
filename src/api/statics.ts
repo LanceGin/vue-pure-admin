@@ -240,3 +240,10 @@ export const vehicleFeeStatList = (data?: object) => {
     data
   });
 };
+
+// 业务量统计列表
+export const dispatchStatList = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("dispatchStatList"), {
+    data
+  });
+};

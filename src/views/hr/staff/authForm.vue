@@ -212,6 +212,10 @@ const data = [
           {
             role: "vehicle_fee_stat",
             label: "车辆费用统计"
+          },
+          {
+            role: "dispatch_stat",
+            label: "业务量统计"
           }
         ]
       },
