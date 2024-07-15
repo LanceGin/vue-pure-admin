@@ -88,6 +88,10 @@ const data = [
             label: "拆箱暂落列表"
           },
           {
+            role: "btn_one_step_dispatch",
+            label: "一键派车"
+          },
+          {
             role: "import",
             label: "进口派车单"
           },

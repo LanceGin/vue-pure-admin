@@ -130,6 +130,15 @@ const handleClose = () => {
         >
           搜索
         </el-button>
+        <Auth value="btn_one_step_dispatch">
+          <el-button
+            :icon="useRenderIcon(EditPen)"
+            :loading="loading"
+            @click="onSearch"
+          >
+            一键派车
+          </el-button>
+        </Auth>
         <el-button
           :icon="useRenderIcon(Download)"
           @click="dialogVisible = true"
