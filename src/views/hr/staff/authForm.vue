@@ -84,6 +84,10 @@ const data = [
         label: "调度管理",
         children: [
           {
+            role: "vehicle_status",
+            label: "车辆状态管理"
+          },
+          {
             role: "unpacking",
             label: "拆箱暂落列表"
           },

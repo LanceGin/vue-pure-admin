@@ -11,6 +11,16 @@ export default {
   },
   children: [
     {
+      path: "/dispatch/vehicle_status",
+      name: "VehicleStatus",
+      component: () => import("@/views/dispatch/vehicle-status/index.vue"),
+      meta: {
+        title: "车辆状态",
+        keepAlive: true,
+        roles: ["admin", "dispatch", "vehicle_status"]
+      }
+    },
+    {
       path: "/dispatch/car_assignation",
       redirect: "/dispatch/car_assignation/unpacking",
       name: "CarAssignation",

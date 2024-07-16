@@ -19,7 +19,8 @@ const props = withDefaults(defineProps<FormProps>(), {
     driver: "",
     mobile: "",
     attribute: "",
-    remark: ""
+    remark: "",
+    status: ""
   })
 });
 

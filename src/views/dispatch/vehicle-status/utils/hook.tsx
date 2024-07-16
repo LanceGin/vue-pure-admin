@@ -57,40 +57,8 @@ export function useRole() {
       prop: "territory"
     },
     {
-      label: "品牌",
-      prop: "brand"
-    },
-    {
       label: "车牌号",
       prop: "car_no"
-    },
-    {
-      label: "排放",
-      prop: "emission"
-    },
-    {
-      label: "车辆购买年限",
-      prop: "life"
-    },
-    {
-      label: "轴数",
-      prop: "axles"
-    },
-    {
-      label: "车辆所属",
-      prop: "owner"
-    },
-    {
-      label: "车辆挂靠",
-      prop: "attachment"
-    },
-    {
-      label: "油卡归属",
-      prop: "oil_card_owner"
-    },
-    {
-      label: "挂板号",
-      prop: "hang_board_no"
     },
     {
       label: "驾驶员",
@@ -105,8 +73,8 @@ export function useRole() {
       prop: "attribute"
     },
     {
-      label: "备注",
-      prop: "remark"
+      label: "状态",
+      prop: "status"
     }
   ];
 
@@ -199,7 +167,7 @@ export function useRole() {
 
   function openDialog(title = "添加", row?: FormItemProps) {
     addDialog({
-      title: `${title}车辆`,
+      title: `${title}状态`,
       props: {
         formInline: {
           id: row?.id ?? "",
@@ -216,7 +184,6 @@ export function useRole() {
           driver: row?.driver ?? "",
           mobile: row?.mobile ?? "",
           attribute: row?.attribute ?? "",
-          remark: row?.remark ?? "",
           status: row?.status ?? ""
         }
       },
