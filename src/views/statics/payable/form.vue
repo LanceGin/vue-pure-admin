@@ -61,7 +61,7 @@ const props = withDefaults(defineProps<FormProps>(), {
 
 /** 分页配置 */
 const pagination = reactive<PaginationProps>({
-  pageSize: 500,
+  pageSize: 1000,
   currentPage: 1,
   total: 0
 });
