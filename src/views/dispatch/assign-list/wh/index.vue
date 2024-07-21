@@ -91,6 +91,7 @@ const {
           <el-option label="空白" value="空白" />
           <el-option label="武汉金口" value="武汉金口" />
           <el-option label="武汉阳逻" value="武汉阳逻" />
+          <el-option label="武汉经开港" value="武汉经开港" />
         </el-select>
       </el-form-item>
       <el-form-item label="单据类型：" prop="type">
@@ -197,5 +198,9 @@ const {
 
 :deep(.pure-success-row) {
   --el-table-tr-bg-color: var(--el-color-success-light-3);
+}
+
+:deep(.pure-jk-row) {
+  --el-table-tr-bg-color: var(--el-color-info-light-5);
 }
 </style>

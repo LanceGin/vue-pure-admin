@@ -74,6 +74,7 @@ defineExpose({ getRef });
       >
         <el-option label="武汉金口" value="武汉金口" />
         <el-option label="武汉阳逻" value="武汉阳逻" />
+        <el-option label="武汉经开港" value="武汉经开港" />
       </el-select>
     </el-form-item>
     <el-form-item label="装箱封号：" prop="export_seal_no">
