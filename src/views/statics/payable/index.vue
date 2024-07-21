@@ -36,6 +36,7 @@ const {
   exportExcel,
   onSearch,
   openDialog,
+  confirmDialog,
   uploadExcelDetail,
   // handleDelete,
   // handleDatabase,
@@ -130,6 +131,7 @@ const getSummaries = param => {
         >
           <el-option label="全部" value="" />
           <el-option label="未提交" value="未提交" />
+          <el-option label="已确认" value="已确认" />
           <el-option label="未审核" value="未审核" />
           <el-option label="已审核" value="已审核" />
           <el-option label="已驳回" value="已驳回" />
@@ -275,6 +277,13 @@ const getSummaries = param => {
           @click="onSearch"
         >
           搜索
+        </el-button>
+        <el-button
+          :icon="useRenderIcon(EditPen)"
+          @click="confirmDialog('确认')"
+          :disabled="haveRow"
+        >
+          确认
         </el-button>
         <el-button
           :icon="useRenderIcon(EditPen)"

@@ -1,6 +1,7 @@
 import { utils, read, writeFile } from "xlsx";
 import dayjs from "dayjs";
 import editForm from "../form.vue";
+import confirmForm from "../confirm-form.vue";
 import { message } from "@/utils/message";
 // import { ElMessageBox } from "element-plus";
 // import { usePublicHooks } from "../../hooks";
@@ -9,6 +10,7 @@ import { type FormItemProps } from "../utils/types";
 import { type PaginationProps } from "@pureadmin/table";
 import { reactive, ref, onMounted, h } from "vue";
 import {
+  confirmContainerFee,
   containerFeeList,
   dataCheckPay,
   setAmount,
@@ -528,6 +530,100 @@ export function useRole() {
     });
   }
 
+  function confirmDialog(title = "应付", row?: FormItemProps) {
+    let c = 0;
+    let c_o = "";
+    selectRows.value.forEach(v => {
+      c += Number(v.amount);
+      c_o = v.car_owner;
+    });
+    addDialog({
+      title: `${title}费用`,
+      props: {
+        formInline: {
+          id: row?.id ?? "",
+          status: row?.status ?? "",
+          type: row?.type ?? "应付",
+          account_period: row?.account_period ?? "",
+          fee_name: row?.fee_name ?? "",
+          amount: row?.amount ?? "",
+          less_amount: row?.less_amount ?? 0,
+          more_amount: row?.more_amount ?? 0,
+          fee_type: row?.fee_type ?? "",
+          remark: row?.remark ?? "",
+          order_status: row?.order_status ?? "",
+          order_type: row?.order_type ?? "",
+          ship_company: row?.ship_company ?? "",
+          customer: row?.customer ?? "",
+          subproject: row?.subproject ?? "",
+          arrive_time: row?.arrive_time ?? "",
+          start_port: row?.start_port ?? "",
+          target_port: row?.target_port ?? "",
+          containner_no: row?.containner_no ?? "",
+          seal_no: row?.seal_no ?? "",
+          container_type: row?.container_type ?? "",
+          container_fee: row?.container_fee ?? c.toFixed(2),
+          ship_name: row?.ship_name ?? "",
+          track_no: row?.track_no ?? "",
+          unload_port: row?.unload_port ?? "",
+          door: row?.door ?? "",
+          make_time: row?.make_time ?? "",
+          load_port: row?.load_port ?? "",
+          count: row?.count ?? "",
+          transfer_port: row?.transfer_port ?? "",
+          package_count: row?.package_count ?? "",
+          gross_weight: row?.gross_weight ?? "",
+          volume: row?.volume ?? "",
+          container_weight: row?.container_weight ?? "",
+          container_status: row?.container_status ?? "",
+          order_time: row?.order_time ?? "",
+          order_fee: row?.order_fee ?? "",
+          car_no: row?.car_no ?? "",
+          add_by: row?.add_by ?? "",
+          add_time: row?.add_time ?? "",
+          project_name: row?.project_name ?? "",
+          custom_name: row?.car_owner ?? c_o,
+          apply_department: row?.apply_department ?? "",
+          flow_direction: row?.flow_direction ?? "",
+          acc_company: row?.acc_company ?? "",
+          content: row?.content ?? "",
+          car_owner: row?.car_owner ?? c_o,
+          submit_by: user.username
+        }
+      },
+      width: "40%",
+      draggable: true,
+      fullscreenIcon: true,
+      closeOnClickModal: false,
+      contentRenderer: () => h(confirmForm, { ref: formRef }),
+      beforeSure: (done, { options }) => {
+        const FormRef = formRef.value.getRef();
+        const curData = options.props.formInline as FormItemProps;
+        function chores() {
+          message(`您${title}了费用名为${curData.fee_name}的这条数据`, {
+            type: "success"
+          });
+          done(); // 关闭弹框
+          onSearch(); // 刷新表格数据
+        }
+        FormRef.validate(valid => {
+          if (valid) {
+            console.log("curData", curData);
+            // 表单规则校验通过
+            if (title === "确认") {
+              // 实际开发先调用新增接口，再进行下面操作
+              handleConfirm(curData);
+              chores();
+            } else {
+              // 实际开发先调用编辑接口，再进行下面操作
+              chores();
+            }
+          }
+        });
+      }
+    });
+  }
+
   // 上传文件批量导入
   async function uploadExcelDetail(item) {
     let flag = true;
@@ -578,6 +674,19 @@ export function useRole() {
       }
     };
     reader.readAsBinaryString(item.file);
+  }
+
+  // 确认统计费用
+  async function handleConfirm(curData) {
+    const data = {
+      select_id: [],
+      data: curData
+    };
+    selectRows.value.forEach(v => {
+      data.select_id.push(v.fee_id);
+    });
+    confirmContainerFee(data);
+    onSearch();
   }
 
   // 提交统计费用
@@ -693,6 +802,7 @@ export function useRole() {
     onSearch,
     resetForm,
     openDialog,
+    confirmDialog,
     handleMenu,
     handleDelete,
     uploadExcelDetail,

@@ -168,6 +168,13 @@ export const containerFeeList = (data?: object) => {
   });
 };
 
+// 确认统计费用
+export const confirmContainerFee = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("confirmContainerFee"), {
+    data
+  });
+};
+
 // 提交统计费用
 export const submitContainerFee = (data?: object) => {
   return http.request<ChangeResult>("post", baseUrlApi("submitContainerFee"), {
