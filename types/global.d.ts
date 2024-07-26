@@ -39,6 +39,9 @@ declare global {
     mozRequestAnimationFrame: (callback: FrameRequestCallback) => number;
     oRequestAnimationFrame: (callback: FrameRequestCallback) => number;
     msRequestAnimationFrame: (callback: FrameRequestCallback) => number;
+    _AMapSecurityConfig: {
+      securityJsCode: string;
+    };
   }
 
   /**

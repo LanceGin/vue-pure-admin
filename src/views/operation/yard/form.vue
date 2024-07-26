@@ -160,6 +160,9 @@ const { MapConfigure } = instance.appContext.config.globalProperties.$config;
 
 function initMap() {
   console.log(1111, newFormInline);
+  window._AMapSecurityConfig = {
+    securityJsCode: "780a66cbac27886e6b6eea142af2bb72"
+  };
   AMapLoader.load({
     key: MapConfigure.amapKey, // 申请好的Web端开发者Key，首次调用 load 时必填
     version: "2.0", // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
