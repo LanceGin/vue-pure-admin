@@ -134,6 +134,8 @@ export function useRole() {
       cellRenderer: ({ row }) => {
         if (row.dispatch_type == "暂落") {
           return "暂落";
+        } else if (row.dispatch_type == "放空") {
+          return "放空";
         } else {
           return row.order_type;
         }
@@ -218,6 +220,8 @@ export function useRole() {
         if (row.order_type == "进口") {
           if (row.dispatch_type == "拆箱" || row.fee_name == "堆存费") {
             return row.car_no;
+          } else if (row.dispatch_type == "放空") {
+            return row.empty_car_no;
           } else {
             return row.temp_car_no;
           }
