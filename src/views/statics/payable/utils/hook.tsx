@@ -121,7 +121,8 @@ export function useRole() {
     },
     {
       label: "实付金额",
-      prop: "actual_amount"
+      prop: "actual_amount",
+      formatter: ({ actual_amount }) => actual_amount.toFixed(2)
     },
     {
       label: "做箱时间",
