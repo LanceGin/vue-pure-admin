@@ -161,7 +161,7 @@ export function useRole() {
           if (row.dispatch_type == "暂落" || row.fee_name == "堆存费") {
             return row.temp_port;
           } else {
-            return row.load_port;
+            return row.old_load_port;
           }
         } else {
           return row.unload_port;
