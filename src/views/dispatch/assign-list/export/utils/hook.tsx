@@ -377,6 +377,12 @@ export function useRole() {
       });
   }
 
+  // 双击行
+  function handleRowDblclick(row) {
+    console.log(row);
+    openDialog("编辑", row);
+  }
+
   /** 菜单权限 */
   function handleMenu() {
     message("等菜单管理页面开发后完善");
@@ -399,6 +405,7 @@ export function useRole() {
     // buttonClass,
     exportExcel,
     uploadExcelDetail,
+    handleRowDblclick,
     onSearch,
     resetForm,
     openDialog,

@@ -41,6 +41,7 @@ const {
   openDialog,
   // handleDelete,
   // handleDatabase,
+  // handleRowDblclick,
   handleDeleteContainer,
   handleSizeChange,
   handlePageChange,
@@ -162,18 +163,18 @@ const handleClose = () => {
           新增
         </el-button>
         <el-button
-          :icon="useRenderIcon(Download)"
-          @click="dialogVisible = true"
-        >
-          导入
-        </el-button>
-        <el-button
           type="danger"
           :icon="useRenderIcon(Delete)"
           @click="handleDeleteContainer()"
           :disabled="haveRow"
         >
           删除
+        </el-button>
+        <el-button
+          :icon="useRenderIcon(Download)"
+          @click="dialogVisible = true"
+        >
+          导入
         </el-button>
         <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
           导出
