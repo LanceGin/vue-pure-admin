@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRole } from "./utils/hook";
+import Print from "@/utils/print";
 import { PureTableBar } from "../../../components/RePureTableBar";
 import { useRenderIcon } from "../../../components/ReIcon/src/hooks";
 
@@ -12,6 +13,7 @@ import Search from "@iconify-icons/ep/search";
 import Upload from "@iconify-icons/ep/upload";
 import Download from "@iconify-icons/ep/download";
 import AddFill from "@iconify-icons/ri/add-circle-line";
+import PrintIcon from "@iconify-icons/ep/printer";
 
 defineOptions({
   name: "OilConsumption"
@@ -39,6 +41,11 @@ const {
   handleCurrentChange,
   handleSelectionChange
 } = useRole();
+
+function onPrint() {
+  const el = ".el-table";
+  Print(el).toPrint;
+}
 </script>
 
 <template>
@@ -111,9 +118,16 @@ const {
         >
           删除
         </el-button>
+        <el-button
+          type="primary"
+          :icon="useRenderIcon(PrintIcon)"
+          @click="onPrint()"
+        >
+          打印
+        </el-button>
       </el-form-item>
     </el-form>
-
+    <!--startprint-->
     <PureTableBar title="油耗核算记录" :columns="columns" @refresh="onSearch">
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
@@ -141,6 +155,7 @@ const {
         />
       </template>
     </PureTableBar>
+    <!--endprint-->
   </div>
 </template>
 
