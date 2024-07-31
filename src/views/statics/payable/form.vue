@@ -18,6 +18,7 @@ const props = withDefaults(defineProps<FormProps>(), {
     more_amount: "",
     fee_type: "",
     remark: "",
+    confirm_remark: "",
     order_status: "",
     order_type: "",
     ship_company: "",

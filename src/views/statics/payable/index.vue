@@ -40,6 +40,7 @@ const {
   uploadExcelDetail,
   // handleDelete,
   // handleDatabase,
+  handleRevoke,
   handleSizeChange,
   handlePageChange,
   handleCurrentChange,
@@ -250,6 +251,14 @@ const getSummaries = param => {
           class="!w-[120px]"
         />
       </el-form-item>
+      <el-form-item label="确认备注：" prop="confirm_remark">
+        <el-input
+          v-model="form.confirm_remark"
+          placeholder="请输入确认备注"
+          clearable
+          class="!w-[120px]"
+        />
+      </el-form-item>
       <el-form-item label="地区：" prop="city_type">
         <el-select
           v-model="form.city_type"
@@ -285,6 +294,13 @@ const getSummaries = param => {
           :disabled="haveRow"
         >
           确认
+        </el-button>
+        <el-button
+          :icon="useRenderIcon(EditPen)"
+          @click="handleRevoke()"
+          :disabled="haveRow"
+        >
+          撤销确认
         </el-button>
         <el-button
           :icon="useRenderIcon(EditPen)"

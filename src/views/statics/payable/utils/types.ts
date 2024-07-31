@@ -11,6 +11,7 @@ interface FormItemProps {
   more_amount: string;
   fee_type: string;
   remark: string;
+  confirm_remark: string;
   order_status: string;
   order_type: string;
   ship_company: string;

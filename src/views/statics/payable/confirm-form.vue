@@ -15,6 +15,7 @@ const props = withDefaults(defineProps<FormProps>(), {
     more_amount: "",
     fee_type: "",
     remark: "",
+    confirm_remark: "",
     order_status: "",
     order_type: "",
     ship_company: "",
@@ -73,9 +74,9 @@ defineExpose({ getRef });
     :rules="formRules"
     label-width="82px"
   >
-    <el-form-item label="备注" prop="remark">
+    <el-form-item label="备注" prop="confirm_remark">
       <el-input
-        v-model="newFormInline.remark"
+        v-model="newFormInline.confirm_remark"
         clearable
         placeholder="请输入备注"
       />

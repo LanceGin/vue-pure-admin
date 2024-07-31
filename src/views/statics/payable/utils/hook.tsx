@@ -13,6 +13,7 @@ import {
   confirmContainerFee,
   containerFeeList,
   dataCheckPay,
+  revokeContainerFee,
   setAmount,
   setInvoiceNo,
   setRemark,
@@ -35,6 +36,7 @@ export function useRole() {
     actual_amount: "",
     fee_type: "",
     remark: "",
+    confirm_remark: "",
     order_status: "",
     order_type: "",
     ship_company: "",
@@ -253,6 +255,11 @@ export function useRole() {
       prop: "fee_remark"
     },
     {
+      label: "确认备注",
+      prop: "confirm_remark",
+      hide: true
+    },
+    {
       label: "发票号",
       prop: "invoice_no"
     },
@@ -462,6 +469,7 @@ export function useRole() {
           more_amount: row?.more_amount ?? 0,
           fee_type: row?.fee_type ?? "",
           remark: row?.remark ?? "",
+          confirm_remark: row?.confirm_remark ?? "",
           order_status: row?.order_status ?? "",
           order_type: row?.order_type ?? "",
           ship_company: row?.ship_company ?? "",
@@ -556,6 +564,7 @@ export function useRole() {
           more_amount: row?.more_amount ?? 0,
           fee_type: row?.fee_type ?? "",
           remark: row?.remark ?? "",
+          confirm_remark: row?.confirm_remark ?? "",
           order_status: row?.order_status ?? "",
           order_type: row?.order_type ?? "",
           ship_company: row?.ship_company ?? "",
@@ -694,6 +703,37 @@ export function useRole() {
     onSearch();
   }
 
+  // 撤销确认统计费用
+  async function handleRevoke() {
+    ElMessageBox.confirm("仅允许撤回已确认费用", "撤回确认", {
+      confirmButtonText: "确认",
+      cancelButtonText: "取消",
+      type: "warning"
+    })
+      .then(() => {
+        const data = {
+          select_id: []
+        };
+        selectRows.value.forEach(v => {
+          data.select_id.push(v.fee_id);
+          if (v.status !== "已确认") {
+            throw new Error("仅能撤回已确认费用");
+          }
+        });
+        revokeContainerFee(data);
+        onSearch();
+      })
+      .catch(info => {
+        if (info == "cancel") {
+          info = "取消删除";
+        }
+        ElMessage({
+          type: "info",
+          message: info
+        });
+      });
+  }
+
   // 提交统计费用
   async function handleSubmit(curData) {
     const data = {
@@ -812,6 +852,7 @@ export function useRole() {
     handleDelete,
     uploadExcelDetail,
     // handleDatabase,
+    handleRevoke,
     handleSizeChange,
     handlePageChange,
     handleCurrentChange,

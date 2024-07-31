@@ -175,6 +175,13 @@ export const confirmContainerFee = (data?: object) => {
   });
 };
 
+// 撤销确认统计费用
+export const revokeContainerFee = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("revokeContainerFee"), {
+    data
+  });
+};
+
 // 提交统计费用
 export const submitContainerFee = (data?: object) => {
   return http.request<ChangeResult>("post", baseUrlApi("submitContainerFee"), {
