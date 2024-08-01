@@ -69,6 +69,7 @@ interface InvoiceItem {
   invoice_no: string;
 }
 const loading = ref(false);
+const isDisable = ref(true);
 const list = ref<CompanyItem[]>([]);
 const options = ref<CompanyItem[]>([]);
 const fee_list = ref<FeeItem[]>([]);
@@ -154,6 +155,10 @@ const invoiceRemoteMethod = (query: string) => {
 const ruleFormRef = ref();
 const newFormInline = ref(props.formInline);
 
+if (newFormInline.value.status === "未提交") {
+  isDisable.value = false;
+}
+
 function getRef() {
   return ruleFormRef.value;
 }
@@ -173,6 +178,7 @@ defineExpose({ getRef });
         v-model="newFormInline.is_admin"
         placeholder="请选择业务/行政"
         clearable
+        :disabled="isDisable"
         class="!w-[180px]"
       >
         <el-option label="业务" value="业务" />
@@ -183,6 +189,7 @@ defineExpose({ getRef });
       <el-select
         v-model="newFormInline.fee_name"
         filterable
+        :disabled="isDisable"
         remote
         reserve-keyword
         placeholder="输入费用名关键字"
@@ -214,6 +221,7 @@ defineExpose({ getRef });
         v-model="newFormInline.pay_type"
         placeholder="请选择支付类型"
         clearable
+        :disabled="isDisable"
         class="!w-[180px]"
       >
         <el-option label="转账" value="转账" />
@@ -229,6 +237,7 @@ defineExpose({ getRef });
       <el-input
         v-model="newFormInline.apply_amount"
         clearable
+        :disabled="isDisable"
         placeholder="请输入申请金额"
       />
     </el-form-item>
@@ -236,6 +245,7 @@ defineExpose({ getRef });
       <el-input
         v-model="newFormInline.reimburse_amount"
         clearable
+        :disabled="isDisable"
         placeholder="请输入报销金额"
       />
     </el-form-item>
@@ -243,6 +253,7 @@ defineExpose({ getRef });
       <el-input
         v-model="newFormInline.tax_amount"
         clearable
+        :disabled="isDisable"
         placeholder="请输入税额"
       />
     </el-form-item>
@@ -258,6 +269,7 @@ defineExpose({ getRef });
       <el-input
         v-model="newFormInline.reimburse_by"
         clearable
+        :disabled="isDisable"
         placeholder="请输入报销人"
       />
     </el-form-item>
@@ -266,6 +278,7 @@ defineExpose({ getRef });
         v-model="newFormInline.apply_department"
         placeholder="请选择申请单位"
         clearable
+        :disabled="isDisable"
         allow-create
         filterable
         class="!w-[180px]"
@@ -289,6 +302,7 @@ defineExpose({ getRef });
         filterable
         remote
         reserve-keyword
+        :disabled="isDisable"
         placeholder="输入结算单位关键字"
         :remote-method="remoteMethod"
         :loading="loading"
@@ -309,6 +323,7 @@ defineExpose({ getRef });
         filterable
         remote
         reserve-keyword
+        :disabled="isDisable"
         placeholder="输入发票号码关键字"
         :remote-method="invoiceRemoteMethod"
         :loading="loading"
@@ -326,6 +341,7 @@ defineExpose({ getRef });
       <el-input
         v-model="newFormInline.remark"
         clearable
+        :disabled="isDisable"
         placeholder="请输入备注"
       />
     </el-form-item>
