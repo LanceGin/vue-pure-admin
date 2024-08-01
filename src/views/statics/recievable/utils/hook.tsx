@@ -30,6 +30,7 @@ export function useRole() {
     amount: "",
     fee_type: "",
     remark: "",
+    confirm_remark: "",
     order_status: "",
     order_type: "",
     ship_company: "",
