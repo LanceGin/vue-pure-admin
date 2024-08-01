@@ -26,7 +26,8 @@ export function useRole() {
     unit_price: "",
     type: "",
     amount: "",
-    remark: ""
+    remark: "",
+    city: ""
   });
   const formRef = ref();
   const currentRow = ref();
@@ -75,6 +76,10 @@ export function useRole() {
     {
       label: "备注",
       prop: "remark"
+    },
+    {
+      label: "地区",
+      prop: "city"
     }
   ];
 
@@ -179,7 +184,8 @@ export function useRole() {
           unit_price: row?.unit_price ?? "",
           type: row?.type ?? "",
           amount: row?.amount ?? "",
-          remark: row?.remark ?? ""
+          remark: row?.remark ?? "",
+          city: row?.city ?? ""
         }
       },
       width: "40%",

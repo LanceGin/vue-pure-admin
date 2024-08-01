@@ -10,6 +10,7 @@ interface FormItemProps {
   type: string;
   amount: string;
   remark: string;
+  city: string;
 }
 interface FormProps {
   formInline: FormItemProps;

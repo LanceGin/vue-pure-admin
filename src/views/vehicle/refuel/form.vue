@@ -17,7 +17,8 @@ const props = withDefaults(defineProps<FormProps>(), {
     unit_price: "",
     type: "",
     amount: "",
-    remark: ""
+    remark: "",
+    city: ""
   })
 });
 
@@ -153,6 +154,20 @@ defineExpose({ getRef });
         clearable
         placeholder="请输入备注"
       />
+    </el-form-item>
+
+    <el-form-item label="地区" prop="city">
+      <el-select
+        v-model="newFormInline.city"
+        placeholder="请选择地区"
+        clearable
+        class="!w-[120px]"
+      >
+        <el-option label="上海" value="上海" />
+        <el-option label="太仓" value="太仓" />
+        <el-option label="武汉" value="武汉" />
+        <el-option label="岳阳" value="岳阳" />
+      </el-select>
     </el-form-item>
   </el-form>
 </template>
