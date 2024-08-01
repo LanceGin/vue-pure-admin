@@ -168,6 +168,13 @@ export const oneStepFinish = (data?: object) => {
   });
 };
 
+// 放空进口派车单箱子信息
+export const oneStepEmpty = (data?: object) => {
+  return http.request<ChangeResult>("post", baseUrlApi("oneStepEmpty"), {
+    data
+  });
+};
+
 // 编辑进口派车单箱子信息
 export const oneStepRevoke = (data?: object) => {
   return http.request<ChangeResult>("post", baseUrlApi("oneStepRevoke"), {

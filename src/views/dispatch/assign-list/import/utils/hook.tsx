@@ -11,6 +11,7 @@ import { reactive, ref, onMounted, h } from "vue";
 import {
   editContainerInfo,
   getImportDispatchList,
+  oneStepEmpty,
   oneStepFinish,
   oneStepRevoke
 } from "@/api/dispatch";
@@ -345,6 +346,35 @@ export function useRole() {
       });
   }
 
+  // 放空
+  async function handleEmpty() {
+    ElMessageBox.confirm(
+      "仅允许操作已执行派车单，放空派车单直接完成，箱子重新进入挑箱界面",
+      "放空",
+      {
+        confirmButtonText: "确认",
+        cancelButtonText: "取消"
+      }
+    )
+      .then(() => {
+        const select_container_id = [];
+        selectRows.value.forEach(v => {
+          select_container_id.push(v.id);
+          if (v.trans_status !== "已执行") {
+            throw new Error("仅允许操作已执行派车单");
+          }
+        });
+        oneStepEmpty(select_container_id);
+        onSearch();
+      })
+      .catch(() => {
+        ElMessage({
+          type: "info",
+          message: "取消放空"
+        });
+      });
+  }
+
   // 同步eir
   async function handleSyncEir() {
     ElMessageBox.confirm(
@@ -526,6 +556,7 @@ export function useRole() {
     handleSelectionChange,
     handleRevoke,
     handleFinish,
+    handleEmpty,
     handleSyncEir,
     handleEir,
     handleTransferEir

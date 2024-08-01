@@ -39,6 +39,7 @@ const {
   handleSelectionChange,
   handleRevoke,
   handleFinish,
+  handleEmpty,
   handleSyncEir,
   handleEir,
   handleTransferEir
@@ -156,6 +157,14 @@ const {
           :disabled="haveRow"
         >
           一键完成
+        </el-button>
+        <el-button
+          type="primary"
+          :icon="useRenderIcon(EditPen)"
+          @click="handleEmpty()"
+          :disabled="haveRow"
+        >
+          放空
         </el-button>
         <Auth value="btn_eir">
           <el-button
