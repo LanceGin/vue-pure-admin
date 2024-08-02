@@ -155,7 +155,10 @@ const invoiceRemoteMethod = (query: string) => {
 const ruleFormRef = ref();
 const newFormInline = ref(props.formInline);
 
-if (newFormInline.value.status === "未提交") {
+if (
+  newFormInline.value.status === "未提交" ||
+  newFormInline.value.status === ""
+) {
   isDisable.value = false;
 }
 
