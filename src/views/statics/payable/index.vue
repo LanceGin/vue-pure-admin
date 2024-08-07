@@ -183,12 +183,40 @@ const getSummaries = param => {
         />
       </el-form-item>
       <el-form-item label="费用名称：" prop="fee_name">
-        <el-input
+        <el-select
           v-model="form.fee_name"
-          placeholder="请输入费用名称"
+          placeholder="请选择费用名称"
           clearable
-          class="!w-[120px]"
-        />
+          filterable
+          allow-create
+          class="!w-[180px]"
+        >
+          <el-option label="全部" value="" />
+          <el-option label="打单费" value="打单费" />
+          <el-option label="计划费" value="计划费" />
+          <el-option label="拖车费" value="拖车费" />
+          <el-option label="堆存费" value="堆存费" />
+          <el-option label="上下车费" value="上下车费" />
+          <el-option label="堆存杂项包干费" value="堆存杂项包干费" />
+          <el-option label="待时费" value="待时费" />
+          <el-option label="换单费" value="换单费" />
+          <el-option label="改单费" value="改单费" />
+          <el-option label="改港费" value="改港费" />
+          <el-option label="放空" value="放空" />
+          <el-option label="散货运费" value="散货运费" />
+          <el-option label="暂落费" value="暂落费" />
+          <el-option label="水运费" value="水运费" />
+          <el-option label="用箱超期费" value="用箱超期费" />
+          <el-option label="码头杂费" value="码头杂费" />
+          <el-option label="落箱费" value="落箱费" />
+          <el-option label="过磅费" value="过磅费" />
+          <el-option label="还箱费" value="还箱费" />
+          <el-option label="铅封费" value="铅封费" />
+          <el-option label="陆运异常费" value="陆运异常费" />
+          <el-option label="陆运费" value="陆运费" />
+          <el-option label="高速服务费" value="高速服务费" />
+          <el-option label="高速费" value="高速费" />
+        </el-select>
       </el-form-item>
       <el-form-item label="车辆：" prop="car_no">
         <el-input
