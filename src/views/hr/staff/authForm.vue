@@ -74,6 +74,10 @@ const data = [
             label: "挑箱"
           },
           {
+            role: "btn_plantime",
+            label: "设置计划时间"
+          },
+          {
             role: "lightering",
             label: "驳运"
           }

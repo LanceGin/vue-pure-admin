@@ -173,14 +173,16 @@ const {
         >
           修改箱信息
         </el-button>
-        <el-button
-          type="primary"
-          :icon="useRenderIcon(EditPen)"
-          @click="handlePlanTime()"
-          :disabled="haveRow"
-        >
-          修改计划时间
-        </el-button>
+        <Auth value="btn_plantime">
+          <el-button
+            type="primary"
+            :icon="useRenderIcon(EditPen)"
+            @click="handlePlanTime()"
+            :disabled="haveRow"
+          >
+            修改计划时间
+          </el-button>
+        </Auth>
         <el-button
           type="primary"
           :icon="useRenderIcon(EditPen)"

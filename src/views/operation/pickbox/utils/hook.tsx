@@ -63,6 +63,11 @@ export function useRole() {
   const haveRow = ref(true);
   const dataList = ref([]);
   const loading = ref(true);
+  const isHide = ref(true);
+
+  if (user.city === "上海" || user.city === "管理员") {
+    isHide.value = false;
+  }
   // const switchLoadMap = ref({});
   // const { tagStyle } = usePublicHooks();
   const pagination = reactive<PaginationProps>({
@@ -120,7 +125,8 @@ export function useRole() {
       prop: "plan_time",
       formatter: ({ plan_time }) =>
         dayjs(plan_time).format("YYYY-MM-DD HH:mm:ss"),
-      minWidth: 120
+      minWidth: 120,
+      hide: isHide.value
     },
     {
       label: "船名/航次",
@@ -147,7 +153,8 @@ export function useRole() {
     },
     {
       label: "船公司",
-      prop: "ship_company"
+      prop: "ship_company",
+      hide: isHide.value
     },
     {
       label: "备注",
@@ -171,11 +178,13 @@ export function useRole() {
     },
     {
       label: "暂落状态",
-      prop: "temp_status"
+      prop: "temp_status",
+      hide: isHide.value
     },
     {
       label: "暂落点",
-      prop: "temp_port"
+      prop: "temp_port",
+      hide: isHide.value
     },
     {
       label: "暂落时间",
@@ -186,7 +195,8 @@ export function useRole() {
         } else {
           return dayjs(temp_time).format("YYYY-MM-DD");
         }
-      }
+      },
+      hide: isHide.value
     },
     {
       label: "暂落天数",
@@ -199,7 +209,8 @@ export function useRole() {
         } else {
           return (dayjs(now_time).diff(a_time, "day") + 1).toString();
         }
-      }
+      },
+      hide: isHide.value
     }
   ];
 
