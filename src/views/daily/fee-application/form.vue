@@ -99,6 +99,7 @@ fee_data.then(v => {
       fee_name: `${item.name}`
     };
   });
+  fee_options.value = fee_list.value;
 });
 invoice_data.then(v => {
   invoiceData = v.data.list;
@@ -134,7 +135,7 @@ const feeRemoteMethod = (query: string) => {
       });
     }, 200);
   } else {
-    fee_options.value = [];
+    fee_options.value = fee_list.value;
   }
 };
 

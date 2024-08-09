@@ -258,19 +258,6 @@ const getSummaries = param => {
           class="!w-[120px]"
         />
       </el-form-item>
-      <el-form-item label="箱号" prop="containner_no">
-        <el-input
-          v-model="form.containner_no"
-          placeholder="多箱号换行输入，单箱号支持模糊搜索"
-          :autosize="{ minRows: 2, maxRows: 5 }"
-          type="textarea"
-          clearable
-          class="!w-[120px]"
-        />
-        <el-button link type="primary" @click="form.containner_no = ''"
-          >清空</el-button
-        >
-      </el-form-item>
       <el-form-item label="费用备注：" prop="remark">
         <el-input
           v-model="form.remark"
@@ -286,6 +273,43 @@ const getSummaries = param => {
           clearable
           class="!w-[120px]"
         />
+      </el-form-item>
+      <el-form-item label="起始港：" prop="start_port">
+        <el-input
+          v-model="form.start_port"
+          placeholder="请输入起始港"
+          clearable
+          class="!w-[120px]"
+        />
+      </el-form-item>
+      <el-form-item label="目的港：" prop="target_port">
+        <el-input
+          v-model="form.target_port"
+          placeholder="请输入目的港"
+          clearable
+          class="!w-[120px]"
+        />
+      </el-form-item>
+      <el-form-item label="箱型：" prop="container_type">
+        <el-input
+          v-model="form.container_type"
+          placeholder="请输入箱型"
+          clearable
+          class="!w-[120px]"
+        />
+      </el-form-item>
+      <el-form-item label="箱号" prop="containner_no">
+        <el-input
+          v-model="form.containner_no"
+          placeholder="多箱号换行输入，单箱号支持模糊搜索"
+          :autosize="{ minRows: 2, maxRows: 5 }"
+          type="textarea"
+          clearable
+          class="!w-[120px]"
+        />
+        <el-button link type="primary" @click="form.containner_no = ''"
+          >清空</el-button
+        >
       </el-form-item>
       <el-form-item label="地区：" prop="city_type">
         <el-select
