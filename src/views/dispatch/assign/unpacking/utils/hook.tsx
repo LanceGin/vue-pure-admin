@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import { utils, writeFile } from "xlsx";
 import editForm from "../form.vue";
 import { message } from "@/utils/message";
 // import { ElMessageBox } from "element-plus";
@@ -12,6 +13,7 @@ import {
   dispatchRevoke,
   generateDispatchWithContainer,
   getUnpackingList,
+  generateDispatch,
   importDispatch
 } from "@/api/dispatch";
 import { ElMessage, ElMessageBox } from "element-plus";
@@ -110,6 +112,57 @@ export function useRole() {
       formatter: ({ arrive_time }) => dayjs(arrive_time).format("YYYY-MM-DD")
     }
   ];
+
+  const export_columns: TableColumnList = [
+    {
+      label: "做箱时间",
+      prop: "make_time",
+      formatter: ({ make_time }) =>
+        dayjs(make_time).format("YYYY-MM-DD HH:mm:ss")
+    },
+    {
+      label: "箱号",
+      prop: "containner_no"
+    },
+    {
+      label: "车号",
+      prop: "car_no"
+    }
+  ];
+
+  // 导出一键派车表
+  async function oneStepDispatch() {
+    // const city = user.city;
+    const export_pagination = reactive<PaginationProps>({
+      total: 0,
+      pageSize: 10000,
+      currentPage: 1,
+      background: true
+    });
+    const { data } = await generateDispatch({
+      pagination: export_pagination,
+      form
+    });
+    const res = data.list.map(item => {
+      const arr = [];
+      export_columns.forEach(column => {
+        arr.push(item[column.prop as string]);
+      });
+      return arr;
+    });
+    const titleList = [];
+    export_columns.forEach(column => {
+      titleList.push(column.label);
+    });
+    res.unshift(titleList);
+    const workSheet = utils.aoa_to_sheet(res);
+    const workBook = utils.book_new();
+    utils.book_append_sheet(workBook, workSheet, "数据报表");
+    writeFile(workBook, "一键派车表.xlsx");
+    message("导出成功", {
+      type: "success"
+    });
+  }
 
   function handleDelete(row) {
     message(`您删除了角色名称为${row.name}的这条数据`, { type: "success" });
@@ -332,6 +385,7 @@ export function useRole() {
     pagination,
     // buttonClass,
     uploadExcelDetail,
+    oneStepDispatch,
     onSearch,
     resetForm,
     openDialog,

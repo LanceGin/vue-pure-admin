@@ -31,6 +31,13 @@ export const getUnpackingList = (data?: object) => {
   });
 };
 
+// 获取一键派车列表
+export const generateDispatch = (data?: object) => {
+  return http.request<ListResult>("post", baseUrlApi("generateDispatch"), {
+    data
+  });
+};
+
 // 派车
 export const dispatchCar = (data?: object) => {
   return http.request<ListResult>("post", baseUrlApi("dispatchCar"), {

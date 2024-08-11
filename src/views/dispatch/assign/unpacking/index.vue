@@ -35,6 +35,7 @@ const {
   pagination,
   // buttonClass,
   uploadExcelDetail,
+  oneStepDispatch,
   onSearch,
   // resetForm,
   openDialog,
@@ -134,7 +135,7 @@ const handleClose = () => {
           <el-button
             :icon="useRenderIcon(EditPen)"
             :loading="loading"
-            @click="onSearch"
+            @click="oneStepDispatch"
           >
             一键派车
           </el-button>
