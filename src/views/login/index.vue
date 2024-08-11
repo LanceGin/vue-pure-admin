@@ -80,7 +80,16 @@ const onLogin = async (formEl: FormInstance | undefined) => {
           if (res.success) {
             // 获取后端路由
             initRouter().then(() => {
-              router.push(getTopMenu(true).path);
+              console.log(
+                router.currentRoute.value.query.redirect,
+                getTopMenu(true).path
+              );
+              const path =
+                (router.currentRoute.value.query.redirect as string) ||
+                (getTopMenu(true).path as string);
+              router.push({
+                path
+              });
               message("登录成功", { type: "success" });
             });
           } else {

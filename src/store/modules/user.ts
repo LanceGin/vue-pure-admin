@@ -62,13 +62,20 @@ export const useUserStore = defineStore({
     },
     /** 前端登出（不调用接口） */
     logOut() {
+      const fullPath = router.currentRoute.value.fullPath;
       this.username = "";
       this.city = "";
       this.roles = [];
       removeToken();
       useMultiTagsStoreHook().handleTags("equal", [...routerArrays]);
       resetRouter();
-      router.push("/login");
+      // router.push("/login");
+      router.push({
+        path: "/login",
+        query: {
+          redirect: fullPath
+        }
+      });
     },
     /** 刷新`token` */
     async handRefreshToken(data) {
