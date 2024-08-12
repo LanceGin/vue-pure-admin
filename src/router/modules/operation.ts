@@ -90,16 +90,6 @@ export default {
       },
       children: [
         {
-          path: "/operation/bulk/shipping",
-          name: "Shipping",
-          component: () => import("@/views/operation/bulk/shipping/index.vue"),
-          meta: {
-            title: "船运",
-            keepAlive: true,
-            roles: ["admin", "operation", "bulk"]
-          }
-        },
-        {
           path: "/operation/bulk/land_trans",
           name: "LandTrans",
           component: () =>
@@ -178,6 +168,16 @@ export default {
             title: "金口-阳逻",
             keepAlive: true,
             roles: ["admin", "operation", "lightering"]
+          }
+        },
+        {
+          path: "/operation/bulk/shipping",
+          name: "Shipping",
+          component: () => import("@/views/operation/bulk/shipping/index.vue"),
+          meta: {
+            title: "太仓船运",
+            keepAlive: true,
+            roles: ["admin", "operation", "bulk"]
           }
         },
         {

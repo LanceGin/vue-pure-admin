@@ -227,6 +227,15 @@ defineExpose({ getRef });
         />
       </el-select>
     </el-form-item>
+    <el-form-item label="船期" prop="arrive_time">
+      <el-date-picker
+        v-model="newFormInline.arrive_time"
+        type="datetime"
+        placeholder="请输入船期"
+        format="YYYY/MM/DD HH:mm:ss"
+        value-format="YYYY-MM-DD HH:mm:ss"
+      />
+    </el-form-item>
     <el-form-item label="做箱时间" prop="make_time">
       <el-date-picker
         v-model="newFormInline.make_time"

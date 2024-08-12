@@ -117,6 +117,12 @@ export function useRole() {
       prop: "ship_name"
     },
     {
+      label: "船期",
+      prop: "arrive_time",
+      formatter: ({ arrive_time }) => dayjs(arrive_time).format("YYYY-MM-DD"),
+      minWidth: 120
+    },
+    {
       label: "运单号",
       prop: "track_no",
       minWidth: 120
@@ -384,6 +390,9 @@ export function useRole() {
           temp_port: currentRow.value.temp_port,
           car_no: currentRow.value.car_no,
           type: currentRow.value.type,
+          arrive_time: dayjs(currentRow.value.arrive_time).format(
+            "YYYY-MM-DD HH:mm:ss"
+          ),
           make_time:
             currentRow.value.type == "暂落"
               ? dayjs(currentRow.value.temp_time).format("YYYY-MM-DD HH:mm:ss")
