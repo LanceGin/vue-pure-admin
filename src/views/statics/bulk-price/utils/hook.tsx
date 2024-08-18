@@ -162,7 +162,7 @@ export function useRole() {
 
   function openDialog(title = "添加", row?: FormItemProps) {
     addDialog({
-      title: `${title}散货价格`,
+      title: `${title}陆运/散货价格`,
       props: {
         formInline: {
           id: row?.id ?? "",

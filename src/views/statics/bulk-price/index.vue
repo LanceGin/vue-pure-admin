@@ -165,7 +165,11 @@ const handleClose = () => {
       </template>
     </el-dialog>
 
-    <PureTableBar title="散货价格列表" :columns="columns" @refresh="onSearch">
+    <PureTableBar
+      title="陆运/散货价格列表"
+      :columns="columns"
+      @refresh="onSearch"
+    >
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border

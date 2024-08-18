@@ -20,24 +20,24 @@ export default {
         roles: ["admin", "statics", "lightering_price"]
       }
     },
-    {
-      path: "/statics/land_price",
-      name: "LandPrice",
-      component: () => import("@/views/statics/land-price/index.vue"),
-      meta: {
-        title: "陆运价格",
-        keepAlive: true,
-        roles: ["admin", "statics", "land_price"]
-      }
-    },
+    // {
+    //   path: "/statics/land_price",
+    //   name: "LandPrice",
+    //   component: () => import("@/views/statics/land-price/index.vue"),
+    //   meta: {
+    //     title: "陆运价格",
+    //     keepAlive: true,
+    //     roles: ["admin", "statics", "land_price"]
+    //   }
+    // },
     {
       path: "/statics/bulk_price",
       name: "BulkPrice",
       component: () => import("@/views/statics/bulk-price/index.vue"),
       meta: {
-        title: "散货价格",
+        title: "陆运/散货价格",
         keepAlive: true,
-        roles: ["admin", "statics", "bulk_price"]
+        roles: ["admin", "statics", "bulk_price", "land_price"]
       }
     },
     {
