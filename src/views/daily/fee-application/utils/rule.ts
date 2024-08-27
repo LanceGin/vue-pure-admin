@@ -5,9 +5,7 @@ import type { FormRules } from "element-plus";
 export const formRules = reactive(<FormRules>{
   name: [{ required: true, message: "客户全称为必填项", trigger: "blur" }],
   refer: [{ required: true, message: "客户简称为必填项", trigger: "blur" }],
-  contact_name: [
-    { required: true, message: "联系人为必填项", trigger: "blur" }
-  ],
+  fee_name: [{ required: true, message: "费用名为必填项", trigger: "blur" }],
   contact_mobile: [
     { required: true, message: "联系电话为必填项", trigger: "blur" }
   ],

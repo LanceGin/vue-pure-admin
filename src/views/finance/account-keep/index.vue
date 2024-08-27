@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { reactive, ref } from "vue";
 import { useRole } from "./utils/hook";
 import { PureTableBar } from "../../../components/RePureTableBar";
 import { useRenderIcon } from "../../../components/ReIcon/src/hooks";
@@ -7,6 +7,8 @@ import { useRenderIcon } from "../../../components/ReIcon/src/hooks";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { genFileId } from "element-plus";
 import type { UploadInstance, UploadProps, UploadRawFile } from "element-plus";
+import type { PaginationProps } from "@pureadmin/table";
+import { feeNameList } from "@/api/finance";
 // import Database from "@iconify-icons/ri/database-2-line";
 // import More from "@iconify-icons/ep/more-filled";
 import EditPen from "@iconify-icons/ep/edit-pen";
@@ -45,7 +47,52 @@ const {
   handleShowReciept
 } = useRole();
 
+/** 分页配置 */
+const select_pagination = reactive<PaginationProps>({
+  pageSize: 1000,
+  currentPage: 1,
+  total: 0
+});
+const fee_form = reactive({
+  id: "",
+  code: "",
+  name: ""
+});
+interface FeeItem {
+  id: string;
+  fee_name: string;
+}
+
 const upload = ref<UploadInstance>();
+const fee_list = ref<FeeItem[]>([]);
+const fee_options = ref<FeeItem[]>([]);
+let feeData = [];
+const fee_data = feeNameList({ pagination: select_pagination, form: fee_form });
+
+fee_data.then(v => {
+  feeData = v.data.list;
+  fee_list.value = feeData.map(item => {
+    return {
+      id: `${item.id}`,
+      fee_name: `${item.name}`
+    };
+  });
+  fee_options.value = fee_list.value;
+});
+
+const feeRemoteMethod = (query: string) => {
+  if (query) {
+    loading.value = true;
+    setTimeout(() => {
+      loading.value = false;
+      fee_options.value = fee_list.value.filter(item => {
+        return item.fee_name.toLowerCase().includes(query.toLowerCase());
+      });
+    }, 200);
+  } else {
+    fee_options.value = fee_list.value;
+  }
+};
 
 const handleExceed: UploadProps["onExceed"] = files => {
   upload.value!.clearFiles();
@@ -117,12 +164,45 @@ const handleClose = () => {
         />
       </el-form-item>
       <el-form-item label="费用名称：" prop="fee_name">
-        <el-input
+        <el-select
           v-model="form.fee_name"
-          placeholder="请输入费用名称"
+          filterable
+          remote
+          reserve-keyword
+          placeholder="输入费用名称关键字"
+          :remote-method="feeRemoteMethod"
+          :loading="loading"
+          style="width: 240px"
+        >
+          <el-option
+            v-for="item in fee_options"
+            :key="item.id"
+            :label="item.fee_name"
+            :value="item.fee_name"
+          />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="申请单位" prop="apply_department">
+        <el-select
+          v-model="form.apply_department"
+          placeholder="请选择申请单位"
           clearable
+          allow-create
+          filterable
           class="!w-[180px]"
-        />
+        >
+          <el-option label="富安上海" value="富安上海" />
+          <el-option label="富安太仓" value="富安太仓" />
+          <el-option label="港鸣实业" value="港鸣实业" />
+          <el-option label="濠瀚科技" value="濠瀚科技" />
+          <el-option label="富安国际" value="富安国际" />
+          <el-option label="鲜友网销" value="鲜友网销" />
+          <el-option label="鲜友书局" value="鲜友书局" />
+          <el-option label="武汉江通源" value="武汉江通源" />
+          <el-option label="长沙沪源" value="长沙沪源" />
+          <el-option label="众源润达" value="众源润达" />
+          <el-option label="众源仁合" value="众源仁合" />
+        </el-select>
       </el-form-item>
       <el-form-item label="结算单位：" prop="company_name">
         <el-input

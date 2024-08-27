@@ -28,6 +28,7 @@ function getRef() {
  * @returns 中文价格
  */
 function getChinesePrice(price: number) {
+  price = Number(price.toString().replace(/,/g, ""));
   if (price === 0) return "零元整";
   if (price >= 1e12) return "整数位已超过最大值";
 
@@ -197,11 +198,12 @@ defineExpose({ getRef });
         <tr height="50">
           <td colspan="2">收款人:</td>
           <td colspan="2">
-            审核:<img
+            审核:
+            <!-- <img
               border="0"
               src="http://www.howhan-e.com/upload/8058132213new_zhoujia.jpg"
               style="height: 40px; vertical-align: middle"
-            />
+            /> -->
           </td>
           <td colspan="2">批准:</td>
           <td colspan="2">记账:</td>
@@ -209,9 +211,10 @@ defineExpose({ getRef });
         <tr>
           <td colspan="2">日期:</td>
           <td colspan="2">
-            日期:<label>{{
+            日期:
+            <!-- <label>{{
               dayjs(selectRows[0].audit_time).format("YYYY-MM-DD")
-            }}</label>
+            }}</label> -->
           </td>
           <td colspan="2">日期:<label /></td>
           <td colspan="2">日期:</td>
