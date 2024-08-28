@@ -116,7 +116,7 @@ defineExpose({ getRef });
           <tr>
             <td><label style="display: none" /></td>
             <td align="right">
-              编号:<label>{{ selectRows[0].fee_no }}</label>
+              编号:<label>{{ item.fee_no }}</label>
             </td>
           </tr>
           <tr>
