@@ -260,6 +260,18 @@ const handleClose = () => {
           <el-option label="已记账" value="已记账" />
         </el-select>
       </el-form-item>
+      <el-form-item label="是否上传水单：" prop="reciept_url">
+        <el-select
+          v-model="form.reciept_url"
+          placeholder="请选择"
+          clearable
+          class="!w-[180px]"
+        >
+          <el-option label="全部" value="" />
+          <el-option label="已上传" value="已上传" />
+          <el-option label="未上传" value="未上传" />
+        </el-select>
+      </el-form-item>
     </el-form>
     <el-form
       ref="formRef"
