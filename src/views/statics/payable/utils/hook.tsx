@@ -785,14 +785,20 @@ export function useRole() {
         };
         selectRows.value.forEach(v => {
           data.select_id.push(v.fee_id);
+          if (v.status === "未审批" || v.status === "已审核") {
+            throw new Error("已提交费用无法修改金额");
+          }
         });
         setAmount(data);
         onSearch();
       })
-      .catch(() => {
+      .catch(info => {
+        if (info == "cancel") {
+          info = "取消设置金额";
+        }
         ElMessage({
           type: "info",
-          message: "取消设置金额"
+          message: info
         });
       });
   }
