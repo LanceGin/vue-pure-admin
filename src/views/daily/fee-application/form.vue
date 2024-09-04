@@ -249,7 +249,6 @@ defineExpose({ getRef });
       <el-input
         v-model="newFormInline.reimburse_amount"
         clearable
-        :disabled="isDisable"
         placeholder="请输入报销金额"
       />
     </el-form-item>
@@ -306,7 +305,6 @@ defineExpose({ getRef });
         filterable
         remote
         reserve-keyword
-        :disabled="isDisable"
         placeholder="输入结算单位关键字"
         :remote-method="remoteMethod"
         :loading="loading"

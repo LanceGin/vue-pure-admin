@@ -105,7 +105,7 @@ defineExpose({ getRef });
 
 <template>
   <div class="reim_print" style="padding: 5px 30px; overflow: hidden">
-    <div v-for="item in selectRows" :key="item" style="height: 500px">
+    <div v-for="item in selectRows" :key="item" style="height: 345px">
       <table
         border="0"
         cellpadding="1"
@@ -123,7 +123,7 @@ defineExpose({ getRef });
             <td
               colspan="2"
               align="center"
-              style="font-size: 16pt; font-weight: bold"
+              style="font-size: 14pt; font-weight: bold"
             >
               <label>费 用 报 销 单</label>
             </td>
@@ -136,8 +136,8 @@ defineExpose({ getRef });
             <td colspan="2">
               申请部门：<label>{{ item.is_admin }}</label>
             </td>
-            <td rowspan="2" style="width: 100px">支付方式</td>
-            <td rowspan="2" align="center" style="width: 100px">
+            <td colspan="1" rowspan="2">支付方式</td>
+            <td colspan="1" rowspan="2" align="center">
               <label>{{ item.pay_type }}</label>
             </td>
             <td colspan="4">
@@ -157,47 +157,47 @@ defineExpose({ getRef });
             <td colspan="2">
               报销: <label>{{ item.reimburse_by }}</label> <label />
             </td>
-            <td>申请单位</td>
-            <td align="center">
+            <td colspan="1">申请单位</td>
+            <td colspan="1" align="center">
               <label>{{ item.apply_department }}</label>
             </td>
             <td colspan="4">
               帐号：<label>{{ item.account_no }}</label>
             </td>
           </tr>
-          <tr height="30">
-            <td align="center" valign="middle">费<br />用<br />内<br />容</td>
-            <td colspan="3">
+          <tr height="20px">
+            <td colspan="1" align="center" valign="middle">
+              费<br />用<br />内<br />容
+            </td>
+            <td colspan="2">
               <label>{{ item.fee_name }}</label>
             </td>
-            <td align="center" valign="middle" style="width: 40px">
-              备<br />注
-            </td>
-            <td colspan="3">
+            <td colspan="1" align="center" valign="middle">备<br />注</td>
+            <td colspan="4">
               <label>{{ item.remark }}</label>
             </td>
           </tr>
           <tr>
-            <td>报销金额:</td>
+            <td colspan="1">报销金额:</td>
             <td colspan="1" style="width: 130px">
               <label>{{ item.reimburse_amount }}</label>
             </td>
-            <td>合同/发票号:</td>
+            <td colspan="1">合同/发票号:</td>
             <td colspan="1"><label /></td>
-            <td colspan="2">附件张数 <label />&nbsp;张</td>
-            <td>票据类型:</td>
-            <td><label>普通发票</label></td>
+            <td colspan="1">附件张数 <label />&nbsp;张</td>
+            <td colspan="1">票据类型:</td>
+            <td colspan="1"><label>普通发票</label></td>
           </tr>
           <tr>
-            <td>大写金额:</td>
-            <td colspan="5">
+            <td colspan="1">大写金额:</td>
+            <td colspan="3">
               <label>{{ getChinesePrice(item.apply_amount) }}</label>
             </td>
-            <td>税率:</td>
-            <td><label /><label>%</label></td>
+            <td colspan="2">税率:</td>
+            <td colspan="2"><label /><label>%</label></td>
           </tr>
-          <tr height="50">
-            <td colspan="2">收款人:</td>
+          <tr height="50px">
+            <td colspan="1">收款人:</td>
             <td colspan="2">
               审核:
               <!-- <img
@@ -210,7 +210,7 @@ defineExpose({ getRef });
             <td colspan="2">记账:</td>
           </tr>
           <tr>
-            <td colspan="2">日期:</td>
+            <td colspan="1">日期:</td>
             <td colspan="2">
               日期:
               <!-- <label>{{
@@ -229,6 +229,11 @@ defineExpose({ getRef });
 
 <style scoped>
 .auditTable tbody tr td {
+  font-size: 10pt;
   border: 1px solid;
+}
+
+.auditTable tbody tr td label {
+  font-weight: normal;
 }
 </style>
