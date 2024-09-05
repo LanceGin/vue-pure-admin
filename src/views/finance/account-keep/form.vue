@@ -61,7 +61,7 @@ defineExpose({ getRef });
       prop="reciept_url"
     >
       <el-image
-        style="width: 600px; height: 400px"
+        style="width: 100%; height: 100%"
         :src="item.reciept_url"
         fit="contain"
       />

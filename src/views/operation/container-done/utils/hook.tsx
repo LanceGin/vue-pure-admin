@@ -389,7 +389,7 @@ export function useRole() {
           load_port: currentRow.value.load_port,
           unload_port: currentRow.value.unload_port,
           temp_port: currentRow.value.temp_port,
-          car_no: currentRow.value.car_no,
+          car_no: currentRow.value.dispatch_car_no,
           type: currentRow.value.type,
           arrive_time: dayjs(currentRow.value.arrive_time).format(
             "YYYY-MM-DD HH:mm:ss"
