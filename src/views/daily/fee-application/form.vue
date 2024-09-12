@@ -282,7 +282,6 @@ defineExpose({ getRef });
         placeholder="请选择申请单位"
         clearable
         :disabled="isDisable"
-        allow-create
         filterable
         class="!w-[180px]"
       >

@@ -127,6 +127,10 @@ export function useRole() {
     {
       label: "车号",
       prop: "car_no"
+    },
+    {
+      label: "门点",
+      prop: "door"
     }
   ];
 

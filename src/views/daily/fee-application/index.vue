@@ -22,6 +22,7 @@ const {
   form,
   loading,
   haveRow,
+  multipleTable,
   columns,
   dataList,
   pagination,
@@ -36,6 +37,7 @@ const {
   handleReimPrint,
   handleRevoke,
   handleRowDblclick,
+  handleRowClick,
   handleSizeChange,
   handlePageChange,
   handleCurrentChange,
@@ -245,6 +247,7 @@ const {
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           border
+          ref="multipleTable"
           align-whole="center"
           showOverflowTooltip
           highlight-current-row
@@ -265,6 +268,7 @@ const {
           @page-size-change="handleSizeChange"
           @page-current-change="handlePageChange"
           @current-change="handleCurrentChange"
+          @row-click="handleRowClick"
         >
           <template #reciept_url="{ row }">
             <el-button

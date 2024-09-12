@@ -61,6 +61,7 @@ export function useRole() {
   const formRef = ref();
   const r_url = ref([]);
   const currentRow = ref();
+  const multipleTable = ref();
   const selectRows = ref([]);
   const haveRow = ref(true);
   const dataList = ref([]);
@@ -512,9 +513,26 @@ export function useRole() {
     openDialog("编辑", row);
   }
 
+  // 单击选中
+  function handleRowClick(row) {
+    // console.log(11111, row, multipleTable.value!.getTableRef());
+    const { toggleRowSelection } = multipleTable.value!.getTableRef();
+    const selected = selectRows.value.some(item => item.id === row.id);
+    if (!selected) {
+      selectRows.value.push(row);
+      toggleRowSelection(row);
+    } else {
+      const finArr = selectRows.value.filter(item => {
+        return item.id !== row.id;
+      });
+      selectRows.value = finArr;
+      toggleRowSelection(row);
+    }
+  }
+
   // 打印申请单
   function handleApplyPrint() {
-    console.log(242131432, selectRows.value);
+    // console.log(242131432, selectRows.value);
     applyDialog("打印申请单", selectRows.value);
   }
 
@@ -547,6 +565,7 @@ export function useRole() {
     form,
     loading,
     haveRow,
+    multipleTable,
     columns,
     dataList,
     pagination,
@@ -561,6 +580,7 @@ export function useRole() {
     handleSubmit,
     handleRevoke,
     handleRowDblclick,
+    handleRowClick,
     handleApplyPrint,
     handleReimPrint,
     handleEdit,
