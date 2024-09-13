@@ -53,6 +53,10 @@ export function useRole() {
   });
   const columns: TableColumnList = [
     {
+      type: "selection",
+      align: "left"
+    },
+    {
       label: "车辆属地",
       prop: "territory"
     },
