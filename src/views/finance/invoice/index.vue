@@ -171,6 +171,18 @@ const getSummaries = param => {
           value-format="YYYY-MM-DD"
         />
       </el-form-item>
+      <el-form-item label="是否收款：" prop="is_receipt">
+        <el-select
+          v-model="form.is_receipt"
+          placeholder="请选择"
+          clearable
+          class="!w-[180px]"
+        >
+          <el-option label="全部" value="" />
+          <el-option label="已收款" value="已收款" />
+          <el-option label="未收款" value="未收款" />
+        </el-select>
+      </el-form-item>
       <el-form-item label="税率：" prop="tax_rate">
         <el-input
           v-model="form.tax_rate"

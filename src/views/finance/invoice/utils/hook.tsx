@@ -42,6 +42,7 @@ export function useRole() {
     invoice_by: user.username,
     remark: "",
     receipt_time: "",
+    is_receipt: "",
     receipt_amount: ""
   });
   const formRef = ref();
