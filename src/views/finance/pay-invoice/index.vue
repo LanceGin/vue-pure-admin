@@ -127,6 +127,28 @@ const getSummaries = param => {
           value-format="YYYY-MM"
         />
       </el-form-item>
+      <el-form-item label="付款日期" prop="paid_time">
+        <el-date-picker
+          v-model="form.paid_time"
+          type="daterange"
+          start-placeholder="起始日期"
+          end-placeholder="截止日期"
+          format="YYYY-MM-DD"
+          value-format="YYYY-MM-DD"
+        />
+      </el-form-item>
+      <el-form-item label="是否付款：" prop="is_paid">
+        <el-select
+          v-model="form.is_paid"
+          placeholder="请选择"
+          clearable
+          class="!w-[180px]"
+        >
+          <el-option label="全部" value="" />
+          <el-option label="已付款" value="已付款" />
+          <el-option label="未付款" value="未付款" />
+        </el-select>
+      </el-form-item>
     </el-form>
     <el-form
       ref="formRef"

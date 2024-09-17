@@ -48,6 +48,7 @@ export function useRole() {
     remark: "",
     is_invoice: "",
     paid_time: "",
+    is_paid: "",
     certification_period: ""
   });
   const formRef = ref();
