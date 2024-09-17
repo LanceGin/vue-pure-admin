@@ -175,7 +175,14 @@ defineExpose({ getRef });
             <td colspan="1" align="center" valign="middle" style="width: 12.5%">
               备<br />注
             </td>
-            <td colspan="4" style="width: 50%">
+            <td
+              colspan="4"
+              style="
+                width: 50%;
+                word-break: break-all;
+                overflow-wrap: break-word;
+              "
+            >
               <label>{{ item.remark }}</label>
             </td>
           </tr>
