@@ -191,19 +191,19 @@ defineExpose({ getRef });
             <td colspan="1" style="width: 12.5%">
               <label>{{ item.apply_amount }}</label>
             </td>
-            <td colspan="1" style="width: 12.5%">合同/发票号:</td>
-            <td colspan="1" style="width: 12.5%"><label /></td>
-            <td colspan="1" style="width: 12.5%">附件张数 <label />&nbsp;张</td>
-            <td colspan="2" style="width: 25%">票据类型:</td>
-            <td colspan="1" style="width: 12.5%"><label>普通发票</label></td>
+            <td colspan="1" style="width: 12.5%">大写金额:</td>
+            <td colspan="3" style="width: 37.5%">
+              {{ getChinesePrice(item.apply_amount) }}<label />
+            </td>
+            <td colspan="2" style="width: 25%">
+              附件张数 <label />{{ item.invoice_no.split(",").length - 1 }} 张
+            </td>
           </tr>
           <tr>
-            <td colspan="1" style="width: 12.5%">大写金额:</td>
-            <td colspan="5" style="width: 50%">
-              <label>{{ getChinesePrice(item.apply_amount) }}</label>
+            <td colspan="1" style="width: 12.5%">合同/发票号:</td>
+            <td colspan="7" style="width: 87.5%">
+              <label>{{ item.invoice_no }}</label>
             </td>
-            <td colspan="1" style="width: 12.5%">税率:</td>
-            <td colspan="1" style="width: 25%"><label /><label>%</label></td>
           </tr>
           <tr height="50px">
             <td colspan="2" style="width: 25%">收款人:</td>
