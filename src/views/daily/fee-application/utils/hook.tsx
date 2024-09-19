@@ -229,7 +229,6 @@ export function useRole() {
           }
         });
         deleteAppliedFee(select_id);
-        onSearch();
       })
       .catch(info => {
         if (info == "cancel") {
@@ -239,6 +238,9 @@ export function useRole() {
           type: "error",
           message: info
         });
+      })
+      .finally(() => {
+        onSearch();
       });
   }
 
@@ -345,8 +347,9 @@ export function useRole() {
             // 表单规则校验通过
             if (title === "新增") {
               // 实际开发先调用新增接口，再进行下面操作
-              handleAddData(curData);
-              chores();
+              handleAddData(curData).then(() => {
+                chores();
+              });
             } else {
               // 实际开发先调用编辑接口，再进行下面操作
               asyncEdit(curData);
