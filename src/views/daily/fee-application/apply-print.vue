@@ -22,6 +22,13 @@ function getRef() {
   return ruleFormRef.value;
 }
 
+// 判断发票数量
+function countInvoice(invoices) {
+  const item_arr = invoices.split(",");
+  const new_arr = item_arr.filter(i => i && i.trim());
+  return new_arr.length;
+}
+
 /**
  * 将阿拉伯数字价格转换为中文价格
  * @param price 阿拉伯数字价格
@@ -196,12 +203,21 @@ defineExpose({ getRef });
               {{ getChinesePrice(item.apply_amount) }}<label />
             </td>
             <td colspan="2" style="width: 25%">
-              附件张数 <label />{{ item.invoice_no.split(",").length - 1 }} 张
+              附件张数 <label />{{ countInvoice(item.invoice_no) }} 张
             </td>
           </tr>
           <tr>
             <td colspan="1" style="width: 12.5%">合同/发票号:</td>
-            <td colspan="7" style="width: 87.5%">
+            <td
+              colspan="7"
+              style="
+                width: 87.5%;
+                word-break: break-all;
+                line-break: auto;
+
+                /* overflow-wrap: break-word; */
+              "
+            >
               <label>{{ item.invoice_no }}</label>
             </td>
           </tr>
