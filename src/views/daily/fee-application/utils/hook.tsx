@@ -228,7 +228,9 @@ export function useRole() {
             throw new Error("所选费用包含已提交费用");
           }
         });
-        deleteAppliedFee(select_id);
+        deleteAppliedFee(select_id).then(() => {
+          onSearch();
+        });
       })
       .catch(info => {
         if (info == "cancel") {
@@ -238,9 +240,6 @@ export function useRole() {
           type: "error",
           message: info
         });
-      })
-      .finally(() => {
-        onSearch();
       });
   }
 
