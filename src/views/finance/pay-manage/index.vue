@@ -39,6 +39,44 @@ const {
   handlePageChange,
   handleSelectionChange
 } = useRole();
+
+//指定列求和
+const getSummaries = param => {
+  const { columns, data } = param;
+  const sums = [];
+  columns.forEach((column, index) => {
+    const values = data.map(item => item[column.property]);
+    if (
+      [
+        "t",
+        "f",
+        "total",
+        "amount",
+        "less_amount",
+        "more_amount",
+        "actual_amount"
+      ].includes(column.property)
+    ) {
+      sums[index] = values.reduce((prev, curr) => {
+        console.log(111111, prev, curr);
+        const value = Number(parseFloat(curr.toString().split(",").join("")));
+        if (!isNaN(value)) {
+          return Number((Number(prev) + Number(value)).toFixed(2));
+        } else {
+          return Number(Number(prev).toFixed(2));
+        }
+      }, 0);
+      sums[index];
+    }
+    if (index === 0) {
+      return;
+    }
+  });
+  sums[0] = `合计`;
+  // sums[2] = Math.round(total_amount.value * 100) / 100;
+  // sums[3] = `单页合计`;
+  return sums;
+};
 </script>
 
 <template>
@@ -79,6 +117,22 @@ const {
           class="!w-[200px]"
         />
       </el-form-item>
+      <el-form-item label="申请单位：" prop="apply_department">
+        <el-input
+          v-model="form.apply_department"
+          placeholder="请输入申请单位"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
+      <el-form-item label="服务内容：" prop="content">
+        <el-input
+          v-model="form.content"
+          placeholder="请输入服务内容"
+          clearable
+          class="!w-[200px]"
+        />
+      </el-form-item>
       <el-form-item label="银行账号：" prop="account_no">
         <el-input
           v-model="form.account_no"
@@ -90,10 +144,10 @@ const {
       <el-form-item label="账期" prop="account_period">
         <el-date-picker
           v-model="form.account_period"
-          type="date"
+          type="month"
           placeholder="请输入账期"
-          format="YYYY/MM/DD"
-          value-format="YYYY-MM-DD"
+          format="YYYY/MM"
+          value-format="YYYY-MM"
         />
       </el-form-item>
       <el-form-item label="地区：" prop="city_type">
@@ -158,6 +212,8 @@ const {
           :loading="loading"
           :size="size"
           adaptive
+          show-summary
+          :summary-method="getSummaries"
           :data="dataList"
           :columns="dynamicColumns"
           :pagination="pagination"
