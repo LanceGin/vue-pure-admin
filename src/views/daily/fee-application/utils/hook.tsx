@@ -352,8 +352,9 @@ export function useRole() {
               });
             } else {
               // 实际开发先调用编辑接口，再进行下面操作
-              asyncEdit(curData);
-              chores();
+              asyncEdit(curData).then(() => {
+                chores();
+              });
             }
           }
         });

@@ -208,7 +208,16 @@ defineExpose({ getRef });
           </tr>
           <tr>
             <td colspan="1" style="width: 12.5%">合同/发票号:</td>
-            <td colspan="7" style="width: 87.5%">
+            <td
+              colspan="7"
+              style="
+                width: 87.5%;
+                word-break: break-all;
+                line-break: auto;
+
+                /* overflow-wrap: break-word; */
+              "
+            >
               <label>{{ item.invoice_no }}</label>
             </td>
           </tr>
