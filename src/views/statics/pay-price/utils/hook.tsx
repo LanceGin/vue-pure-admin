@@ -188,8 +188,9 @@ export function useRole() {
     message(`您删除了客户为为${data.select_customer}的数据`, {
       type: "success"
     });
-    await deleteDoorPrice(data);
-    onSearch();
+    await deleteDoorPrice(data).then(() => {
+      onSearch();
+    });
   }
 
   function handleSizeChange(val: number) {
@@ -291,12 +292,14 @@ export function useRole() {
             // 表单规则校验通过
             if (title === "新增") {
               // 实际开发先调用新增接口，再进行下面操作
-              handleAddDoorPrice(curData);
-              chores();
+              handleAddDoorPrice(curData).then(() => {
+                chores();
+              });
             } else {
               // 实际开发先调用编辑接口，再进行下面操作
-              asyncEdit(curData);
-              chores();
+              asyncEdit(curData).then(() => {
+                chores();
+              });
             }
           }
         });

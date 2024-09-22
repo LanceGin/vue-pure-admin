@@ -578,8 +578,9 @@ export function useRole() {
     selectRows.value.forEach(v => {
       data.select_id.push(v.fee_id);
     });
-    submitContainerFee(data);
-    onSearch();
+    submitContainerFee(data).then(() => {
+      onSearch();
+    });
   }
 
   // 批量设置发票号
@@ -596,8 +597,9 @@ export function useRole() {
         selectRows.value.forEach(v => {
           data.select_id.push(v.fee_id);
         });
-        setInvoiceNo(data);
-        onSearch();
+        setInvoiceNo(data).then(() => {
+          onSearch();
+        });
       })
       .catch(() => {
         ElMessage({
@@ -624,8 +626,9 @@ export function useRole() {
             throw new Error("已提交费用无法修改金额");
           }
         });
-        setAmount(data);
-        onSearch();
+        setAmount(data).then(() => {
+          onSearch();
+        });
       })
       .catch(info => {
         if (info == "cancel") {
@@ -652,8 +655,9 @@ export function useRole() {
         selectRows.value.forEach(v => {
           data.select_id.push(v.fee_id);
         });
-        setRemark(data);
-        onSearch();
+        setRemark(data).then(() => {
+          onSearch();
+        });
       })
       .catch(() => {
         ElMessage({

@@ -166,8 +166,9 @@ export function useRole() {
     message(`您删除了用户名为${currentRow.value.name}的这条数据`, {
       type: "success"
     });
-    await deleteUser(currentRow.value);
-    onSearch();
+    await deleteUser(currentRow.value).then(() => {
+      onSearch();
+    });
   }
 
   function handleSizeChange(val: number) {
@@ -260,12 +261,14 @@ export function useRole() {
             // 表单规则校验通过
             if (title === "新增") {
               // 实际开发先调用新增接口，再进行下面操作
-              handleAddUser(curData);
-              chores();
+              handleAddUser(curData).then(() => {
+                chores();
+              });
             } else {
               // 实际开发先调用编辑接口，再进行下面操作
-              asyncEdit(curData);
-              chores();
+              asyncEdit(curData).then(() => {
+                chores();
+              });
             }
           }
         });
@@ -293,8 +296,9 @@ export function useRole() {
           done(); // 关闭弹框
           onSearch(); // 刷新表格数据
         }
-        authUser(curData);
-        chores();
+        authUser(curData).then(() => {
+          chores();
+        });
       }
     });
   }
