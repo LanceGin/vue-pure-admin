@@ -112,7 +112,11 @@ defineExpose({ getRef });
 
 <template>
   <div class="reim_print" style="padding: 5px 30px; overflow: hidden">
-    <div v-for="item in selectRows" :key="item" style="height: 345px">
+    <div
+      v-for="item in selectRows"
+      :key="item"
+      style="min-height: 345px; page-break-inside: avoid"
+    >
       <table
         border="0"
         cellpadding="1"
