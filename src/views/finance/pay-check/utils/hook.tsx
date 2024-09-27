@@ -52,7 +52,7 @@ export function useRole() {
     containerList.value.filter(
       data =>
         !search.value ||
-        data.car_no.toLowerCase().includes(search.value.toLowerCase())
+        data.dispatch_car_no.toLowerCase().includes(search.value.toLowerCase())
     )
   );
   // const switchLoadMap = ref({});
@@ -158,7 +158,7 @@ export function useRole() {
     },
     {
       label: "车号",
-      prop: "car_no",
+      prop: "dispatch_car_no",
       minWidth: 120,
       headerRenderer: () => (
         <el-input
