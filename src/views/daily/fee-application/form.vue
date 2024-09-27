@@ -324,7 +324,6 @@ defineExpose({ getRef });
         filterable
         remote
         reserve-keyword
-        :disabled="isDisable"
         placeholder="输入发票号码关键字"
         :remote-method="invoiceRemoteMethod"
         :loading="loading"
