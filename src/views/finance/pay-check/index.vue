@@ -42,6 +42,43 @@ const {
   handlePageChange,
   handleSelectionChange
 } = useRole();
+
+//指定列求和
+const getSummaries = param => {
+  const { columns, data } = param;
+  const sums = [];
+  columns.forEach((column, index) => {
+    const values = data.map(item => item[column.property]);
+    if (
+      [
+        "t",
+        "f",
+        "total",
+        "amount",
+        "less_amount",
+        "more_amount",
+        "actual_amount"
+      ].includes(column.property)
+    ) {
+      sums[index] = values.reduce((prev, curr) => {
+        const value = Number(parseFloat(curr.toString().split(",").join("")));
+        if (!isNaN(value)) {
+          return Number((Number(prev) + Number(value)).toFixed(2));
+        } else {
+          return Number(Number(prev).toFixed(2));
+        }
+      }, 0);
+      sums[index];
+    }
+    if (index === 0) {
+      return;
+    }
+  });
+  sums[0] = `合计`;
+  // sums[2] = Math.round(total_amount.value * 100) / 100;
+  // sums[3] = `单页合计`;
+  return sums;
+};
 </script>
 
 <template>
@@ -139,6 +176,8 @@ const {
           :loading="loading"
           :size="size"
           adaptive
+          show-summary
+          :summary-method="getSummaries"
           :data="dataList"
           :columns="dynamicColumns"
           :pagination="pagination"

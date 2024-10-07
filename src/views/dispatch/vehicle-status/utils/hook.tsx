@@ -36,6 +36,7 @@ export function useRole() {
     attribute: "",
     remark: "",
     status: "",
+    is_load: "否",
     add_by: user.username
   });
   const formRef = ref();
@@ -79,6 +80,10 @@ export function useRole() {
     {
       label: "状态",
       prop: "status"
+    },
+    {
+      label: "是否带集装箱",
+      prop: "is_load"
     }
   ];
 
