@@ -135,6 +135,7 @@ const handleClose = () => {
           <el-button
             :icon="useRenderIcon(EditPen)"
             :loading="loading"
+            disabled
             @click="oneStepDispatch"
           >
             一键派车
