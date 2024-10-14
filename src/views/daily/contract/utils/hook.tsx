@@ -14,8 +14,11 @@ import {
   deleteContract,
   editContract
 } from "@/api/daily";
+import { uploadContract } from "@/api/third";
+import { useUserStore } from "@/store/modules/user";
 
 export function useRole() {
+  const user = useUserStore();
   const form = reactive({
     id: "",
     contract_no: "",
@@ -34,7 +37,10 @@ export function useRole() {
     counts: "",
     department: "",
     status: "",
-    remark: ""
+    remark: "",
+    contract_url: "",
+    add_by: user.username,
+    city: user.city
   });
   const formRef = ref();
   const currentRow = ref();
@@ -109,18 +115,18 @@ export function useRole() {
       prop: "end_time",
       formatter: ({ end_time }) => dayjs(end_time).format("YYYY-MM-DD")
     },
-    {
-      label: "总价款",
-      prop: "total_amount"
-    },
-    {
-      label: "已支付金额",
-      prop: "paid_amount"
-    },
-    {
-      label: "余款",
-      prop: "remain_amount"
-    },
+    // {
+    //   label: "总价款",
+    //   prop: "total_amount"
+    // },
+    // {
+    //   label: "已支付金额",
+    //   prop: "paid_amount"
+    // },
+    // {
+    //   label: "余款",
+    //   prop: "remain_amount"
+    // },
     {
       label: "合同份数",
       prop: "counts"
@@ -150,6 +156,10 @@ export function useRole() {
     {
       label: "备注",
       prop: "remark"
+    },
+    {
+      label: "合同",
+      slot: "contract_url"
     }
   ];
 
@@ -305,6 +315,19 @@ export function useRole() {
     });
   }
 
+  // 上传合同
+  async function handleUploadContract(item) {
+    const select_id = [];
+    selectRows.value.forEach(v => {
+      select_id.push(v.id);
+    });
+    const form = new FormData();
+    form.append("file", item.file);
+    form.append("contract_name", selectRows.value[0].contract_no);
+    form.append("select_id", select_id.toString());
+    await uploadContract(form);
+  }
+
   // 编辑按钮
   function handleEdit() {
     openDialog("编辑", currentRow.value);
@@ -353,6 +376,7 @@ export function useRole() {
     handleSizeChange,
     handlePageChange,
     handleCurrentChange,
-    handleSelectionChange
+    handleSelectionChange,
+    handleUploadContract
   };
 }

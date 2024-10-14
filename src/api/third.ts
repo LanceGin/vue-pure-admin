@@ -59,6 +59,32 @@ export const deleteReciept = (data?: object) => {
   });
 };
 
+// 上传合同接口
+export const uploadContract = data => {
+  return http.request<ListResult>(
+    "post",
+    baseUrlApi("uploadContract"),
+    {
+      data
+    },
+    {
+      transformRequest: [
+        function (data, headers) {
+          delete headers["Content-Type"];
+          return data;
+        }
+      ]
+    }
+  );
+};
+
+// 查看合同接口
+export const showContract = (data?: object) => {
+  return http.request<ShowResult>("post", baseUrlApi("showContract"), {
+    data
+  });
+};
+
 // 获取中交接口
 export const getSino = (data?: object) => {
   return http.request<ListResult>("post", baseUrlApi("getSino"), {

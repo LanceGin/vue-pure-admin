@@ -12,12 +12,22 @@ import Search from "@iconify-icons/ep/search";
 import Upload from "@iconify-icons/ep/upload";
 import Download from "@iconify-icons/ep/download";
 import AddFill from "@iconify-icons/ri/add-circle-line";
+import {
+  UploadProps,
+  UploadRawFile,
+  genFileId,
+  ElMessage,
+  UploadInstance,
+  ElMessageBox
+} from "element-plus";
 
 defineOptions({
   name: "Contract"
 });
 
 const formRef = ref();
+const upload = ref<UploadInstance>();
+const dialogVisible = ref(false);
 const {
   form,
   loading,
@@ -38,8 +48,41 @@ const {
   handleSizeChange,
   handlePageChange,
   handleCurrentChange,
-  handleSelectionChange
+  handleSelectionChange,
+  handleUploadContract
 } = useRole();
+
+const handleExceed: UploadProps["onExceed"] = files => {
+  upload.value!.clearFiles();
+  const file = files[0] as UploadRawFile;
+  file.uid = genFileId();
+  upload.value!.handleStart(file);
+};
+
+const submitUpload = () => {
+  upload.value!.submit();
+  dialogVisible.value = false;
+  onSearch();
+};
+
+const handleSuccess = () => {
+  ElMessage({
+    type: "success",
+    message: "上传成功"
+  });
+  onSearch();
+};
+
+const handleClose = () => {
+  ElMessageBox.confirm("确定取消上传？")
+    .then(() => {
+      // then
+      dialogVisible.value = false;
+    })
+    .catch(() => {
+      // catch error
+    });
+};
 </script>
 
 <template>
@@ -171,15 +214,19 @@ const {
         <el-button :icon="useRenderIcon(Upload)" @click="exportExcel()">
           导出合同列表
         </el-button>
-        <el-button :icon="useRenderIcon(EditPen)" @click="resetForm(formRef)">
+        <!-- <el-button :icon="useRenderIcon(EditPen)" @click="resetForm(formRef)">
           调整已支付金额
-        </el-button>
-        <el-button :icon="useRenderIcon(Upload)" @click="resetForm(formRef)">
+        </el-button> -->
+        <el-button
+          :disabled="haveRow"
+          :icon="useRenderIcon(Upload)"
+          @click="dialogVisible = true"
+        >
           上传合同
         </el-button>
-        <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
+        <!-- <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
           下载合同
-        </el-button>
+        </el-button> -->
         <el-button :icon="useRenderIcon(Download)" @click="resetForm(formRef)">
           合同模板
         </el-button>
@@ -201,6 +248,32 @@ const {
         </el-button>
       </el-form-item>
     </el-form>
+
+    <el-dialog v-model="dialogVisible" title="上传合同" width="30%">
+      <el-upload
+        ref="upload"
+        drag
+        accept="application/pdf"
+        :limit="1"
+        :on-exceed="handleExceed"
+        :on-success="handleSuccess"
+        :auto-upload="false"
+        :http-request="handleUploadContract"
+      >
+        <template #trigger>
+          <el-button type="primary">选择或拖拽文件</el-button>
+        </template>
+        <template #tip>
+          <div class="el-upload__tip text-red">可手动选择或拖拽合同上传</div>
+        </template>
+      </el-upload>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="handleClose">取消</el-button>
+          <el-button type="primary" @click="submitUpload"> 上传 </el-button>
+        </span>
+      </template>
+    </el-dialog>
 
     <PureTableBar title="合同管理" :columns="columns" @refresh="onSearch">
       <template v-slot="{ size, dynamicColumns }">
@@ -227,7 +300,29 @@ const {
           @page-size-change="handleSizeChange"
           @page-current-change="handlePageChange"
           @current-change="handleCurrentChange"
-        />
+        >
+          <template #contract_url="{ row }">
+            <el-button
+              class="reset-margin"
+              link
+              type="primary"
+              :size="size"
+              v-if="row.contract_url != ''"
+            >
+              下载合同
+            </el-button>
+            <el-button
+              class="reset-margin"
+              link
+              disabled
+              type="default"
+              :size="size"
+              v-else
+            >
+              未上传
+            </el-button>
+          </template>
+        </pure-table>
       </template>
     </PureTableBar>
   </div>
