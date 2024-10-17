@@ -14,8 +14,9 @@ import {
   deleteContract,
   editContract
 } from "@/api/daily";
-import { uploadContract } from "@/api/third";
+import { showContract, uploadContract } from "@/api/third";
 import { useUserStore } from "@/store/modules/user";
+import { downloadByUrl } from "@pureadmin/utils";
 
 export function useRole() {
   const user = useUserStore();
@@ -43,6 +44,7 @@ export function useRole() {
     city: user.city
   });
   const formRef = ref();
+  const r_url = ref();
   const currentRow = ref();
   const selectRows = ref([]);
   const haveRow = ref(true);
@@ -177,7 +179,27 @@ export function useRole() {
     const res = data.list.map(item => {
       const arr = [];
       columns.forEach(column => {
-        arr.push(item[column.prop as string]);
+        if (column.prop == "sign_time") {
+          if (item["sign_time"] == null) {
+            arr.push("");
+          } else {
+            arr.push(dayjs(item["sign_time"]).format("YYYY-MM-DD"));
+          }
+        } else if (column.prop == "effective_time") {
+          if (item["effective_time"] == null) {
+            arr.push("");
+          } else {
+            arr.push(dayjs(item["effective_time"]).format("YYYY-MM-DD"));
+          }
+        } else if (column.prop == "end_time") {
+          if (item["end_time"] == null) {
+            arr.push("");
+          } else {
+            arr.push(dayjs(item["end_time"]).format("YYYY-MM-DD"));
+          }
+        } else {
+          arr.push(item[column.prop as string]);
+        }
       });
       return arr;
     });
@@ -328,6 +350,15 @@ export function useRole() {
     await uploadContract(form);
   }
 
+  // 查看水单
+  async function handleDownloadContract(item) {
+    console.log(item);
+    showContract(item).then(data => {
+      r_url.value = data.data.result[0];
+      downloadByUrl(data.data.result[0].contract_url, "contract.pdf");
+    });
+  }
+
   // 编辑按钮
   function handleEdit() {
     openDialog("编辑", currentRow.value);
@@ -377,6 +408,7 @@ export function useRole() {
     handlePageChange,
     handleCurrentChange,
     handleSelectionChange,
-    handleUploadContract
+    handleUploadContract,
+    handleDownloadContract
   };
 }

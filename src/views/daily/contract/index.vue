@@ -49,7 +49,8 @@ const {
   handlePageChange,
   handleCurrentChange,
   handleSelectionChange,
-  handleUploadContract
+  handleUploadContract,
+  handleDownloadContract
 } = useRole();
 
 const handleExceed: UploadProps["onExceed"] = files => {
@@ -307,6 +308,7 @@ const handleClose = () => {
               link
               type="primary"
               :size="size"
+              @click="handleDownloadContract(row)"
               v-if="row.contract_url != ''"
             >
               下载合同
