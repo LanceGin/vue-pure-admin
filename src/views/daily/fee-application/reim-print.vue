@@ -204,7 +204,7 @@ defineExpose({ getRef });
             </td>
             <td colspan="1" style="width: 12.5%">大写金额:</td>
             <td colspan="3" style="width: 37.5%">
-              {{ getChinesePrice(item.apply_amount) }}<label />
+              {{ getChinesePrice(item.reimburse_amount) }}<label />
             </td>
             <td colspan="2" style="width: 25%">
               附件张数 <label />{{ countInvoice(item.invoice_no) }}&nbsp;张
