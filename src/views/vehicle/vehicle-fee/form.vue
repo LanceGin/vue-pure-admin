@@ -11,6 +11,7 @@ const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
     id: "",
     is_submit: "",
+    is_applied: "",
     add_time: "",
     driver: "",
     company: "",
@@ -102,15 +103,15 @@ defineExpose({ getRef });
     :rules="formRules"
     label-width="82px"
   >
-    <el-form-item label="是否已提交" prop="is_submit">
+    <el-form-item label="是否已申请费用" prop="is_applied">
       <el-select
-        v-model="newFormInline.is_submit"
-        placeholder="请选择是否已提交"
+        v-model="newFormInline.is_applied"
+        placeholder="请选择是否已申请"
         clearable
         class="!w-[180px]"
       >
-        <el-option label="未提交" value="未提交" />
-        <el-option label="已提交" value="已提交" />
+        <el-option label="未申请" value="未申请" />
+        <el-option label="已申请" value="已申请" />
       </el-select>
     </el-form-item>
     <el-form-item label="司机" prop="driver">

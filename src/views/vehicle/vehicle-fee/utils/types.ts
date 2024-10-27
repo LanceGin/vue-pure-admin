@@ -3,6 +3,7 @@
 interface FormItemProps {
   id: string;
   is_submit: string;
+  is_applied: string;
   add_time: string;
   driver: string;
   company: string;

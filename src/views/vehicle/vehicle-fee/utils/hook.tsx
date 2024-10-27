@@ -23,6 +23,7 @@ export function useRole() {
   const form = reactive({
     id: "",
     is_submit: "",
+    is_applied: "",
     add_time: "",
     driver: "",
     company: "",
@@ -65,6 +66,10 @@ export function useRole() {
     {
       label: "是否已提交",
       prop: "is_submit"
+    },
+    {
+      label: "是否已申请费用",
+      prop: "is_applied"
     },
     {
       label: "日期",
@@ -231,6 +236,7 @@ export function useRole() {
         formInline: {
           id: row?.id ?? "",
           is_submit: row?.is_submit ?? "未提交",
+          is_applied: row?.is_applied ?? "未申请",
           add_time: row?.add_time ?? "",
           driver: row?.driver ?? "",
           company: row?.company ?? "",
