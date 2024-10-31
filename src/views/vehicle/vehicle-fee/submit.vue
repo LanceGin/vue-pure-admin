@@ -10,6 +10,7 @@ const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
     id: "",
     is_submit: "",
+    is_applied: "",
     add_time: "",
     driver: "",
     company: "",
@@ -208,6 +209,18 @@ defineExpose({ getRef });
         <el-option label="结算卡" value="结算卡" />
         <el-option label="银行" value="银行" />
         <el-option label="汇票" value="汇票" />
+      </el-select>
+    </el-form-item>
+    <el-form-item label="是否已申请" prop="is_applied">
+      <el-select
+        v-model="newFormInline.is_applied"
+        placeholder="请选择是否已申请"
+        clearable
+        disabled
+        class="!w-[180px]"
+      >
+        <el-option label="已申请" value="已申请" />
+        <el-option label="未申请" value="未申请" />
       </el-select>
     </el-form-item>
     <el-form-item label="申请金额" prop="amount">

@@ -299,12 +299,14 @@ export function useRole() {
     let c = 0;
     let d = 0;
     let e = 0;
+    let is_a = "";
     const id = [];
     selectRows.value.forEach(v => {
       c += Number(v.amount);
       d += Number(v.actual_amount);
       e += Number(v.tax_amount);
       id.push(v.id);
+      is_a = v.is_applied;
     });
     addDialog({
       title: `${title}费用`,
@@ -316,7 +318,8 @@ export function useRole() {
           tax_amount: row?.tax_amount ?? e,
           add_by: row?.add_by ?? user.username,
           apply_department: row?.apply_department ?? "",
-          fee_name: row?.fee_name ?? ""
+          fee_name: row?.fee_name ?? "",
+          is_applied: row?.is_applied ?? is_a
         }
       },
       width: "40%",
