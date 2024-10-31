@@ -35,6 +35,7 @@ export function useRole() {
     invoice_no: "",
     keep_time: "",
     remark: "",
+    submit_no: "",
     city: user.city,
     city_type: ""
   });

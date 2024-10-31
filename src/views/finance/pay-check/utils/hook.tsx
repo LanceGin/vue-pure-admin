@@ -21,6 +21,7 @@ export function useRole() {
   const form = reactive({
     id: "",
     type: "应付",
+    is_pay: "",
     status: "未审核",
     account_period: "",
     custom_name: "",
@@ -39,6 +40,7 @@ export function useRole() {
     f: "",
     t: "",
     apply_by: "",
+    submit_no: "",
     city: user.city,
     city_type: ""
   });
@@ -113,6 +115,10 @@ export function useRole() {
     {
       label: "实付金额",
       prop: "actual_amount"
+    },
+    {
+      label: "结算方式",
+      prop: "is_pay"
     },
     {
       label: "备注",

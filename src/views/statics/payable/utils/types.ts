@@ -4,6 +4,7 @@ interface FormItemProps {
   id: string;
   status: string;
   type: string;
+  is_pay: string;
   account_period: string;
   fee_name: string;
   amount: string;

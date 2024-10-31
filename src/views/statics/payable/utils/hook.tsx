@@ -462,6 +462,7 @@ export function useRole() {
           id: row?.id ?? "",
           status: row?.status ?? "",
           type: row?.type ?? "应付",
+          is_pay: row?.is_pay ?? "",
           account_period: row?.account_period ?? "",
           fee_name: row?.fee_name ?? "",
           amount: row?.amount ?? "",

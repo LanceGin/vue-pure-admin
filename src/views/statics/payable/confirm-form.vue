@@ -8,6 +8,7 @@ const props = withDefaults(defineProps<FormProps>(), {
     id: "",
     status: "",
     type: "应付",
+    is_pay: "",
     account_period: "",
     fee_name: "",
     amount: "",

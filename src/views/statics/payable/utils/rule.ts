@@ -6,6 +6,7 @@ export const formRules = reactive(<FormRules>{
   account_period: [
     { required: true, message: "账期为必填项", trigger: "blur" }
   ],
+  is_pay: [{ required: true, message: "支付类型为必填项", trigger: "blur" }],
   custom_name: [
     { required: true, message: "供应商称为必填项", trigger: "blur" }
   ],

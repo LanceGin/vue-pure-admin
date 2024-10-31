@@ -11,6 +11,7 @@ const props = withDefaults(defineProps<FormProps>(), {
     id: "",
     status: "",
     type: "应付",
+    is_pay: "",
     account_period: "",
     fee_name: "",
     amount: "",
@@ -177,6 +178,19 @@ defineExpose({ getRef });
         placeholder="请输入供应商"
       />
     </el-form-item> -->
+    <el-form-item label="支付类型" prop="is_pay">
+      <el-select
+        v-model="newFormInline.is_pay"
+        placeholder="请选择支付类型"
+        clearable
+        allow-create
+        filterable
+        class="!w-[180px]"
+      >
+        <el-option label="付" value="付" />
+        <el-option label="核" value="核" />
+      </el-select>
+    </el-form-item>
     <el-form-item label="申请单位" prop="apply_department">
       <el-select
         v-model="newFormInline.apply_department"
