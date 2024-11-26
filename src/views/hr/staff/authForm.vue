@@ -79,7 +79,11 @@ const data = [
           },
           {
             role: "lightering",
-            label: "驳运"
+            label: "武汉船运"
+          },
+          {
+            role: "lightering_2",
+            label: "上海/太仓船运"
           }
         ]
       },
@@ -178,10 +182,6 @@ const data = [
           {
             role: "btn_auth",
             label: "权限设置"
-          },
-          {
-            role: "btn_fee_by_add_by",
-            label: "筛选费用申请人"
           },
           {
             role: "checkon",
@@ -288,6 +288,10 @@ const data = [
           {
             role: "custom",
             label: "往来单位"
+          },
+          {
+            role: "btn_fee_by_add_by",
+            label: "筛选费用申请人"
           },
           {
             role: "contract",

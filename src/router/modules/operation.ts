@@ -170,16 +170,16 @@ export default {
             roles: ["admin", "operation", "lightering"]
           }
         },
-        // {
-        //   path: "/operation/bulk/shipping",
-        //   name: "Shipping",
-        //   component: () => import("@/views/operation/bulk/shipping/index.vue"),
-        //   meta: {
-        //     title: "太仓船运",
-        //     keepAlive: true,
-        //     roles: ["admin", "operation", "bulk"]
-        //   }
-        // },
+        {
+          path: "/operation/bulk/shipping",
+          name: "Shipping",
+          component: () => import("@/views/operation/bulk/shipping/index.vue"),
+          meta: {
+            title: "船运",
+            keepAlive: true,
+            roles: ["admin", "operation", "lightering_2"]
+          }
+        },
         {
           path: "/operation/lightering/stat",
           name: "LighteringStat",
