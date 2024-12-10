@@ -13,6 +13,7 @@ const props = withDefaults(defineProps<FormProps>(), {
     compulsory_insurance: "",
     commercial_insurance: "",
     trans_insurance: "",
+    overclaims_insurance: "",
     remark: ""
   })
 });
@@ -84,7 +85,15 @@ defineExpose({ getRef });
       <el-date-picker
         v-model="newFormInline.trans_insurance"
         type="date"
-        placeholder="请输入货物运输险"
+        placeholder="请输入货物运输险到期时间"
+        value-format="YYYY-MM-DD"
+      />
+    </el-form-item>
+    <el-form-item label="超赔险" prop="overclaims_insurance">
+      <el-date-picker
+        v-model="newFormInline.overclaims_insurance"
+        type="date"
+        placeholder="请输入超赔险到期时间"
         value-format="YYYY-MM-DD"
       />
     </el-form-item>

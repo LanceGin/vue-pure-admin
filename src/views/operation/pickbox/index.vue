@@ -111,7 +111,7 @@ const {
       <el-form-item label="箱号" prop="containner_no">
         <el-input
           v-model="form.containner_no"
-          placeholder="多箱号换行输入"
+          placeholder="多箱号换行输入，单箱号支持模糊搜索"
           :autosize="{ minRows: 2, maxRows: 5 }"
           type="textarea"
           clearable

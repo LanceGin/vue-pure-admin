@@ -25,6 +25,7 @@ export function useRole() {
     is_submit: "",
     is_applied: "",
     add_time: "",
+    add_time_range: [],
     driver: "",
     company: "",
     car_no: "",

@@ -25,6 +25,7 @@ export function useRole() {
     compulsory_insurance: "",
     commercial_insurance: "",
     trans_insurance: "",
+    overclaims_insurance: "",
     remark: ""
   });
   const formRef = ref();
@@ -68,6 +69,10 @@ export function useRole() {
     {
       label: "货物运输险",
       prop: "trans_insurance"
+    },
+    {
+      label: "超赔险",
+      prop: "overclaims_insurance"
     },
     {
       label: "备注",

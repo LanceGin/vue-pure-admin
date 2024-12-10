@@ -95,7 +95,7 @@ const getSummaries = param => {
     }
     if (["actual_amount"].includes(column.property)) {
       sums[5] = values.reduce((prev, curr) => {
-        console.log(111111, prev, curr);
+        // console.log(111111, prev, curr);
         const value = Number(curr);
         if (!isNaN(value)) {
           return Number(Number(prev) + Number(curr));

@@ -50,13 +50,23 @@ const {
       :model="form"
       class="search-form bg-bg_color w-[99/100] pl-8 pt-[12px]"
     >
-      <el-form-item label="日期" prop="addtime">
+      <!-- <el-form-item label="日期" prop="addtime">
         <el-date-picker
           v-model="form.addtime"
           type="date"
           placeholder="请输入日期"
           format="YYYY/MM/DD"
           value-format="YYYY-MM-DD"
+        />
+      </el-form-item> -->
+      <el-form-item label="日期：" prop="add_time_range">
+        <el-date-picker
+          v-model="form.add_time_range"
+          type="daterange"
+          start-placeholder="起始日期"
+          end-placeholder="截止日期"
+          format="YYYY-MM-DD"
+          value-format="YYYY/MM/DD"
         />
       </el-form-item>
       <el-form-item label="车号：" prop="car_no">

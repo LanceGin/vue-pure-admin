@@ -56,6 +56,7 @@ interface CompanyItem {
   car: string;
 }
 const loading = ref(false);
+const isDisable = ref(true);
 const list = ref<CompanyItem[]>([]);
 const options = ref<CompanyItem[]>([]);
 let accData = [];
@@ -89,6 +90,10 @@ const remoteMethod = (query: string) => {
 const ruleFormRef = ref();
 const newFormInline = ref(props.formInline);
 
+if (newFormInline.value.is_submit === "未提交") {
+  isDisable.value = false;
+}
+
 function getRef() {
   return ruleFormRef.value;
 }
@@ -108,6 +113,7 @@ defineExpose({ getRef });
         v-model="newFormInline.is_applied"
         placeholder="请选择是否已申请"
         clearable
+        :disabled="isDisable"
         class="!w-[180px]"
       >
         <el-option label="未申请" value="未申请" />
@@ -118,6 +124,7 @@ defineExpose({ getRef });
       <el-input
         v-model="newFormInline.driver"
         clearable
+        :disabled="isDisable"
         placeholder="请输入司机"
       />
     </el-form-item>
@@ -125,6 +132,7 @@ defineExpose({ getRef });
       <el-input
         v-model="newFormInline.company"
         clearable
+        :disabled="isDisable"
         placeholder="请输入申请单位"
       />
     </el-form-item>
@@ -132,6 +140,7 @@ defineExpose({ getRef });
       <el-select
         v-model="newFormInline.car_no"
         filterable
+        :disabled="isDisable"
         remote
         reserve-keyword
         placeholder="输入车号关键字"
@@ -151,6 +160,7 @@ defineExpose({ getRef });
       <el-input
         v-model="newFormInline.hang_board_no"
         clearable
+        :disabled="isDisable"
         placeholder="请输入车挂号"
       />
     </el-form-item>
@@ -159,6 +169,7 @@ defineExpose({ getRef });
         v-model="newFormInline.type"
         placeholder="请选择支付类型"
         clearable
+        :disabled="isDisable"
         class="!w-[180px]"
       >
         <el-option label="转账" value="转账" />
@@ -173,6 +184,7 @@ defineExpose({ getRef });
       <el-input
         v-model="newFormInline.car_fees"
         clearable
+        :disabled="isDisable"
         placeholder="请输入费用名称"
       />
     </el-form-item>
@@ -180,6 +192,7 @@ defineExpose({ getRef });
       <el-input
         v-model="newFormInline.amount"
         clearable
+        :disabled="isDisable"
         placeholder="请输入申请金额"
       />
     </el-form-item>
@@ -187,6 +200,7 @@ defineExpose({ getRef });
       <el-input
         v-model="newFormInline.actual_amount"
         clearable
+        :disabled="isDisable"
         placeholder="请输入报销金额"
       />
     </el-form-item>
@@ -194,6 +208,7 @@ defineExpose({ getRef });
       <el-input
         v-model="newFormInline.tax_amount"
         clearable
+        :disabled="isDisable"
         placeholder="请输入税额"
       />
     </el-form-item>
@@ -201,6 +216,7 @@ defineExpose({ getRef });
       <el-input
         v-model="newFormInline.remark"
         clearable
+        :disabled="isDisable"
         placeholder="请输入备注"
       />
     </el-form-item>
@@ -208,6 +224,7 @@ defineExpose({ getRef });
       <el-input
         v-model="newFormInline.allocation_month"
         clearable
+        :disabled="isDisable"
         placeholder="请输入分摊月份"
       />
     </el-form-item>
@@ -218,6 +235,7 @@ defineExpose({ getRef });
         placeholder="请输入分摊起始月"
         format="YYYY/MM"
         value-format="YYYY-MM"
+        :disabled="isDisable"
       />
     </el-form-item>
   </el-form>

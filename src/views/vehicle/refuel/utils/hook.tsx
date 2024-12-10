@@ -22,6 +22,7 @@ export function useRole() {
     car_no: "",
     driver: "",
     addtime: "",
+    add_time_range: [],
     volume: "",
     unit_price: "",
     type: "",
