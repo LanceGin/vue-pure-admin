@@ -108,6 +108,17 @@ defineExpose({ getRef });
     :rules="formRules"
     label-width="82px"
   >
+    <el-form-item label="日期" prop="add_time">
+      <el-date-picker
+        v-model="newFormInline.add_time"
+        type="date"
+        :disabled="isDisable"
+        placeholder="请输入日期"
+        format="YYYY/MM/DD"
+        value-format="YYYY-MM-DD"
+      />
+    </el-form-item>
+
     <el-form-item label="是否已申请费用" prop="is_applied">
       <el-select
         v-model="newFormInline.is_applied"

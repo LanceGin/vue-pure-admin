@@ -238,7 +238,7 @@ export function useRole() {
           id: row?.id ?? "",
           is_submit: row?.is_submit ?? "未提交",
           is_applied: row?.is_applied ?? "未申请",
-          add_time: row?.add_time ?? "",
+          add_time: dayjs(row?.add_time).format("YYYY-MM-DD") ?? "",
           driver: row?.driver ?? "",
           company: row?.company ?? "",
           car_no: row?.car_no ?? "",

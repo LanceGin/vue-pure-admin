@@ -70,6 +70,7 @@ interface InvoiceItem {
 }
 const loading = ref(false);
 const isDisable = ref(true);
+const isReserve = ref(false);
 const list = ref<CompanyItem[]>([]);
 const options = ref<CompanyItem[]>([]);
 const fee_list = ref<FeeItem[]>([]);
@@ -323,7 +324,7 @@ defineExpose({ getRef });
         multiple
         filterable
         remote
-        reserve-keyword
+        :reserve-keyword="isReserve"
         placeholder="输入发票号码关键字"
         :remote-method="invoiceRemoteMethod"
         :loading="loading"
