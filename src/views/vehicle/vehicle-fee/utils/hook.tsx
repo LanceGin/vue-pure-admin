@@ -320,6 +320,7 @@ export function useRole() {
           add_by: row?.add_by ?? user.username,
           apply_department: row?.apply_department ?? "",
           fee_name: row?.fee_name ?? "",
+          remark: row?.remark ?? "",
           is_applied: row?.is_applied ?? is_a
         }
       },
